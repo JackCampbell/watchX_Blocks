@@ -39,6 +39,10 @@ goog.require('goog.asserts');
 goog.require('goog.math.Coordinate');
 goog.require('goog.string');
 
+goog.require('goog.debug.ErrorHandler');
+goog.require('goog.events.EventWrapper');
+goog.require('goog.events.EventLike');
+
 
 /**
  * Class for one block.
