@@ -260,3 +260,29 @@ Blockly.Blocks['io_pulsetimeout'] = {
     return Blockly.Types.NUMBER;
   }
 };
+
+Blockly.Blocks['LED_PIN'] = {
+  init: function() {
+    var list = new Blockly.FieldDropdown(Blockly.Arduino.Boards.selected.builtinLed);
+    var self = this;
+
+    self.setHelpUrl('http://watchx.io/xxx');
+    self.setColour(Blockly.Blocks.io.HUE);
+    self.appendValueInput('STATE')
+        .appendField("set led pin: ")
+        .appendField(list, 'PIN')
+        .appendField(" to: ")
+        .setCheck(Blockly.Types.BOOLEAN.checkList);
+    self.setInputsInline(false);
+    self.setPreviousStatement(true, null);
+    self.setNextStatement(true, null);
+    self.setTooltip("Ornek led");
+  },
+  /**
+   * Updates the content of the the pin related fields.
+   * @this Blockly.Block
+   */
+  updateFields: function() {
+    Blockly.Arduino.Boards.refreshBlockFieldDropdown(this, 'PIN', 'builtinLed');
+  }
+};

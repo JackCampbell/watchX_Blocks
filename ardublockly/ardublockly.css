@@ -620,7 +620,7 @@ ul.side-nav li.side-menu-end {
 
 /* Colours for the new and deleted code highlighting */
 .code_highlight_new {
-  background-color: #ff5100; /* Arduino yellow 50% */
+  background-color: #ff510026; /* Arduino yellow 50% */
 }
 .code_highlight_deleted {
   background-color: #ff5100;

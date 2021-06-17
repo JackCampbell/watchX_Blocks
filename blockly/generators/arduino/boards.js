@@ -111,7 +111,10 @@ Blockly.Arduino.Boards.profiles.uno = {
   i2cPins: { Wire: [['SDA', 'A4'], ['SCL', 'A5']] },
   i2cSpeed: [['100kHz', '100000L'], ['400kHz', '400000L']],
   builtinLed: [['BUILTIN_1', '13']],
-  interrupt: [['interrupt0', '2'], ['interrupt1', '3']]
+  interrupt: [['interrupt0', '2'], ['interrupt1', '3']],
+  oledLine: [],
+  oledAlign: [],
+  batteyLevelIcon: []
 };
 
 /** Arduino Nano board profile (ATmega328p). */
@@ -203,7 +206,7 @@ Blockly.Arduino.Boards.profiles.mega = {
 
 /** Arduino Leonardo board profile. */
 Blockly.Arduino.Boards.profiles.leonardo = {
-  name: 'Arduino Leonardo',
+  name: 'Arduino watchX',
   description: 'Arduino Leonardo-compatible board',
   compilerFlag: 'arduino:avr:leonardo',
   analogPins: Blockly.Arduino.Boards.generateAnalogIo(0, 5).concat(
@@ -222,9 +225,33 @@ Blockly.Arduino.Boards.profiles.leonardo = {
   i2c: [['I2C', 'Wire']],
   i2cPins: { Wire: [['SDA', '2'], ['SCL', '3']] },
   i2cSpeed: Blockly.Arduino.Boards.profiles.uno.i2cSpeed,
-  builtinLed: Blockly.Arduino.Boards.profiles.uno.builtinLed,
+  builtinLed: [['BUILTIN_LED_L', '13'], ['BUILTIN_LED_R', '6']], // Blockly.Arduino.Boards.profiles.uno.builtinLed,
   interrupt: [['interrupt0', '3'], ['interrupt1', '2'], ['interrupt2', '0'],
-              ['interrupt3', '1'], ['interrupt4', '17']]
+              ['interrupt3', '1'], ['interrupt4', '17']],
+};
+
+Blockly.Arduino.Boards.profiles.watchX = {
+  name: 'watchX',
+  description: 'watchX-compatible board',
+  compilerFlag: 'arduino:avr:leonardo',
+  analogPins: Blockly.Arduino.Boards.generateAnalogIo(0, 5).concat([['A6', '4'], ['A7', '6'], ['A8', '8'], ['A9', '9'], ['A10', '10'], ['A11', '12']]),
+  digitalPins: Blockly.Arduino.Boards.generateDigitalIo(0, 13).concat(Blockly.Arduino.Boards.generateAnalogIo(0, 5)),
+  pwmPins: Blockly.Arduino.Boards.profiles.uno.pwmPins.concat([['13', '13']]),
+  serial: Blockly.Arduino.Boards.profiles.uno.serial,
+  serialPins: Blockly.Arduino.Boards.profiles.uno.serialPins,
+  serialSpeed: Blockly.Arduino.Boards.profiles.uno.serialSpeed,
+  spi: [['SPI', 'SPI']],
+  spiPins: { SPI: [['MOSI', 'ICSP-4'], ['MISO', 'ICSP-1'], ['SCK', 'ICSP-3']] },
+  //TODO: confirm the clock divides are the same for the Leonardo and UNO
+  spiClockDivide: Blockly.Arduino.Boards.profiles.uno.spiClockDivide,
+  i2c: [['I2C', 'Wire']],
+  i2cPins: { Wire: [['SDA', '2'], ['SCL', '3']] },
+  i2cSpeed: Blockly.Arduino.Boards.profiles.uno.i2cSpeed,
+  builtinLed: [['BUILTIN_LED_L', '13'], ['BUILTIN_LED_R', '6']], // Blockly.Arduino.Boards.profiles.uno.builtinLed,
+  interrupt: [['interrupt0', '3'], ['interrupt1', '2'], ['interrupt2', '0'], ['interrupt3', '1'], ['interrupt4', '17']],
+  oledLine: [ ['Line 1', '0'], ['Line 2', '1'], ['Line 3', '2'], ['Line 4', '3'], ['Line 5', '4'], ['Line 6', '5'], ['Line 7', '6'], ['Line 8', '7'] ],
+  oledAlign: [ ['Left', '0'], ['Middle', '1'], ['Right', '2']],
+  batteyLevelIcon: [ ['%0', 0], ['%50', 50], ["%75", 100], ['%100', 150] ]
 };
 
 /** Arduino Yun board processor and profile is identical to Leonardo. */
@@ -316,7 +343,7 @@ Blockly.Arduino.Boards.profiles.esp8266_wemos_d1 = {
 };
 
 /** Set default profile to Arduino standard-compatible board */
-Blockly.Arduino.Boards.selected = Blockly.Arduino.Boards.profiles.uno;
+Blockly.Arduino.Boards.selected = Blockly.Arduino.Boards.profiles.watchX;
 
 /**
  * Changes the Arduino board profile selected, which trigger a refresh of the

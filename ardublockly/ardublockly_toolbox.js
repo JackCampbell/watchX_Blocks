@@ -123,6 +123,7 @@ Ardublockly.TOOLBOX_XML =
 '  <category id="catFunctions" name="Functions" custom="PROCEDURE"></category>' +
 '  <sep></sep>' +
 '  <category id="catInputOutput" name="Input/Output">' +
+'    <block type="LED_PIN"></block>' + // ADDED
 '    <block type="io_digitalwrite">' +
 '      <value name="STATE">' +
 '        <block type="io_highlow"></block>' +
@@ -230,5 +231,78 @@ Ardublockly.TOOLBOX_XML =
 '    <block type="spi_setup"></block>' +
 '    <block type="spi_transfer"></block>' +
 '    <block type="spi_transfer_return"></block>' +
+'  </category>' +
+'  <category id="catWatchX" name="WatchX">' +
+'    <block type="watchx_led"></block>' +
+'    <block type="watchx_oled_write">' +
+'      <value name="CONTENT">' +
+'        <block type="text">' +
+'          <field name="TEXT">Hello</field>' +
+'        </block>' +
+'      </value>' +
+'    </block>' +
+'    <block type="watchx_oled_write_pos">' +
+'      <value name="CONTENT">' +
+'        <block type="text">' +
+'          <field name="TEXT">Hello</field>' +
+'        </block>' +
+'      </value>' +
+'      <value name="PX">' +
+'        <block type="math_number">' +
+'          <field name="NUM">0</field>' +
+'        </block>' +
+'      </value>' +
+'      <value name="PY">' +
+'        <block type="math_number">' +
+'          <field name="NUM">0</field>' +
+'        </block>' +
+'      </value>' +
+'    </block>' +
+'    <block type="watchx_oled_draw_pixel">' +
+'      <value name="PX">' +
+'        <block type="math_number">' +
+'          <field name="NUM">0</field>' +
+'        </block>' +
+'      </value>' +
+'      <value name="PY">' +
+'        <block type="math_number">' +
+'          <field name="NUM">0</field>' +
+'        </block>' +
+'      </value>' +
+'    </block>' +
+'    <block type="watchx_oled_draw_line">' +
+'      <value name="PX1">' +
+'        <block type="math_number">' +
+'          <field name="NUM">0</field>' +
+'        </block>' +
+'      </value>' +
+'      <value name="PY1">' +
+'        <block type="math_number">' +
+'          <field name="NUM">0</field>' +
+'        </block>' +
+'      </value>' +
+'      <value name="PX2">' +
+'        <block type="math_number">' +
+'          <field name="NUM">127</field>' +
+'        </block>' +
+'      </value>' +
+'      <value name="PY2">' +
+'        <block type="math_number">' +
+'          <field name="NUM">0</field>' +
+'        </block>' +
+'      </value>' +
+'    </block>' +
+'    <block type="watchx_oled_draw_battery">' +
+'      <value name="PX">' +
+'        <block type="math_number">' +
+'          <field name="NUM">0</field>' +
+'        </block>' +
+'      </value>' +
+'      <value name="PY">' +
+'        <block type="math_number">' +
+'          <field name="NUM">0</field>' +
+'        </block>' +
+'      </value>' +
+'    </block>' +
 '  </category>' +
 '</xml>';

@@ -107,6 +107,8 @@ Blockly.Arduino.init = function(workspace) {
   // Create a dictionary of pins to check if their use conflicts
   Blockly.Arduino.pins_ = Object.create(null);
 
+  Blockly.Arduino.finish_ = Object.create(null);
+
   if (!Blockly.Arduino.variableDB_) {
     Blockly.Arduino.variableDB_ =
         new Blockly.Names(Blockly.Arduino.RESERVED_WORDS_);
@@ -174,6 +176,12 @@ Blockly.Arduino.finish = function(code) {
   if (userSetupCode) {
     setups.push(userSetupCode);
   }
+  // fihished
+  var finish_list = [];
+  for (var name in Blockly.Arduino.finish_) {
+    finish_list.push(Blockly.Arduino.finish_[name].trim());
+  }
+  var finish_code = finish_list.join('\n');
 
   // Clean up temporary data
   delete Blockly.Arduino.includes_;
@@ -183,12 +191,13 @@ Blockly.Arduino.finish = function(code) {
   delete Blockly.Arduino.functionNames_;
   delete Blockly.Arduino.setups_;
   delete Blockly.Arduino.pins_;
+  delete Blockly.Arduino.finish_;
   Blockly.Arduino.variableDB_.reset();
 
   var allDefs = includes.join('\n') + variables.join('\n') +
       definitions.join('\n') + functions.join('\n\n');
   var setup = 'void setup() {' + setups.join('\n  ') + '\n}\n\n';
-  var loop = 'void loop() {\n  ' + code.replace(/\n/g, '\n  ') + '\n}';
+  var loop = 'void loop() {\n  ' + code.replace(/\n/g, '\n  ') + finish_code + '\n}';
   return allDefs + setup + loop;
 };
 
@@ -201,6 +210,13 @@ Blockly.Arduino.finish = function(code) {
 Blockly.Arduino.addInclude = function(includeTag, code) {
   if (Blockly.Arduino.includes_[includeTag] === undefined) {
     Blockly.Arduino.includes_[includeTag] = code;
+  }
+};
+
+
+Blockly.Arduino.addFinish = function(tag, code) {
+  if (Blockly.Arduino.finish_[tag] === undefined) {
+    Blockly.Arduino.finish_[tag] = code;
   }
 };
 

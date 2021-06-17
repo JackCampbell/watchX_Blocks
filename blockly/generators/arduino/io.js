@@ -166,4 +166,20 @@ Blockly.Arduino['io_pulsetimeout'] = function(block) {
   var code = 'pulseIn(' + pin + ', ' + type + ', ' + timeout + ')';
 
   return [code, Blockly.Arduino.ORDER_ATOMIC];
-}; 
+};
+
+
+
+
+Blockly.Arduino['LED_PIN'] = function(block) {
+  var pin = block.getFieldValue('PIN');
+  var stateOutput = Blockly.Arduino.valueToCode(block, 'STATE', Blockly.Arduino.ORDER_ATOMIC) || 'LOW';
+
+  Blockly.Arduino.reservePin(block, pin, Blockly.Arduino.PinTypes.OUTPUT, 'Digital Write');
+
+  var pinSetupCode = 'pinMode(' + pin + ', OUTPUT);';
+  Blockly.Arduino.addSetup('io_' + pin, pinSetupCode, false);
+
+  var code = 'digitalWrite(' + pin + ', ' + stateOutput + ');\n';
+  return code;
+};
