@@ -114,7 +114,8 @@ Blockly.Arduino.Boards.profiles.uno = {
   interrupt: [['interrupt0', '2'], ['interrupt1', '3']],
   oledLine: [],
   oledAlign: [],
-  batteyLevelIcon: []
+  batteyLevelIcon: [],
+  ledBrightness: []
 };
 
 /** Arduino Nano board profile (ATmega328p). */
@@ -251,7 +252,8 @@ Blockly.Arduino.Boards.profiles.watchX = {
   interrupt: [['interrupt0', '3'], ['interrupt1', '2'], ['interrupt2', '0'], ['interrupt3', '1'], ['interrupt4', '17']],
   oledLine: [ ['Line 1', '0'], ['Line 2', '1'], ['Line 3', '2'], ['Line 4', '3'], ['Line 5', '4'], ['Line 6', '5'], ['Line 7', '6'], ['Line 8', '7'] ],
   oledAlign: [ ['Left', '0'], ['Middle', '1'], ['Right', '2']],
-  batteyLevelIcon: [ ['%0', 0], ['%50', 50], ["%75", 100], ['%100', 150] ]
+  batteyLevelIcon: [ ['%0', '0'], ['%50', '50'], ["%75", '100'], ['%100', '150'] ],
+  ledBrightness: [ ['%0', '0'], ['%50', '50'], ["%75", '150'], ['%100', '255'] ]
 };
 
 /** Arduino Yun board processor and profile is identical to Leonardo. */

@@ -9,6 +9,19 @@
 /** Create a namespace for the application. */
 var Ardublockly = Ardublockly || {};
 
+function Assume_Text(key, value) {
+	return `<value name="${key}"><block type="text"><field name="TEXT">${value}</field></block></value>`;
+}
+
+function Assume_Num(key, value) {
+	return `<value name="${key}"><block type="math_number"><field name="NUM">${value}</field></block></value>`;
+}
+
+function Assume_Pin(key) {
+	return `<value name="${key}"><block type="io_highlow"></block></value>`;
+}
+
+
 Ardublockly.TOOLBOX_XML =
 '<xml>' +
 '  <sep></sep>' +
@@ -233,76 +246,29 @@ Ardublockly.TOOLBOX_XML =
 '    <block type="spi_transfer_return"></block>' +
 '  </category>' +
 '  <category id="catWatchX" name="WatchX">' +
-'    <block type="watchx_led"></block>' +
-'    <block type="watchx_oled_write">' +
-'      <value name="CONTENT">' +
-'        <block type="text">' +
-'          <field name="TEXT">Hello</field>' +
-'        </block>' +
-'      </value>' +
-'    </block>' +
-'    <block type="watchx_oled_write_pos">' +
-'      <value name="CONTENT">' +
-'        <block type="text">' +
-'          <field name="TEXT">Hello</field>' +
-'        </block>' +
-'      </value>' +
-'      <value name="PX">' +
-'        <block type="math_number">' +
-'          <field name="NUM">0</field>' +
-'        </block>' +
-'      </value>' +
-'      <value name="PY">' +
-'        <block type="math_number">' +
-'          <field name="NUM">0</field>' +
-'        </block>' +
-'      </value>' +
-'    </block>' +
-'    <block type="watchx_oled_draw_pixel">' +
-'      <value name="PX">' +
-'        <block type="math_number">' +
-'          <field name="NUM">0</field>' +
-'        </block>' +
-'      </value>' +
-'      <value name="PY">' +
-'        <block type="math_number">' +
-'          <field name="NUM">0</field>' +
-'        </block>' +
-'      </value>' +
-'    </block>' +
-'    <block type="watchx_oled_draw_line">' +
-'      <value name="PX1">' +
-'        <block type="math_number">' +
-'          <field name="NUM">0</field>' +
-'        </block>' +
-'      </value>' +
-'      <value name="PY1">' +
-'        <block type="math_number">' +
-'          <field name="NUM">0</field>' +
-'        </block>' +
-'      </value>' +
-'      <value name="PX2">' +
-'        <block type="math_number">' +
-'          <field name="NUM">127</field>' +
-'        </block>' +
-'      </value>' +
-'      <value name="PY2">' +
-'        <block type="math_number">' +
-'          <field name="NUM">0</field>' +
-'        </block>' +
-'      </value>' +
-'    </block>' +
-'    <block type="watchx_oled_draw_battery">' +
-'      <value name="PX">' +
-'        <block type="math_number">' +
-'          <field name="NUM">0</field>' +
-'        </block>' +
-'      </value>' +
-'      <value name="PY">' +
-'        <block type="math_number">' +
-'          <field name="NUM">0</field>' +
-'        </block>' +
-'      </value>' +
-'    </block>' +
+'    <block type="wx_led">' + Assume_Pin("STATE") + '</block>' +
+'    <block type="wx_led_brightness"></block>' +
+'    <block type="wx_write_text_line">' + Assume_Text('CONTENT', 'Hello') + '</block>' +
+'    <block type="wx_write_text_pos">' + Assume_Text('CONTENT', 'Hello') + Assume_Num("PX", 0) + Assume_Num("PY", 0) + '</block>' +
+'    <block type="wx_draw_pixel">' + Assume_Num("PX", 0) + Assume_Num("PY", 0) + '</block>' +
+'    <block type="wx_draw_line">' + Assume_Num("PX1", 0) + Assume_Num("PY1", 0) + Assume_Num("PX2", 127) + Assume_Num("PY2", 0) + '</block>' +
+'    <block type="wx_draw_battery_icon">' + Assume_Num("PX", 0) + Assume_Num("PY", 56) + '</block>' +
+'    <block type="wx_brightness">' + Assume_Pin("STATE") + '</block>' +
+'    <block type="wx_draw_usb_connect">' + Assume_Num("PX", 18) + Assume_Num("PY", 56) + '</block>' +
+'    <block type="wx_draw_charge_state">' + Assume_Num("PX", 36) + Assume_Num("PY", 56) + '</block>' +
+'    <block type="wx_clear_all"></block>' +
+'    <block type="wx_oled_power">' + Assume_Pin("STATE") + '</block>' +
+'    <block type="wx_rtc_init_param"></block>' +
+'    <block type="wx_rtc_init_current"></block>' +
+'    <block type="wx_rtc_get_value"></block>' +
+'    <block type="wx_print_time_line"></block>' +
+'    <block type="wx_print_time_pos">' + Assume_Num("PX", 0) + Assume_Num("PY", 0) + '</block>' +
+'    <block type="wx_bmp_get_value"></block>' +
+'    <block type="wx_mag_get_value"></block>' +
+'    <block type="wx_mlx_get_value"></block>' +
+'    <block type="wx_mpu_get_angle_value"></block>' +
+'    <block type="wx_mpu_get_accel_value"></block>' +
+'    <block type="wx_mpu_fall_detected"></block>' +
+'    <block type="wx_mpu_motion_detected"></block>' +
 '  </category>' +
 '</xml>';
