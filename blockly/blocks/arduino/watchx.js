@@ -29,7 +29,7 @@ Blockly.Blocks['wx_led'] = {
 		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
 		this.setColour(Blockly.Blocks.io.ORANGE);
 		this.appendValueInput('STATE')
-			.appendField("LED setup #")
+			.appendField("Turn led: ")
 			.appendField(new Blockly.FieldDropdown(Blockly.Arduino.Boards.selected.builtinLed), 'PIN')
 			.appendField(" to ")
 			.setCheck(Blockly.Types.BOOLEAN.checkList);
@@ -91,7 +91,6 @@ Blockly.Blocks['watchx_oled_get_screen_y'] = {
 	}
 };
 */
-
 Blockly.Blocks['wx_write_text_line'] = {
 	init: function() {
 		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
@@ -345,7 +344,6 @@ Blockly.Blocks['wx_mag_get_value'] = {
 		return Blockly.Types.NUMBER;
 	}
 };
-
 Blockly.Blocks['wx_mlx_get_value'] = {
 	init: function() {
 		var filter = [["0", "0"], ["50", "50"], ["75", "75"], ["100", "100"]];
@@ -380,7 +378,6 @@ Blockly.Blocks['wx_mpu_get_angle_value'] = {
 		return Blockly.Types.NUMBER;
 	}
 };
-
 Blockly.Blocks['wx_mpu_get_accel_value'] = {
 	init: function() {
 		var list = [['X', 'WX_MPU_ACCEL_X'], ['Y', 'WX_MPU_ACCEL_Y'], ['Z', 'WX_MPU_ACCEL_Z']]
@@ -395,7 +392,6 @@ Blockly.Blocks['wx_mpu_get_accel_value'] = {
 		return Blockly.Types.NUMBER;
 	}
 };
-
 Blockly.Blocks['wx_mpu_fall_detected'] = {
 	init: function() {
 		this.appendDummyInput()
@@ -413,7 +409,6 @@ Blockly.Blocks['wx_mpu_fall_detected'] = {
 		return Blockly.Types.BOOLEAN;
 	}
 };
-
 Blockly.Blocks['wx_mpu_motion_detected'] = {
 	init: function() {
 		this.appendDummyInput()
@@ -429,5 +424,201 @@ Blockly.Blocks['wx_mpu_motion_detected'] = {
 	},
 	getBlockType: function() {
 		return Blockly.Types.BOOLEAN;
+	}
+};
+Blockly.Blocks['wx_bzr_play_note'] = {
+	init: function() {
+		var tone = [["B0", "31"], ["C1", "33"], ["D1", "37"], ["E1", "41"], ["F1", "44"], ["G1", "49"],
+			["A1", "55"], ["B1", "1"], ["C2", "65"], ["D2", "73"], ["E2", "82"], ["F2", "87"], ["G2", "98"],
+			["A2", "110"], ["B2", "2"], ["C3", "131"], ["D3", "147"], ["E3", "165"], ["F3", "175"],
+			["G3", "196"], ["A3", "220"], ["B3", "3"], ["C4", "262"], ["D4", "294"], ["E4", "330"],
+			["F4", "349"], ["G4", "392"], ["A4", "440"], ["B4", "494"], ["C5", "523"], ["D5", "587"],
+			["E5", "659"], ["F5", "698"], ["G5", "784"], ["A5", "880"], ["B5", "988"], ["C6", "1047"],
+			["D6", "1175"], ["E6", "1319"], ["F6", "1397"], ["G6", "1568"], ["A6", "1760"], ["B6", "1976"],
+			["C7", "2093"], ["D7", "2349"], ["E7", "2637"], ["F7", "2794"], ["G7", "3136"], ["A7", "3520"],
+			["B7", "3951"], ["C8", "4186"], ["D8", "4699"]];
+		var beat = [["Half", "500"], ["Quarter", "250"], ["Eighth", "125"],
+			["Whole", "1000"], ["Double", "2000"], ["Zero", "0"]];
+		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
+		this.appendDummyInput()
+			.appendField("play tone note: ")
+			.appendField(new Blockly.FieldDropdown(tone), 'TONE')
+			.appendField("beat: ")
+			.appendField(new Blockly.FieldDropdown(beat), 'BEAT');
+		this.setInputsInline(true);
+		this.setPreviousStatement(true, null);
+		this.setNextStatement(true, null);
+		this.setColour(Blockly.Blocks.io.ORANGE);
+		this.setTooltip("");
+	}
+};
+Blockly.Blocks['wx_btn_read'] = {
+	init: function() {
+		var btn = [["B1", "8"], ["B2", "11"], ["B3", "10"]];
+		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
+		this.appendDummyInput()
+			.appendField("read button: ")
+			.appendField(new Blockly.FieldDropdown(btn), 'BUTTON');
+		this.setInputsInline(true);
+		this.setOutput(true, null);
+		this.setColour(Blockly.Blocks.io.GREEN);
+		this.setTooltip("");
+	},
+	getBlockType: function() {
+		return Blockly.Types.BOOLEAN;
+	}
+};
+Blockly.Blocks['wx_gpad_read'] = {
+	init: function() {
+		var btn = [["B_UP", "A0"],
+				["B_DOWN", "4"],
+				["LEFT", "11"],
+				["RIGHT", "10"],
+				["B_A", "8"],
+				["B_B", "1"]];
+		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
+		this.appendDummyInput()
+			.appendField("read button: ")
+			.appendField(new Blockly.FieldDropdown(btn), 'BUTTON');
+		this.setInputsInline(true);
+		this.setOutput(true, null);
+		this.setColour(Blockly.Blocks.io.GREEN);
+		this.setTooltip("");
+	},
+	getBlockType: function() {
+		return Blockly.Types.BOOLEAN;
+	}
+};
+Blockly.Blocks['wx_get_bat_voltage'] = {
+	init: function() {
+		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
+		this.appendDummyInput()
+			.appendField("get battery voltage (V)");
+		this.setInputsInline(true);
+		this.setOutput(true, null);
+		this.setColour(Blockly.Blocks.io.GREEN);
+		this.setTooltip("");
+	},
+	getBlockType: function() {
+		return Blockly.Types.NUMBER;
+	}
+};
+Blockly.Blocks['wx_get_bat_percent'] = {
+	init: function() {
+		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
+		this.appendDummyInput()
+			.appendField("get battery voltage (%)");
+		this.setInputsInline(true);
+		this.setOutput(true, null);
+		this.setColour(Blockly.Blocks.io.GREEN);
+		this.setTooltip("");
+	},
+	getBlockType: function() {
+		return Blockly.Types.NUMBER;
+	}
+};
+Blockly.Blocks['wx_get_charge_status'] = {
+	init: function() {
+		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
+		this.appendDummyInput().appendField("detect charge completed");
+		this.setInputsInline(true);
+		this.setOutput(true, null);
+		this.setColour(Blockly.Blocks.io.GREEN);
+		this.setTooltip("");
+	},
+	getBlockType: function() {
+		return Blockly.Types.BOOLEAN;
+	}
+};
+Blockly.Blocks['wx_get_usb_connected'] = {
+	init: function() {
+		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
+		this.appendDummyInput().appendField("get usb connected");
+		this.setInputsInline(true);
+		this.setOutput(true, null);
+		this.setColour(Blockly.Blocks.io.GREEN);
+		this.setTooltip("");
+	},
+	getBlockType: function() {
+		return Blockly.Types.BOOLEAN;
+	}
+};
+Blockly.Blocks['wx_sleep_and_weak_on_button'] = {
+	init: function() {
+		var btn = [["B1", "8"], ["B2", "11"], ["B3", "10"]];
+		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
+		this.appendDummyInput()
+			.appendField("sleep and wake on button: ")
+			.appendField(new Blockly.FieldDropdown(btn), 'BUTTON')
+		this.setInputsInline(true);
+		this.setPreviousStatement(true, null);
+		this.setNextStatement(true, null);
+		this.setColour(Blockly.Blocks.io.ORANGE);
+		this.setTooltip("");
+	}
+};
+Blockly.Blocks['wx_sleep_and_weak_on_timer'] = {
+	init: function() {
+		// 15, 30  60 120 250 500 1000 2000 4000 8000
+		var btn = [["15ms", "15"], ["30ms", "30"], ["60ms", "60"],
+				["120ms", "120"], ["250ms", "250"], ["500ms", "500"], ["1000ms", "1000"],
+				["2000ms", "2000"], ["4000ms", "4000"], ["8000ms", "8000"]];
+		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
+		this.appendDummyInput()
+			.appendField("sleep and wake on time: ")
+			.appendField(new Blockly.FieldDropdown(btn), 'TIMER')
+		this.setInputsInline(true);
+		this.setPreviousStatement(true, null);
+		this.setNextStatement(true, null);
+		this.setColour(Blockly.Blocks.io.ORANGE);
+		this.setTooltip("");
+	}
+};
+
+Blockly.Blocks['wx_init_ble'] = {
+	init: function() {
+		var types = [
+			["Transceiver", "wx_init_ble_transceiver"],
+			["BTKeyboard", "wx_init_ble_bt_keyboard"],
+			["HIDControl", "wx_init_ble_hid_control"]];
+		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
+		this.appendDummyInput()
+			.appendField("bluetooth: ")
+			.appendField(new Blockly.FieldDropdown(types), 'TYPE')
+			.appendField(" id: ")
+			.appendField(new Blockly.FieldNumber('0', (value) => num_validator(value, 0, 64)), "ID");
+		this.setInputsInline(true);
+		this.setPreviousStatement(true, null);
+		this.setNextStatement(true, null);
+		this.setColour(Blockly.Blocks.io.ORANGE);
+		this.setTooltip("");
+	}
+};
+Blockly.Blocks['wx_ble_write_text'] = {
+	init: function() {
+		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
+		this.appendValueInput("CONTENT")
+			.setCheck(null)
+			.appendField("BLE write");
+		this.setInputsInline(true);
+		this.setPreviousStatement(true, null);
+		this.setNextStatement(true, null);
+		this.setColour(Blockly.Blocks.io.ORANGE);
+		this.setTooltip("");
+	}
+};
+
+Blockly.Blocks['wx_ble_read_text'] = {
+	init: function() {
+		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
+		this.appendDummyInput()
+			.appendField("bluetooth recive text");
+		this.setInputsInline(true);
+		this.setOutput(true, null);
+		this.setColour(Blockly.Blocks.io.GREEN);
+		this.setTooltip("");
+	},
+	getBlockType: function() {
+		return Blockly.Types.String;
 	}
 };

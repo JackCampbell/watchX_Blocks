@@ -30,7 +30,6 @@ Blockly.Arduino['wx_led'] = function(block) {
 	var code = 'digitalWrite(' + pin + ', ' + stateOutput + ');\n';
 	return code; // [code, Blockly.Arduino.ORDER_ATOMIC];
 };
-
 Blockly.Arduino['wx_led_brightness'] = function(block) {
 	var pin = block.getFieldValue('PIN');
 	var level = block.getFieldValue('LEVEL');
@@ -42,7 +41,6 @@ Blockly.Arduino['wx_led_brightness'] = function(block) {
 	var code = `analogWrite(${pin}, ${level});\n`
 	return code;
 };
-
 /*
 Blockly.Arduino['watchx_oled_get_screen_x'] = function(block) {
 	var key = block.getFieldValue('VALUE');
@@ -53,7 +51,6 @@ Blockly.Arduino['watchx_oled_get_screen_y'] = function(block) {
 	return [`${key}`, Blockly.Arduino.ORDER_ATOMIC];
 }
 */
-
 Blockly.Arduino['wx_write_text_line'] = function(block) {
 	var content = Blockly.Arduino.valueToCode(block, 'CONTENT', Blockly.Arduino.ORDER_ATOMIC) || "\"empty\"";
 	var line = block.getFieldValue('LINE');
@@ -226,7 +223,6 @@ Blockly.Arduino['wx_print_time_line'] = function(block) {
 	var code = `wx_print_time(&oled, &rtc, 4, ${line});\n`;
 	return code;
 };
-
 Blockly.Arduino['wx_print_time_pos'] = function(block) {
 	var type = block.getFieldValue('TYPE');
 	var px = Blockly.Arduino.valueToCode(block, 'PX', Blockly.Arduino.ORDER_ATOMIC) || "0";
@@ -245,7 +241,6 @@ Blockly.Arduino['wx_print_time_pos'] = function(block) {
 	var code = `wx_print_time(&oled, &rtc, ${type}, ${px}, ${py});\n`;
 	return code;
 };
-
 Blockly.Arduino['wx_bmp_get_value'] = function(block) {
 	var key = block.getFieldValue('KEY');
 
@@ -257,7 +252,6 @@ Blockly.Arduino['wx_bmp_get_value'] = function(block) {
 	var code = `wx_bmp_get_value(&bmp, ${key})`;
 	return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
-
 Blockly.Arduino['wx_mag_get_value'] = function(block) {
 	Blockly.Arduino.addInclude("io_watch", `#include "${watchx_include}"`);
 	Blockly.Arduino.addVariable("var_mag", 'wx_mag_t mag;', false);
@@ -267,7 +261,6 @@ Blockly.Arduino['wx_mag_get_value'] = function(block) {
 	var code = `wx_mag_get_value(&mag)`;
 	return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
-
 Blockly.Arduino['wx_mlx_get_value'] = function(block) {
 	var key = block.getFieldValue('KEY');
 	var filter = block.getFieldValue("FILTER");
@@ -280,7 +273,6 @@ Blockly.Arduino['wx_mlx_get_value'] = function(block) {
 	var code = `wx_mlx_get_value(&mlx, ${key})`;
 	return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
-
 Blockly.Arduino['wx_mpu_get_angle_value'] =
 Blockly.Arduino['wx_mpu_get_accel_value'] = function(block) {
 	var key = block.getFieldValue('KEY');
@@ -293,7 +285,6 @@ Blockly.Arduino['wx_mpu_get_accel_value'] = function(block) {
 	var code = `wx_mpu_get_value(&mpu, ${key})`;
 	return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
-
 Blockly.Arduino['wx_mpu_fall_detected'] = function(block) {
 	var threshold = block.getFieldValue('THRESHOLD');
 	var duration = block.getFieldValue("DURATION");
@@ -306,7 +297,6 @@ Blockly.Arduino['wx_mpu_fall_detected'] = function(block) {
 	var code = `wx_mpu_fall_detected(&mpu)`;
 	return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
-
 Blockly.Arduino['wx_mpu_motion_detected'] = function(block) {
 	var threshold = block.getFieldValue('THRESHOLD');
 	var duration = block.getFieldValue("DURATION");
@@ -318,4 +308,144 @@ Blockly.Arduino['wx_mpu_motion_detected'] = function(block) {
 
 	var code = `wx_mpu_motion_detected(&mpu)`;
 	return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+Blockly.Arduino['wx_bzr_play_note'] = function(block) {
+	var tone = block.getFieldValue('TONE');
+	var beat = block.getFieldValue("BEAT");
+	const pin = 9;
+
+	Blockly.Arduino.reservePin(block, pin, Blockly.Arduino.PinTypes.OUTPUT, 'Buzzer PIN');
+
+	Blockly.Arduino.addInclude("io_watch", `#include "${watchx_include}"`);
+	Blockly.Arduino.addSetup('io_' + pin, `pinMode(${pin}, OUTPUT);`, false);
+
+	var code = `tone(${pin}, ${tone}, ${beat});\ndelay(${beat});\n`;
+	return code;
+};
+Blockly.Arduino['wx_btn_read'] = function(block) {
+	var btn = block.getFieldValue('BUTTON');
+	Blockly.Arduino.reservePin(block, btn, Blockly.Arduino.PinTypes.INPUT_PULLUP, 'Button PIN');
+
+	Blockly.Arduino.addInclude("io_watch", `#include "${watchx_include}"`);
+	Blockly.Arduino.addSetup('io_' + btn, `pinMode(${btn}, INPUT_PULLUP);`, false);
+
+	var code = `!digitalRead(${btn})`;
+	return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+Blockly.Arduino['wx_gpad_read'] = function(block) {
+	var btn = block.getFieldValue('BUTTON');
+	Blockly.Arduino.reservePin(block, btn, Blockly.Arduino.PinTypes.INPUT_PULLUP, 'G-Pad PIN');
+
+	Blockly.Arduino.addInclude("io_watch", `#include "${watchx_include}"`);
+	Blockly.Arduino.addSetup('io_' + btn, `pinMode(${btn}, INPUT_PULLUP);`, false);
+
+	var code = `!digitalRead(${btn})`;
+	return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+Blockly.Arduino['wx_get_bat_voltage'] = function(block) {
+	Blockly.Arduino.reservePin(block, 'A4', Blockly.Arduino.PinTypes.INPUT, 'Battery PIN');
+	Blockly.Arduino.reservePin(block, '4', Blockly.Arduino.PinTypes.OUTPUT, 'Battery PIN');
+
+	Blockly.Arduino.addInclude("io_watch", `#include "${watchx_include}"`);
+	Blockly.Arduino.addVariable("var_bat", 'wx_bat_t bat;', false);
+	Blockly.Arduino.addSetup('io_bat', `wx_init_bat(&bat);\n`, false);
+	Blockly.Arduino.addFinish('io_bat', 'wx_update_bat(&bat);');
+
+	var code = `wx_get_bat_voltage(&bat)`;
+	return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+Blockly.Arduino['wx_get_bat_percent'] = function(block) {
+	Blockly.Arduino.reservePin(block, 'A4', Blockly.Arduino.PinTypes.INPUT, 'Battery PIN');
+	Blockly.Arduino.reservePin(block, '4', Blockly.Arduino.PinTypes.OUTPUT, 'Battery PIN');
+
+	Blockly.Arduino.addInclude("io_watch", `#include "${watchx_include}"`);
+	Blockly.Arduino.addVariable("var_bat", 'wx_bat_t bat;', false);
+	Blockly.Arduino.addSetup('io_bat', `wx_init_bat(&bat);\n`, false);
+	Blockly.Arduino.addFinish('io_bat', 'wx_update_bat(&bat);');
+
+	var code = `wx_get_bat_percent(&bat)`;
+	return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+Blockly.Arduino['wx_get_charge_status'] = function(block) {
+	Blockly.Arduino.reservePin(block, 'A4', Blockly.Arduino.PinTypes.INPUT, 'Battery PIN');
+	Blockly.Arduino.reservePin(block, '4', Blockly.Arduino.PinTypes.OUTPUT, 'Battery PIN');
+
+	Blockly.Arduino.addInclude("io_watch", `#include "${watchx_include}"`);
+	Blockly.Arduino.addVariable("var_bat", 'wx_bat_t bat;', false);
+	Blockly.Arduino.addSetup('io_bat', `wx_init_bat(&bat);\n`, false);
+	Blockly.Arduino.addFinish('io_bat', 'wx_update_bat(&bat);');
+
+	var code = `wx_get_charge_status(&bat)`;
+	return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+Blockly.Arduino['wx_get_usb_connected'] = function(block) {
+	Blockly.Arduino.reservePin(block, 'A4', Blockly.Arduino.PinTypes.INPUT, 'Battery PIN');
+	Blockly.Arduino.reservePin(block, '4', Blockly.Arduino.PinTypes.OUTPUT, 'Battery PIN');
+
+	Blockly.Arduino.addInclude("io_watch", `#include "${watchx_include}"`);
+	Blockly.Arduino.addVariable("var_usb", 'wx_usb_t usb;', false);
+	Blockly.Arduino.addSetup('io_usb', `wx_init_usb(&usb);\n`, false);
+	Blockly.Arduino.addFinish('io_usb', 'wx_update_usb(&usb);');
+
+	var code = `wx_get_usb_connected(&usb)`;
+	return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+Blockly.Arduino['wx_sleep_and_weak_on_button'] = function(block) {
+	var btn = block.getFieldValue('BUTTON');
+	Blockly.Arduino.reservePin(block, btn, Blockly.Arduino.PinTypes.INPUT_PULLUP, 'Button PIN');
+
+	Blockly.Arduino.addInclude("io_watch", `#include "${watchx_include}"`);
+	Blockly.Arduino.addVariable("var_usb", 'wx_usb_t usb;', false);
+	Blockly.Arduino.addSetup('io_usb', `wx_init_usb(&usb, ${btn});\n`, false);
+	Blockly.Arduino.addFinish('io_usb', 'wx_update_usb(&usb);');
+
+	var code = `wx_sleep_and_weak_on_button(&usb);\n`;
+	return code;
+};
+Blockly.Arduino['wx_sleep_and_weak_on_timer'] = function(block) {
+	var timer = block.getFieldValue('TIMER');
+
+	Blockly.Arduino.addInclude("io_watch", `#include "${watchx_include}"`);
+	Blockly.Arduino.addVariable("var_usb", 'wx_usb_t usb;', false);
+	Blockly.Arduino.addSetup('io_usb', `wx_init_usb(&usb, -1);\n`, false);
+	Blockly.Arduino.addFinish('io_usb', 'wx_update_usb(&usb);');
+
+	var code = `wx_sleep_and_weak_on_timer(&usb, ${timer});\n`;
+	return code;
+};
+
+Blockly.Arduino['wx_init_ble'] = function(block) {
+	var type = block.getFieldValue('TYPE');
+	var id = block.getFieldValue('ID');
+
+	Blockly.Arduino.addInclude("io_watch", `#include "${watchx_include}"`);
+	Blockly.Arduino.addVariable("var_ble", 'wx_ble_t ble;', false);
+	Blockly.Arduino.addSetup('io_ble', `${type}(&ble, ${id});\n`, false);
+	if(type == 'wx_init_ble_transceiver') {
+		Blockly.Arduino.addFinish('io_ble', `wx_update_ble(&ble);`);
+	}
+	return "";
+};
+
+
+Blockly.Arduino['wx_ble_write_text'] = function(block) {
+	var content = Blockly.Arduino.valueToCode(block, 'CONTENT', Blockly.Arduino.ORDER_ATOMIC) || "\"empty\"";
+
+	Blockly.Arduino.addInclude("io_watch", `#include "${watchx_include}"`);
+	Blockly.Arduino.addVariable("var_ble", 'wx_ble_t ble;', false);
+	Blockly.Arduino.addSetup('io_ble', `wx_init_ble_transceiver(&ble, 0);\n`, false);
+	Blockly.Arduino.addFinish('io_ble', `wx_update_ble(&ble);`);
+	var code = `wx_ble_write_text(&ble, ((String)${content}).c_str());\n`;
+	return code;
+};
+
+Blockly.Arduino['wx_ble_read_text'] = function(block) {
+	var content = Blockly.Arduino.valueToCode(block, 'CONTENT', Blockly.Arduino.ORDER_ATOMIC) || "\"empty\"";
+
+	Blockly.Arduino.addInclude("io_watch", `#include "${watchx_include}"`);
+	Blockly.Arduino.addVariable("var_ble", 'wx_ble_t ble;', false);
+	Blockly.Arduino.addSetup('io_ble', `wx_init_ble_transceiver(&ble, 0);\n`, false);
+	Blockly.Arduino.addFinish('io_ble', `wx_update_ble(&ble);`);
+
+	return [`wx_ble_read_text(&ble)`, Blockly.Arduino.ORDER_ATOMIC];
 };

@@ -270,12 +270,189 @@ void wx_mpu_clear_motion(wx_mpu_t *mpu) {
 	wx_mpu_t::motion_detected = false;
 }
 
-struct key_state_t {
-    int pin;
-    int count;
-    bool impulse, down;
-} keys[3] = {
-    { WX_BTN_B1, 0, false, false},
-    { WX_BTN_B2, 0, false, false},
-    { WX_BTN_B3, 0, false, false}
-};
+void wx_init_bat(wx_bat_t *bat) {
+	pinMode(WX_BAT_EN, OUTPUT);
+	pinMode(WX_BAT_PIN, INPUT);
+	pinMode(WX_BAT_DET, INPUT);
+	bat->charge_status = false;
+	bat->voltage = 0.0f;
+	bat->percent = 0;
+}
+
+int wx_clamp(int value, int min, int max) {
+	if(value < min) {
+		return min;
+	} else if(value > max) {
+		return max;
+	}
+	return value;
+}
+
+void wx_update_bat(wx_bat_t *bat) {
+	int value;
+    float voltage, divider;
+	const float min = 3.4f, max = 4.2f;
+    divider = WX_BAT_R2 / float(WX_BAT_R1 + WX_BAT_R2);
+
+    digitalWrite(WX_BAT_EN, HIGH);
+    delay(50);
+    value = analogRead(WX_BAT_PIN);
+    delay(50);
+    digitalWrite(WX_BAT_EN, LOW);
+
+    voltage = ((float(value) / 1024) * 3.35f) / divider;
+	int percent = int(((voltage - min) * 100) / (max - min));
+
+	if(digitalRead(WX_BAT_DET) == HIGH) {
+		bat->charge_status = true;
+	} else {
+		bat->charge_status = false;
+	}
+	bat->percent = wx_clamp(percent, 0, 100);
+	bat->voltage = voltage;
+}
+
+float wx_get_bat_voltage(wx_bat_t *bat) {
+	return bat->voltage;
+}
+
+int wx_get_bat_percent(wx_bat_t *bat) {
+	return bat->percent;
+}
+
+bool wx_get_charge_status(wx_bat_t *bat) {
+	return bat->charge_status;
+}
+
+
+void wx_init_usb(wx_usb_t *usb) {
+	usb->connected = false;
+	usb->voltage = false;
+	usb->is_update = false;
+	usb->weak_pin = 11;
+}
+
+void wx_init_usb(wx_usb_t *usb, int pin) {
+	USBCON |= ( 1 << OTGPADE );
+	if(pin != -1) {
+		pinMode(pin, INPUT_PULLUP);
+		usb->weak_pin = pin;
+	}	
+	wx_init_usb(usb);
+}
+
+void wx_update_usb(wx_usb_t *usb) {
+	usb->voltage = ( USBSTA & ( 1 << VBUS ) );
+	usb->connected = (UDADDR & _BV(ADDEN)) != 0;
+	usb->is_update = true;
+}
+
+bool wx_get_usb_connected(wx_usb_t *usb) {
+	if(usb->is_update == false) {
+		wx_update_usb(usb);
+	}
+	return usb->connected;
+}
+
+void wx_wake_from_button() {}
+
+void wx_sleep_and_weak_on_button(wx_usb_t *usb) {
+	if(usb->is_update == false) {
+		wx_update_usb(usb);
+	}
+	if(usb->connected) {
+		return;
+	}
+	int inter = digitalPinToPinChangeInterrupt(usb->weak_pin);
+	power_adc_disable();
+	set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+	sleep_enable();
+	attachPinChangeInterrupt(inter, wx_wake_from_button, FALLING);
+	sleep_cpu();
+	sleep_disable();
+	detachPinChangeInterrupt(inter);
+	power_adc_enable();
+}
+
+void wx_sleep_and_weak_on_timer(wx_usb_t *usb, long time) {
+	if(usb->is_update == false) {
+		wx_update_usb(usb);
+	}
+	if(usb->voltage) {
+		return;
+	}
+	Watchdog.sleep(time);
+	USBDevice.attach();
+}
+
+
+void wx_init_ble_transceiver(wx_ble_t *ble, int id) {
+	char name[64];
+	sprintf_P(name, PSTR("AT+GAPDEVNAME=watchX_%d") , id);
+	
+	ble->ble.begin(VERBOSE_MODE);
+	if( FACTORYRESET_ENABLE ){
+		ble->ble.factoryReset();
+	}
+	ble->ble.echo(false);
+	ble->ble.verbose(false);
+	ble->ble.setMode(BLUEFRUIT_MODE_DATA);
+	ble->ble.sendCommandCheckOK( name );
+	delay(100);
+	ble->ble.reset();
+}
+
+void wx_init_ble_bt_keyboard(wx_ble_t *ble, int id) {
+	char name[64];
+	sprintf_P(name, PSTR("AT+GAPDEVNAME=watchX_%d") , id);
+	
+	ble->ble.begin(VERBOSE_MODE);
+	if( FACTORYRESET_ENABLE ){
+		ble->ble.factoryReset();
+	}
+	ble->ble.echo(false);
+	ble->ble.verbose(false);
+	ble->ble.setMode(BLUEFRUIT_MODE_DATA);
+	ble->ble.sendCommandCheckOK(F("AT+BleHIDEn=On"));
+	ble->ble.sendCommandCheckOK(F("AT+BleKeyboardEn=On"));
+	ble->ble.sendCommandCheckOK( name );
+	delay(100);
+	ble->ble.reset();
+}
+
+void wx_init_ble_hid_control(wx_ble_t *ble, int id) {
+	char name[64];
+	sprintf_P(name, PSTR("AT+GAPDEVNAME=watchX_%d") , id);
+	
+	ble->ble.begin(VERBOSE_MODE);
+	if( FACTORYRESET_ENABLE ){
+		ble->ble.factoryReset();
+	}
+	ble->ble.echo(false);
+	ble->ble.verbose(false);
+	ble->ble.setMode(BLUEFRUIT_MODE_DATA);
+	ble->ble.sendCommandCheckOK(F("AT+BleHIDEn=On"));
+	ble->ble.sendCommandCheckOK( name );
+	delay(100);
+	ble->ble.reset();
+}
+
+void wx_ble_write_text(wx_ble_t *ble, String str) {
+	ble->ble.print(str);
+}
+
+void wx_update_ble(wx_ble_t *ble) {
+	String result;
+	while( ble->ble.available() ) {
+		int c = ble->ble.read();
+		result.concat( (char)c );
+	}
+	result.trim();
+	if(result.length() > 0) {
+		ble->recv = result;
+	}
+}
+
+String wx_ble_read_text(wx_ble_t *ble) {
+	return ble->recv;
+}

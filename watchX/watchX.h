@@ -3,18 +3,25 @@
 #include "SparkFun_MAG3110.h"
 #include "RTClib.h"
 #include "MPU6050.h"
+#include "Adafruit_MLX90393.h"
 #include "oled.h"
-#include "resources.h"
 #include "Adafruit_BLE.h"
 #include "Adafruit_BluefruitLE_SPI.h"
 #include "Adafruit_BluefruitLE_UART.h"
-#include "Adafruit_MLX90393.h"
 #include "BluefruitConfig.h"
+#include "PinChangeInterrupt.h"
+#include "Adafruit_SleepyDog.h"
+#include "MLX90393.h"
+#include "resources.h"
 //#include "ML"
-#include <SPI.h>
 #include <Arduino.h>
+#include <SPI.h>
 #include <Wire.h>
 #include <SoftwareSerial.h>
+#include <avr/interrupt.h>
+#include <avr/sleep.h>
+#include <avr/power.h>
+#include <avr/wdt.h>
 #pragma once
 
 #define BUILD_LED_R     6
@@ -22,7 +29,24 @@
 
 #define WX_BTN_B1	8
 #define WX_BTN_B2	10
-#define WX_BTN_B3	10
+#define WX_BTN_B3	11
+
+#define WX_GPAD_G0 A0
+#define WX_GPAD_G1 4
+#define WX_GPAD_G2 11
+#define WX_GPAD_G3 10
+#define WX_GPAD_G4 8
+#define WX_GPAD_G5 1
+
+
+#define WX_BAT_PIN 	A11
+#define WX_BAT_EN	4
+#define WX_BAT_DET	5
+// Voltage divider resistor values.
+#define WX_BAT_R1	10000
+#define WX_BAT_R2	10000
+
+
 
 #define BIT(x) (1 << (x))
 #define PREV_INDEX(x, m) ((m + x - 1) % m)
@@ -136,4 +160,52 @@ void wx_mpu_clear_fall(wx_mpu_t *mpu);
 void wx_mpu_init_motion(wx_mpu_t *mpu, int threshold, int duration);
 bool wx_mpu_motion_detected(wx_mpu_t *mpu);
 void wx_mpu_clear_motion(wx_mpu_t *mpu);
+
+struct wx_bat_t {
+	bool	charge_status;
+	float	voltage;
+	int		percent;
+};
+
+void wx_init_bat(wx_bat_t *bat);
+void wx_update_bat(wx_bat_t *bat);
+
+float wx_get_bat_voltage(wx_bat_t *bat);
+int wx_get_bat_percent(wx_bat_t *bat);
+bool wx_get_charge_status(wx_bat_t *bat);
+
+
+struct wx_usb_t {
+	bool		connected;
+	bool		voltage;
+	bool		is_update;
+	int			weak_pin;
+};
+void wx_init_usb(wx_usb_t *usb);
+void wx_init_usb(wx_usb_t *usb, int pin);
+void wx_update_usb(wx_usb_t *usb);
+bool wx_get_usb_connected(wx_usb_t *usb);
+void wx_sleep_and_weak_on_button(wx_usb_t *usb);
+void wx_sleep_and_weak_on_timer(wx_usb_t *usb, long time);
+
+
+#define ADAFRUITBLE_REQ A2
+#define ADAFRUITBLE_RDY 0
+#define ADAFRUITBLE_RST A1
+#define FACTORYRESET_ENABLE 1
+class Adafruit_BLE_SPI : public Adafruit_BluefruitLE_SPI {
+public:
+	Adafruit_BLE_SPI() : Adafruit_BluefruitLE_SPI(BLUEFRUIT_SPI_CS, BLUEFRUIT_SPI_IRQ, BLUEFRUIT_SPI_RST) {}
+};
+
+struct wx_ble_t {
+	Adafruit_BLE_SPI 	ble;
+	String				recv;
+};
+void wx_init_ble_transceiver(wx_ble_t *ble, int id);
+void wx_init_ble_bt_keyboard(wx_ble_t *ble, int id);
+void wx_init_ble_hid_control(wx_ble_t *ble, int id);
+void wx_ble_write_text(wx_ble_t *ble, String str);
+void wx_update_ble(wx_ble_t *ble);
+String wx_ble_read_text(wx_ble_t *ble);
 

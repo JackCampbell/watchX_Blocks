@@ -270,5 +270,17 @@ Ardublockly.TOOLBOX_XML =
 '    <block type="wx_mpu_get_accel_value"></block>' +
 '    <block type="wx_mpu_fall_detected"></block>' +
 '    <block type="wx_mpu_motion_detected"></block>' +
+'    <block type="wx_bzr_play_note"></block>' +
+'    <block type="wx_btn_read"></block>' +
+'    <block type="wx_gpad_read"></block>' +
+'    <block type="wx_get_bat_voltage"></block>' +
+'    <block type="wx_get_bat_percent"></block>' +
+'    <block type="wx_get_charge_status"></block>' +
+'    <block type="wx_get_usb_connected"></block>' +
+'    <block type="wx_sleep_and_weak_on_button"></block>' +
+'    <block type="wx_sleep_and_weak_on_timer"></block>' +
+'    <block type="wx_init_ble"></block>' +
+'    <block type="wx_ble_write_text">' + Assume_Text('CONTENT', 'Hello') + '</block>' +
+'    <block type="wx_ble_read_text"></block>' +
 '  </category>' +
 '</xml>';
