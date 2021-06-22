@@ -413,7 +413,6 @@ Blockly.Arduino['wx_sleep_and_weak_on_timer'] = function(block) {
 	var code = `wx_sleep_and_weak_on_timer(&usb, ${timer});\n`;
 	return code;
 };
-
 Blockly.Arduino['wx_init_ble'] = function(block) {
 	var type = block.getFieldValue('TYPE');
 	var id = block.getFieldValue('ID');
@@ -426,8 +425,6 @@ Blockly.Arduino['wx_init_ble'] = function(block) {
 	}
 	return "";
 };
-
-
 Blockly.Arduino['wx_ble_write_text'] = function(block) {
 	var content = Blockly.Arduino.valueToCode(block, 'CONTENT', Blockly.Arduino.ORDER_ATOMIC) || "\"empty\"";
 
@@ -438,7 +435,6 @@ Blockly.Arduino['wx_ble_write_text'] = function(block) {
 	var code = `wx_ble_write_text(&ble, ((String)${content}).c_str());\n`;
 	return code;
 };
-
 Blockly.Arduino['wx_ble_read_text'] = function(block) {
 	var content = Blockly.Arduino.valueToCode(block, 'CONTENT', Blockly.Arduino.ORDER_ATOMIC) || "\"empty\"";
 
@@ -448,4 +444,35 @@ Blockly.Arduino['wx_ble_read_text'] = function(block) {
 	Blockly.Arduino.addFinish('io_ble', `wx_update_ble(&ble);`);
 
 	return [`wx_ble_read_text(&ble)`, Blockly.Arduino.ORDER_ATOMIC];
+};
+Blockly.Arduino['wx_ble_send_keys'] = function(block) {
+	var content = Blockly.Arduino.valueToCode(block, 'CONTENT', Blockly.Arduino.ORDER_ATOMIC) || "\"empty\"";
+	// var escape = Blockly.Arduino.quote_(content);
+	Blockly.Arduino.addInclude("io_watch", `#include "${watchx_include}"`);
+	Blockly.Arduino.addVariable("var_ble", 'wx_ble_t ble;', false);
+	Blockly.Arduino.addSetup('io_ble', `wx_init_ble_bt_keyboard(&ble, 0);\n`, false);
+	Blockly.Arduino.addFinish('io_ble', `wx_update_ble(&ble);`);
+	var code = `wx_ble_send_keys(&ble, ((String)${content}).c_str());\n`;
+	return code;
+};
+Blockly.Arduino['wx_ble_media_control'] = function(block) {
+	var cmd = block.getFieldValue('CMD');
+
+	Blockly.Arduino.addInclude("io_watch", `#include "${watchx_include}"`);
+	Blockly.Arduino.addVariable("var_ble", 'wx_ble_t ble;', false);
+	Blockly.Arduino.addSetup('io_ble', `wx_init_ble_hid_control(&ble, 0);\n`, false);
+	Blockly.Arduino.addFinish('io_ble', `wx_update_ble(&ble);`);
+	var code = `wx_ble_media_control(&ble, ${cmd});\n`;
+	return code;
+};
+Blockly.Arduino['wx_ble_mouse_control'] = function(block) {
+	var btn = block.getFieldValue('BUTTON');
+	var state = block.getFieldValue('STATE');
+
+	Blockly.Arduino.addInclude("io_watch", `#include "${watchx_include}"`);
+	Blockly.Arduino.addVariable("var_ble", 'wx_ble_t ble;', false);
+	Blockly.Arduino.addSetup('io_ble', `wx_init_ble_hid_control(&ble, 0);\n`, false);
+	Blockly.Arduino.addFinish('io_ble', `wx_update_ble(&ble);`);
+	var code = `wx_ble_mouse_control(&ble, ${btn}, ${state});\n`;
+	return code;
 };

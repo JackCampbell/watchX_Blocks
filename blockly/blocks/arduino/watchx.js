@@ -44,11 +44,13 @@ Blockly.Blocks['wx_led'] = {
 };
 Blockly.Blocks['wx_led_brightness'] = {
 	init: function() {
+		var level = [ ['%0', '0'], ['%50', '50'], ["%75", '150'], ['%100', '255'] ];
 		var leds = new Blockly.FieldDropdown(Blockly.Arduino.Boards.selected.builtinLed);
-		var level = new Blockly.FieldDropdown(Blockly.Arduino.Boards.selected.batteyLevelIcon);
-		this.appendDummyInput().appendField("LED brightness");
-		this.appendDummyInput().appendField(leds, 'PIN')
-		this.appendDummyInput().appendField("Level: ").appendField(level, 'LEVEL')
+		this.appendDummyInput()
+			.appendField("LED brightness")
+			.appendField(leds, 'PIN')
+			.appendField("Level: ")
+			.appendField(new Blockly.FieldDropdown(level), 'LEVEL')
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
@@ -93,23 +95,22 @@ Blockly.Blocks['watchx_oled_get_screen_y'] = {
 */
 Blockly.Blocks['wx_write_text_line'] = {
 	init: function() {
+		var line = [ ['Line 1', '0'], ['Line 2', '1'], ['Line 3', '2'], ['Line 4', '3'],
+					['Line 5', '4'], ['Line 6', '5'], ['Line 7', '6'], ['Line 8', '7'] ];
+		var align = [ ['Left', '0'], ['Middle', '1'], ['Right', '2'] ];
 		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
 		this.appendValueInput("CONTENT")
 			.setCheck(null)
 			.appendField("OLED write");
 		this.appendDummyInput()
 			.setAlign(Blockly.ALIGN_RIGHT)
-			.appendField(new Blockly.FieldDropdown(Blockly.Arduino.Boards.selected.oledLine), 'LINE')
-			.appendField(new Blockly.FieldDropdown(Blockly.Arduino.Boards.selected.oledAlign), 'ALIGN')
+			.appendField(new Blockly.FieldDropdown(line), 'LINE')
+			.appendField(new Blockly.FieldDropdown(align), 'ALIGN')
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.ORANGE);
 		this.setTooltip("");
-	},
-	updateFields: function() {
-		Blockly.Arduino.Boards.refreshBlockFieldDropdown(this, 'LINE', 'oledLine');
-		Blockly.Arduino.Boards.refreshBlockFieldDropdown(this, 'ALIGN', 'oledAlign');
 	}
 };
 Blockly.Blocks['wx_write_text_pos'] = {
@@ -155,21 +156,19 @@ Blockly.Blocks['wx_draw_line'] = {
 };
 Blockly.Blocks['wx_draw_battery_icon'] = {
 	init: function() {
-		var level = new Blockly.FieldDropdown(Blockly.Arduino.Boards.selected.batteyLevelIcon);
+		var list = [ ['%0', '0'], ['%50', '50'], ["%75", '100'], ['%100', '150'] ];
 		this.appendDummyInput().appendField("OLED draw battery level");
 		this.appendValueInput("PX").setCheck("Number").appendField("X:");
 		this.appendValueInput("PY").setCheck("Number").appendField("Y:");
-		this.appendDummyInput().appendField("Level: ").appendField(level, 'LEVEL')
-
+		this.appendDummyInput()
+			.appendField("Level: ")
+			.appendField(new Blockly.FieldDropdown(list), 'LEVEL')
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.ORANGE);
 		this.setTooltip("");
 		this.setHelpUrl("");
-	},
-	updateFields: function() {
-		Blockly.Arduino.Boards.refreshBlockFieldDropdown(this, 'LEVEL', 'batteyLevelIcon');
 	}
 };
 Blockly.Blocks['wx_brightness'] = {
@@ -574,7 +573,6 @@ Blockly.Blocks['wx_sleep_and_weak_on_timer'] = {
 		this.setTooltip("");
 	}
 };
-
 Blockly.Blocks['wx_init_ble'] = {
 	init: function() {
 		var types = [
@@ -607,7 +605,6 @@ Blockly.Blocks['wx_ble_write_text'] = {
 		this.setTooltip("");
 	}
 };
-
 Blockly.Blocks['wx_ble_read_text'] = {
 	init: function() {
 		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
@@ -620,5 +617,51 @@ Blockly.Blocks['wx_ble_read_text'] = {
 	},
 	getBlockType: function() {
 		return Blockly.Types.String;
+	}
+};
+Blockly.Blocks['wx_ble_send_keys'] = {
+	init: function() {
+		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
+		this.appendValueInput("CONTENT")
+			.setCheck(null)
+			.appendField("BLE key press: ");
+		this.setInputsInline(true);
+		this.setPreviousStatement(true, null);
+		this.setNextStatement(true, null);
+		this.setColour(Blockly.Blocks.io.ORANGE);
+		this.setTooltip("");
+	}
+};
+Blockly.Blocks['wx_ble_media_control'] = {
+	init: function() {
+		var cmd = [["Play/Pause", "0"], ["Next", "1"], ["Previous", "2"],
+					["Volume+", "3"], ["Volume-", "4"]];
+		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
+		this.appendDummyInput()
+			.appendField("media controls: ")
+			.appendField(new Blockly.FieldDropdown(cmd), 'CMD');
+		this.setInputsInline(true);
+		this.setPreviousStatement(true, null);
+		this.setNextStatement(true, null);
+		this.setColour(Blockly.Blocks.io.ORANGE);
+		this.setTooltip("");
+	}
+};
+Blockly.Blocks['wx_ble_mouse_control'] = {
+	init: function() {
+		var btns = [["Left Button", "0"], ["Right Button", "1"]];
+		var state = [["Pressed", "0"], ["Release", "1"]];
+
+		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
+		this.appendDummyInput()
+			.appendField("mouse button: ")
+			.appendField(new Blockly.FieldDropdown(btns), 'BUTTON')
+			.appendField(" state: ")
+			.appendField(new Blockly.FieldDropdown(state), 'STATE');
+		this.setInputsInline(true);
+		this.setPreviousStatement(true, null);
+		this.setNextStatement(true, null);
+		this.setColour(Blockly.Blocks.io.ORANGE);
+		this.setTooltip("");
 	}
 };

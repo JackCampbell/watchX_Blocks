@@ -282,5 +282,8 @@ Ardublockly.TOOLBOX_XML =
 '    <block type="wx_init_ble"></block>' +
 '    <block type="wx_ble_write_text">' + Assume_Text('CONTENT', 'Hello') + '</block>' +
 '    <block type="wx_ble_read_text"></block>' +
+'    <block type="wx_ble_send_keys">' + Assume_Text('CONTENT', '0') + '</block>' +
+'    <block type="wx_ble_media_control"></block>' +
+'    <block type="wx_ble_mouse_control"></block>' +
 '  </category>' +
 '</xml>';
