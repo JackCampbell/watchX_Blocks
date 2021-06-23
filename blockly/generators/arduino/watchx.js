@@ -322,6 +322,19 @@ Blockly.Arduino['wx_bzr_play_note'] = function(block) {
 	var code = `tone(${pin}, ${tone}, ${beat});\ndelay(${beat});\n`;
 	return code;
 };
+
+Blockly.Arduino['wx_play_freq'] = function(block) {
+	var frequency = Blockly.Arduino.valueToCode(block, 'FREQUENCY', Blockly.Arduino.ORDER_ATOMIC) || "220";
+	const pin = 9;
+	Blockly.Arduino.reservePin(block, pin, Blockly.Arduino.PinTypes.OUTPUT, 'Buzzer PIN');
+
+	Blockly.Arduino.addInclude("io_watch", `#include "${watchx_include}"`);
+	Blockly.Arduino.addSetup('io_' + pin, `pinMode(${pin}, OUTPUT);`, false);
+
+	var code = `tone(${pin}, ${frequency});\n`;
+	return code;
+};
+
 Blockly.Arduino['wx_btn_read'] = function(block) {
 	var btn = block.getFieldValue('BUTTON');
 	Blockly.Arduino.reservePin(block, btn, Blockly.Arduino.PinTypes.INPUT_PULLUP, 'Button PIN');

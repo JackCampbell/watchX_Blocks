@@ -41,12 +41,10 @@ Blockly.Blocks['io_tone'] = {
    * @this Blockly.Block
    */
   onchange: function(event) {
-    if (!this.workspace || event.type == Blockly.Events.MOVE ||
-        event.type == Blockly.Events.UI) {
+    if (!this.workspace || event.type == Blockly.Events.MOVE || event.type == Blockly.Events.UI) {
         return;  // Block deleted or irrelevant event
     }
-    var freq = Blockly.Arduino.valueToCode(
-        this, "FREQUENCY", Blockly.Arduino.ORDER_ATOMIC)
+    var freq = Blockly.Arduino.valueToCode(this, "FREQUENCY", Blockly.Arduino.ORDER_ATOMIC)
     if (freq < 31 || freq > 65535) {
       this.setWarningText(Blockly.Msg.ARD_TONE_WARNING, 'io_tone');
     } else {

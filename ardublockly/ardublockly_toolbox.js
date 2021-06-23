@@ -136,39 +136,25 @@ Ardublockly.TOOLBOX_XML =
 '  <category id="catFunctions" name="Functions" custom="PROCEDURE"></category>' +
 '  <sep></sep>' +
 '  <category id="catInputOutput" name="Input/Output">' +
-'    <block type="LED_PIN"></block>' + // ADDED
-'    <block type="io_digitalwrite">' +
-'      <value name="STATE">' +
-'        <block type="io_highlow"></block>' +
-'      </value>' +
-'    </block>' +
-'    <block type="io_digitalread"></block>' +
-'    <block type="io_builtin_led">' +
-'      <value name="STATE">' +
-'        <block type="io_highlow"></block>' +
-'      </value>' +
-'    </block>' +
+'    <block type="wx_btn_read"></block>' +
+'    <block type="wx_gpad_read"></block>' +
+'    <block type="wx_led">' + Assume_Pin("STATE") + '</block>' +
+'    <block type="wx_led_brightness"></block>' +  // '    <block type="LED_PIN"></block>' +
+'    <block type="io_digitalwrite">' + Assume_Pin("STATE") + '</block>' +
+'    <block type="io_digitalread"></block>' +  //'    <block type="io_builtin_led">' + Assume_Pin("STATE") + '</block>' +
 '    <block type="io_analogwrite"></block>' +
 '    <block type="io_analogread"></block>' +
 '    <block type="io_highlow"></block>' +
-'    <block type="io_pulsein">' +
-'      <value name="PULSETYPE">' +
-'        <shadow type="io_highlow"></shadow>' +
-'      </value>' +
-'    </block>' +
-'    <block type="io_pulsetimeout">' +
-'      <value name="PULSETYPE">' +
-'        <shadow type="io_highlow"></shadow>' +
-'      </value>' +
-'      <value name="TIMEOUT">' +
-'        <shadow type="math_number">' +
-'          <field name="NUM">100</field>' +
-'        </shadow>' +
-'      </value>'+
-'    </block>' +
+'    <block type="io_pulsein">' + Assume_Pin("PULSETYPE") + '</block>' +
+'    <block type="io_pulsetimeout">' + Assume_Pin("PULSETYPE") + Assume_Num("TIMEOUT", 100) + '</block>' +
 '  </category>' +
 '  <sep></sep>' +
 '  <category id="catTime" name="Time">' +
+'    <block type="wx_rtc_init_current"></block>' +
+'    <block type="wx_rtc_init_param"></block>' +
+'    <block type="wx_rtc_get_value"></block>' +
+'    <block type="wx_print_time_line"></block>' +
+'    <block type="wx_print_time_pos">' + Assume_Num("PX", 0) + Assume_Num("PY", 0) + '</block>' +
 '    <block type="time_delay">' +
 '      <value name="DELAY_TIME_MILI">' +
 '        <block type="math_number">' +
@@ -189,14 +175,16 @@ Ardublockly.TOOLBOX_XML =
 '  </category>' +
 '  <sep></sep>' +
 '  <category id="catAudio" name="Audio">' +
-'    <block type="io_tone">' +
-'      <field name="TONEPIN">0</field>' +
-'      <value name="FREQUENCY">' +
-'        <shadow type="math_number">' +
-'          <field name="NUM">220</field>' +
-'        </shadow>' +
-'      </value>' +
-'    </block>' +
+'    <block type="wx_bzr_play_note"></block>' +
+'    <block type="wx_play_freq">' + Assume_Num("FREQUENCY", 220) + '</block>' +
+// '    <block type="io_tone">' +
+// '      <field name="TONEPIN">0</field>' +
+// '      <value name="FREQUENCY">' +
+// '        <shadow type="math_number">' +
+// '          <field name="NUM">220</field>' +
+// '        </shadow>' +
+// '      </value>' +
+// '    </block>' +
 '    <block type="io_notone"></block>' +
 '  </category>' +
 '  <sep></sep>' +
@@ -245,40 +233,49 @@ Ardublockly.TOOLBOX_XML =
 '    <block type="spi_transfer"></block>' +
 '    <block type="spi_transfer_return"></block>' +
 '  </category>' +
-'  <category id="catWatchX" name="WatchX">' +
-'    <block type="wx_led">' + Assume_Pin("STATE") + '</block>' +
-'    <block type="wx_led_brightness"></block>' +
+'  <sep></sep>' +
+'  <category id="catDisplay" name="Display">' +
 '    <block type="wx_write_text_line">' + Assume_Text('CONTENT', 'Hello') + '</block>' +
 '    <block type="wx_write_text_pos">' + Assume_Text('CONTENT', 'Hello') + Assume_Num("PX", 0) + Assume_Num("PY", 0) + '</block>' +
+'    <block type="wx_brightness">' + Assume_Pin("STATE") + '</block>' +
+'    <block type="wx_clear_all"></block>' +
+'    <block type="wx_oled_power">' + Assume_Pin("STATE") + '</block>' +
+'  </category>' +
+'  <sep></sep>' +
+'  <category id="catDraw" name="Draw">' +
 '    <block type="wx_draw_pixel">' + Assume_Num("PX", 0) + Assume_Num("PY", 0) + '</block>' +
 '    <block type="wx_draw_line">' + Assume_Num("PX1", 0) + Assume_Num("PY1", 0) + Assume_Num("PX2", 127) + Assume_Num("PY2", 0) + '</block>' +
 '    <block type="wx_draw_battery_icon">' + Assume_Num("PX", 0) + Assume_Num("PY", 56) + '</block>' +
-'    <block type="wx_brightness">' + Assume_Pin("STATE") + '</block>' +
 '    <block type="wx_draw_usb_connect">' + Assume_Num("PX", 18) + Assume_Num("PY", 56) + '</block>' +
 '    <block type="wx_draw_charge_state">' + Assume_Num("PX", 36) + Assume_Num("PY", 56) + '</block>' +
-'    <block type="wx_clear_all"></block>' +
-'    <block type="wx_oled_power">' + Assume_Pin("STATE") + '</block>' +
-'    <block type="wx_rtc_init_param"></block>' +
-'    <block type="wx_rtc_init_current"></block>' +
-'    <block type="wx_rtc_get_value"></block>' +
-'    <block type="wx_print_time_line"></block>' +
-'    <block type="wx_print_time_pos">' + Assume_Num("PX", 0) + Assume_Num("PY", 0) + '</block>' +
-'    <block type="wx_bmp_get_value"></block>' +
-'    <block type="wx_mag_get_value"></block>' +
-'    <block type="wx_mlx_get_value"></block>' +
+'  </category>' +
+'  <sep></sep>' +
+'  <category id="catSensors" name="Sensors">' +
 '    <block type="wx_mpu_get_angle_value"></block>' +
 '    <block type="wx_mpu_get_accel_value"></block>' +
 '    <block type="wx_mpu_fall_detected"></block>' +
 '    <block type="wx_mpu_motion_detected"></block>' +
-'    <block type="wx_bzr_play_note"></block>' +
-'    <block type="wx_btn_read"></block>' +
-'    <block type="wx_gpad_read"></block>' +
+'    <block type="wx_bmp_get_value"></block>' +
+'    <block type="wx_mlx_get_value"></block>' +
+'    <block type="wx_mag_get_value"></block>' +
+'  </category>' +
+'  <sep></sep>' +
+'  <category id="catBattery" name="Battery">' +
 '    <block type="wx_get_bat_voltage"></block>' +
 '    <block type="wx_get_bat_percent"></block>' +
 '    <block type="wx_get_charge_status"></block>' +
+'  </category>' +
+'  <sep></sep>' +
+'  <category id="catUSB" name="USB">' +
 '    <block type="wx_get_usb_connected"></block>' +
+'  </category>' +
+'  <sep></sep>' +
+'  <category id="catSleep" name="Sleep">' +
 '    <block type="wx_sleep_and_weak_on_button"></block>' +
 '    <block type="wx_sleep_and_weak_on_timer"></block>' +
+'  </category>' +
+'  <sep></sep>' +
+'  <category id="catBluetooth" name="Bluetooth">' +
 '    <block type="wx_init_ble"></block>' +
 '    <block type="wx_ble_write_text">' + Assume_Text('CONTENT', 'Hello') + '</block>' +
 '    <block type="wx_ble_read_text"></block>' +
@@ -286,4 +283,5 @@ Ardublockly.TOOLBOX_XML =
 '    <block type="wx_ble_media_control"></block>' +
 '    <block type="wx_ble_mouse_control"></block>' +
 '  </category>' +
+'  <sep></sep>' +
 '</xml>';

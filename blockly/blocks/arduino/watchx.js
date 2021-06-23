@@ -17,8 +17,10 @@ goog.provide('Blockly.Blocks.watchx');
 goog.require('Blockly.Blocks');
 goog.require('Blockly.Types');
 
+Blockly.Blocks.io.BLUE = 250;
+Blockly.Blocks.io.BLUE_HI = 206;
 Blockly.Blocks.io.ORANGE = 20;
-Blockly.Blocks.io.GREEN = 250;
+Blockly.Blocks.io.GREEN = 140;
 
 function num_validator(value, min, max) {
 	return (min <= value && value <= max) ? value : null;
@@ -26,17 +28,17 @@ function num_validator(value, min, max) {
 
 Blockly.Blocks['wx_led'] = {
 	init: function() {
-		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
-		this.setColour(Blockly.Blocks.io.ORANGE);
+		this.setColour(Blockly.Blocks.io.BLUE);
 		this.appendValueInput('STATE')
-			.appendField("Turn led: ")
+			.appendField(Blockly.Msg.WX_TURN_LED)
 			.appendField(new Blockly.FieldDropdown(Blockly.Arduino.Boards.selected.builtinLed), 'PIN')
-			.appendField(" to ")
+			.appendField(Blockly.Msg.WX_TO)
 			.setCheck(Blockly.Types.BOOLEAN.checkList);
 		this.setInputsInline(false);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
-		this.setTooltip("Saat uzerindeki isiklar.");
+		this.setHelpUrl("http://watchx.io");
+		this.setTooltip(Blockly.Msg.WX_TURN_LED_TIPS);
 	},
 	updateFields: function() {
 		Blockly.Arduino.Boards.refreshBlockFieldDropdown(this, 'PIN', 'builtinLed');
@@ -47,16 +49,16 @@ Blockly.Blocks['wx_led_brightness'] = {
 		var level = [ ['%0', '0'], ['%50', '50'], ["%75", '150'], ['%100', '255'] ];
 		var leds = new Blockly.FieldDropdown(Blockly.Arduino.Boards.selected.builtinLed);
 		this.appendDummyInput()
-			.appendField("LED brightness")
+			.appendField(Blockly.Msg.WX_LED_BRIGHTNESS)
 			.appendField(leds, 'PIN')
-			.appendField("Level: ")
+			.appendField(Blockly.Msg.WX_LED_LEVEL)
 			.appendField(new Blockly.FieldDropdown(level), 'LEVEL')
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
-		this.setColour(Blockly.Blocks.io.ORANGE);
-		this.setTooltip("");
-		this.setHelpUrl("");
+		this.setColour(Blockly.Blocks.io.BLUE);
+		this.setHelpUrl("http://watchx.io");
+		this.setTooltip(Blockly.Msg.WX_LED_BRIGHTNESS_TIP);
 	},
 	updateFields: function() {
 		Blockly.Arduino.Boards.refreshBlockFieldDropdown(this, 'LEVEL', 'ledBrightness');
@@ -95,188 +97,192 @@ Blockly.Blocks['watchx_oled_get_screen_y'] = {
 */
 Blockly.Blocks['wx_write_text_line'] = {
 	init: function() {
-		var line = [ ['Line 1', '0'], ['Line 2', '1'], ['Line 3', '2'], ['Line 4', '3'],
-					['Line 5', '4'], ['Line 6', '5'], ['Line 7', '6'], ['Line 8', '7'] ];
+		var line = [ ['1', '0'], ['2', '1'], ['3', '2'], ['4', '3'], ['5', '4'], ['6', '5'], ['7', '6'], ['8', '7'] ];
 		var align = [ ['Left', '0'], ['Middle', '1'], ['Right', '2'] ];
-		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
 		this.appendValueInput("CONTENT")
 			.setCheck(null)
-			.appendField("OLED write");
+			.appendField(Blockly.Msg.WX_OLED_WRITE);
 		this.appendDummyInput()
 			.setAlign(Blockly.ALIGN_RIGHT)
+			.appendField(Blockly.Msg.WX_OLED_WRITE_LINE)
 			.appendField(new Blockly.FieldDropdown(line), 'LINE')
+			.appendField(Blockly.Msg.WX_OLED_WRITE_ALIGN)
 			.appendField(new Blockly.FieldDropdown(align), 'ALIGN')
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.ORANGE);
-		this.setTooltip("");
+		this.setHelpUrl("http://watchx.io");
+		this.setTooltip(Blockly.Msg.WX_OLED_WRITE_LINE_TIP);
 	}
 };
 Blockly.Blocks['wx_write_text_pos'] = {
 	init: function() {
-		this.appendValueInput("CONTENT").setCheck(null).appendField("OLED write");
-		this.appendValueInput("PX").setCheck("Number").appendField("X:");
-		this.appendValueInput("PY").setCheck("Number").appendField("Y:");
+		this.appendValueInput("CONTENT").setCheck(null).appendField(Blockly.Msg.WX_OLED_WRITE);
+		this.appendValueInput("PX").setCheck("Number").appendField(Blockly.Msg.WX_PX);
+		this.appendValueInput("PY").setCheck("Number").appendField(Blockly.Msg.WX_PY);
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.ORANGE);
-		this.setTooltip("");
-		this.setHelpUrl("");
+		this.setHelpUrl("http://watchx.io");
+		this.setTooltip(Blockly.Msg.WX_OLED_WRITE_POS_TIP);
 	}
 };
 Blockly.Blocks['wx_draw_pixel'] = {
 	init: function() {
-		this.appendDummyInput().appendField("OLED draw pixel");
-		this.appendValueInput("PX").setCheck("Number").appendField("X:");
-		this.appendValueInput("PY").setCheck("Number").appendField("Y:");
+		this.appendDummyInput().appendField(Blockly.Msg.WX_DRAW_PIXEL);
+		this.appendValueInput("PX").setCheck("Number").appendField(Blockly.Msg.WX_PX);
+		this.appendValueInput("PY").setCheck("Number").appendField(Blockly.Msg.WX_PY);
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.ORANGE);
-		this.setTooltip("");
-		this.setHelpUrl("");
+		this.setHelpUrl("http://watchx.io");
+		this.setTooltip(Blockly.Msg.WX_DRAW_PIXEL_TIP);
 	}
 };
 Blockly.Blocks['wx_draw_line'] = {
 	init: function() {
-		this.appendDummyInput().appendField("OLED draw line");
-		this.appendValueInput("PX1").setCheck("Number").appendField("X1:");
-		this.appendValueInput("PY1").setCheck("Number").appendField("Y1:");
-		this.appendValueInput("PX2").setCheck("Number").appendField("X2:");
-		this.appendValueInput("PY2").setCheck("Number").appendField("Y2:");
+		this.appendDummyInput().appendField(Blockly.Msg.WX_DRAW_LINE);
+		this.appendValueInput("PX1").setCheck("Number").appendField(Blockly.Msg.WX_PX + "1");
+		this.appendValueInput("PY1").setCheck("Number").appendField(Blockly.Msg.WX_PY + "1");
+		this.appendValueInput("PX2").setCheck("Number").appendField(Blockly.Msg.WX_PX + "2");
+		this.appendValueInput("PY2").setCheck("Number").appendField(Blockly.Msg.WX_PY + "2");
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.ORANGE);
-		this.setTooltip("");
-		this.setHelpUrl("");
+		this.setHelpUrl("http://watchx.io");
+		this.setTooltip(Blockly.Msg.WX_DRAW_LINE_TIP);
 	}
 };
 Blockly.Blocks['wx_draw_battery_icon'] = {
 	init: function() {
 		var list = [ ['%0', '0'], ['%50', '50'], ["%75", '100'], ['%100', '150'] ];
-		this.appendDummyInput().appendField("OLED draw battery level");
-		this.appendValueInput("PX").setCheck("Number").appendField("X:");
-		this.appendValueInput("PY").setCheck("Number").appendField("Y:");
-		this.appendDummyInput()
-			.appendField("Level: ")
-			.appendField(new Blockly.FieldDropdown(list), 'LEVEL')
+		this.appendDummyInput().appendField(Blockly.Msg.WX_DRAW_BATTERY_LEVEL);
+		this.appendValueInput("PX").setCheck("Number").appendField(Blockly.Msg.WX_PX);
+		this.appendValueInput("PY").setCheck("Number").appendField(Blockly.Msg.WX_PY);
+		this.appendDummyInput().appendField(Blockly.Msg.WX_PERCENT).appendField(new Blockly.FieldDropdown(list), 'LEVEL')
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.ORANGE);
-		this.setTooltip("");
-		this.setHelpUrl("");
+		this.setHelpUrl("http://watchx.io");
+		this.setTooltip(Blockly.Msg.WX_DRAW_BATTERY_LEVEL_TIP);
 	}
 };
 Blockly.Blocks['wx_brightness'] = {
 	init: function() {
 		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
 		this.setColour(Blockly.Blocks.io.ORANGE);
-		this.appendValueInput('STATE').appendField("OLED brightness ").setCheck(Blockly.Types.BOOLEAN.checkList);
+		this.appendValueInput('STATE').appendField(Blockly.Msg.WX_OLED_BRIGHTNESS).setCheck(Blockly.Types.BOOLEAN.checkList);
 		this.setInputsInline(false);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
-		this.setTooltip("Saat uzerindeki isiklar.");
+		this.setHelpUrl("http://watchx.io");
+		this.setTooltip(Blockly.Msg.WX_OLED_BRIGHTNESS_TIP);
 	}
 };
 Blockly.Blocks['wx_draw_usb_connect'] = {
 	init: function() {
-		this.appendDummyInput().appendField("OLED usb connect");
-		this.appendValueInput("PX").setCheck("Number").appendField("X:");
-		this.appendValueInput("PY").setCheck("Number").appendField("Y:");
+		this.appendDummyInput().appendField(Blockly.Msg.WX_DRAW_USB_ICON);
+		this.appendValueInput("PX").setCheck("Number").appendField(Blockly.Msg.WX_PX);
+		this.appendValueInput("PY").setCheck("Number").appendField(Blockly.Msg.WX_PY);
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.ORANGE);
-		this.setTooltip("");
-		this.setHelpUrl("");
+		this.setTooltip(Blockly.Msg.WX_DRAW_USB_ICON_TIP);
+		this.setHelpUrl("http://watchx.io");
 	}
 };
 Blockly.Blocks['wx_draw_charge_state'] = {
 	init: function() {
-		this.appendDummyInput().appendField("OLED show charge status");
-		this.appendValueInput("PX").setCheck("Number").appendField("X:");
-		this.appendValueInput("PY").setCheck("Number").appendField("Y:");
+		this.appendDummyInput().appendField(Blockly.Msg.WX_DRAW_CHARGE_ICON);
+		this.appendValueInput("PX").setCheck("Number").appendField(Blockly.Msg.WX_PX);
+		this.appendValueInput("PY").setCheck("Number").appendField(Blockly.Msg.WX_PY);
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.ORANGE);
-		this.setTooltip("");
-		this.setHelpUrl("");
+		this.setTooltip(Blockly.Msg.WX_DRAW_CHARGE_ICON_TIP);
+		this.setHelpUrl("http://watchx.io");
 	}
 };
 Blockly.Blocks['wx_clear_all'] = {
 	init: function() {
-		this.appendDummyInput().appendField("OLED clear display");
+		this.appendDummyInput().appendField(Blockly.Msg.WX_OLED_CLEAR_ALL);
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.ORANGE);
-		this.setTooltip("");
-		this.setHelpUrl("");
+		this.setTooltip(Blockly.Msg.WX_OLED_CLEAR_ALL_TIP );
+		this.setHelpUrl("http://watchx.io");
 	}
 };
 Blockly.Blocks['wx_oled_power'] = {
 	init: function() {
-		this.setHelpUrl('');
 		this.setColour(Blockly.Blocks.io.ORANGE);
-		this.appendValueInput('STATE').appendField("OLED power ").setCheck(Blockly.Types.BOOLEAN.checkList);
+		this.appendValueInput('STATE').appendField(Blockly.Msg.WX_OLED_POWER).setCheck(Blockly.Types.BOOLEAN.checkList);
 		this.setInputsInline(false);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
-		this.setTooltip("");
+		this.setTooltip(Blockly.Msg.WX_OLED_POWER_TIP );
+		this.setHelpUrl("http://watchx.io");
 	}
 };
 Blockly.Blocks['wx_rtc_init_param'] = {
 	init: function() {
 		this.appendDummyInput()
-			.appendField("set day")
+			.appendField(Blockly.Msg.WX_SET_DATE)
 			.appendField(new Blockly.FieldNumber('1', (value) => num_validator(value, 1, 31)), "DAY")
-			.appendField("month")
+			.appendField(Blockly.Msg.WX_MONTH)
 			.appendField(new Blockly.FieldNumber('1', (value) => num_validator(value, 1, 12)), "MONTH")
-			.appendField("year")
+			.appendField(Blockly.Msg.WX_YEAR)
 			.appendField(new Blockly.FieldNumber('2011', (value) => num_validator(value, 1900, 2099)), "YEAR");
 		this.appendDummyInput()
 			.setAlign(Blockly.ALIGN_RIGHT)
-			.appendField("hour")
+			.appendField(Blockly.Msg.WX_HOUR)
 			.appendField(new Blockly.FieldNumber('0', (value) => num_validator(value, 0, 23)), "HOUR")
-			.appendField("minute")
+			.appendField(Blockly.Msg.WX_MINUTE)
 			.appendField(new Blockly.FieldNumber('0', (value) => num_validator(value, 0, 59)), "MINUTE")
-			.appendField("second")
+			.appendField(Blockly.Msg.WX_SECOND)
 			.appendField(new Blockly.FieldNumber('0', (value) => num_validator(value, 0, 59)), "SECOND")
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
-		this.setColour(Blockly.Blocks.io.ORANGE);
-		this.setTooltip("");
-		this.setHelpUrl("");
+		this.setColour(Blockly.Blocks.io.GREEN);
+		this.setTooltip(Blockly.Msg.WX_SET_DATE_TIP);
+		this.setHelpUrl("http://watchx.io");
 	}
 };
 Blockly.Blocks['wx_rtc_init_current'] = {
 	init: function() {
-		this.setHelpUrl('');
-		this.setColour(Blockly.Blocks.io.ORANGE);
-		this.appendDummyInput().appendField("OLED current date & time");
+		this.setColour(Blockly.Blocks.io.GREEN);
+		this.appendDummyInput().appendField(Blockly.Msg.WX_CURRENT_TIME);
 		this.setInputsInline(false);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
-		this.setTooltip("");
+		this.setTooltip(Blockly.Msg.WX_CURRENT_TIME_TIP);
+		this.setHelpUrl("http://watchx.io");
 	}
 }
 Blockly.Blocks['wx_rtc_get_value'] = {
 	init: function() {
-		var list = [["year","WX_RTC_YEAR"], ["month","WX_RTC_MONTH"], ["day","WX_RTC_DAY"],
-			["hour","WX_RTC_HOUR"], ["minute","WX_RTC_MINUTE"], ["second","WX_RTC_SECOND"]];
+		var list = [[Blockly.Msg.WX_DAY, "WX_RTC_YEAR"],
+					[Blockly.Msg.WX_MONTH,"WX_RTC_MONTH"],
+					[Blockly.Msg.WX_YEAR,"WX_RTC_DAY"],
+					[Blockly.Msg.WX_HOUR,"WX_RTC_HOUR"],
+					[Blockly.Msg.WX_MINUTE,"WX_RTC_MINUTE"],
+					[Blockly.Msg.WX_SECOND,"WX_RTC_SECOND"]];
 		this.appendDummyInput()
-			.appendField("get ")
+			.appendField(Blockly.Msg.WX_GET)
 			.appendField(new Blockly.FieldDropdown(list), "KEY");
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.GREEN);
-		this.setTooltip("");
-		this.setHelpUrl("");
 		this.setInputsInline(true);
+		this.setTooltip(Blockly.Msg.WX_GET_TIME_TIP);
+		this.setHelpUrl("http://watchx.io");
 	},
 	getBlockType: function() {
 		return Blockly.Types.DECIMAL;
@@ -284,47 +290,51 @@ Blockly.Blocks['wx_rtc_get_value'] = {
 };
 Blockly.Blocks['wx_print_time_line'] = {
 	init: function() {
-		var list = [["Line 1", '0'], ['Line 2', '1'], ['Line 3', '2']];
-		this.setColour(Blockly.Blocks.io.ORANGE);
+		var list = [[Blockly.Msg.WX_LINE + ' 1', '0'],
+					[Blockly.Msg.WX_LINE + ' 2', '1'],
+					[Blockly.Msg.WX_LINE + ' 3', '2']];
+		this.setColour(Blockly.Blocks.io.GREEN);
 		this.appendDummyInput()
-			.appendField("Oled print time ")
+			.appendField(Blockly.Msg.WX_PRINT_TIME)
 			.appendField(new Blockly.FieldDropdown(list), 'LINE');
 		this.setInputsInline(false);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
-		this.setTooltip("");
+		this.setTooltip(Blockly.Msg.WX_PRINT_TIME_LINE_TIP);
+		this.setHelpUrl("http://watchx.io");
 	}
 };
 Blockly.Blocks['wx_print_time_pos'] = {
 	init: function() {
-		var list = [["Hour", 'WX_DRAW_TIME_HOUR'],
-			['Minute', 'WX_DRAW_TIME_MINUTE'],
-			["Second", 'WX_DRAW_TIME_SECORD']];
-		this.setColour(Blockly.Blocks.io.ORANGE);
+		var list = [[Blockly.Msg.WX_HOUR, 'WX_DRAW_TIME_HOUR'],
+					[Blockly.Msg.WX_MINUTE, 'WX_DRAW_TIME_MINUTE'],
+					[Blockly.Msg.WX_SECOND, 'WX_DRAW_TIME_SECORD']];
+		this.setColour(Blockly.Blocks.io.GREEN);
 		this.appendDummyInput()
-			.appendField("Oled print time ")
+			.appendField(Blockly.Msg.WX_PRINT_TIME)
 			.appendField(new Blockly.FieldDropdown(list), 'TYPE');
-		this.appendValueInput("PX").setCheck("Number").appendField("X:");
-		this.appendValueInput("PY").setCheck("Number").appendField("Y:");
+		this.appendValueInput("PX").setCheck("Number").appendField(Blockly.Msg.WX_PX);
+		this.appendValueInput("PY").setCheck("Number").appendField(Blockly.Msg.WX_PY);
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
-		this.setTooltip("");
+		this.setTooltip(Blockly.Msg.WX_PRINT_TIME_POS_TIP);
+		this.setHelpUrl("http://watchx.io");
 	}
 };
 Blockly.Blocks['wx_bmp_get_value'] = {
 	init: function() {
-		var list = [["altitude","WX_BMP_ALTITUDE"],
-					["pressure","WX_BMP_PRESSURE"],
-					["temperature","WX_BMP_TEMPERATURE"]];
+		var list = [[Blockly.Msg.WX_ALTITUDE, "WX_BMP_ALTITUDE"],
+					[Blockly.Msg.WX_PRESSURE, "WX_BMP_PRESSURE"],
+					[Blockly.Msg.WX_TEMPERATURE, "WX_BMP_TEMPERATURE"]];
 		this.appendDummyInput()
-			.appendField("get ")
+			.appendField(Blockly.Msg.WX_GET_BMP)
 			.appendField(new Blockly.FieldDropdown(list), "KEY");
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.GREEN);
-		this.setTooltip("");
-		this.setHelpUrl("");
 		this.setInputsInline(true);
+		this.setTooltip(Blockly.Msg.WX_GET_BMP_TIP);
+		this.setHelpUrl("http://watchx.io");
 	},
 	getBlockType: function() {
 		return Blockly.Types.NUMBER;
@@ -332,11 +342,11 @@ Blockly.Blocks['wx_bmp_get_value'] = {
 };
 Blockly.Blocks['wx_mag_get_value'] = {
 	init: function() {
-		this.appendDummyInput().appendField("get mag");
+		this.appendDummyInput().appendField(Blockly.Msg.WX_GET_MAG);
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.GREEN);
-		this.setTooltip("");
-		this.setHelpUrl("");
+		this.setTooltip(Blockly.Msg.WX_GET_MAG_TIP);
+		this.setHelpUrl("http://watchx.io");
 		this.setInputsInline(true);
 	},
 	getBlockType: function() {
@@ -348,15 +358,15 @@ Blockly.Blocks['wx_mlx_get_value'] = {
 		var filter = [["0", "0"], ["50", "50"], ["75", "75"], ["100", "100"]];
 		var list = [['X', 'WX_MLX_DX'], ['Y', 'WX_MLX_DY'], ['Z', 'WX_MLX_DZ']]
 		this.appendDummyInput()
-			.appendField("get MLX ")
+			.appendField(Blockly.Msg.WX_GET_MLX)
 			.appendField(new Blockly.FieldDropdown(list), "KEY");
 		this.appendDummyInput()
-			.appendField("filter ")
+			.appendField(Blockly.Msg.WX_FILTER)
 			.appendField(new Blockly.FieldDropdown(filter), "FILTER");
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.GREEN);
-		this.setTooltip("");
-		this.setHelpUrl("");
+		this.setTooltip(Blockly.Msg.WX_GET_MLX_TIP);
+		this.setHelpUrl("http://watchx.io");
 		this.setInputsInline(true);
 	},
 	getBlockType: function() {
@@ -366,11 +376,11 @@ Blockly.Blocks['wx_mlx_get_value'] = {
 Blockly.Blocks['wx_mpu_get_angle_value'] = {
 	init: function() {
 		var list = [['X', 'WX_MPU_ANGLE_X'], ['Y', 'WX_MPU_ANGLE_Y'], ['Z', 'WX_MPU_ANGLE_Z']]
-		this.appendDummyInput().appendField("get IMU angle ").appendField(new Blockly.FieldDropdown(list), "KEY");
+		this.appendDummyInput().appendField(Blockly.Msg.WX_GET_MPU_ANGLE).appendField(new Blockly.FieldDropdown(list), "KEY");
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.GREEN);
-		this.setTooltip("");
-		this.setHelpUrl("");
+		this.setTooltip(Blockly.Msg.WX_GET_MPU_ANGLE_TIP);
+		this.setHelpUrl("http://watchx.io");
 		this.setInputsInline(true);
 	},
 	getBlockType: function() {
@@ -380,11 +390,11 @@ Blockly.Blocks['wx_mpu_get_angle_value'] = {
 Blockly.Blocks['wx_mpu_get_accel_value'] = {
 	init: function() {
 		var list = [['X', 'WX_MPU_ACCEL_X'], ['Y', 'WX_MPU_ACCEL_Y'], ['Z', 'WX_MPU_ACCEL_Z']]
-		this.appendDummyInput().appendField("get IMU acceleration ").appendField(new Blockly.FieldDropdown(list), "KEY");
+		this.appendDummyInput().appendField(Blockly.Msg.WX_GET_MPU_ACCEL).appendField(new Blockly.FieldDropdown(list), "KEY");
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.GREEN);
-		this.setTooltip("");
-		this.setHelpUrl("");
+		this.setTooltip(Blockly.Msg.WX_GET_MPU_ACCEL_TIP);
+		this.setHelpUrl("http://watchx.io");
 		this.setInputsInline(true);
 	},
 	getBlockType: function() {
@@ -394,14 +404,15 @@ Blockly.Blocks['wx_mpu_get_accel_value'] = {
 Blockly.Blocks['wx_mpu_fall_detected'] = {
 	init: function() {
 		this.appendDummyInput()
-			.appendField("detect free fall threshold: ")
+			.appendField(Blockly.Msg.WX_FREE_FALL_DETECTED)
+			.appendField(Blockly.Msg.WX_THRESHOLD)
 			.appendField(new Blockly.FieldNumber('17', (value) => num_validator(value, 0, 1000)), "THRESHOLD")
-			.appendField(" duration: ")
+			.appendField(Blockly.Msg.WX_DURATION)
 			.appendField(new Blockly.FieldNumber('2', (value) => num_validator(value, 0, 60)), "DURATION")
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.GREEN);
-		this.setTooltip("");
-		this.setHelpUrl("");
+		this.setTooltip(Blockly.Msg.WX_FREE_FALL_DETECTED_TIP);
+		this.setHelpUrl("http://watchx.io");
 		this.setInputsInline(true);
 	},
 	getBlockType: function() {
@@ -411,14 +422,15 @@ Blockly.Blocks['wx_mpu_fall_detected'] = {
 Blockly.Blocks['wx_mpu_motion_detected'] = {
 	init: function() {
 		this.appendDummyInput()
-			.appendField("detect motion threshold: ")
+			.appendField(Blockly.Msg.WX_DETECT_MOTION)
+			.appendField(Blockly.Msg.WX_THRESHOLD)
 			.appendField(new Blockly.FieldNumber('5', (value) => num_validator(value, 0, 1000)), "THRESHOLD")
-			.appendField(" duration: ")
+			.appendField(Blockly.Msg.WX_DURATION)
 			.appendField(new Blockly.FieldNumber('2', (value) => num_validator(value, 0, 60)), "DURATION")
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.GREEN);
-		this.setTooltip("");
-		this.setHelpUrl("");
+		this.setTooltip(Blockly.Msg.WX_DETECT_MOTION_TIP);
+		this.setHelpUrl("http://watchx.io");
 		this.setInputsInline(true);
 	},
 	getBlockType: function() {
@@ -438,30 +450,42 @@ Blockly.Blocks['wx_bzr_play_note'] = {
 			["B7", "3951"], ["C8", "4186"], ["D8", "4699"]];
 		var beat = [["Half", "500"], ["Quarter", "250"], ["Eighth", "125"],
 			["Whole", "1000"], ["Double", "2000"], ["Zero", "0"]];
-		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
 		this.appendDummyInput()
-			.appendField("play tone note: ")
+			.appendField(Blockly.Msg.WX_BZR_PLAY_NOTE)
 			.appendField(new Blockly.FieldDropdown(tone), 'TONE')
-			.appendField("beat: ")
+			.appendField(Blockly.Msg.WX_BEAT)
 			.appendField(new Blockly.FieldDropdown(beat), 'BEAT');
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
-		this.setColour(Blockly.Blocks.io.ORANGE);
+		this.setColour(Blockly.Blocks.io.BLUE);
+		this.setTooltip(Blockly.Msg.WX_BZR_PLAY_NOTE_TIP);
+		this.setHelpUrl("http://watchx.io");
 		this.setTooltip("");
+	}
+};
+Blockly.Blocks['wx_play_freq'] = {
+	init: function() {
+		this.appendValueInput("FREQUENCY").setCheck("Number").appendField(Blockly.Msg.WX_PLAY_FREQ);
+		this.setInputsInline(true);
+		this.setPreviousStatement(true, null);
+		this.setNextStatement(true, null);
+		this.setColour(Blockly.Blocks.io.BLUE);
+		this.setTooltip(Blockly.Msg.WX_PLAY_FREQ_TIP);
+		this.setHelpUrl("http://watchx.io");
 	}
 };
 Blockly.Blocks['wx_btn_read'] = {
 	init: function() {
 		var btn = [["B1", "8"], ["B2", "11"], ["B3", "10"]];
-		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
 		this.appendDummyInput()
-			.appendField("read button: ")
+			.appendField(Blockly.Msg.WX_READ_BUTTON)
 			.appendField(new Blockly.FieldDropdown(btn), 'BUTTON');
 		this.setInputsInline(true);
 		this.setOutput(true, null);
-		this.setColour(Blockly.Blocks.io.GREEN);
-		this.setTooltip("");
+		this.setColour(Blockly.Blocks.io.BLUE);
+		this.setTooltip(Blockly.Msg.WX_READ_BUTTON_TIP);
+		this.setHelpUrl("http://watchx.io");
 	},
 	getBlockType: function() {
 		return Blockly.Types.BOOLEAN;
@@ -469,20 +493,15 @@ Blockly.Blocks['wx_btn_read'] = {
 };
 Blockly.Blocks['wx_gpad_read'] = {
 	init: function() {
-		var btn = [["B_UP", "A0"],
-				["B_DOWN", "4"],
-				["LEFT", "11"],
-				["RIGHT", "10"],
-				["B_A", "8"],
-				["B_B", "1"]];
-		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
+		var btn = [["B_UP", "A0"], ["B_DOWN", "4"], ["LEFT", "11"], ["RIGHT", "10"], ["B_A", "8"], ["B_B", "1"]];
 		this.appendDummyInput()
-			.appendField("read button: ")
+			.appendField(Blockly.Msg.WX_READ_GPAD)
 			.appendField(new Blockly.FieldDropdown(btn), 'BUTTON');
 		this.setInputsInline(true);
 		this.setOutput(true, null);
-		this.setColour(Blockly.Blocks.io.GREEN);
-		this.setTooltip("");
+		this.setColour(Blockly.Blocks.io.BLUE);
+		this.setTooltip(Blockly.Msg.WX_READ_GPAD_TIP);
+		this.setHelpUrl("http://watchx.io");
 	},
 	getBlockType: function() {
 		return Blockly.Types.BOOLEAN;
@@ -490,13 +509,12 @@ Blockly.Blocks['wx_gpad_read'] = {
 };
 Blockly.Blocks['wx_get_bat_voltage'] = {
 	init: function() {
-		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
-		this.appendDummyInput()
-			.appendField("get battery voltage (V)");
+		this.appendDummyInput().appendField(Blockly.Msg.WX_GET_BATTERY_VOLTAGE);
 		this.setInputsInline(true);
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.GREEN);
-		this.setTooltip("");
+		this.setTooltip(Blockly.Msg.WX_GET_BATTERY_VOLTAGE_TIP);
+		this.setHelpUrl("http://watchx.io");
 	},
 	getBlockType: function() {
 		return Blockly.Types.NUMBER;
@@ -504,13 +522,12 @@ Blockly.Blocks['wx_get_bat_voltage'] = {
 };
 Blockly.Blocks['wx_get_bat_percent'] = {
 	init: function() {
-		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
-		this.appendDummyInput()
-			.appendField("get battery voltage (%)");
+		this.appendDummyInput().appendField(Blockly.Msg.WX_GET_BATTERY_PERCENT);
 		this.setInputsInline(true);
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.GREEN);
-		this.setTooltip("");
+		this.setTooltip(Blockly.Msg.WX_GET_BATTERY_PERCENT_TIP);
+		this.setHelpUrl("http://watchx.io");
 	},
 	getBlockType: function() {
 		return Blockly.Types.NUMBER;
@@ -518,12 +535,12 @@ Blockly.Blocks['wx_get_bat_percent'] = {
 };
 Blockly.Blocks['wx_get_charge_status'] = {
 	init: function() {
-		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
-		this.appendDummyInput().appendField("detect charge completed");
+		this.appendDummyInput().appendField(Blockly.Msg.WX_CHARGE_COMPLETE);
 		this.setInputsInline(true);
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.GREEN);
-		this.setTooltip("");
+		this.setTooltip(Blockly.Msg.WX_CHARGE_COMPLETE_TIP);
+		this.setHelpUrl("http://watchx.io");
 	},
 	getBlockType: function() {
 		return Blockly.Types.BOOLEAN;
@@ -531,12 +548,12 @@ Blockly.Blocks['wx_get_charge_status'] = {
 };
 Blockly.Blocks['wx_get_usb_connected'] = {
 	init: function() {
-		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
-		this.appendDummyInput().appendField("get usb connected");
+		this.appendDummyInput().appendField(Blockly.Msg.WX_CHECK_USB_CONNECTION);
 		this.setInputsInline(true);
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.GREEN);
-		this.setTooltip("");
+		this.setTooltip(Blockly.Msg.WX_CHECK_USB_CONNECTION_TIP);
+		this.setHelpUrl("http://watchx.io");
 	},
 	getBlockType: function() {
 		return Blockly.Types.BOOLEAN;
@@ -545,15 +562,15 @@ Blockly.Blocks['wx_get_usb_connected'] = {
 Blockly.Blocks['wx_sleep_and_weak_on_button'] = {
 	init: function() {
 		var btn = [["B1", "8"], ["B2", "11"], ["B3", "10"]];
-		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
 		this.appendDummyInput()
-			.appendField("sleep and wake on button: ")
+			.appendField(Blockly.Msg.WX_SLEEP_AND_WAKE_BUTTON)
 			.appendField(new Blockly.FieldDropdown(btn), 'BUTTON')
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.ORANGE);
-		this.setTooltip("");
+		this.setTooltip(Blockly.Msg.WX_SLEEP_AND_WAKE_BUTTON_TIP);
+		this.setHelpUrl("http://watchx.io");
 	}
 };
 Blockly.Blocks['wx_sleep_and_weak_on_timer'] = {
@@ -562,15 +579,16 @@ Blockly.Blocks['wx_sleep_and_weak_on_timer'] = {
 		var btn = [["15ms", "15"], ["30ms", "30"], ["60ms", "60"],
 				["120ms", "120"], ["250ms", "250"], ["500ms", "500"], ["1000ms", "1000"],
 				["2000ms", "2000"], ["4000ms", "4000"], ["8000ms", "8000"]];
-		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
 		this.appendDummyInput()
-			.appendField("sleep and wake on time: ")
+			.appendField(Blockly.Msg.WX_SLEEP_AND_WAKE_TIMER)
 			.appendField(new Blockly.FieldDropdown(btn), 'TIMER')
+			.appendField(Blockly.Msg.WX_INTERVALS);
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.ORANGE);
-		this.setTooltip("");
+		this.setTooltip(Blockly.Msg.WX_SLEEP_AND_WAKE_TIMER_TIP);
+		this.setHelpUrl("http://watchx.io");
 	}
 };
 Blockly.Blocks['wx_init_ble'] = {
@@ -579,41 +597,40 @@ Blockly.Blocks['wx_init_ble'] = {
 			["Transceiver", "wx_init_ble_transceiver"],
 			["BTKeyboard", "wx_init_ble_bt_keyboard"],
 			["HIDControl", "wx_init_ble_hid_control"]];
-		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
 		this.appendDummyInput()
-			.appendField("bluetooth: ")
+			.appendField(Blockly.Msg.WX_BLUETOOTH)
 			.appendField(new Blockly.FieldDropdown(types), 'TYPE')
-			.appendField(" id: ")
-			.appendField(new Blockly.FieldNumber('0', (value) => num_validator(value, 0, 64)), "ID");
+			.appendField(Blockly.Msg.WX_ID)
+			.appendField(new Blockly.FieldNumber('0', (value) => num_validator(value, 0, 64)), "ID")
+			.appendField(Blockly.Msg.WX_INIT);
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
-		this.setColour(Blockly.Blocks.io.ORANGE);
-		this.setTooltip("");
+		this.setColour(Blockly.Blocks.io.BLUE_HI);
+		this.setTooltip(Blockly.Msg.WX_BLUETOOTH_INIT_TIP);
+		this.setHelpUrl("http://watchx.io");
 	}
 };
 Blockly.Blocks['wx_ble_write_text'] = {
 	init: function() {
-		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
-		this.appendValueInput("CONTENT")
-			.setCheck(null)
-			.appendField("BLE write");
+		this.appendValueInput("CONTENT").setCheck(null).appendField(Blockly.Msg.WX_BLUETOOTH_SEND);
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
-		this.setColour(Blockly.Blocks.io.ORANGE);
-		this.setTooltip("");
+		this.setColour(Blockly.Blocks.io.BLUE_HI);
+		this.setTooltip(Blockly.Msg.WX_BLUETOOTH_SEND_TIP);
+		this.setHelpUrl("http://watchx.io");
 	}
 };
 Blockly.Blocks['wx_ble_read_text'] = {
 	init: function() {
-		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
 		this.appendDummyInput()
-			.appendField("bluetooth recive text");
+			.appendField(Blockly.Msg.WX_BLUETOOTH_RECV);
 		this.setInputsInline(true);
 		this.setOutput(true, null);
-		this.setColour(Blockly.Blocks.io.GREEN);
-		this.setTooltip("");
+		this.setColour(Blockly.Blocks.io.BLUE_HI);
+		this.setTooltip(Blockly.Msg.WX_BLUETOOTH_RECV_TIP);
+		this.setHelpUrl("http://watchx.io");
 	},
 	getBlockType: function() {
 		return Blockly.Types.String;
@@ -621,47 +638,47 @@ Blockly.Blocks['wx_ble_read_text'] = {
 };
 Blockly.Blocks['wx_ble_send_keys'] = {
 	init: function() {
-		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
-		this.appendValueInput("CONTENT")
-			.setCheck(null)
-			.appendField("BLE key press: ");
+		this.appendValueInput("CONTENT").setCheck(null).appendField(Blockly.Msg.WX_BLE_KEY_PRESS);
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
-		this.setColour(Blockly.Blocks.io.ORANGE);
-		this.setTooltip("");
+		this.setColour(Blockly.Blocks.io.BLUE_HI);
+		this.setTooltip(Blockly.Msg.WX_BLE_KEY_PRESS_TIP);
+		this.setHelpUrl("http://watchx.io");
 	}
 };
 Blockly.Blocks['wx_ble_media_control'] = {
 	init: function() {
-		var cmd = [["Play/Pause", "0"], ["Next", "1"], ["Previous", "2"],
-					["Volume+", "3"], ["Volume-", "4"]];
-		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
+		var cmd =  [[Blockly.Msg.WX_PLAY_PAUSE, "0"],
+					[Blockly.Msg.WX_NEXT, "1"],
+					[Blockly.Msg.WX_PREVIOUS, "2"],
+					[Blockly.Msg.WX_VOLUME_UP, "3"],
+					[Blockly.Msg.WX_VOLUME_DOWN, "4"]];
 		this.appendDummyInput()
-			.appendField("media controls: ")
+			.appendField(Blockly.Msg.WX_BLE_MEDIA_CONTROL)
 			.appendField(new Blockly.FieldDropdown(cmd), 'CMD');
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
-		this.setColour(Blockly.Blocks.io.ORANGE);
-		this.setTooltip("");
+		this.setColour(Blockly.Blocks.io.BLUE_HI);
+		this.setTooltip(Blockly.Msg.WX_BLE_MEDIA_CONTROL_TIP);
+		this.setHelpUrl("http://watchx.io");
 	}
 };
 Blockly.Blocks['wx_ble_mouse_control'] = {
 	init: function() {
-		var btns = [["Left Button", "0"], ["Right Button", "1"]];
-		var state = [["Pressed", "0"], ["Release", "1"]];
+		var btns = [[Blockly.Msg.WX_LEFT, "0"], [Blockly.Msg.WX_RIGHT, "1"]];
+		var state = [[Blockly.Msg.WX_PRESSED, "0"], [Blockly.Msg.WX_RELEASE, "1"]];
 
-		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
 		this.appendDummyInput()
-			.appendField("mouse button: ")
+			.appendField(Blockly.Msg.WX_BLE_MOUSE_CONTROL)
 			.appendField(new Blockly.FieldDropdown(btns), 'BUTTON')
-			.appendField(" state: ")
 			.appendField(new Blockly.FieldDropdown(state), 'STATE');
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
-		this.setColour(Blockly.Blocks.io.ORANGE);
-		this.setTooltip("");
+		this.setColour(Blockly.Blocks.io.BLUE_HI);
+		this.setTooltip(Blockly.Msg.WX_BLE_MOUSE_CONTROL_TIP);
+		this.setHelpUrl("http://watchx.io");
 	}
 };

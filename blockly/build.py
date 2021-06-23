@@ -197,8 +197,7 @@ class Gen_compressed(threading.Thread):
       ]
 
     # Read in all the source files.
-    filenames = calcdeps.CalculateDependencies(self.search_paths,
-        [os.path.join("core", "blockly.js")])
+    filenames = calcdeps.CalculateDependencies(self.search_paths, [os.path.join("core", "blockly.js")])
     for filename in filenames:
       # Filter out the Closure files (the compiler will add them).
       if filename.startswith(os.pardir + os.sep):  # '../'

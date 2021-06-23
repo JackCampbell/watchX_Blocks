@@ -15,8 +15,7 @@ Ardublockly.init = function() {
   Ardublockly.initLanguage();
 
   // Inject Blockly into content_blocks and fetch additional blocks
-  Ardublockly.injectBlockly(document.getElementById('content_blocks'),
-                            Ardublockly.TOOLBOX_XML, '../blockly/');
+  Ardublockly.injectBlockly(document.getElementById('content_blocks'), Ardublockly.TOOLBOX_XML, '../blockly/');
   Ardublockly.importExtraBlocks();
 
   Ardublockly.designJsInit();
@@ -29,8 +28,7 @@ Ardublockly.init = function() {
   // Hackish way to check if not running locally
   if (document.location.hostname != 'localhost') {
     Ardublockly.openNotConnectedModal();
-    console.log('Offline app modal opened as non localhost host name found: ' +
-                document.location.hostname)
+    console.log('Offline app modal opened as non localhost host name found: ' + document.location.hostname)
   }
 };
 

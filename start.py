@@ -56,8 +56,7 @@ def find_ardublockly_dir(search_path):
     # Navigate through each path node from the bottom up
     while path_to_navigate:
         # Check if file ardublockly/index.html exists within current path
-        if os.path.isfile(
-                os.path.join(path_to_navigate, 'ardublockly', 'index.html')):
+        if os.path.isfile(os.path.join(path_to_navigate, 'ardublockly', 'index.html')):
             # Found the right folder
             return path_to_navigate
         path_to_navigate = os.path.dirname(path_to_navigate)
@@ -85,7 +84,7 @@ def parsing_cl_args():
             opts, args = getopt.getopt(
                 sys.argv[1:],
                 'hs:bf',
-                ['help', 'serverroot=', 'nobrowser', 'findprojectroot'])
+				['help', 'serverroot=', 'nobrowser', 'findprojectroot'])
         except getopt.GetoptError as e:
             print('There was a problem parsing the command line arguments:')
             print('\t%s' % e)
