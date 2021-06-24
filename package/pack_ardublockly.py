@@ -66,12 +66,9 @@ def set_tag(tag):
     copy_dir_name = "ardublockly_%s" % tag
     # In OSX everything goes into the folder path Ardublockly.app/Contents/
     if platform.system() == "Darwin":
-        copy_dir_name = os.path.join(
-            copy_dir_name, 'Ardublockly.app', 'Contents')
-        print(script_tab + 'Packing for Mac OS X, final folder structure: %s' %
-              copy_dir_name)
-    copied_project_dir = os.path.join(os.path.dirname(project_root_dir),
-                                      copy_dir_name)
+        copy_dir_name = os.path.join(copy_dir_name, 'Ardublockly.app', 'Contents')
+        print(script_tab + 'Packing for Mac OS X, final folder structure: %s' % copy_dir_name)
+    copied_project_dir = os.path.join(os.path.dirname(project_root_dir), copy_dir_name)
 
 
 def get_build_tag():
@@ -91,38 +88,26 @@ def get_build_tag():
     # Check if a command line argument has been given
     if len(sys.argv) > 1:
         # Take the first argument and use it as a tag appendage
-        print(script_tab + "Command line argument '%s' found and will be used "
-                           "for package tag." % sys.argv[1])
+        print(script_tab + "Command line argument '%s' found and will be used for package tag." % sys.argv[1])
         return "%s_%s" % (arch_time_stamp, sys.argv[1])
     else:
         print(script_tab + "No command line argument found")
 
     # Check for Travis-CI environmental variables to create tag appendage
     print(script_tab + "Checking Travis-CI environment variables for tag:")
-    travis_tag = tag_from_ci_env_vars(ci_name="Travis-CI",
-                                      pull_request_var="TRAVIS_PULL_REQUEST",
-                                      branch_var="TRAVIS_BRANCH",
-                                      commit_var="TRAVIS_COMMIT")
+    travis_tag = tag_from_ci_env_vars( ci_name="Travis-CI", pull_request_var="TRAVIS_PULL_REQUEST", branch_var="TRAVIS_BRANCH", commit_var="TRAVIS_COMMIT" )
     if travis_tag:
         return "%s_%s" % (arch_time_stamp, travis_tag)
 
     # Check for AppVeyor environmental variables to create tag appendage
     print(script_tab + "Checking AppVeyor environment variables for tag:")
-    appveyor_tag = tag_from_ci_env_vars(
-        ci_name="AppVeyor",
-        pull_request_var="APPVEYOR_PULL_REQUEST_NUMBER",
-        branch_var="APPVEYOR_REPO_BRANCH",
-        commit_var="APPVEYOR_REPO_COMMIT")
+    appveyor_tag = tag_from_ci_env_vars( ci_name="AppVeyor", pull_request_var="APPVEYOR_PULL_REQUEST_NUMBER", branch_var="APPVEYOR_REPO_BRANCH", commit_var="APPVEYOR_REPO_COMMIT" )
     if appveyor_tag:
         return "%s_%s" % (arch_time_stamp, appveyor_tag)
 
     # Check for Circle CI environmental variables to create tag appendage
     print(script_tab + "Checking Circleci environment variables for tag:")
-    circleci_tag = tag_from_ci_env_vars(
-        ci_name="Circleci",
-        pull_request_var="CI_PULL_REQUEST",
-        branch_var="CIRCLE_BRANCH",
-        commit_var="CIRCLE_SHA1")
+    circleci_tag = tag_from_ci_env_vars( ci_name="Circleci", pull_request_var="CI_PULL_REQUEST", branch_var="CIRCLE_BRANCH", commit_var="CIRCLE_SHA1" )
     if circleci_tag:
         return "%s_%s" % (arch_time_stamp, circleci_tag)
 
@@ -133,8 +118,7 @@ def tag_from_ci_env_vars(ci_name, pull_request_var, branch_var, commit_var):
     """
     Checks if the CI environmental variables to check for a pull request,
     commit id and band commit branch are present.
-    :return: String with the CI build information, or None if the CI
-             environmental variables could not be found.
+    :return: String with the CI build information, or None if the CI environmental variables could not be found.
     """
     pull_request = os.environ.get(pull_request_var)
     branch = os.environ.get(branch_var)
@@ -143,23 +127,18 @@ def tag_from_ci_env_vars(ci_name, pull_request_var, branch_var, commit_var):
     if pull_request and pull_request != "false":
         try:
             pr_number = int(re.findall("\d+", pull_request)[0])
-            print(script_tab + "Pull request valid '%s' variable found: %s" %
-                  (ci_name, pr_number))
+            print(script_tab + "Pull request valid '%s' variable found: %s" % (ci_name, pr_number))
             return "pull_%s" % pr_number
         except (ValueError, TypeError):
-            print(script_tab + "The pull request environmental variable " +
-                  "'%s' value '%s' from %s is not a valid number." %
-                  (pull_request_var, pull_request, ci_name))
+            print(script_tab + "The pull request environmental variable '%s' value '%s' from %s is not a valid number." % (pull_request_var, pull_request, ci_name))
 
     if branch and commit:
-        print(script_tab + "\tBranch and commit valid," +
-              "'%s' variables found: %s %s" % (ci_name, branch, commit))
+        print(script_tab + "\tBranch and commit valid, '%s' variables found: %s %s" % (ci_name, branch, commit))
         # We only return first 10 digits from the commit ID (normal length 40)
         commit = "%s" % commit
         return "%s_%s" % (branch, commit[:5])
 
-    print(script_tab + "\tThe environmental variables for %s " % ci_name +
-          "were deemed invalid.\n" +
+    print(script_tab + "\tThe environmental variables for %s " % ci_name + "were deemed invalid.\n" +
           script_tab + "\t%s: %s\n" % (pull_request_var, pull_request) +
           script_tab + "\t%s: %s\n" % (branch_var, branch) +
           script_tab + "\t%s: %s" % (commit_var, commit))
@@ -182,18 +161,13 @@ def copy_ardublockly_folder():
     The copy operation ignores a list of directories.
     :return: Boolean indicating the success state of the operation.
     """
-    ignore_pat = (".git*", ".svn", ".travis*", ".appveyor*", "circle.yml",
-                  ".ruby-version", "TestTemp_*", "package")
+    ignore_pat = (".git*", ".svn", ".travis*", ".appveyor*", "circle.yml", ".ruby-version", "TestTemp_*", "package")
     if not os.path.exists(copied_project_dir):
         print(script_tab + "Copying contents of %s" % project_root_dir)
         print(script_tab + "               into %s" % copied_project_dir)
-        shutil.copytree(project_root_dir,
-                        copied_project_dir,
-                        symlinks=True,
-                        ignore=shutil.ignore_patterns(*ignore_pat))
+        shutil.copytree( project_root_dir, copied_project_dir, symlinks=True, ignore=shutil.ignore_patterns(*ignore_pat) )
     else:
-        print(script_tab + "ERROR: %s directory already exists!" %
-              copied_project_dir)
+        print(script_tab + "ERROR: %s directory already exists!" % copied_project_dir)
         return False
     return True
 
@@ -218,8 +192,8 @@ def remove_file_type_from(file_extension, scan_path):
         for file_ in files:
             if file_.endswith("." + file_extension):
                 file_path = os.path.join(root, file_)
-                print(script_tab + "Deleting file: %s" % file_path)
-                os.remove(file_path)
+                print(script_tab + "Deleting file: %s" % file_path) os.remove(file_path)
+	pass
 
 
 def remove_pycache_dirs(scan_path):
@@ -232,6 +206,7 @@ def remove_pycache_dirs(scan_path):
         for name in dirs:
             if name == "__pycache__":
                 remove_directory(os.path.join(root, name))
+	pass
 
 
 def zip_ardublockly_copy(name_append):
@@ -247,8 +222,7 @@ def zip_ardublockly_copy(name_append):
             symlink attribute magic...
     """
     zip_file_dir = os.path.join(project_root_dir, "releases")
-    zip_file_location = os.path.join(
-        zip_file_dir, "ardublockly_%s.zip" % name_append)
+    zip_file_location = os.path.join( zip_file_dir, "ardublockly_%s.zip" % name_append )
 
     # First ensure the releases folder exists
     if not os.path.exists(zip_file_dir):
@@ -268,30 +242,26 @@ def zip_ardublockly_copy(name_append):
     print(script_tab + "   into %s" % zip_file_location)
 
     if platform.system() == "Darwin":
-        # There are issues with zipfile and symlinks, so use zip command line
-        zip_process = subprocess.Popen(
-            ["zip", "--symlinks", "-r", zip_file_location, copy_dir_name],
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        std_op, std_err_op = zip_process.communicate()
-        if std_err_op:
-            print(script_tab + "Error using zip command:\n%s" % std_err_op)
+		# There are issues with zipfile and symlinks, so use zip command line
+		zip_process = subprocess.Popen( ["zip", "--symlinks", "-r", zip_file_location, copy_dir_name], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		std_op, std_err_op = zip_process.communicate()
+		if std_err_op:
+			print(script_tab + "Error using zip command:\n%s" % std_err_op)
     else:
-        zip_file = zipfile.ZipFile(zip_file_location, "w",
-                                   zipfile.ZIP_DEFLATED)
-        for root_dir, sub_dirs, files in os.walk(copy_dir_name):
-            zip_file.write(root_dir)
-            for filename in files:
-                zip_file.write(os.path.join(root_dir, filename))
-        zip_file.close()
-
+		zip_file = zipfile.ZipFile(zip_file_location, "w", zipfile.ZIP_DEFLATED)
+		for root_dir, sub_dirs, files in os.walk(copy_dir_name):
+			zip_file.write(root_dir)
+			for filename in files:
+				zip_file.write(os.path.join(root_dir, filename))
+		zip_file.close()
+	pass
 
 def pack_ardublockly(tag):
     """
     Copies the Ardublockly folder, removes unnecessary files and creates a
     zipped version of this copied folder into the releases folder of the
     project directory.
-    :param tag: String tag to be attached to the zip file, used to distinguish
-                versions for archiving.
+    :param tag: String tag to be attached to the zip file, used to distinguish versions for archiving.
     """
     # Set the copied folder name to the stamp
     set_tag(tag)
