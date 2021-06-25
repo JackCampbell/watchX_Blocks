@@ -30,34 +30,35 @@ import subprocess
 project_root_dir = \
     os.path.dirname(                                  # going up 1 level
         os.path.dirname(os.path.realpath(__file__)))  # folder dir of this
-sys.path.append(project_root_dir)
+sys.path.append(project_root_dir) # /Users/mobiledeveloper/Desktop/watchX_blocks
 
 
 spec_coll_name = "server"
 exec_folder_name = "arduexec"
-py_exec_folder = os.path.join(exec_folder_name, spec_coll_name)
+py_exec_folder = os.path.join(exec_folder_name, spec_coll_name) # arduexec/server
 script_tag = "[Ardublockly build] "
 script_tab = "                    "
 
 
 def remove_directory(dir_to_remove):
-    """ :param dir_to_remove: Directory to remove. """
-    if os.path.exists(dir_to_remove):
-        print(script_tab + "Removing directory %s" % dir_to_remove)
-        shutil.rmtree(dir_to_remove)
-    else:
-        print(script_tab + "Directory %s was not found." % dir_to_remove)
+	""" :param dir_to_remove: Directory to remove. """
+	if os.path.exists(dir_to_remove):
+		print(script_tab + "Removing directory %s" % dir_to_remove)
+		shutil.rmtree(dir_to_remove)
+	else:
+		print(script_tab + "Directory %s was not found." % dir_to_remove)
+	pass
 
 
 def get_os():
-    """
-    Gets the OS to based on the command line argument of the platform info.
-    Only possibilities are: "windows", "mac", "linux"
-    """
-    valid_os = ["windows", "linux", "mac"]
+	"""
+	Gets the OS to based on the command line argument of the platform info.
+	Only possibilities are: "windows", "mac", "linux"
+	"""
+	valid_os = ["windows", "linux", "mac"]
 
-    print(script_tab + "Checking for command line argument indicated OS.")
-    if len(sys.argv) > 1:
+	print(script_tab + "Checking for command line argument indicated OS.")
+	if len(sys.argv) > 1:
         if sys.argv[1] in valid_os:
             # Take the first argument and use it as the os
             print(script_tab + "Valid command line argument found: %s" %

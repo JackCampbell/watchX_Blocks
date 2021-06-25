@@ -2,7 +2,12 @@
  * @license Licensed under the Apache License, Version 2.0 (the "License"):
  *          http://www.apache.org/licenses/LICENSE-2.0
  *
+ * @license Mulish Font is used under the SIL Open Font License, Version 1.1.
+ *			http://scripts.sil.org/OFL
+ *
  * @fileoverview CSS file for the Ardublockly application.
+ *
+ * Edited by Enes CALDIR for watchX Blocks - 05/27/2021
  *
  * There are a lot of '!important' tags in this file as a lot of the rules set
  * here go against the css rules from the Materialize framework.
@@ -10,6 +15,10 @@
 /******************/
 /*  Font sources  */
 /******************/
+@font-face {
+  font-family: "Droid Sans Mono";
+  src: url("font/droid/DroidSansMono.ttf") format("truetype");
+}
 @font-face {
   font-family: "Mulish";
   src: url("font/mulish/Mulish-Regular.ttf") format("truetype");
@@ -35,29 +44,84 @@ body {
   user-select: none;
 }
 
+.aligned-vertical-parent {
+  display: flex;
+  justify-content: start;
+  align-self: start;
+}
+
+.aligned-vertical-parent > * {
+  vertical-align: top;
+}
+
+.watchXB_logo {
+  height: 100px;
+  padding: 12px;
+  border-radius: 18px;
+}
+
+.border-orange {
+  border-bottom: 6px solid #fe5000;
+}
+
+.white-font-color {
+  color: #ffffff;
+}
+
+.watchXB_toolbar_icon {
+  margin: 0px 12px 0px 0px;
+  width: 30px;
+}
+.watchXB_toolbar > li {
+  margin: 0px 4px 0px 0px;
+}
+
+/***************************/
+/*  watchX Blocks Colours  */
+/***************************/
+.watchXB_main_color {
+  background-color: #fe5000;
+}
+.watchXB_dark_gray {
+  background-color: #616161;
+}
+.watchXB_light_gray {
+  background-color: #898989;
+}
+.watchXB_arduino_green {
+  background-color: #00aeb3;
+}
+.watchXB_arduino_yellow {
+  background-color: #ffcc33;
+}
+.watchXB_arduino_brown {
+  background-color: #8C7965;
+}
+
 
 /*********************/
 /*  Arduino Colours  */
 /*********************/
 .arduino_teal {
-  background-color: #ff5100;
+  background-color: #00979C;
 }
 .arduino_teal_dark {
-  background-color: #ff5100;
-  /* background-color: #ff5100; from community logo */
+  background-color: #006468;
+  /* background-color: #00878F; from community logo */
 }
 .arduino_teal_light {
-  background-color: #ff5100;
+  background-color: #62AEB2;
 }
 .arduino_orange {
-  background-color: #ff5100;
+  background-color: #E47128;
 }
 .arduino_yellow {
-  background-color: #ff5100;
-  /* background-color: #ff5100; from community logo */
+  background-color: rgba(255, 204, 51, 1);
+  /* background-color: #FFCC33; */
+  /* background-color: #E5AD24; from community logo */
 }
 .arduino_brown {
-  background-color: #ff5100;
+  background-color: #8C7965;
 }
 
 
@@ -154,7 +218,7 @@ ul.side-nav li.side-menu-end {
   outline: none;
   border: none;
   padding: 0px 5px;
-  font-family: Mulish;
+  font-family: monospace;
   font-size: smaller;
   overflow: scroll;
   font-style: 0.2em !important;
@@ -181,7 +245,7 @@ ul.side-nav li.side-menu-end {
   border: none;
   padding: 0px 5px;
   font-size: 0.9rem;
-  font-family: "Mulish", monospace;
+  font-family: "roboto", monospace;
   overflow: auto;
   -moz-user-select: text;
   -khtml-user-select: text;
@@ -215,39 +279,43 @@ ul.side-nav li.side-menu-end {
   z-index: 10;
 }
 
+/*  Tekrar bakılması gerek  */
+
 .ide_output_collapsible {
   box-shadow: 0 0px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-left: 0;
   border-right: 0;
 }
 .ide_output_header_normal {
-  background-color: #ff5100;
+  background-color: #898989;
   color: #ffffff;
   -moz-transition: background-color 0.6s ease-in;;
   -o-transition: background-color 0.6s ease-in;
   -webkit-transition: background-color 0.6s ease-in;
 }
 .ide_output_header_highlight {
-  background-color: #ff5100;
+  background-color: #62AEB2;
   color: #ffffff;
   -moz-transition: background-color 0.6s ease-in;;
   -o-transition: background-color 0.6s ease-in;
   -webkit-transition: background-color 0.6s ease-in;
 }
 .ide_output_header_error {
-  background-color: #ff5100;
+  background-color: #E47128;
   color: #ffffff;
   -moz-transition: background-color 0.6s ease-in;;
   -o-transition: background-color 0.6s ease-in;
   -webkit-transition: background-color 0.6s ease-in;
 }
 
+/*  Tekrar bakılması gerek  */
+
 #content_ide_output {
   resize: none;
   outline: none;
   border: none;
   padding: 0px 5px;
-  font-family: Mulish;
+  font-family: monospace;
   overflow: auto;
   font-style: 0.2em !important;
   min-height: 160px;
@@ -262,12 +330,12 @@ ul.side-nav li.side-menu-end {
 }
 /* IDE output content text formatting */
 #content_ide_output .arduino_dialog_success {
-  color: #ff5100;   /* arduino light teal */
+  color: #00979C;   /* arduino light teal */
   font-size: 1.2rem;
   margin: 16px 0px 8px 0px;
 }
 #content_ide_output .arduino_dialog_failure {
-  color: #ff5100;   /* arduino orange */
+  color: #E47128;   /* arduino orange */
   font-size: 1.2rem;
   margin: 16px 0px 8px 0px;
 }
@@ -276,7 +344,7 @@ ul.side-nav li.side-menu-end {
   font-size: 0.9rem;
 }
 #content_ide_output .arduino_dialog_out_error {
-  color: #ff5100;   /* arduino orange */
+  color: #E47128;   /* arduino orange */
   font-size: 0.9rem;
   padding-top: 8px;
   display: block;
@@ -438,7 +506,7 @@ ul.side-nav li.side-menu-end {
   z-index: 5;
 }
 .spinner-orange {
-  border-color: #ff5100;
+  border-color: #E47128;
 }
 .active .spinner-layer.spinner-orange {
   /* durations: 4 * ARCTIME */
@@ -446,7 +514,7 @@ ul.side-nav li.side-menu-end {
   animation: fill-unfill-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both, blue-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both;
 }
 .spinner-dark-teal {
-  border-color: #ff5100;
+  border-color: #00878F;
 }
 .active .spinner-layer.spinner-dark-teal {
   /* durations: 4 * ARCTIME */
@@ -462,7 +530,7 @@ ul.side-nav li.side-menu-end {
   animation: fill-unfill-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both, yellow-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both;
 }
 .spinner-light-teal {
-  border-color: #ff5100;
+  border-color: #62AEB2;
 }
 .active .spinner-layer.spinner-light-teal {
   /* durations: 4 * ARCTIME */
@@ -470,7 +538,7 @@ ul.side-nav li.side-menu-end {
   animation: fill-unfill-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both, green-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both;
 }
 .spinner-purple {
-  border-color: #ff5100;
+  border-color: #8e24aa;
 }
 .active .spinner-layer.spinner-purple {
   /* durations: 4 * ARCTIME */
@@ -506,15 +574,15 @@ ul.side-nav li.side-menu-end {
 }
 .arduino_dialog_out {}
 .arduino_dialog_out_error {
-  color: #ff5100;   /* arduino orange */
+  color: #E47128;   /* arduino orange */
   padding-top: 25px;
   display: block;
 }
 .arduino_dialog_success {
-  color: #ff5100;   /* arduino light teal */
+  color: #00979C;   /* arduino light teal */
 }
 .arduino_dialog_failure {
-  color: #ff5100;   /* arduino orange */
+  color: #E47128;   /* arduino orange */
 }
 
 /* Footer buttons padding */
@@ -620,10 +688,10 @@ ul.side-nav li.side-menu-end {
 
 /* Colours for the new and deleted code highlighting */
 .code_highlight_new {
-  background-color: #ff510026; /* Arduino yellow 50% */
+  background-color: rgba(255, 204, 51, 0.5); /* Arduino yellow 50% */
 }
 .code_highlight_deleted {
-  background-color: #ff5100;
+  background-color: #FDBEBE;
 }
 
 
@@ -678,10 +746,10 @@ ul.side-nav li.side-menu-end {
   box-sizing: content-box !important;
 }
 .blocklyTreeSelected {
-  background-color: #ff5100 !important;  /* arduino orange */
+  background-color: #E47128 !important;  /* arduino orange */
 }
 .blocklyTreeRow:not(.blocklyTreeSelected):hover {
-  background-color: #ff5100 !important;  /* arduino yellow */
+  background-color: rgba(255, 204, 51, 1) !important;  /* arduino yellow */
 }
 .blocklyTreeLabel {
 }
@@ -692,7 +760,7 @@ ul.side-nav li.side-menu-end {
 
 /* Toolbox second column with blocks*/
 .blocklyFlyoutBackground {
-  fill: #ff5100 !important;
+  fill: #DEEEEF !important;
   fill-opacity: 0.7 !important;
   -webkit-border-radius: 0px 4px 4px 0px !important;
   -moz-border-radius: 0px 4px 4px 0px !important;
@@ -701,7 +769,7 @@ ul.side-nav li.side-menu-end {
 
 /* Blockly scrollbars */
 .blocklyScrollbarKnob {
-  fill: #ff5100 !important;
+  fill: #616161 !important;
   fill-opacity: 0.7 !important;
 }
 .blocklyScrollbarBackground {
@@ -824,7 +892,7 @@ ul.side-nav li ul li ul li {
 .blocklyHtmlInput {
   border: none !important;
   border-radius: 4px !important;
-  font-family: Mulish !important;
+  font-family: sans-serif !important;
   height: 100% !important;
   margin: 0 !important;
   outline: none !important;

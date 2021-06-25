@@ -40,7 +40,6 @@ Ardublockly.injectBlockly = function(blocklyEl, toolboxXml, blocklyPath) {
       comments: true,
       css: true,
       disable: true,
-      grid: false,
       maxBlocks: Infinity,
       media: blocklyPath + '/media/',
       rtl: false,
@@ -48,6 +47,7 @@ Ardublockly.injectBlockly = function(blocklyEl, toolboxXml, blocklyPath) {
       sounds: true,
       toolbox: Ardublockly.xmlTree,
       trashcan: true,
+      /*grid: false,
       zoom: {
         controls: true,
         wheel: false,
@@ -55,6 +55,22 @@ Ardublockly.injectBlockly = function(blocklyEl, toolboxXml, blocklyPath) {
         maxScale: 2,
         minScale: 0.2,
         scaleSpeed: 1.2
+      }, */
+      // new
+      // horizontalLayout: false,
+      grid: {
+        spacing : 20,
+        length : 1,
+        colour : '#888',
+        snap : true
+      },
+      zoom : {
+        controls : true,
+        wheel : true,
+        startScale : 1,
+        maxScale : 3,
+        minScale : 0.3,
+        scaleSpeed : 1.2
       }
   });
   // On language change the blocks have been stored in session storage

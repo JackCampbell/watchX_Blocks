@@ -122,7 +122,6 @@ def parsing_cl_args():
                       'set as the server root directory.' % opt)
             else:
                 print('Flag "%s" not recognised.' % opt)
-
     return find_project_root, launch_browser, server_root
 
 
@@ -148,8 +147,7 @@ def main():
     this_file_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
     ardublockly_root_dir = find_ardublockly_dir(this_file_dir)
     if ardublockly_root_dir is None:
-        print('The Ardublockly project root folder could not be found within '
-              'the %s directory !' % this_file_dir)
+        print('The Ardublockly project root folder could not be found within the %s directory !' % this_file_dir)
         sys.exit(1)
     print('Ardublockly root directory:\n\t%s' % ardublockly_root_dir)
     os.chdir(ardublockly_root_dir)
@@ -160,24 +158,19 @@ def main():
     else:
         # Arguments have set a server root, and to not find ardublockly dir
         if not os.path.commonprefix([server_root, ardublockly_root_dir]):
-            print('The Ardublockly project folder needs to be accessible from '
-                  'the server root directory !')
+            print('The Ardublockly project folder needs to be accessible from the server root directory !')
     print('Selected server root:\n\t%s' % server_root)
     print('Selected server ip:\n\t%s' % SERVER_IP)
     print('Selected server port:\n\t%s' % SERVER_PORT)
 
     print('\n======= Loading Settings =======')
     # ServerCompilerSettings is a singleton, no need to save instance
-    ardublocklyserver.compilersettings.ServerCompilerSettings(
-        ardublockly_root_dir)
-
+    ardublocklyserver.compilersettings.ServerCompilerSettings(ardublockly_root_dir)
     print('\n======= Starting Server =======')
     if launch_browser:
         open_browser(ip=SERVER_IP, port=SERVER_PORT)
-
-    ardublocklyserver.server.launch_server(
-            ip=SERVER_IP, port=SERVER_PORT, document_root_=server_root)
-
+    ardublocklyserver.server.launch_server(ip=SERVER_IP, port=SERVER_PORT, document_root_=server_root)
+    pass
 
 if __name__ == '__main__':
     main()
