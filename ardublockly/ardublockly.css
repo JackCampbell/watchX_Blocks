@@ -161,12 +161,12 @@ ul.side-nav li.logo:hover {
   background-color: transparent;
 }
 ul.side-nav li.side-menu-end {
-  background-color: #eeeeee;
+  /* background-color: #eeeeee; */
+  background-color: white;
   border-radius: 0px 0px 25px 0px;
-  border-left: 4px solid #ffffff;
+  /* border-left: 4px solid #ffffff;
   border-bottom: 4px solid #dddddd;
-  border-right: 4px solid #dddddd;
-  border-bottom: 4px solid #dddddd;
+  border-right: 4px solid #dddddd; */
   line-height: 25px;
 }
 
@@ -834,6 +834,8 @@ ul.side-nav li.side-menu-end {
 ul.side-nav {
   padding: 0px !important;
   line-height: 64px !important;
+  top: 30px;
+  width: 245px;
 }
 ul.side-nav i {
   font-size: 1.8rem !important;
@@ -850,12 +852,13 @@ ul.side-nav li {
   background-color: #eeeeee;
 }
 ul.side-nav li {
-  background-color: #eeeeee;
+  /* background-color: #eeeeee; */
+  background-color: white;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  border-right: 2px solid #dddddd;
-  border-left: 2px solid #ffffff;
+  /* border-right: 2px solid #dddddd; */
+  /* border-left: 2px solid #ffffff; */
 }
 ul.side-nav li ul li ul {
   cursor: pointer;
