@@ -16,32 +16,32 @@ const BrowserWindow = electron.BrowserWindow;
 
 const server = require('./servermgr.js');
 
-module.exports.setArdublocklyMenu = function(devMode) {
+module.exports.setWatchXBlocksMenu = function(devMode) {
     if (typeof(devMode)==='undefined') devMode = false;
 
-    var ardublocklyMenu = [];
+    var menu = [];
     if (process.platform == 'darwin') {
-        ardublocklyMenu.push(getMacMenuData());
+        menu.push(getMacMenuData());
     }
-    ardublocklyMenu.push(getFileMenuData());
-    ardublocklyMenu.push(getEditMenuData());
-    ardublocklyMenu.push(getProgramMenuData());
-    ardublocklyMenu.push(getExamplesMenuData());
+    menu.push(getFileMenuData());
+    menu.push(getEditMenuData());
+    menu.push(getProgramMenuData());
+    menu.push(getExamplesMenuData());
     if (process.platform == 'darwin') {
-        ardublocklyMenu.push(getWindowMenuData());
+        menu.push(getWindowMenuData());
     }
-    ardublocklyMenu.push(getHelpMenuData());
+    menu.push(getHelpMenuData());
 
     if (devMode) {
-        ardublocklyMenu.push(getDevMenuData());
+        menu.push(getDevMenuData());
     }
 
-    Menu.setApplicationMenu(Menu.buildFromTemplate(ardublocklyMenu));
+    Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
 };
 
 var getMacMenuData = function() {
     return {
-        label: 'Ardublockly',
+        label: 'watchXBlocks',
         submenu: [
             {
                 label: 'About',
@@ -52,8 +52,7 @@ var getMacMenuData = function() {
                 label: 'Preferences',
                 accelerator: 'CmdOrCtrl+,',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript('Ardublockly.openSettings()');
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.openSettings()');
                 }
             }, {
                 type: 'separator'
@@ -63,7 +62,7 @@ var getMacMenuData = function() {
             }, {
                 type: 'separator'
             }, {
-                label: 'Hide Ardublockly',
+                label: 'Hide watchXBlocks',
                 accelerator: 'Command+H',
                 selector: 'hide:'
             }, {
@@ -86,7 +85,7 @@ var getMacMenuData = function() {
     };
 };
 
-var getFileMenuData = function() {
+var getFileMenuData = function () {
     var fileMenu = {
         label: 'File',
         submenu: [
@@ -97,24 +96,21 @@ var getFileMenuData = function() {
             }, {
                 label: 'Open',
                 accelerator: 'CmdOrCtrl+O',
-                click: function() {
-                    BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript(
-                            'Ardublockly.loadUserXmlFile()', true);
+                click: function () {
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadUserXmlFile()', true);
                 }
             }, {
                 label: 'Save Blocks as',
                 accelerator: 'CmdOrCtrl+S',
-                click: function() {
+                click: function () {
                     BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript('Ardublockly.saveXmlFile()');
+                        .executeJavaScript('watchXBlocks.saveXmlFile()');
                 }
             }, {
                 label: 'Save Arduino Sketch as',
                 accelerator: 'Shift+CmdOrCtrl+S',
-                click:  function() {
-                    BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript('Ardublockly.saveSketchFile()');
+                click: function () {
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.saveSketchFile()');
                 }
             }
         ]
@@ -128,7 +124,7 @@ var getFileMenuData = function() {
             }, {
                 label: 'Quit',
                 accelerator: 'CmdOrCtrl+Q',
-                click: function() {
+                click: function () {
                     app.quit();
                 }
             }
@@ -138,60 +134,53 @@ var getFileMenuData = function() {
     return fileMenu;
 };
 
-var getEditMenuData = function() {
+var getEditMenuData = function () {
     var editMenud = {
         label: 'Edit',
         submenu: [
             {
                 label: 'Undo',
                 accelerator: 'CmdOrCtrl+Z',
-                click: function() {
-                    BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript('Ardublockly.workspace.undo(false)');
+                click: function () {
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.workspace.undo(false)');
                 }
             }, {
                 label: 'Redo',
                 accelerator: 'CmdOrCtrl+Y',
-                click: function() {
-                    BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript('Ardublockly.workspace.undo(true)');
+                click: function () {
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.workspace.undo(true)');
                 }
             }, {
                 type: 'separator'
             }, {
                 label: 'Cut',
                 accelerator: 'CmdOrCtrl+X',
-                click: function() {
-                    BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript('Ardublockly.blocklyCut()');
+                click: function () {
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.blocklyCut()');
                 }
             }, {
                 label: 'Copy',
                 accelerator: 'CmdOrCtrl+C',
-                click: function() {
-                    BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript('Ardublockly.blocklyCopy()');
+                click: function () {
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.blocklyCopy()');
                 }
             }, {
                 label: 'Paste',
                 accelerator: 'CmdOrCtrl+V',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript('Ardublockly.blocklyPaste()');
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.blocklyPaste()');
                 }
             }, {
                 label: 'Delete',
                 accelerator: 'Delete',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript('Ardublockly.blocklyDelete()');
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.blocklyDelete()');
                 }
             }, {
                 label: 'Delete All',
-                accelerator: 'Delete',
+                accelerator: 'CmdOrCtrl+Delete',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript('Ardublockly.discardAllBlocks()');
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.discardAllBlocks()');
                 }
             }
         ]
@@ -206,8 +195,7 @@ var getEditMenuData = function() {
                 label: 'Preferences',
                 accelerator: 'CmdOrCtrl+,',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript('Ardublockly.openSettings()');
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.openSettings()');
                 }
             }
         );
@@ -223,42 +211,27 @@ var getExamplesMenuData = function() {
             {
                 label: 'Blinky',
                 click: function() {
-                     BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript(
-                            'Ardublockly.loadServerXmlFile("../examples/' +
-                            'blink.xml");');
+                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/' + 'blink.xml");');
                 }
             }, {
                 label: 'Serial Print',
                 click: function() {
-                     BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript(
-                            'Ardublockly.loadServerXmlFile("../examples/' +
-                            'serial_print_ascii.xml");');
+                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/' + 'serial_print_ascii.xml");');
                 }
             }, {
                 label: 'Serial Repeat Game',
                 click: function() {
-                     BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript(
-                            'Ardublockly.loadServerXmlFile("../examples/' +
-                            'serial_repeat_game.xml");');
+                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/' + 'serial_repeat_game.xml");');
                 }
             }, {
                 label: 'Servo Knob',
                 click: function() {
-                     BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript(
-                            'Ardublockly.loadServerXmlFile("../examples/' +
-                            'servo_knob.xml");');
+                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/' + 'servo_knob.xml");');
                 }
             }, {
                 label: 'Stepper Knob',
                 click: function() {
-                     BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript(
-                            'Ardublockly.loadServerXmlFile("../examples/' +
-                            'stepper_knob.xml");');
+                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/' + 'stepper_knob.xml");');
                 }
             }
         ]
@@ -273,22 +246,19 @@ var getProgramMenuData = function() {
                 label: 'Open sketch in IDE',
                 //accelerator: 'CmdOrCtrl+O',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript('Ardublockly.ideSendOpen()');
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.ideSendOpen()');
                 }
             }, {
                 label: 'Verify',
                 accelerator: 'CmdOrCtrl+R',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript('Ardublockly.ideSendVerify()');
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.ideSendVerify()');
                 }
             }, {
                 label: 'Upload program',
                 accelerator: 'CmdOrCtrl+U',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript('Ardublockly.ideSendUpload()');
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.ideSendUpload()');
                 }
             }
         ]
@@ -324,8 +294,7 @@ var getHelpMenuData = function() {
             {
                 label: 'Quick Start',
                 click: function() {
-                    shell.openExternal(
-                        'http://localhost:8000/docs/Quick-Start');
+                    shell.openExternal('http://localhost:8000/docs/Quick-Start');
                 }
             }, {
                 label: 'Manual',
@@ -337,19 +306,17 @@ var getHelpMenuData = function() {
             }, {
                 label: 'Website',
                 click: function() {
-                    shell.openExternal('http://ardublockly.embeddedlog.com');
+                    shell.openExternal('http://watchx.io');
                 }
             }, {
                 label: 'Source code',
                 click: function() {
-                    shell.openExternal(
-                        'https://github.com/carlosperate/ardublockly');
+                    shell.openExternal('https://github.com/JackCampbell/watchX_Blocks');
                 }
             }, {
                 label: 'Report a bug',
                 click: function() {
-                    shell.openExternal(
-                        'https://github.com/carlosperate/ardublockly/issues');
+                    shell.openExternal('https://github.com/JackCampbell/watchX_Blocks/issues');
                 }
             }, {
                 type: 'separator'
@@ -371,8 +338,7 @@ var getDevMenuData = function() {
                 label: 'Reload',
                 accelerator: 'CmdOrCtrl+F5',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents
-                        .reloadIgnoringCache();
+                    BrowserWindow.getFocusedWindow().webContents.reloadIgnoringCache();
                 }
             }, {
                 label: 'Toggle DevTools',
@@ -395,16 +361,12 @@ var getDevMenuData = function() {
             }, {
                 label: 'Open side menu',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript(
-                            '$(".button-collapse").sideNav("show")');
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('$(".button-collapse").sideNav("show")');
                 }
             }, {
                 label: 'Open extra blocks menu',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript(
-                            'Ardublockly.openExtraCategoriesSelect()');
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.openExtraCategoriesSelect()');
                 }
             }, {
                 type: 'separator'

@@ -18,8 +18,7 @@ var manifest;
 var init = function () {
     projectDir = jetpack;
     tmpDir = projectDir.dir('./tmp', { empty: true });
-    arduExecDir = projectDir.dir('../../' +
-                                 projectLocator.ardublocklyExecFolderName);
+    arduExecDir = projectDir.dir('../../' + projectLocator.watchXBlocksExecFolderName);
     releasesDir = projectDir.dir('./releases');
     manifest = projectDir.read('app/package.json', 'json');
     readyAppDir = tmpDir.cwd(manifest.name);

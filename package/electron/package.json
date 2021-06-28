@@ -16,10 +16,14 @@
     "rcedit": "^0.5.0"
   },
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "postinstall": "cd app && npm install",
     "build": "gulp build",
     "release": "gulp release --env=production",
     "start": "gulp start"
+  },
+  "resolutions": {
+    "graceful-fs": "^4.2.4"
   },
   "repository" : {
     "type" : "git",

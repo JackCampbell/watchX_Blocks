@@ -19,7 +19,7 @@ const createWindow = require('./helpers/window');
 const winston = require('winston');
 const packageData = require('fs-jetpack').cwd(app.getAppPath()).read('package.json', 'json');
 
-const tag = '[ArdublocklyElec] ';
+const tag = '[watchXElec] ';
 
 // Global reference of the window object must be maintain, or the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -59,7 +59,7 @@ app.on('ready', function() {
     mainWindow = createWindow('main', {
         width: 1200,
         height: 765,
-        title: 'Ardublockly',
+        title: 'watchX Blocks',
         transparent: false,
         backgroundColor: '#EEEEEE',
         frame: true,
@@ -82,15 +82,14 @@ app.on('ready', function() {
     });
 
     if (packageData.env.name === 'development') {
-        appMenu.setArdublocklyMenu(true);
+        appMenu.setWatchXBlocksMenu(true);
     } else {
-        appMenu.setArdublocklyMenu();
+        appMenu.setWatchXBlocksMenu();
     }
 
     mainWindow.webContents.on('did-fail-load',
         function(event, errorCode, errorDescription) {
-            winston.warn(tag + 'Page failed to load (' + errorCode + '). The ' +
-                'server is probably not yet running. Trying again in 200 ms.');
+            winston.warn(tag + 'Page failed to load (' + errorCode + '). The server is probably not yet running. Trying again in 200 ms.');
             setTimeout(function() {
                 mainWindow.webContents.reload();
             }, 350);
@@ -110,10 +109,8 @@ app.on('ready', function() {
     });
 
     // Set the download directory to the home folder
-    mainWindow.webContents.session.setDownloadPath(
-        process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME']);
-
-    mainWindow.loadURL('http://localhost:8000/ardublockly');
+    mainWindow.webContents.session.setDownloadPath(process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME']);
+    mainWindow.loadURL('http://localhost:8000/watchx');
 });
 
 app.on('window-all-closed', function() {
@@ -147,12 +144,12 @@ function setupLogging() {
     var projectRootPath = projectLocator.getProjectRootPath();
     winston.add(winston.transports.File, {
         json: false,
-        filename: projectRootPath + '/ardublockly.log',
+        filename: projectRootPath + '/watchxblocks.log',
         maxsize: 10485760,
         maxFiles: 2
     });
-    winston.info(tag + 'Starting Ardublockly version: ' + packageData.version);
-    winston.info(tag + 'Ardublockly root dir: ' + projectRootPath);
+    winston.info(tag + 'Starting watchXBlocks version: ' + packageData.version);
+    winston.info(tag + 'watchXBlocks root dir: ' + projectRootPath);
 
     // Relevant OS could be win32, linux, darwin
     winston.info(tag + 'OS detected: ' + process.platform);

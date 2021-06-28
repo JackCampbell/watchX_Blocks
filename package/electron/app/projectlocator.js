@@ -10,10 +10,10 @@ const jetpack = require('fs-jetpack');
 
 // Name of the folder containing the electron executable, needs to be synced
 // with the name set in the Python server and Electron build files.
-const execFolderName = 'arduexec';
+const execFolderName = 'watchx_exec';
 const serverExecFolderName = 'server';
 const serverExecName = 'start';
-module.exports.ardublocklyExecFolderName = execFolderName;
+module.exports.watchXBlocksExecFolderName = execFolderName;
 
 const tag = '[ProjectLocator] ';
 
@@ -22,9 +22,9 @@ var ardublocklyRootDir = null;
 function ardublocklyNotFound(working_dir) {
     require('dialog').showMessageBox({
         type: 'warning',
-        title: 'Unable to locate Ardublockly folder',
+        title: 'Unable to locate watchXBlockly folder',
         buttons: ['ok'],
-        message: 'The Ardublockly folder could not be found within the ' +
+        message: 'The watchXBlockly folder could not be found within the ' +
                  'execution directory:\n\t' + working_dir + '\nThe ' +
                  'application will not be able to function properly.'
     });
@@ -38,8 +38,7 @@ module.exports.getProjectRootJetpack = function() {
         var oldArdublocklyRootDir = '';
         while (ardublocklyRootDir.path() != oldArdublocklyRootDir) {
             // Check if /ardublokly/index.html exists within current path
-            if (jetpack.exists(
-                    ardublocklyRootDir.path('ardublockly', 'index.html'))) {
+            if (jetpack.exists(ardublocklyRootDir.path('watchx', 'index.html'))) {
                 // Found the right folder, break with this dir loaded
                 break;
             }

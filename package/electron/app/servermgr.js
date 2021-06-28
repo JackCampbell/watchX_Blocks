@@ -11,28 +11,23 @@ const childProcess = require('child_process');
 
 const projectLocator = require('./projectlocator.js');
 
-const tagMgr = '[ServerMgr] ';
-const tagSrv = '[ArdublocklySrv] ';
+const tagMgr = '[watchXMgr] ';
+const tagSrv = '[watchXSvr] ';
 
 var serverProcess = null;
 
 module.exports.startServer = function() {
     if (serverProcess === null) {
         var serverExecLocation = projectLocator.getServerExecPath();
-        winston.info(tagMgr + 'Command: ' + serverExecLocation +
-                     ' --findprojectroot --nobrowser');
-        serverProcess = childProcess.spawn(
-                serverExecLocation, ['--findprojectroot', '--nobrowser']);
-
+        winston.info(tagMgr + 'Command: ' + serverExecLocation + ' --findprojectroot --nobrowser');
+        serverProcess = childProcess.spawn(serverExecLocation, ['--findprojectroot', '--nobrowser']);
         // Setting the listeners
         serverProcess.stdout.on('data', function(data) {
             winston.info(tagSrv + data);
         });
-
         serverProcess.stderr.on('data', function(data) {
             winston.error(tagSrv + data);
         });
-
         serverProcess.on('close', function(code) {
             if (code !== 0) {
                 winston.info(tagSrv + 'Process exited with code ' + code);

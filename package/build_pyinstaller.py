@@ -34,10 +34,10 @@ sys.path.append(project_root_dir) # /Users/mobiledeveloper/Desktop/watchX_blocks
 
 
 spec_coll_name = "server"
-exec_folder_name = "arduexec"
+exec_folder_name = "watchx_exec"
 py_exec_folder = os.path.join(exec_folder_name, spec_coll_name) # arduexec/server
-script_tag = "[Ardublockly build] "
-script_tab = "                    "
+script_tag = "[watchXBlocks build] "
+script_tab = "                     "
 
 
 def remove_directory(dir_to_remove):
@@ -143,11 +143,11 @@ def create_shell_file(os_type):
 		shell_text = '#!/bin/bash\n' \
 			'DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )\n' \
 			'echo "[Shell Launch Script] Executing from: $DIR"\n' \
-			'./%s' % os.path.join(exec_folder_name, "ardublockly")
-		shell_location = os.path.join(project_root_dir, "ardublockly_run.sh")
+			'./%s' % os.path.join(exec_folder_name, "watchXBlocks")
+		shell_location = os.path.join(project_root_dir, "watchXBlocks_run.sh")
 	elif os_type == "windows":
-		shell_text = "@echo off\nstart %s" % os.path.join(exec_folder_name, "ardublockly.exe")
-		shell_location = os.path.join(project_root_dir, "ardublockly_run.bat")
+		shell_text = "@echo off\nstart %s" % os.path.join(exec_folder_name, "watchXBlocks.exe")
+		shell_location = os.path.join(project_root_dir, "watchXBlocks_run.bat")
 	else:
 		# macOS doesn't need a shell file, any other OS type is unexpected
 		print(script_tab + "No shell file created.")
@@ -159,7 +159,7 @@ def create_shell_file(os_type):
 			bash_file.write(shell_text)
 	except Exception as e:
 		print(script_tab + "%s" % e)
-		print(script_tab + "ERROR: Shell file to launch the Ardublockly application could not be created.")
+		print(script_tab + "ERROR: Shell file to launch the watchXBlocks application could not be created.")
 	return
 
 	if os_type == "linux":
@@ -174,11 +174,11 @@ def create_shell_file(os_type):
 	pass
 
 
-def build_ardublockly():
+def build_watchx_blocks():
 	print(script_tag + "Build procedure started.")
 	print(script_tag + "Checking for OS.")
 	os_type = get_os()
-	print(script_tag + "Building Ardublockly for %s." % os_type)
+	print(script_tag + "Building watchXBlocks for %s." % os_type)
 
 	print(script_tag + "Project directory is:     %s" % project_root_dir)
 	print(script_tag + "Script working directory: %s" % os.getcwd())
@@ -193,7 +193,7 @@ def build_ardublockly():
 		remove_pyinstaller_temps()
 		raise SystemExit(script_tab + "Exiting as there was an error in the PyInstaller execution.")
 
-	print(script_tag + "Removing old ardublockly executable directory.")
+	print(script_tag + "Removing old watchXBlocks executable directory.")
 	remove_directory(os.path.join(project_root_dir, py_exec_folder))
 
 	print(script_tag + "Moving executable folder to project root.")
@@ -209,10 +209,10 @@ def build_ardublockly():
 	print(script_tag + "Removing PyInstaller recent temp directories.")
 	remove_pyinstaller_temps()
 
-	print(script_tag + "Creating shell file to easily execute Ardublockly.")
+	print(script_tag + "Creating shell file to easily execute watchX Blocks.")
 	create_shell_file(os_type)
 	pass
 
 
 if __name__ == "__main__":
-	build_ardublockly()
+	build_watchx_blocks()

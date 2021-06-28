@@ -1,11 +1,11 @@
 {
-  "name": "ardublockly",
-  "productName": "Ardublockly",
-  "description": "Visual programming for Arduino",
-  "version": "0.1.3-a",
-  "author": "carlosperate",
-  "copyright": "© 2016, carlosperate",
-  "homepage": "http://ardublockly.embeddedlog.com/",
+  "name": "watchXBlocks",
+  "productName": "watchXBlocks",
+  "description": "Visual programming for watchX",
+  "version": "1.0.Beta",
+  "author": "Jack Campbell",
+  "copyright": "© 2021, Jack Campbell / ArgeX Inc.",
+  "homepage": "https://watchx.io",
   "main": "main.js",
   "dependencies": {
     "fs-jetpack": "^0.9.0",
@@ -14,14 +14,14 @@
   "packageNameTemplate": "{{name}}-v{{version}}-{{platform}}-{{arch}}",
   "osx": {
     "build": "1",
-    "identifier": "com.embeddedlog.ardublockly",
+    "identifier": "com.argex.watchxblocks",
     "LSApplicationCategoryType": "public.app-category.developer-tools"
   },
   "repository" : {
     "type" : "git",
-    "url" : "https://github.com/carlosperate/ardublockly.git"
+    "url" : "https://github.com/JackCampbell/watchX_Blocks.git"
   },
   "bugs" : {
-    "url" : "https://github.com/carlosperate/ardublockly/issues"
+    "url" : "https://github.com/JackCampbell/watchX_Blocks/issues"
   }
 }
