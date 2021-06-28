@@ -1,7 +1,7 @@
 {
 	"@metadata": {
 		"author": "carlosperate",
-		"lastupdated": "2021-06-25 16:16:58.339794",
+		"lastupdated": "2021-06-28 10:11:47.597907",
 		"locale": "en",
 		"messagedocumentation" : "qqq_ardublockly"
 	},
@@ -39,8 +39,8 @@
 	"ARD_MAP": "Map",
 	"ARD_MAP_VAL": "value to [0-",
 	"ARD_MAP_TIP": "Re-maps a number from [0-1024] to another.",
-	"ARD_FUN_RUN_SETUP": "Arduino run first:",
-	"ARD_FUN_RUN_LOOP": "Arduino loop forever:",
+	"ARD_FUN_RUN_SETUP": "watchX run first:",
+	"ARD_FUN_RUN_LOOP": "watchX loop forever:",
 	"ARD_FUN_RUN_TIP": "Defines the Arduino setup() and loop() functions.",
 	"ARD_PIN_WARN1": "Pin %1 is needed for %2 as pin %3. Already used as %4.",
 	"ARD_SERIAL_SETUP": "Setup",
@@ -212,15 +212,15 @@
 	"WX_BLUETOOTH": "Bluetooth",
 	"WX_ID": "id",
 	"WX_INIT": "init",
-	"WX_BLUETOOTH_INIT_TIP": "",
+	"WX_BLUETOOTH_INIT_TIP": "Sets the bluetooth module in different mods. Id allows to give a unique Bluetooth device name.",
 	"WX_BLUETOOTH_SEND": "Bluetooth send",
-	"WX_BLUETOOTH_SEND_TIP": "",
+	"WX_BLUETOOTH_SEND_TIP": "Sends the given data over Bluetoth.",
 	"WX_BLUETOOTH_RECV": "bluetooth receive text",
-	"WX_BLUETOOTH_RECV_TIP": "",
+	"WX_BLUETOOTH_RECV_TIP": "Receives data from the connected Bluetooth device.",
 	"WX_BLE_KEY_PRESS": "Bluetooth key press",
-	"WX_BLE_KEY_PRESS_TIP": "",
+	"WX_BLE_KEY_PRESS_TIP": "Acts as a Bluetooth keyboard, sends a keyboard key stroke.",
 	"WX_BLE_MEDIA_CONTROL": "Bluetooth media control",
-	"WX_BLE_MEDIA_CONTROL_TIP": "",
+	"WX_BLE_MEDIA_CONTROL_TIP": "Allows media control when connected to a PC or phone.",
 	"WX_PLAY_PAUSE": "Play/Pause",
 	"WX_NEXT": "Next",
 	"WX_PREVIOUS": "Previous",
@@ -231,5 +231,5 @@
 	"WX_PRESSED": "Pressed",
 	"WX_RELEASE": "Release",
 	"WX_BLE_MOUSE_CONTROL": "Bluetooth mouse button",
-	"WX_BLE_MOUSE_CONTROL_TIP": ""
+	"WX_BLE_MOUSE_CONTROL_TIP": "Allows to send Bluetooth mouse click."
 }
