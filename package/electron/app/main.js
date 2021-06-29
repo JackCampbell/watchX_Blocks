@@ -84,17 +84,15 @@ app.on('ready', function() {
     if (packageData.env.name === 'development') {
         appMenu.setWatchXBlocksMenu(true);
     } else {
-        appMenu.setWatchXBlocksMenu();
+        appMenu.setWatchXBlocksMenu(true);
     }
 
-    mainWindow.webContents.on('did-fail-load',
-        function(event, errorCode, errorDescription) {
-            winston.warn(tag + 'Page failed to load (' + errorCode + '). The server is probably not yet running. Trying again in 200 ms.');
-            setTimeout(function() {
-                mainWindow.webContents.reload();
-            }, 350);
-        }
-    );
+    mainWindow.webContents.on('did-fail-load', function(event, errorCode, errorDescription) {
+        winston.warn(tag + 'Page failed to load (' + errorCode + '). The server is probably not yet running. Trying again in 200 ms.');
+        setTimeout(function() {
+            mainWindow.webContents.reload();
+        }, 350);
+    });
 
     mainWindow.webContents.on('did-finish-load', function() {
         if (splashWindow !== null) {
@@ -121,8 +119,7 @@ app.on('window-all-closed', function() {
 function createSplashWindow() {
     if (splashWindow === null) {
         var projectJetPath = projectLocator.getProjectRootJetpack();
-        var imagePath = 'file://' + projectJetPath.path(
-            'ardublockly', 'img', 'ardublockly_splash.png');
+        var imagePath = 'file://' + projectJetPath.path('watchx', 'img', 'watchxblocks_splash.png');
 
         splashWindow = new BrowserWindow({
             width: 450,

@@ -87,8 +87,7 @@ watchXBlocksServer.createRequest = function () {
             try {
                 request = new ActiveXObject('Microsoft.XMLHTTP');
             } catch (e) {
-                throw 'Your browser does not support AJAX. You will not be able to' +
-                'use all of Ardublockly features.';
+                throw 'Your browser does not support AJAX. You will not be able to use all of watchX Blocks features.';
                 request = null;
             }
         }
@@ -126,13 +125,12 @@ watchXBlocksServer.jsonToIdeModal = function (jsonObj) {
 
     if (jsonObj.errors) {
         // Prepare error message
-        elTitle.innerHTML = Ardublockly.getLocalStr('arduinoOpErrorTitle');
+        elTitle.innerHTML = watchXBlocks.getLocalStr('arduinoOpErrorTitle');
         var errStr = [];
         for (var i = 0; i < jsonObj.errors.length; i++) {
             var errorContext = 'Unrecognised error.';
             try {
-                errorContext = Ardublockly.getLocalStr(
-                    'arduinoOpErrorIdContext_' + jsonObj.errors[i].id);
+                errorContext = watchXBlocks.getLocalStr('arduinoOpErrorIdContext_' + jsonObj.errors[i].id);
             } catch (e) {
                 // Swallow the exception, could be expanded to try to figure out issue
             }
@@ -142,15 +140,15 @@ watchXBlocksServer.jsonToIdeModal = function (jsonObj) {
     } else if (jsonObj.success && jsonObj.ide_mode) {
         // Format a successful response
         if (jsonObj.ide_mode == 'upload') {
-            elTitle.innerHTML = Ardublockly.getLocalStr('arduinoOpUploadedTitle');
+            elTitle.innerHTML = watchXBlocks.getLocalStr('arduinoOpUploadedTitle');
         } else if (jsonObj.ide_mode == 'verify') {
-            elTitle.innerHTML = Ardublockly.getLocalStr('arduinoOpVerifiedTitle');
+            elTitle.innerHTML = watchXBlocks.getLocalStr('arduinoOpVerifiedTitle');
         } else if (jsonObj.ide_mode == 'open') {
-            elTitle.innerHTML = Ardublockly.getLocalStr('arduinoOpOpenedTitle');
+            elTitle.innerHTML = watchXBlocks.getLocalStr('arduinoOpOpenedTitle');
             // This is a corner case where we also add to the stand out
-            elStdOp.innerHTML += Ardublockly.getLocalStr('arduinoOpOpenedBody');
+            elStdOp.innerHTML += watchXBlocks.getLocalStr('arduinoOpOpenedBody');
         } else {
-            elTitle.innerHTML = Ardublockly.getLocalStr('arduinoOpErrorTitle');
+            elTitle.innerHTML = watchXBlocks.getLocalStr('arduinoOpErrorTitle');
         }
     } else {
         console.error(jsonObj);
@@ -229,8 +227,7 @@ watchXBlocksServer.requestCompilerLocation = function (callback) {
  *     have one argument to receive the JSON response.
  */
 watchXBlocksServer.setCompilerLocation = function (new_path, callback) {
-    watchXBlocksServer.putJson(
-        '/settings/compiler', {"new_value": new_path}, callback);
+    watchXBlocksServer.putJson('/settings/compiler', {"new_value": new_path}, callback);
 };
 
 /**

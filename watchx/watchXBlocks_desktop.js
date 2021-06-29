@@ -16,7 +16,7 @@ var watchXBlocks = watchXBlocks || {};
  * @return {!boolean} True if watchXBlocks running in Electron application
  */
 watchXBlocks.isRunningElectron = function() {
-  return navigator.userAgent.toLowerCase().indexOf('watchXBlocks') > -1;
+  return navigator.userAgent.toLowerCase().indexOf('watchxblocks') > -1;
 };
 
 /**
@@ -28,13 +28,11 @@ watchXBlocks.isRunningElectron = function() {
  */
 (function loadJsInElectron(){
   if (watchXBlocks.isRunningElectron()) {
-    var projectLocator = require('electron').remote.require(
-        './projectlocator.js');
+    var projectLocator = require('electron').remote.require('./projectlocator.js');
     var projectRoot = projectLocator.getProjectRootPath();
-    window.$ = window.jQuery = require(projectRoot +
-        '/watchXBlocks/js_libs/jquery-2.1.3.min.js');
-    window.Hammer = require(projectRoot + '/watchXBlocks/js_libs/hammer.min.js');
-    window.JsDiff = require(projectRoot + '/watchXBlocks/js_libs/diff.js');
+    window.$ = window.jQuery = require(projectRoot + '/watchx/js_libs/jquery-2.1.3.min.js');
+    window.Hammer = require(projectRoot + '/watchx/js_libs/hammer.min.js');
+    window.JsDiff = require(projectRoot + '/watchx/js_libs/diff.js');
   }
 })();
 
