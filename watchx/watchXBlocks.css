@@ -124,6 +124,9 @@ body {
   background-color: #8C7965;
 }
 
+.arduino_teal:hover {
+  background-color: #117073 !important;
+}
 
 /********************/
 /*  Navigation bar  */

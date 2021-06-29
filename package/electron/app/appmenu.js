@@ -103,8 +103,7 @@ var getFileMenuData = function () {
                 label: 'Save Blocks as',
                 accelerator: 'CmdOrCtrl+S',
                 click: function () {
-                    BrowserWindow.getFocusedWindow().webContents
-                        .executeJavaScript('watchXBlocks.saveXmlFile()');
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.saveXmlFile()');
                 }
             }, {
                 label: 'Save Arduino Sketch as',
