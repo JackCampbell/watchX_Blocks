@@ -138,15 +138,12 @@ class ServerCompilerSettings(object):
             print('Compiler directory set to:\n\t%s' % self.__compiler_dir)
             self.save_settings()
         else:
-            print('The provided compiler path is not valid !!!'
-                  '\n\t %s' % new_compiler_dir)
+            print('The provided compiler path is not valid !!!\n\t %s' % new_compiler_dir)
             if self.__compiler_dir:
-                print('Previous compiler path maintained:\n\t%s' %
-                      self.__compiler_dir)
+                print('Previous compiler path maintained:\n\t%s' % self.__compiler_dir)
             else:
                 self.set_compiler_dir_default()
-                print('Default compiler path set:\n\t%s' %
-                      self.__compiler_dir)
+                print('Default compiler path set:\n\t%s' % self.__compiler_dir)
                 self.save_settings()
 
     compiler_dir = property(get_compiler_dir, set_compiler_dir)
@@ -159,8 +156,7 @@ class ServerCompilerSettings(object):
         if os.path.exists(new_compiler_dir):
             self.__compiler_dir = new_compiler_dir
         else:
-            print('The provided compiler path in the settings file is not '
-                  'valid:')
+            print('The provided compiler path in the settings file is not valid:')
             print('\t%s' % new_compiler_dir)
             self.set_compiler_dir_default()
             print('Default compiler path set:\n\t%s' % self.__compiler_dir)

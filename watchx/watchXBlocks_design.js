@@ -318,6 +318,11 @@ watchXBlocks.openSettingsModal = function() {
   });
 };
 
+
+watchXBlocks.openAboutDialog = function() {
+  $('#about_us').openModal({ dismissible: true, opacity: .5, in_duration: 200, out_duration: 250 });
+};
+
 /**
  * Opens the modal that allows selection on additional toolbox categories.
  * @param {!element} htmlContent HTML to include in modal body.

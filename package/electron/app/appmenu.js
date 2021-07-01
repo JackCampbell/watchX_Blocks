@@ -45,7 +45,9 @@ var getMacMenuData = function() {
         submenu: [
             {
                 label: 'About',
-                click: functionNotImplemented
+                click: function() {
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.openAboutUs()');
+                }
             }, {
                 type: 'separator'
             }, {

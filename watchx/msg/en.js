@@ -11,6 +11,7 @@ watchXBlocks.LOCALISED_TEXT = {
   documentation: "Documentation",
   reportBug: "Report Bug",
   examples: "Examples",
+  about: 'About',
   /* Settings */
   compilerLocation: "Compiler Location",
   compilerLocationDefault: "Compiler Location unknown",
@@ -65,6 +66,9 @@ watchXBlocks.LOCALISED_TEXT = {
                      "<p>If you have watchX Blocks already installed, make sure the application is running correctly.</p>",
   noServerNoLangBody: "If the watchX Blocks application is not running the language cannot be fully changed.",
   addBlocksTitle: "Additional Blocks",
+  aboutTitle: 'About',
+  aboutBody: '',
+  close: 'Close',
   /* Alerts */
   loadNewBlocksTitle: "Load new blocks?",
   loadNewBlocksBody: "Loading a new XML file will replace the current blocks from the workspace.<br>" +

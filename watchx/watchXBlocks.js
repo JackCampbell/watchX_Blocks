@@ -76,6 +76,10 @@ watchXBlocks.bindActionFunctions = function () {
         watchXBlocks.loadServerXmlFile('../examples/stepper_knob.xml');
         $('.button-collapse').sideNav('hide');
     });
+    watchXBlocks.bindClick_('menu_about', function () {
+        watchXBlocks.openAboutUs();
+        $('.button-collapse').sideNav('hide');
+    });
 
     // Floating buttons
     watchXBlocks.bindClick_('button_ide_large', function () {
@@ -168,12 +172,9 @@ watchXBlocks.ideButtonLeftAction = watchXBlocks.ideSendOpen;
 
 /** Initialises the IDE buttons with the default option from the server. */
 watchXBlocks.initialiseIdeButtons = function () {
-    document.getElementById('button_ide_left').title =
-        watchXBlocks.getLocalStr('openSketch');
-    document.getElementById('button_ide_middle').title =
-        watchXBlocks.getLocalStr('verifySketch');
-    document.getElementById('button_ide_large').title =
-        watchXBlocks.getLocalStr('uploadSketch');
+    document.getElementById('button_ide_left').title = watchXBlocks.getLocalStr('openSketch');
+    document.getElementById('button_ide_middle').title = watchXBlocks.getLocalStr('verifySketch');
+    document.getElementById('button_ide_large').title = watchXBlocks.getLocalStr('uploadSketch');
     watchXBlocksServer.requestIdeOptions(function (jsonObj) {
         if (jsonObj != null) {
             watchXBlocks.changeIdeButtons(jsonObj.selected);
@@ -361,6 +362,10 @@ watchXBlocks.openSettings = function () {
     });
     // Language menu only set on page load within watchXBlocks.initLanguage()
     watchXBlocks.openSettingsModal();
+};
+
+watchXBlocks.openAboutUs = function () {
+    watchXBlocks.openAboutDialog();
 };
 
 /**
