@@ -253,6 +253,7 @@ def zip_watchx_blocks_copy(name_append):
 		zip_file.close()
 	pass
 
+
 def pack_watchx_blocks(tag):
 	"""
 	Copies the Ardublockly folder, removes unnecessary files and creates a
@@ -285,6 +286,7 @@ def pack_watchx_blocks(tag):
 
 	print(script_tag + "Creating zip file of the new watchXBlocks folder:")
 	zip_watchx_blocks_copy(tag)
+	pass
 
 
 def main():
@@ -292,6 +294,7 @@ def main():
 	print(script_tag + "Checking for tag to attach to zip file:")
 	build_tag = get_build_tag()
 	pack_watchx_blocks(build_tag)
+	pass
 
 
 if __name__ == "__main__":

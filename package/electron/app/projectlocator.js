@@ -17,41 +17,42 @@ module.exports.watchXBlocksExecFolderName = execFolderName;
 
 const tag = '[ProjectLocator] ';
 
-var ardublocklyRootDir = null;
+var projectWatchXRootDir = null;
 
 function ardublocklyNotFound(working_dir) {
-    require('dialog').showMessageBox({
+    const dialog = require('dialog');
+    dialog.showMessageBox({
         type: 'warning',
         title: 'Unable to locate watchXBlockly folder',
         buttons: ['ok'],
-        message: 'The watchXBlockly folder could not be found within the ' +
-                 'execution directory:\n\t' + working_dir + '\nThe ' +
-                 'application will not be able to function properly.'
+        message: 'The watchXBlockly folder could not be found within the execution directory:\n' +
+                 '\t' + working_dir + '\n' +
+                 'The application will not be able to function properly.'
     });
 }
 
 module.exports.getProjectRootJetpack = function() {
-    if (ardublocklyRootDir === null) {
+    if (projectWatchXRootDir === null) {
         // Cannot use relative paths in build, so let's try to find the
         // ardublockly folder in a node from the executable file path tree
-        ardublocklyRootDir = jetpack.dir(__dirname);
-        var oldArdublocklyRootDir = '';
-        while (ardublocklyRootDir.path() != oldArdublocklyRootDir) {
+        projectWatchXRootDir = jetpack.dir(__dirname);
+        var projectLastWatchXRootDir = '';
+        while (projectWatchXRootDir.path() != projectLastWatchXRootDir) {
             // Check if /ardublokly/index.html exists within current path
-            if (jetpack.exists(ardublocklyRootDir.path('watchx', 'index.html'))) {
+            if (jetpack.exists(projectWatchXRootDir.path('watchx', 'index.html'))) {
                 // Found the right folder, break with this dir loaded
                 break;
             }
-            oldArdublocklyRootDir = ardublocklyRootDir.path();
-            ardublocklyRootDir = ardublocklyRootDir.dir('../');
+            projectLastWatchXRootDir = projectWatchXRootDir.path();
+            projectWatchXRootDir = projectWatchXRootDir.dir('../');
         }
 
-        if (ardublocklyRootDir.path() == oldArdublocklyRootDir) {
-            ardublocklyRootDir = jetpack.dir('.');
-            ardublocklyNotFound(ardublocklyRootDir.path('.'));
+        if (projectWatchXRootDir.path() == projectLastWatchXRootDir) {
+            projectWatchXRootDir = jetpack.dir('.');
+            ardublocklyNotFound(projectWatchXRootDir.path('.'));
         }
     }
-    return ardublocklyRootDir;
+    return projectWatchXRootDir;
 };
 
 module.exports.getProjectRootPath = function() {
@@ -67,13 +68,11 @@ module.exports.getExecDirPath = function() {
 };
 
 module.exports.getServerExecDirJetpack = function() {
-    return module.exports.getProjectRootJetpack()
-            .cwd(execFolderName, serverExecFolderName);
+    return module.exports.getProjectRootJetpack().cwd(execFolderName, serverExecFolderName);
 };
 
 module.exports.getServerExecDirPath = function() {
-    return module.exports.getProjectRootJetpack()
-            .path(execFolderName, serverExecFolderName);
+    return module.exports.getProjectRootJetpack().path(execFolderName, serverExecFolderName);
 };
 
 module.exports.getServerExecPath = function() {

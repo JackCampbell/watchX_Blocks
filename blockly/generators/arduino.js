@@ -177,11 +177,10 @@ Blockly.Arduino.finish = function(code) {
     setups.push(userSetupCode);
   }
   // fihished
-  var finish_list = [];
+  var update_list = [];
   for (var name in Blockly.Arduino.finish_) {
-    finish_list.push(Blockly.Arduino.finish_[name].trim());
+    update_list.push('\t' + Blockly.Arduino.finish_[name].trim());
   }
-  var finish_code = finish_list.join('\n');
 
   // Clean up temporary data
   delete Blockly.Arduino.includes_;
@@ -196,9 +195,10 @@ Blockly.Arduino.finish = function(code) {
 
   var allDefs = includes.join('\n') + variables.join('\n') +
       definitions.join('\n') + functions.join('\n\n');
+  var update = 'void update_env() {\n' + update_list.join('\n') + '\n}\n';
   var setup = 'void setup() {' + setups.join('\n  ') + '\n}\n\n';
-  var loop = 'void loop() {\n  ' + code.replace(/\n/g, '\n  ') + '\n' + finish_code + '\n}';
-  return allDefs + setup + loop;
+  var loop = 'void loop() {\n  ' + code.replace(/\n/g, '\n  ') + '\nupdate_env();\n}';
+  return allDefs + update + setup + loop;
 };
 
 /**

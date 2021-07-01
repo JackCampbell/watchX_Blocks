@@ -20,10 +20,10 @@ goog.require('Blockly.Arduino');
  * @param {!Blockly.Block} block Block to generate the code from.
  * @return {string} Completed code.
  */
- Blockly.Arduino['time_delay'] = function(block) {
+Blockly.Arduino['time_delay'] = function(block) {
   var delayTime = Blockly.Arduino.valueToCode(
       block, 'DELAY_TIME_MILI', Blockly.Arduino.ORDER_ATOMIC) || '0';
-  var code = 'delay(' + delayTime + ');\n';
+  var code = 'wx_delay(' + delayTime + ');\n';
   return code;
 };
 
