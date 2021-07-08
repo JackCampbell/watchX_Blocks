@@ -84,7 +84,7 @@ app.on('ready', function() {
     if (packageData.env.name === 'development') {
         appMenu.setWatchXBlocksMenu(true);
     } else {
-        appMenu.setWatchXBlocksMenu(true);
+        appMenu.setWatchXBlocksMenu(false);
     }
 
     mainWindow.webContents.on('did-fail-load', function(event, errorCode, errorDescription) {

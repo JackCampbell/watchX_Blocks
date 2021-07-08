@@ -40,6 +40,10 @@ watchXBlocks.bindActionFunctions = function () {
     watchXBlocks.bindClick_('button_delete', watchXBlocks.discardAllBlocks);
 
     // Side menu buttons, they also close the side menu
+    watchXBlocks.bindClick_('menu_new', function () {
+        watchXBlocks.newWorkspace();
+        $('.button-collapse').sideNav('hide');
+    });
     watchXBlocks.bindClick_('menu_load', function () {
         watchXBlocks.loadUserXmlFile();
         $('.button-collapse').sideNav('hide');
@@ -221,6 +225,12 @@ watchXBlocks.changeIdeButtons = function (value) {
     }
 };
 
+
+watchXBlocks.newWorkspace = function () {
+    watchXBlocks.discardAllBlocks();
+    watchXBlocks.sketchNameSet();
+};
+
 /**
  * Loads an XML file from the server and replaces the current blocks into the
  * Blockly workspace.
@@ -378,8 +388,7 @@ watchXBlocks.setCompilerLocationHtml = function (newEl) {
 
     var compLocIp = document.getElementById('settings_compiler_location');
     if (compLocIp != null) {
-        compLocIp.value = newEl.value || compLocIp.value ||
-            'Please enter the location of the Arduino IDE executable';
+        compLocIp.value = newEl.value || compLocIp.value || 'Please enter the location of the Arduino IDE executable';
         compLocIp.style.cssText = newEl.style.cssText;
     }
 };

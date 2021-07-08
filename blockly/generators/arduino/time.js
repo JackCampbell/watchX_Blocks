@@ -21,6 +21,8 @@ goog.require('Blockly.Arduino');
  * @return {string} Completed code.
  */
 Blockly.Arduino['time_delay'] = function(block) {
+  Blockly.Arduino.addInclude("io_watch", `#include "${watchx_include}"`);
+
   var delayTime = Blockly.Arduino.valueToCode(
       block, 'DELAY_TIME_MILI', Blockly.Arduino.ORDER_ATOMIC) || '0';
   var code = 'wx_delay(' + delayTime + ');\n';

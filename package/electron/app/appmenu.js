@@ -31,7 +31,6 @@ module.exports.setWatchXBlocksMenu = function(devMode) {
         menu.push(getWindowMenuData());
     }
     menu.push(getHelpMenuData());
-
     if (devMode) {
         menu.push(getDevMenuData());
     }
@@ -245,7 +244,7 @@ var getProgramMenuData = function() {
         submenu: [
             {
                 label: 'Open sketch in IDE',
-                //accelerator: 'CmdOrCtrl+O',
+                accelerator: 'CmdOrCtrl+Shift+O',
                 click: function() {
                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.ideSendOpen()');
                 }
@@ -289,10 +288,10 @@ var getWindowMenuData = function() {
 };
 
 var getHelpMenuData = function() {
-    return {
+    var menu = {
         label: 'Help',
         submenu: [
-            {
+            /*{
                 label: 'Quick Start',
                 click: function() {
                     shell.openExternal('http://localhost:8000/docs/Quick-Start');
@@ -304,7 +303,7 @@ var getHelpMenuData = function() {
                 }
             }, {
                 type: 'separator'
-            }, {
+            }, */{
                 label: 'Website',
                 click: function() {
                     shell.openExternal('http://watchx.io');
@@ -321,14 +320,19 @@ var getHelpMenuData = function() {
                 }
             }, {
                 type: 'separator'
-            },  {
-                label: 'About',
-                click: function() {
-                    shell.openExternal('http://localhost:8000/docs/About');
-                }
             }
         ]
     };
+    if (process.platform != 'darwin') {
+        menu.submenu.push({
+            label: 'About',
+                click: function() {
+                // shell.openExternal('http://localhost:8000/docs/About');
+                BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.openAboutUs()');
+            }
+        });
+    }
+    return menu;
 };
 
 var getDevMenuData = function() {

@@ -97,6 +97,7 @@
     <li class="logo"><img src="img/sidenav_header.png" alt="watchXBlocks block image"></li>
     <li class="no-padding">
       <ul>
+        <li id="menu_new"><a href="#"><span class="translatable_new">New</span><i class="mdi-file-file-upload left"></i></a></li>
         <li id="menu_load"><a href="#"><span class="translatable_open">Open</span><i class="mdi-file-file-upload left"></i></a></li>
         <li id="menu_save"><a href="#"><span class="translatable_save">Save</span><i class="mdi-file-file-download left"></i></a></li>
         <li id="menu_delete"><a href="#"><span class="translatable_deleteAll">Delete All</span><i class="mdi-action-delete left"></i></a></li>
@@ -246,7 +247,7 @@
         </select>
       </div>
       <div class="modal_section">
-        <label><span class="translatable_comPort">COM Port<span>:</label>
+        <label for="serial_port"><span class="translatable_comPort">COM Port</span>:</label>
         <select name="settings_serial" id="serial_port">
           <option value="COMX" class="translatable_comPortDefault">COM Port unknown</option>
         </select>
@@ -283,7 +284,7 @@
   <!-- General Alert: Content is loaded using JavaScript to display alerts -->
   <div id="gen_alert" class="modal modal_small modal-fixed-footer">
     <div class="modal-content">
-      <h5 id="gen_alert_title">Empty Alert</h4>
+      <h4 id="gen_alert_title">Empty Alert</h4>
       <p><span id="gen_alert_body">Empty alert text</span></p>
     </div>
     <div class="modal-footer">
@@ -308,7 +309,7 @@
   <div id="not_running_dialog" class="modal">
     <div class="modal-content">
       <div>
-        <h4 id="gen_alert_title"><span class="translatable_noServerTitle">watchX Blocks app not running</span></h4>
+        <h4><span class="translatable_noServerTitle">watchX Blocks app not running</span></h4>
       </div>
       <div class="translatable_noServerBody">
         <p>For all the watchX Blocks features to be enabled, the watchX Blocks desktop application must be running locally on your computer.</p>
@@ -318,22 +319,30 @@
       </div>
     </div>
     <div class="modal-footer">
-      <a id="gen_alert_ok_link" href="#" class="waves-effect btn-flat modal-close"><span class="translatable_okay">Okay</span></a>
+      <a href="#" class="waves-effect btn-flat modal-close"><span class="translatable_okay">Okay</span></a>
     </div>
   </div>
 
 
-  <div id="about_us" class="modal modal_small modal-fixed-footer">
+  <div id="about_us" class="modal modal-fixed-footer">
     <div class="modal-content">
       <div>
-        <h4 id="gen_alert_title"><span class="translatable_aboutTitle">About</span></h4>
-      </div>
-      <div class="translatable_aboutBody">
-        <p>About metni</p>
+        <div style="padding: 15px;" class="text-center">
+          <img src="img/watchX_Blocks_Logo.svg" height="120"/>
+        </div>
+        <div class="translatable_aboutBody text-center">
+          <h5>watchX Blocks is a visual programming editor<br/>for watchX</h5>
+          <p><i>Copyright (c) 2021 argeX</i></p>
+          <p>Unless stated otherwise, the source code of this projects is licensed under the Apache License, Version 2.0 (the "License"); you may not use any of the licensed files within this project except in compliance with the License.</p>
+          <p>The full document can be found in the <a href="https://github.com/JackCampbell/watchX_blocks/blob/master/LICENSE">LICENSE</a> file.</p>
+          <h5>Credits</h5>
+          <p>This project has been inspired by <a href="https://github.com/BlocklyDuino/BlocklyDuino">BlocklyDuino</a> and forked directly from <a href="https://github.com/carlosperate/ardublockly">Ardublockly</a> by <a href="https://www.watchx.io/">argeX</a>.<br/><a href="https://developers.google.com/blockly/">Blockly</a> original source is Copyright of Google Inc.<br/><a href="https://github.com/arduino/Arduino">Arduino IDE</a> is used under <a href="https://github.com/arduino/Arduino/blob/master/license.txt">GNU GPL v2.0 and LGPL</a></p>
+          <p>Version: 0.8.0 (alpha) <a href="https://github.com/JackCampbell/watchX_Blocks">source code</a><br/>Contact: <a href="mailto:info@argex.io">info@argex.io</a> </p>
+        </div>
       </div>
     </div>
     <div class="modal-footer">
-      <a id="gen_alert_ok_link" href="#" class="waves-effect btn-flat modal-close"><span class="translatable_close">Close</span></a>
+      <a href="#" class="waves-effect btn-flat modal-close"><span class="translatable_close">Close</span></a>
     </div>
   </div>
 

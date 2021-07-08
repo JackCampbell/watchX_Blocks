@@ -312,37 +312,24 @@ def handler_settings_update_individual(name):
                 set_value = actions.set_sketch_path(new_value)
             elif name == 'board':
                 set_value = actions.set_arduino_board(new_value)
-                options = [{'value': board, 'display_text': board}
-                           for board in actions.get_arduino_boards()]
+                options = [{'value': board, 'display_text': board} for board in actions.get_arduino_boards()]
             elif name == 'serial':
                 set_value = actions.set_serial_port(new_value)
-                options = [{'value': k, 'display_text': v}
-                           for k, v in iteritems(actions.get_serial_ports())]
+                options = [{'value': k, 'display_text': v} for k, v in iteritems(actions.get_serial_ports())]
             elif name == 'ide':
                 set_value = actions.set_load_ide_only(new_value)
-                options = [{'value': k, 'display_text': v} for k, v in
-                           iteritems(actions.get_load_ide_options())]
+                options = [{'value': k, 'display_text': v} for k, v in iteritems(actions.get_load_ide_options())]
             else:
-                response_dict.update({'success': False,
-                                      'settings_type': 'invalid'})
-                response_dict.setdefault('errors', []).append({
-                    'id': 63,
-                    'description': 'Unexpected setting type to update.'
-                })
+                response_dict.update({'success': False, 'settings_type': 'invalid'})
+                response_dict.setdefault('errors', []).append({ 'id': 63, 'description': 'Unexpected setting type to update.'})
             # Check if sent value was set, might have been expanded in Settings
-            if set_value in new_value:
-                response_dict.update({
-                    'success': True,
-                    'selected': set_value
-                })
+            if new_value in set_value:
+                response_dict.update({ 'success': True, 'selected': set_value })
                 if options:
                     response_dict.update({'options': options})
             else:
                 response_dict.update({'success': False})
-                response_dict.setdefault('errors', []).append({
-                    'id': 67,
-                    'description': 'New value could not be set.'
-                })
+                response_dict.setdefault('errors', []).append({ 'id': 67, 'description': f'New value could not be set. {new_value} / {set_value}' })
     set_header_no_cache()
     return response_dict
 

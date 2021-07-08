@@ -197,7 +197,7 @@ Blockly.Arduino.finish = function(code) {
       definitions.join('\n') + functions.join('\n\n');
   var update = 'void update_env() {\n' + update_list.join('\n') + '\n}\n';
   var setup = 'void setup() {' + setups.join('\n  ') + '\n}\n\n';
-  var loop = 'void loop() {\n  ' + code.replace(/\n/g, '\n  ') + '\nupdate_env();\n}';
+  var loop = 'void loop() {\n  ' + code.replace(/\n/g, '\n  ') + '\n\tupdate_env();\n}';
   return allDefs + update + setup + loop;
 };
 

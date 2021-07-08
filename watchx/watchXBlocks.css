@@ -906,3 +906,15 @@ ul.side-nav li ul li ul li {
   width: 100% !important;
   background-color: white !important;
 }
+
+.vertical-center {
+  display: flex;
+}
+
+.vertical-center > * {
+  align-self: center;
+}
+
+.text-center {
+  text-align: center;
+}

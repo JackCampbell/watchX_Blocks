@@ -18,7 +18,7 @@ local_packages_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '
 sys.path.insert(0, local_packages_path)
 
 # Follows Semantic Versioning 2.0.0 http://semver.org/spec/v2.0.0.html
-__version__ = '1.0.Alpha'
+__version__ = '0.8.0 (alpha)'
 
 __author__ = 'Jack Campbell'
 __copyright__ = 'Copyright 2021, JackCampbell / ArgeX Inc.'

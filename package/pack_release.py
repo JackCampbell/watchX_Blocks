@@ -254,6 +254,32 @@ def zip_watchx_blocks_copy(name_append):
 	pass
 
 
+def unzip_directory(zip_file_location, destination):
+	# unzip file.zip -d destination_folder
+	if platform.system() == "Darwin":
+		# There are issues with zipfile and symlinks, so use zip command line
+		zip_process = subprocess.Popen( ["unzip", zip_file_location, "-d", destination], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		std_op, std_err_op = zip_process.communicate()
+		if std_err_op:
+			print(script_tab + "Error using unzip command:\n%s" % std_err_op)
+	else:
+		with zipfile.ZipFile(zip_file_location, 'r') as zip_ref:
+			zip_ref.extractall(destination)
+			pass
+	pass
+
+
+def copy_watchx_headers(source_path, dest_path):
+	if not os.path.exists(dest_path):
+		print(script_tab + "Copying contents of %s" % source_path)
+		print(script_tab + "               into %s" % dest_path)
+		shutil.copytree( source_path, dest_path, symlinks=True )
+	else:
+		print(script_tab + "ERROR: %s directory already exists!" % dest_path)
+		return False
+	return True
+
+
 def pack_watchx_blocks(tag):
 	"""
 	Copies the Ardublockly folder, removes unnecessary files and creates a
@@ -268,6 +294,16 @@ def pack_watchx_blocks(tag):
 	success = copy_watchx_blocks_folder()
 	if not success:
 		raise SystemExit(script_tab + "Exit: Project root copy error.")
+	"""
+	arduino_version = "1.8.15"
+	print(script_tag + "Copy arduino ide platform")
+	if platform.system() == "Darwin":
+		unzip_directory(os.path.join(copied_project_dir, "arduino_ide", f"arduino-{arduino_version}-macosx.zip"), os.path.join(copied_project_dir))
+		copy_watchx_headers( os.path.join(copied_project_dir, "arduino_ide", "watchX"), os.path.join(copied_project_dir, "Arduino.app", "Contents", "Java", "libraries", "watchX") )
+		pass
+	"""
+	print(script_tag + "Removing arduino ide")
+	remove_directory(os.path.join(copied_project_dir, "arduino_ide"))
 
 	print(script_tag + "Removing unnecessary Blockly files:")
 	remove_unnecessary_blockly()
