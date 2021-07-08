@@ -65,19 +65,35 @@ watchXBlocks.bindActionFunctions = function () {
         $('.button-collapse').sideNav('hide');
     });
     watchXBlocks.bindClick_('menu_example_2', function () {
-        watchXBlocks.loadServerXmlFile('../examples/serial_print_ascii.xml');
+        watchXBlocks.loadServerXmlFile('../examples/hello_world.xml');
         $('.button-collapse').sideNav('hide');
     });
     watchXBlocks.bindClick_('menu_example_3', function () {
-        watchXBlocks.loadServerXmlFile('../examples/serial_repeat_game.xml');
+        watchXBlocks.loadServerXmlFile('../examples/button_counter.xml');
         $('.button-collapse').sideNav('hide');
     });
     watchXBlocks.bindClick_('menu_example_4', function () {
-        watchXBlocks.loadServerXmlFile('../examples/servo_knob.xml');
+        watchXBlocks.loadServerXmlFile('../examples/drawing_lines.xml');
         $('.button-collapse').sideNav('hide');
     });
     watchXBlocks.bindClick_('menu_example_5', function () {
-        watchXBlocks.loadServerXmlFile('../examples/stepper_knob.xml');
+        watchXBlocks.loadServerXmlFile('../examples/sensor_read_movement.xml');
+        $('.button-collapse').sideNav('hide');
+    });
+    watchXBlocks.bindClick_('menu_example_6', function () {
+        watchXBlocks.loadServerXmlFile('../examples/sensor_read_temp_pressure.xml');
+        $('.button-collapse').sideNav('hide');
+    });
+    watchXBlocks.bindClick_('menu_example_7', function () {
+        watchXBlocks.loadServerXmlFile('../examples/move_the_dot.xml');
+        $('.button-collapse').sideNav('hide');
+    });
+    watchXBlocks.bindClick_('menu_example_8', function () {
+        watchXBlocks.loadServerXmlFile('../examples/siren.xml');
+        $('.button-collapse').sideNav('hide');
+    });
+    watchXBlocks.bindClick_('menu_example_9', function () {
+        watchXBlocks.loadServerXmlFile('../examples/watch_face.xml');
         $('.button-collapse').sideNav('hide');
     });
     watchXBlocks.bindClick_('menu_about', function () {

@@ -209,29 +209,49 @@ var getExamplesMenuData = function() {
         label: 'Examples',
         submenu: [
             {
-                label: 'Blinky',
+                label: 'Blink',
                 click: function() {
-                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/' + 'blink.xml");');
+                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/blink.xml");');
                 }
             }, {
-                label: 'Serial Print',
+                label: 'Hello World',
                 click: function() {
-                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/' + 'serial_print_ascii.xml");');
+                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/hello_world.xml");');
                 }
             }, {
-                label: 'Serial Repeat Game',
+                label: 'Button Counter',
                 click: function() {
-                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/' + 'serial_repeat_game.xml");');
+                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/button_counter.xml");');
                 }
             }, {
-                label: 'Servo Knob',
+                label: 'Drawing Lines',
                 click: function() {
-                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/' + 'servo_knob.xml");');
+                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/drawing_lines.xml");');
                 }
             }, {
-                label: 'Stepper Knob',
+                label: 'Sensor - Movement',
                 click: function() {
-                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/' + 'stepper_knob.xml");');
+                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/sensor_read_movement.xml");');
+                }
+            }, {
+                label: 'Sensor - Temp Prs',
+                click: function() {
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/sensor_read_temp_pressure.xml");');
+                }
+            }, {
+                label: 'Move the Dot',
+                click: function() {
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/move_the_dot.xml");');
+                }
+            }, {
+                label: 'Siren',
+                click: function() {
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/siren.xml");');
+                }
+            }, {
+                label: 'Watch Face',
+                click: function() {
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/watch_face.xml");');
                 }
             }
         ]

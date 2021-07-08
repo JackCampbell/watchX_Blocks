@@ -1,0 +1,15 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="arduino_functions" id=";Z:Nl]fw{M7u4M=Jh8HK" x="150" y="50">
+    <statement name="LOOP_FUNC">
+      <block type="wx_write_text_line" id=";/IXSp6203GR8IjWu{0s">
+        <field name="LINE">0</field>
+        <field name="ALIGN">0</field>
+        <value name="CONTENT">
+          <block type="text" id="_)Mwvuea,dVlPgUr;8KQ">
+            <field name="TEXT">Hello World</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+</xml>

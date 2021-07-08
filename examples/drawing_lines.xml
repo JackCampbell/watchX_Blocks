@@ -1,0 +1,108 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="arduino_functions" id=";Z:Nl]fw{M7u4M=Jh8HK" x="150" y="50">
+    <statement name="LOOP_FUNC">
+      <block type="wx_draw_line" id="IAzd9A`c`R3kmeXk}f5/">
+        <value name="PX1">
+          <block type="math_number" id="%j953Vu(fW^BuSpBp+;X">
+            <field name="NUM">32</field>
+          </block>
+        </value>
+        <value name="PY1">
+          <block type="math_number" id="^1B^Q!YDnxQ#Mg+Cm9]C">
+            <field name="NUM">16</field>
+          </block>
+        </value>
+        <value name="PX2">
+          <block type="math_number" id=";DqtvxaH.v`V?qkdcCJ6">
+            <field name="NUM">96</field>
+          </block>
+        </value>
+        <value name="PY2">
+          <block type="math_number" id="8]9E_vyeo-P},e:/:6]y">
+            <field name="NUM">48</field>
+          </block>
+        </value>
+        <next>
+          <block type="wx_draw_line" id="(X2O}bXW{J]Lie%xfd[v">
+            <value name="PX1">
+              <block type="math_number" id="vBa6i5;/V`,fG5p*S}h.">
+                <field name="NUM">96</field>
+              </block>
+            </value>
+            <value name="PY1">
+              <block type="math_number" id="8j]==9jI;rH_r;.9|fzH">
+                <field name="NUM">16</field>
+              </block>
+            </value>
+            <value name="PX2">
+              <block type="math_number" id="Cx)i0|S=`]!%R9Fx=#x^">
+                <field name="NUM">32</field>
+              </block>
+            </value>
+            <value name="PY2">
+              <block type="math_number" id="qOmp3O~]P[dO2:e[K^k;">
+                <field name="NUM">48</field>
+              </block>
+            </value>
+            <next>
+              <block type="wx_draw_pixel" id="`6.eE2vy%EOrE+G+sOOT">
+                <value name="PX">
+                  <block type="math_number" id="AT.7HGo7c*7i5`9HQ@i]">
+                    <field name="NUM">64</field>
+                  </block>
+                </value>
+                <value name="PY">
+                  <block type="math_number" id="sTo{:9hnx[-C=]bZsXvo">
+                    <field name="NUM">16</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="wx_draw_pixel" id="@)@[^zejZ^yqSHC(j6nf">
+                    <value name="PX">
+                      <block type="math_number" id=".2[ziJSi3YbsuD9IX~7B">
+                        <field name="NUM">32</field>
+                      </block>
+                    </value>
+                    <value name="PY">
+                      <block type="math_number" id="}fk`;dGlDjxXa31*x_RZ">
+                        <field name="NUM">32</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="wx_draw_pixel" id="wi8sS3qIFh*[*4_.(969">
+                        <value name="PX">
+                          <block type="math_number" id="n4I[Rdl:1}_*m(}TM0vh">
+                            <field name="NUM">96</field>
+                          </block>
+                        </value>
+                        <value name="PY">
+                          <block type="math_number" id="ON([bDd!Aw8;:xFWEr)1">
+                            <field name="NUM">32</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="wx_draw_pixel" id="PhI0)GP7[i@Pj(pqqz:j">
+                            <value name="PX">
+                              <block type="math_number" id="`,6,qvdQZMJ_k-TYf0{)">
+                                <field name="NUM">64</field>
+                              </block>
+                            </value>
+                            <value name="PY">
+                              <block type="math_number" id="6To4zAr=M|E_?R4Qj_4a">
+                                <field name="NUM">48</field>
+                              </block>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

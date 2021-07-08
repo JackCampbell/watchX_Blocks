@@ -1,0 +1,130 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="arduino_functions" id="Ur.=N3,e-ki@iY9nRd(E" x="150" y="30">
+    <statement name="SETUP_FUNC">
+      <block type="variables_set" id="r=k{|28.Z4^^S]lhI:-!">
+        <field name="VAR">f</field>
+        <value name="VALUE">
+          <block type="math_number" id="e3-+YQ3!V@GOP,4P1WQr">
+            <field name="NUM">700</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+    <statement name="LOOP_FUNC">
+      <block type="controls_whileUntil" id="y7vBO(kW0omfc@5wlw5V">
+        <field name="MODE">UNTIL</field>
+        <value name="BOOL">
+          <block type="logic_compare" id="WE@{`1|{]I6{dGcz,)zP">
+            <field name="OP">GT</field>
+            <value name="A">
+              <block type="variables_get" id="Vj+LkVXod3!QS.e/DDPg">
+                <field name="VAR">f</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="math_number" id="rTF~F@p3B=`0Uv/w@b^+">
+                <field name="NUM">1500</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO">
+          <block type="wx_play_freq" id="H*E:hrn2s-*rED.F-JE`">
+            <value name="FREQUENCY">
+              <block type="variables_get" id="q]1vNYt;JQg);ZXpGECh">
+                <field name="VAR">f</field>
+              </block>
+            </value>
+            <next>
+              <block type="variables_set" id="hEmcADx%[v!`1yinH1|4">
+                <field name="VAR">f</field>
+                <value name="VALUE">
+                  <block type="math_arithmetic" id="8YPgPffi*Xov?o0h+Gsb">
+                    <field name="OP">ADD</field>
+                    <value name="A">
+                      <block type="variables_get" id="roi!iOve(|jFnhK06EkW">
+                        <field name="VAR">f</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="math_number" id="JRp+hht-Ym/nq*[L1_(p">
+                        <field name="NUM">35</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="time_delay" id="f*(m8mc(wHL^nU6;v1pB">
+                    <value name="DELAY_TIME_MILI">
+                      <block type="math_number" id="pnvJI[m7UrwM~H2V-~af">
+                        <field name="NUM">25</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="controls_whileUntil" id="Clo?o%mm#L4qr]w^{(=H">
+            <field name="MODE">UNTIL</field>
+            <value name="BOOL">
+              <block type="logic_compare" id="@xCI.GL/qH{T:^o]j}yH">
+                <field name="OP">LT</field>
+                <value name="A">
+                  <block type="variables_get" id="fzc*8wJm11wU3)CWSh=|">
+                    <field name="VAR">f</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="math_number" id="Yp}=~}oy8zS6X6Y%l8YL">
+                    <field name="NUM">700</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO">
+              <block type="wx_play_freq" id="zPX%3WkJ{4F5l?G-:B#c">
+                <value name="FREQUENCY">
+                  <block type="variables_get" id="KoI2rP~OGacyXRxQ0b@W">
+                    <field name="VAR">f</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="variables_set" id="@AlB]Tz]Yp4OuqWfl?}Z">
+                    <field name="VAR">f</field>
+                    <value name="VALUE">
+                      <block type="math_arithmetic" id="LTq7zPf44?B`F5QONHzN">
+                        <field name="OP">MINUS</field>
+                        <value name="A">
+                          <block type="variables_get" id="GxGu[uB(f1^/vpKse2f4">
+                            <field name="VAR">f</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="math_number" id="`Dt@TS0xn7P!WdC_CzTC">
+                            <field name="NUM">15</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="time_delay" id="ZhF#@NskYf+]|K}zVTtA">
+                        <value name="DELAY_TIME_MILI">
+                          <block type="math_number" id="vigpP**C=vT{2:V!Athy">
+                            <field name="NUM">25</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

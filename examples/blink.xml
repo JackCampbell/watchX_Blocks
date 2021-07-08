@@ -1,38 +1,34 @@
-<xml>
-  <block type="io_builtin_led" id="131" inline="true" x="6" y="88">
-    <field name="BUILT_IN_LED">13</field>
-    <value name="STATE">
-      <block type="io_highlow" id="132">
-        <field name="STATE">HIGH</field>
-      </block>
-    </value>
-    <next>
-      <block type="time_delay" id="139" inline="true">
-        <value name="DELAY_TIME_MILI">
-          <block type="math_number" id="140">
-            <field name="NUM">1000</field>
-          </block>
-        </value>
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="arduino_functions" id=";Z:Nl]fw{M7u4M=Jh8HK" x="150" y="50">
+    <statement name="LOOP_FUNC">
+      <block type="wx_led_brightness" id="Q(x-gzG_AsTQVGh=F{q=">
+        <field name="PIN">13</field>
+        <field name="LEVEL">0</field>
         <next>
-          <block type="io_builtin_led" id="162" inline="true">
-            <field name="BUILT_IN_LED">13</field>
-            <value name="STATE">
-              <block type="io_highlow" id="163">
-                <field name="STATE">LOW</field>
+          <block type="time_delay" id="Cw+?rzz[3Oh[!LS[ovle">
+            <value name="DELAY_TIME_MILI">
+              <block type="math_number" id="7d@tgO1F`P(d8WoL+W2g">
+                <field name="NUM">1000</field>
               </block>
             </value>
             <next>
-              <block type="time_delay" id="160" inline="true">
-                <value name="DELAY_TIME_MILI">
-                  <block type="math_number" id="161">
-                    <field name="NUM">1000</field>
+              <block type="wx_led_brightness" id="HoP2eY_(#jGML8ON248E">
+                <field name="PIN">13</field>
+                <field name="LEVEL">255</field>
+                <next>
+                  <block type="time_delay" id="2L8i60^{6mFf{=t0Vdqn">
+                    <value name="DELAY_TIME_MILI">
+                      <block type="math_number" id=")Rv|y#K|FLChJJg+G^0*">
+                        <field name="NUM">1000</field>
+                      </block>
+                    </value>
                   </block>
-                </value>
+                </next>
               </block>
             </next>
           </block>
         </next>
       </block>
-    </next>
+    </statement>
   </block>
 </xml>

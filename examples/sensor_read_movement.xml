@@ -1,0 +1,156 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="arduino_functions" id=",t@R@h;.U49uG#*OIpY," x="110" y="130">
+    <statement name="LOOP_FUNC">
+      <block type="wx_write_text_line" id="+vV@_HuWD*fXw3R@`ws0">
+        <field name="LINE">0</field>
+        <field name="ALIGN">1</field>
+        <value name="CONTENT">
+          <block type="text" id="DfV!-JgiGkY)951le0]^">
+            <field name="TEXT">IMU Measurements</field>
+          </block>
+        </value>
+        <next>
+          <block type="wx_write_text_line" id="yyo*Y}=YB8em^;f7d|Sp">
+            <field name="LINE">2</field>
+            <field name="ALIGN">0</field>
+            <value name="CONTENT">
+              <block type="text" id="_,KAm[zMBL=^D]e*qAVq">
+                <field name="TEXT">Accelertion X</field>
+              </block>
+            </value>
+            <next>
+              <block type="wx_write_text_line" id="#mCc-]R(wsO]#=K%5eG:">
+                <field name="LINE">2</field>
+                <field name="ALIGN">2</field>
+                <value name="CONTENT">
+                  <block type="wx_mpu_get_accel_value" id="ZOvEZAuy*Hyp5?3)-!]E">
+                    <field name="KEY">WX_MPU_ACCEL_X</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="wx_write_text_line" id="B/gaN/Cei0u2En~m^COC">
+                    <field name="LINE">3</field>
+                    <field name="ALIGN">0</field>
+                    <value name="CONTENT">
+                      <block type="text" id="=_Y3Vdf0M{@PS8ki1AFt">
+                        <field name="TEXT">Accelertion Y</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="wx_write_text_line" id="h;NWO6#BUL(xY]5ZP57)">
+                        <field name="LINE">3</field>
+                        <field name="ALIGN">2</field>
+                        <value name="CONTENT">
+                          <block type="wx_mpu_get_accel_value" id="w[VU-*P4lX=nfm}{/]#!">
+                            <field name="KEY">WX_MPU_ACCEL_Y</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="wx_write_text_line" id="rsb}xo1})GphaT(sP+oI">
+                            <field name="LINE">4</field>
+                            <field name="ALIGN">0</field>
+                            <value name="CONTENT">
+                              <block type="text" id="1A39guVC:3%_k}O0,~%#">
+                                <field name="TEXT">Accelertion Z</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="wx_write_text_line" id="c/_.e~p-S:ABKen(|l].">
+                                <field name="LINE">4</field>
+                                <field name="ALIGN">2</field>
+                                <value name="CONTENT">
+                                  <block type="wx_mpu_get_accel_value" id="X7-]#::pWcb~szwlUeK^">
+                                    <field name="KEY">WX_MPU_ACCEL_Z</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="wx_write_text_line" id="]8F.63ySPS]=+6%p~,e1">
+                                    <field name="LINE">5</field>
+                                    <field name="ALIGN">0</field>
+                                    <value name="CONTENT">
+                                      <block type="text" id="l}M*U6lbJ./oba@bPu*@">
+                                        <field name="TEXT">Angle X</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="wx_write_text_line" id="W+8w1);bnnBwC@uaL{a%">
+                                        <field name="LINE">5</field>
+                                        <field name="ALIGN">2</field>
+                                        <value name="CONTENT">
+                                          <block type="wx_mpu_get_angle_value" id="A|71aO#|R2ERw[iTdwo7">
+                                            <field name="KEY">WX_MPU_ANGLE_X</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="wx_write_text_line" id="9-b:.sa_0z}X6Ito2f87">
+                                            <field name="LINE">6</field>
+                                            <field name="ALIGN">0</field>
+                                            <value name="CONTENT">
+                                              <block type="text" id="fmrk(.6QHIN/;W=]]hC:">
+                                                <field name="TEXT">Angle Y</field>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="wx_write_text_line" id="x)ULkFZYDU(f8M4,.W}R">
+                                                <field name="LINE">6</field>
+                                                <field name="ALIGN">2</field>
+                                                <value name="CONTENT">
+                                                  <block type="wx_mpu_get_angle_value" id="iCNmzrl-pJYHU#a{3Idx">
+                                                    <field name="KEY">WX_MPU_ANGLE_Y</field>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="wx_write_text_line" id="Tn;@7J;q27/~hS(/KU8d">
+                                                    <field name="LINE">7</field>
+                                                    <field name="ALIGN">0</field>
+                                                    <value name="CONTENT">
+                                                      <block type="text" id="Z_;}[eG%*nO2S_~b7lU:">
+                                                        <field name="TEXT">Angle Z</field>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="wx_write_text_line" id="W7H8B-(kJOSV|lUcM/Fz">
+                                                        <field name="LINE">7</field>
+                                                        <field name="ALIGN">2</field>
+                                                        <value name="CONTENT">
+                                                          <block type="wx_mpu_get_angle_value" id="gUR.G5wNM=d?eJ/h,Q%i">
+                                                            <field name="KEY">WX_MPU_ANGLE_Z</field>
+                                                          </block>
+                                                        </value>
+                                                        <next>
+                                                          <block type="time_delay" id="]?v9P,oMe`]*.Shlpbv9">
+                                                            <value name="DELAY_TIME_MILI">
+                                                              <block type="math_number" id="EsW+Yu0^mjnMvX:M.Uw]">
+                                                                <field name="NUM">33</field>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

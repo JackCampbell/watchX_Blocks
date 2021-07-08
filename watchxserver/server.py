@@ -323,7 +323,7 @@ def handler_settings_update_individual(name):
                 response_dict.update({'success': False, 'settings_type': 'invalid'})
                 response_dict.setdefault('errors', []).append({ 'id': 63, 'description': 'Unexpected setting type to update.'})
             # Check if sent value was set, might have been expanded in Settings
-            if new_value in set_value:
+            if set_value is not None and new_value in set_value:
                 response_dict.update({ 'success': True, 'selected': set_value })
                 if options:
                     response_dict.update({'options': options})
