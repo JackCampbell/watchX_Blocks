@@ -253,6 +253,11 @@ var getExamplesMenuData = function() {
                 click: function() {
                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/watch_face.xml");');
                 }
+            }, {
+                label: 'Bounce',
+                click: function() {
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/bounce.xml");');
+                }
             }
         ]
     };

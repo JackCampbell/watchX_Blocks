@@ -96,6 +96,10 @@ watchXBlocks.bindActionFunctions = function () {
         watchXBlocks.loadServerXmlFile('../examples/watch_face.xml');
         $('.button-collapse').sideNav('hide');
     });
+    watchXBlocks.bindClick_('menu_example_10', function () {
+        watchXBlocks.loadServerXmlFile('../examples/bounce.xml');
+        $('.button-collapse').sideNav('hide');
+    });
     watchXBlocks.bindClick_('menu_about', function () {
         watchXBlocks.openAboutUs();
         $('.button-collapse').sideNav('hide');
