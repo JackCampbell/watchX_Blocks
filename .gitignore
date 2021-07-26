@@ -119,3 +119,5 @@ Resources/
 package/electron/app/package-lock.json
 package/electron/package-lock.json
 watchx_exec/
+ServerCompilerSettings.ini
+

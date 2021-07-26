@@ -160,8 +160,7 @@ def create_shell_file(os_type):
 	except Exception as e:
 		print(script_tab + "%s" % e)
 		print(script_tab + "ERROR: Shell file to launch the watchXBlocks application could not be created.")
-	return
-
+		return
 	if os_type == "linux":
 		# Make shell script executable by launching a subprocess
 		process_args = ["chmod", "+x", "%s" % shell_location]

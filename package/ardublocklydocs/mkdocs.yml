@@ -25,6 +25,8 @@ pages:
         - Text: 'Create-~-Text.md'
         - Variables: 'Create-~-Variables.md'
         - Functions: 'Create-~-Functions.md'
+- FAQs: 'FAQs.md'
+- Known Arduino IDE issues: 'Known-Arduino-IDE-issues.md'
 - Developer Guide:
     - Building Ardublockly: 'Building-Ardublockly.md'
     - Running Uncompressed Ardublockly: 'Running-Uncompressed-Ardublockly.md'
@@ -34,7 +36,8 @@ pages:
         - Extending Ardublockly: 'Create-Blocks-~-Extending-Ardublockly.md'
     - Add a New Board: 'Add-New-Arduino-Board.md'
     - Add a New Language: 'Add-New-Language.md'
-- FAQs: 'FAQs.md'
+    - To-do List: 'To-do-list.md'
+- Projects Using Ardublockly: 'Projects-Using-Ardublockly.md'
 - About:
     - About Ardublockly: 'About.md'
     - License: 'License.md'
