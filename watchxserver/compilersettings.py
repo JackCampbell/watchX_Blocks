@@ -20,12 +20,11 @@ import configparser
 # This package modules
 import watchxserver.serialport
 
-from watchxserver.finder import find_watchx_dir
+from watchxserver.finder import find_watchx_dir, find_serial_port
 
 
 class ServerCompilerSettings(object):
 	"""Singleton class to store and save the Ardublockly settings.
-
 	The class on first invocation tries to read the settings from the file, it
 	keeps them in memory, and every time they are modified the changes are
 	written to the file again.
@@ -124,25 +123,20 @@ class ServerCompilerSettings(object):
 
 
 	def set_compiler_dir_default(self):
-		self.__compiler_dir = None
-		"""
+		# self.__compiler_dir = None
 		watch_dir = find_watchx_dir(__file__)
 		if watch_dir is None:
 			self.__compiler_dir = None
 			return
 		# check ownpath
-		if sys.platform == "darwin":
-			absolute_path = os.path.join( watch_dir, "Arduino.app", "Contents", "MacOS", "Arduino" )
+		if sys.platform == "darwin" or sys.platform == "linux":
+			absolute_path = os.path.join( watch_dir, "arduino-cli", "arduino-cli" )
 			self.__compiler_dir = self.check_path(absolute_path)
 		elif sys.platform == "win32":
-			absolute_path = os.path.join( watch_dir, "Arduino", "Arduino.exe" )
-			self.__compiler_dir = self.check_path(absolute_path)
-		elif sys.platform == "linux":
-			absolute_path = os.path.join( watch_dir, "Arduino", "arduino" )
+			absolute_path = os.path.join( watch_dir, "arduino-cli", "arduino-cli.exe" )
 			self.__compiler_dir = self.check_path(absolute_path)
 		else:
 			self.__compiler_dir = None
-		"""
 		pass
 
 	#
@@ -154,6 +148,7 @@ class ServerCompilerSettings(object):
 	def set_compiler_dir(self, new_compiler_dir):
 		"""Set the compiler dir, must a valid file or directory."""
 		# Mac only check, as apps are packaged directories
+		"""
 		if sys.platform == 'darwin':
 			# Arduino version >1.6.0 has changed the binary name, so check both
 			bundle = os.path.join(new_compiler_dir, 'Contents', 'MacOS')
@@ -165,6 +160,7 @@ class ServerCompilerSettings(object):
 				print('Compiler file in OS X located within the app bundle.')
 			else:
 				print('Could not find Arduino executable in OS X app bundle.')
+		"""
 		# Check directory
 		if os.path.isfile(new_compiler_dir):
 			self.__compiler_dir = new_compiler_dir
@@ -456,7 +452,8 @@ class ServerCompilerSettings(object):
 
 	def populate_serial_port_list(self):
 		"""Populate the serial ports dictionary with the available ports."""
-		port_list = watchxserver.serialport.get_port_list()
+		# port_list = watchxserver.serialport.get_port_list()
+		port_list = find_serial_port(self.__arduino_board_value)
 		self.__serial_ports = {}
 		if port_list:
 			port_id = 0
@@ -612,3 +609,6 @@ class ServerCompilerSettings(object):
 			success = True
 		return success
 	pass
+
+
+

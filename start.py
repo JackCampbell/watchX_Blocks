@@ -18,8 +18,9 @@ import webbrowser
 
 import watchxserver.server
 import watchxserver.compilersettings
+import watchxserver.actions
 
-from watchxserver.finder import find_watchx_dir
+from watchxserver.finder import find_watchx_dir, arduino_cli_board_setup
 
 # Server IP and PORT settings
 SERVER_IP = 'localhost'
@@ -138,6 +139,8 @@ def main():
     print('\n======= Loading Settings =======')
     # ServerCompilerSettings is a singleton, no need to save instance
     watchxserver.compilersettings.ServerCompilerSettings(watchx_root_dir)
+    if arduino_cli_board_setup() is not None:
+        return
     print('\n======= Starting Server =======')
     if launch_browser:
         open_browser(ip=SERVER_IP, port=SERVER_PORT)
