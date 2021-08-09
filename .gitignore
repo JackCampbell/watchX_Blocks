@@ -94,6 +94,7 @@ TestTemp_*
 
 # Packaged python build folders and files
 /build
+/build_pack
 /upload
 /releases
 /arduexec
@@ -110,25 +111,15 @@ watchxsketch/materialize/materialize_uncompressed.js
 # The electron package needs the build folder (to be changed in the near future)
 !/package/electron/tasks/build/
 
-# MacOSX
-Frameworks/
-Info.plist
-MacOS/
-PkgInfo
-Resources/
-package/electron/app/package-lock.json
-package/electron/package-lock.json
-watchx_exec/
-ServerCompilerSettings.ini
-
+# new
 appdata/
 node_modules/
 package-lock.json
 watchxblocks.log
-dist/
 
 .travis.yml
 .coveragerc
 .appveyor.yml
+
 
 

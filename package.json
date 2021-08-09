@@ -34,9 +34,9 @@
     "url": "https://github.com/JackCampbell/watchX_Blocks/issues"
   },
   "scripts": {
-    "pack:osx": "node ./build/pack_osx.js && npm run codesign",
-    "pack:win32": "node ./build/pack_win32.js",
-    "pack:win64": "node ./build/pack_win64.js",
+    "pack:osx": "node ./build_script/pack_osx.js && npm run codesign",
+    "pack:win32": "node ./build_script/pack_win32.js",
+    "pack:win64": "node ./build_script/pack_win64.js",
     "setup:msi": "electron-installer-windows --src dist/win/watchXBlocks-win32-ia32 --dest dist/installers/",
     "setup:dmg": "node ./build/pack_dmg.js",
     "build": "npm run pack:osx && npm run pack:win32 && npm run pack:win64",
