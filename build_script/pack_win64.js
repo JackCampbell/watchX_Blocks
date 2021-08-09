@@ -39,16 +39,5 @@ packager({
 			return true;
 		}
 		return false;
-	}/*,
-	osxSign: {
-		'identity': 'Developer ID Application: JackCampbell',
-		'hardened-runtime': true,
-		'entitlements': 'build/entitlements.plist',
-		'entitlements-inherit': 'build/entitlements.plist',
-		'signature-flags': 'library'
-	},
-	osxNotarize: {
-		appleId: 'jack_campbell_512@hotmail.com',
-		appleIdPassword: 'XXXXXX'
-	}*/
+	}
 });
