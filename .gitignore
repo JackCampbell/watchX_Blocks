@@ -121,3 +121,8 @@ package/electron/package-lock.json
 watchx_exec/
 ServerCompilerSettings.ini
 
+appdata/
+node_modules/
+package-lock.json
+watchxblocks.log
+

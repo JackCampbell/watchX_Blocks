@@ -1,0 +1,46 @@
+{
+  "name": "watchXBlocks",
+  "productName": "watchXBlocks",
+  "description": "Visual programming for watchX",
+  "version": "0.8.0 (alpha)",
+  "author": "Jack Campbell",
+  "copyright": "© 2021, Jack Campbell / ArgeX Inc.",
+  "homepage": "https://watchx.io",
+  "main": "main.js",
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0",
+    "express": "*",
+    "fs-jetpack": "^0.9.0",
+    "nconf": "*",
+    "winston": "^1.0.1"
+  },
+  "devDependencies": {
+    "electron": "^13.1.8",
+    "electron-installer-dmg": "^3.0.0",
+    "electron-installer-windows": "^3.0.0",
+    "electron-packager": "^15.3.0"
+  },
+  "packageNameTemplate": "{{name}}-v{{version}}-{{platform}}-{{arch}}",
+  "osx": {
+    "build": "1",
+    "identifier": "com.argex.watchxblocks",
+    "LSApplicationCategoryType": "public.app-category.developer-tools"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JackCampbell/watchX_Blocks.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JackCampbell/watchX_Blocks/issues"
+  },
+  "scripts": {
+    "pack:osx": "node ./build/pack_osx.js && npm run codesign",
+    "pack:win32": "node ./build/pack_win32.js",
+    "pack:win64": "node ./build/pack_win64.js",
+    "setup:msi": "electron-installer-windows --src dist/win/watchXBlocks-win32-ia32 --dest dist/installers/",
+    "setup:dmg": "node ./build/pack_dmg.js",
+    "build": "npm run pack:osx && npm run pack:win32 && npm run pack:win64",
+    "start": "NODE_ENV=development electron . --enable-logging",
+    "codesign": "codesign --verbose --deep --force --sign 'jack_campbell_512@hotmail.com' dist/osx/watchXBlocks-darwin-x64/watchXBlocks.app"
+  }
+}

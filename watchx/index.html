@@ -12,11 +12,11 @@
   <link rel="stylesheet" href="prettify/arduino.css">
   <link rel="stylesheet" href="watchXBlocks.css" media="screen,projection">
 
-  <script src="../closure-library/closure/goog/base.js"></script>
+  <script src="/closure-library/closure/goog/base.js"></script>
   <!-- watchXBlocks - These three files contain the compress version -->
-  <script src="../blockly/blockly_compressed.js"></script>
-  <script src="../blockly/blocks_compressed.js"></script>
-  <script src="../blockly/arduino_compressed.js"></script>
+  <script src="/blockly/blockly_compressed.js"></script>
+  <script src="/blockly/blocks_compressed.js"></script>
+  <script src="/blockly/arduino_compressed.js"></script>
   <!-- To use the uncompressed version comment out the above and comment in the ones below -->
   <!--
   <script src="../blockly/blockly_uncompressed.js"></script>
@@ -59,7 +59,7 @@
   <script src="../blockly/generators/arduino/watchx.js"></script>
   -->
   <!-- Default language js files, user selection appended to head on load -->
-  <script src="../blockly/msg/js/en.js"></script>
+  <script src="/blockly/msg/js/en.js"></script>
   <script src="msg/en.js"></script>
 </head>
 
@@ -67,14 +67,16 @@
   <!-- Horizontal Navigation bar -->
   <nav class="nav-fixed watchXB_dark_gray border-orange">
     <div class="nav-wrapper container">
+  
       <a class="show-on-large button-collapse" href="#" data-activates="slide-out" id="button-collapse"><i class="mdi-navigation-menu"></i></a>
+      
       <a id="logo-container" class="brand-logo aligned-vertical-parent">
 <!--        <span class="app_title translatable_title">watchXBlocks:</span>-->
         <img class="watchXB_logo watchXB_dark_gray border-orange" src="img/watchX_Blocks_Logo_2.svg"/>
         <!-- Sketch name editable text field -->
         <span class="sketch_name_wrapper aligned-vertical-top">
           <i class="mdi-image-edit sketch_name_icon"></i>
-          <input id="sketch_name" class="sketch_name" type="text">
+          <input id="sketch_name" class="sketch_name" type="text" style="min-width: 150px;">
         </span>
       </a>
       <!-- Horizontal Navbar links only shown on large resolutions -->
@@ -93,17 +95,19 @@
   </nav>
 
   <!-- Sidebar navigation -->
-  <ul id="slide-out" class="side-nav">
-    <li class="logo"><img src="img/sidenav_header.png" alt="watchXBlocks block image"></li>
+  <ul id="slide-out" class="side-nav" style="padding-bottom: 140px !important; top: 106px">
+<!--    <li class="logo"><img src="img/sidenav_header.png" alt="watchXBlocks block image"></li>-->
     <li class="no-padding">
       <ul>
-        <li id="menu_new"><a href="#"><span class="translatable_new">New</span><i class="mdi-file-file-upload left"></i></a></li>
+        <li id="menu_new"><a href="#"><span class="translatable_new">New</span><i class="mdi-content-add-circle-outline left"></i></a></li>
         <li id="menu_load"><a href="#"><span class="translatable_open">Open</span><i class="mdi-file-file-upload left"></i></a></li>
         <li id="menu_save"><a href="#"><span class="translatable_save">Save</span><i class="mdi-file-file-download left"></i></a></li>
         <li id="menu_delete"><a href="#"><span class="translatable_deleteAll">Delete All</span><i class="mdi-action-delete left"></i></a></li>
         <li id="menu_settings"><a href="#"><span class="translatable_settings">Settings</span><i class="mdi-action-settings left"></i></a></li>
+        <!--
         <li id="menu_wiki"><a href="https://github.com/JackCampbell/watchX_Blocks/wiki" target="_blank"><span class="translatable_documentation">Documentation</span><i class="mdi-action-help left"></i></a></li>
         <li id="menu_bug"><a href="https://github.com/JackCampbell/watchX_Blocks/issues" target="_blank"><span class="translatable_reportBug">Report Bug</span><i class="mdi-action-bug-report left"></i></a></li>
+        -->
       </ul>
     <li class="no-padding">
       <ul class="collapsible collapsible-accordion">
@@ -339,10 +343,10 @@
           <h5>watchX Blocks is a visual programming editor<br/>for watchX</h5>
           <p><i>Copyright (c) 2021 argeX</i></p>
           <p>Unless stated otherwise, the source code of this projects is licensed under the Apache License, Version 2.0 (the "License"); you may not use any of the licensed files within this project except in compliance with the License.</p>
-          <p>The full document can be found in the <a href="https://github.com/JackCampbell/watchX_blocks/blob/master/LICENSE">LICENSE</a> file.</p>
+          <p>The full document can be found in the <a target="_blank"  href="https://github.com/JackCampbell/watchX_blocks/blob/master/LICENSE">LICENSE</a> file.</p>
           <h5>Credits</h5>
-          <p>This project has been inspired by <a href="https://github.com/BlocklyDuino/BlocklyDuino">BlocklyDuino</a> and forked directly from <a href="https://github.com/carlosperate/ardublockly">Ardublockly</a> by <a href="https://www.watchx.io/">argeX</a>.<br/><a href="https://developers.google.com/blockly/">Blockly</a> original source is Copyright of Google Inc.<br/><a href="https://github.com/arduino/Arduino">Arduino IDE</a> is used under <a href="https://github.com/arduino/Arduino/blob/master/license.txt">GNU GPL v2.0 and LGPL</a></p>
-          <p>Version: 0.8.0 (alpha) <a href="https://github.com/JackCampbell/watchX_Blocks">source code</a><br/>Contact: <a href="mailto:info@argex.io">info@argex.io</a> </p>
+          <p>This project has been inspired by <a target="_blank"  href="https://github.com/BlocklyDuino/BlocklyDuino">BlocklyDuino</a> and forked directly from <a target="_blank"  href="https://github.com/carlosperate/ardublockly">Ardublockly</a> by <a target="_blank"  href="https://www.watchx.io/">argeX</a>.<br/><a target="_blank"  href="https://developers.google.com/blockly/">Blockly</a> original source is Copyright of Google Inc.<br/><a target="_blank"  href="https://github.com/arduino/arduino-cli">Arduino-cli</a> is used under <a target="_blank"  href="https://github.com/arduino/arduino-cli/blob/master/LICENSE.txt">GNU General Public License</a></p>
+          <p>Version: 0.8.0 (alpha) <a target="_blank" href="https://github.com/JackCampbell/watchX_Blocks">source code</a><br/>Contact: <a target="_blank"  href="mailto:info@argex.io">info@argex.io</a> </p>
         </div>
       </div>
     </div>
@@ -351,9 +355,11 @@
     </div>
   </div>
 
-  <!-- Desktop version of watchXBlocks JS, needs to be loaded first. -->
+  <!-- Desktop version of watchXBlocks JS, needs to be loaded first.
   <script src="watchXBlocks_desktop.js"></script>
+  -->
   <!-- jQuery and Materialize JS -->
+  <script src="js_libs/hammer.min.js"></script>
   <script src="js_libs/jquery-2.1.3.min.js"></script>
   <script src="materialize/materialize.js"></script>
   <!-- FileSaver JS -->
