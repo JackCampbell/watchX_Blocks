@@ -125,4 +125,5 @@ appdata/
 node_modules/
 package-lock.json
 watchxblocks.log
+dist/
 
