@@ -61,21 +61,21 @@ watchXBlocks.LOCALISED_TEXT = {
   arduinoOpErrorUnknown: "Unexpected error",
   /* Modals */
   noServerTitle: "watchX Blocks app not running",
-  noServerTitleBody: "<p>For all the watchX Blocks features to be enabled, the watchX Blocks desktop application must be running locally on your computer.</p>" +
-                     "<p>If you are using an online version you will not be able to configure the settings nor load the blocks code into an Arduino.</p>" +
-                     "<p>Installation instruction can be found in the <a href=\"https://github.com/JackCampbell/watchX_Blocks\">watchX Blocks repository</a>.</p>" +
-                     "<p>If you have watchX Blocks already installed, make sure the application is running correctly.</p>",
+  noServerTitleBody: '<p>For all the watchX Blocks features to be enabled, the watchX Blocks desktop application must be running locally on your computer.</p>' +
+                     '<p>If you are using an online version you will not be able to configure the settings nor load the blocks code into an Arduino.</p>' +
+                     '<p>Installation instruction can be found in the <a target="_blank" href="https://github.com/JackCampbell/watchX_Blocks">watchX Blocks repository</a>.</p>' +
+                     '<p>If you have watchX Blocks already installed, make sure the application is running correctly.</p>',
   noServerNoLangBody: "If the watchX Blocks application is not running the language cannot be fully changed.",
   addBlocksTitle: "Additional Blocks",
   aboutTitle: 'About',
   aboutBody:  '<h5>watchX Blocks is a visual programming editor<br/>for watchX</h5>\n' +
               '<p><i>Copyright (c) 2021 argeX</i></p>\n' +
               '<p>Unless stated otherwise, the source code of this projects is licensed under the Apache License, Version 2.0 (the "License"); you may not use any of the licensed files within this project except in compliance with the License.</p>\n' +
-              '<p>The full document can be found in the <a href="https://github.com/JackCampbell/watchX_blocks/blob/master/LICENSE">LICENSE</a> file.</p>\n' +
+              '<p>The full document can be found in the <a target="_blank" href="https://github.com/JackCampbell/watchX_blocks/blob/master/LICENSE">LICENSE</a> file.</p>\n' +
               '<h5>Credits</h5>\n' +
-              '<p>This project has been inspired by <a href="https://github.com/BlocklyDuino/BlocklyDuino">BlocklyDuino</a> and forked directly from <a href="https://github.com/carlosperate/ardublockly">Ardublockly</a> by <a href="https://www.watchx.io/">argeX</a>.<br/><a href="https://developers.google.com/blockly/">Blockly</a> original source is Copyright of Google Inc.</p>\n' +
-              '<p><a href="https://github.com/arduino/Arduino">Arduino IDE</a> is used under <a href="https://github.com/arduino/Arduino/blob/master/license.txt">GNU GPL v2.0 and LGPL</a></p>' +
-              '<p>Version: 0.8.0 (alpha) <a href="https://github.com/JackCampbell/watchX_Blocks">source code</a><br/>Contact: <a href="mailto:info@argex.io">info@argex.io</a></p>',
+              '<p>This project has been inspired by <a href="https://github.com/BlocklyDuino/BlocklyDuino">BlocklyDuino</a> and forked directly from <a target="_blank" href="https://github.com/carlosperate/ardublockly">Ardublockly</a> by <a target="_blank" href="https://www.watchx.io/">argeX</a>.<br/><a target="_blank" href="https://developers.google.com/blockly/">Blockly</a> original source is Copyright of Google Inc.</p>\n' +
+              '<p><a target="_blank" href="https://github.com/arduino/Arduino">Arduino IDE</a> is used under <a target="_blank" href="https://github.com/arduino/Arduino/blob/master/license.txt">GNU GPL v2.0 and LGPL</a></p>' +
+              '<p>Version: 0.9.0 <a target="_blank" href="https://github.com/JackCampbell/watchX_Blocks">source code</a><br/>Contact: <a target="_blank" href="mailto:info@argex.io">info@argex.io</a></p>',
   close: 'Close',
   /* Alerts */
   loadNewBlocksTitle: "Load new blocks?",
