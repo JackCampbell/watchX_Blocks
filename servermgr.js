@@ -186,44 +186,37 @@ app.post("/code", express.json(), (req, res, next) => {
 		return send_error(res, 56, 'Arduino Board not configured in the Settings.', 'ide_output');
 	}
 	const action = config.get_selected_ide();
-	//setup sync
-	helper.compile_process(compiler, filename, include_path, board, (code, stdout, stderr) => {
-		console.log('Arduino output:', stdout);
-		console.log('Arduino Error output:', stderr);
-		console.log('Arduino Exit code:', code);
-		if(code != 0) {
-			// return send_error(res, 56, 'Unexpected Arduino exit error code:' + code, 'ide_output');
-		}
-		if(action != 'upload') {
-			return res.json({
-				'response_type': 'ide_output',
-				'response_state': 'full_response',
-				'success': code == 0,
-				'ide_mode': action,
-				'ide_data': { 'std_output': stdout, 'err_output': stderr, 'exit_code': code }
-			});
-		}
+
+	var args = [];
+	args.push( insert_quote(compiler) );
+	args.push("compile");
+	args.push( "--fqbn" );
+	args.push( board );
+	args.push("--library");
+	args.push( insert_quote(include_path) );
+	args.push("--clean");
+	args.push("--verify");
+	if(action === 'upload') {
 		const { ports } = helper.find_serial_ports(compiler, board);
 		const serialport = config.get_serial_port(ports);
 		if(serialport == null) {
 			return send_error(res, 55, 'Serial Port configured in Settings not accessible.', 'ide_output');
 		}
-		helper.upload_process(compiler, filename, serialport, board, (code, upload_stdout, upload_stderr) => {
-			console.log('Arduino output:', upload_stdout);
-			console.log('Arduino Error output:', upload_stderr);
-			console.log('Arduino Exit code:', code);
-			stdout += upload_stdout;
-			stderr += upload_stderr;
-			if(code != 0) {
-				// return send_error(res, 56, 'Unexpected Arduino exit error code:' + code, 'ide_output');
-			}
-			return res.json({
-				'response_type': 'ide_output',
-				'response_state': 'full_response',
-				'success': code == 0,
-				'ide_mode': action,
-				'ide_data': { 'std_output': stdout, 'err_output': stderr, 'exit_code': code }
-			});
+		args.push("--upload");
+		args.push("--port");
+		args.push( serialport );
+	}
+	args.push( insert_quote(filename) );
+	helper.compile_process(args, (code, stdout, stderr) => {
+		if(code != 0) {
+			// return send_error(res, 56, 'Unexpected Arduino exit error code:' + code, 'ide_output');
+		}
+		return res.json({
+			'response_type': 'ide_output',
+			'response_state': 'full_response',
+			'success': code == 0,
+			'ide_mode': action,
+			'ide_data': { 'std_output': stdout, 'err_output': stderr, 'exit_code': code }
 		});
 	});
 });
@@ -290,4 +283,9 @@ function send_option_select(res, options, selected, type = 'invalid') {
 }
 function send_simple_select(res, selected, type = 'invalid') {
 	return res.json({ 'response_type': 'settings', 'response_state': 'full_response', 'settings_type': type, 'selected': selected, 'success': true });
+}
+
+
+function insert_quote(compiler) {
+	return '"' + compiler + '"';
 }

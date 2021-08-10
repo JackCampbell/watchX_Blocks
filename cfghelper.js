@@ -87,24 +87,11 @@ function write_sketch(sketch_code, sketch_path) {
 	fs.writeFileSync(filename, sketch_code, 'utf-8');
 	return filename;
 }
-function upload_process(compile_dir, filename, serial_port, fqbn, callback) {
-	filename = insert_quote(filename);
-	compile_dir = insert_quote(compile_dir);
-	var cmdline = [ compile_dir, "upload", "-p", serial_port, "--fqbn", fqbn, filename ].join(' ');
-	exec(cmdline, (error, stdout, stderr) => {
-		var code = 0;
-		// console.log(">>>", error);
-		if(error) {
-			code = error.code;
-		}
-		callback(code, stdout || '', stderr || '');
-	});
-}
-function compile_process(compile_dir, filename, include_dir, fqbn, callback) {
-	filename = insert_quote(filename);
-	compile_dir = insert_quote(compile_dir);
-	include_dir = insert_quote(include_dir);
-	var cmdline = [ compile_dir, "compile", "-b", fqbn, "--library", include_dir, filename].join(' ');
+
+
+function compile_process(args, callback) {
+	var cmdline = args.join(' ');
+	// console.log(">>>", cmdline);
 	exec(cmdline, (error, stdout, stderr) => {
 		var code = 0;
 		if(error) {
@@ -137,7 +124,6 @@ module.exports = {
 	find_serial_ports,
 	check_compiler,
 	write_sketch,
-	upload_process,
 	compile_process,
 	install_core
 };

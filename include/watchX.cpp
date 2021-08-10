@@ -93,7 +93,11 @@ void wx_print_time(wx_oled_t *oled, wx_rtc_t *rtc, int type, int x, int y) {
 
 void wx_rtc_init(wx_rtc_t *rtc) {
 	rtc->rtc.begin();
+#if 1
 	rtc->rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+#else
+	rtc->rtc.adjust( now() );
+#endif
 	wx_rtc_update(rtc); // update ...
 }
 void wx_rtc_init(wx_rtc_t *rtc, int year, int month, int day, int hour, int minute, int second) {
