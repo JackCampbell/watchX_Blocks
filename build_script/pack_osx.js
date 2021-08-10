@@ -3,7 +3,6 @@ const path = require("path");
 
 // electron-packager . watchXBlocks --overwrite --out=dist/osx --platform=darwin --arch=x64 --icon=resources/osx/icon.icns --ignore='watchx_exec' --ignore='watchxblocks.log' --ignore='dist' --ignore='arduino-cli/darwin-x64' --app-bundle-id='jack.campbell.watchxblocks' && npm run codesign
 packager({
-	name: "watchXBlocks",
 	dir : path.join(__dirname, '../'),
 	asar: true,
 	prune: true,
@@ -13,10 +12,10 @@ packager({
 	arch: 'x64',
 	icon: 'resources/osx/icon.icns',
 	appBundleId: 'jack.campbell.watchxblocks',
+	appCategoryType: 'public.app-category.education',
 	extraResource: [
 		'arduino-cli/darwin-x64/',
 		'include/',
-		'watchxsketch/',
 		'watchxblocks.vac'
 	],
 	ignore: function(filepath) {
@@ -51,13 +50,14 @@ packager({
 		return false;
 	}/*,
 	osxSign: {
-		'identity': 'Developer ID Application: JackCampbell',
+		'identity': 'jack_campbell_512@hotmail.com',
 		'hardened-runtime': true,
-		'entitlements': 'build/entitlements.plist',
-		'entitlements-inherit': 'build/entitlements.plist',
+		'entitlements': 'build_script/entitlements.plist',
+		'entitlements-inherit': 'build_script/entitlements.plist',
 		'signature-flags': 'library'
 	},
 	osxNotarize: {
 		appleId: 'jack_campbell_512@hotmail.com'
-	}*/
+	}
+	*/
 });
