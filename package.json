@@ -37,10 +37,11 @@
     "pack:osx": "node ./build_script/pack_osx.js && npm run codesign",
     "pack:win32": "node ./build_script/pack_win32.js",
     "pack:win64": "node ./build_script/pack_win64.js",
-    "setup:msi": "electron-installer-windows --src dist/win/watchXBlocks-win32-ia32 --dest dist/installers/",
-    "setup:dmg": "node ./build/pack_dmg.js",
+    "setup:msi": "electron-installer-windows --src dist/win/watchXBlocks-win32-x64 --dest dist/installers/",
+    "setup:dmg": "node ./build_script/pack_dmg.js",
     "build": "npm run pack:osx && npm run pack:win32 && npm run pack:win64",
-    "start": "NODE_ENV=development electron . --enable-logging",
+    "start_osx": "NODE_ENV=development electron . --enable-logging",
+	"start_win": "set NODE_ENV=development && electron . --enable-logging",
     "codesign": "codesign --verbose --deep --force --sign 'jack_campbell_512@hotmail.com' dist/osx/watchXBlocks-darwin-x64/watchXBlocks.app"
   }
 }
