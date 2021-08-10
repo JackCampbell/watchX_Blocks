@@ -101,33 +101,39 @@ watchXBlocks.bindSettingsPathInputs = function() {
 	var compilerEl = document.getElementById('settings_compiler_location');
 	compilerEl.readOnly = true;
 	watchXBlocks.bindClickEx(compilerEl, function() {
-		dialog.showOpenDialog({
-			title: 'Select the Arduino IDE executable',
+		var files = dialog.showOpenDialogSync(null, {
+			title: 'Select the arduini-cli executable',
 			buttonLabel: 'Select',
 			properties: ['openFile']
-		}, function(files) {
-			if(files && files[0]) {
-				watchXBlocksServer.setCompilerLocation(files[0], function(jsonObj) {
-					watchXBlocks.setCompilerLocationHtml(watchXBlocksServer.jsonToHtmlTextInput(jsonObj));
-				});
-			}
-		})
+		});
+		if(files == undefined) {
+			return;
+		}
+		watchXBlocksServer.setCompilerLocation(files[0], function(jsonObj) {
+			//watchXBlocks.setCompilerLocationHtml(watchXBlocksServer.jsonToHtmlTextInput(jsonObj));
+			var newEl = watchXBlocksServer.jsonToHtmlTextInput(jsonObj);
+			compilerEl.value = newEl.value;
+			compilerEl.style.cssText = newEl.style.cssText;
+		});
 	});
 	// Sketch path
 	var sketchEl = document.getElementById('settings_sketch_location');
 	sketchEl.readOnly = true;
 	watchXBlocks.bindClickEx(sketchEl, function() {
-		dialog.showOpenDialog({
-			title: 'Select the Arduino IDE executable',
+		var folders = dialog.showOpenDialogSync(null, {
+			title: 'Select the sketch folder',
 			buttonLabel: 'Select',
 			properties: ['openDirectory']
-		}, function(folders) {
-			if(folders && folders[0]) {
-				watchXBlocksServer.setSketchLocation(folders[0], function(jsonObj) {
-					watchXBlocks.setSketchLocationHtml(watchXBlocksServer.jsonToHtmlTextInput(jsonObj));
-				});
-			}
-		})
+		});
+		if(folders == undefined) {
+			return;
+		}
+		watchXBlocksServer.setSketchLocation(folders[0], function(jsonObj) {
+			//watchXBlocks.setSketchLocationHtml(watchXBlocksServer.jsonToHtmlTextInput(jsonObj));
+			var newEl = watchXBlocksServer.jsonToHtmlTextInput(jsonObj);
+			sketchEl.value = newEl.value;
+			sketchEl.style.cssText = newEl.style.cssText;
+		});
 	});
 };
 

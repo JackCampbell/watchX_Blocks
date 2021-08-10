@@ -18,7 +18,8 @@
     "electron": "^13.1.8",
     "electron-installer-dmg": "^3.0.0",
     "electron-installer-windows": "^3.0.0",
-    "electron-packager": "^15.3.0"
+    "electron-packager": "^15.3.0",
+    "electron-wix-msi": "^3.2.0"
   },
   "packageNameTemplate": "{{name}}-v{{version}}-{{platform}}-{{arch}}",
   "osx": {
@@ -37,7 +38,8 @@
     "pack:osx": "node ./build_script/pack_osx.js && npm run codesign",
     "pack:win32": "node ./build_script/pack_win32.js",
     "pack:win64": "node ./build_script/pack_win64.js",
-    "setup:msi": "electron-installer-windows --src dist/win/watchXBlocks-win32-x64 --dest dist/installers/",
+    "setup:wstore": "node ./build_script/pack_wstore.js",
+    "setup:msi": "node ./build_script/pack_msi.js",
     "setup:dmg": "node ./build_script/pack_dmg.js",
     "build": "npm run pack:osx && npm run pack:win32 && npm run pack:win64",
     "start_osx": "NODE_ENV=development electron . --enable-logging",

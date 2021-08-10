@@ -10,6 +10,8 @@
 const { app, BrowserWindow, shell } = require('electron');
 const appMenu = require('./appmenu.js');
 const server = require('./servermgr.js');
+const jetpack = require("fs-jetpack");
+const nconf = require('nconf');
 
 const projectLocator = require('./projectlocator.js');
 const createWindow = require('./helpers/window');
@@ -26,14 +28,29 @@ var mainWindow = null;
 var splashWindow = null;
 
 
-// Set up the app data directory within the Ardublockly root directory
+// Set up the app data directory within the watchX root directory
 (function setAppData() {
-    var appDataPath = projectLocator.getVacJetPack().cwd('appdata');
+    var projectRootPath = projectLocator.getVacJetPack();
+    var logfile = jetpack.dir( app.getPath("logs") ).dir("../watchXBlocks").path("watchxblocks.log");
+    var appDataPath = jetpack.dir( app.getPath('appData') );
+    var configPath = jetpack.dir( app.getPath("userData") ).path("config.json");
+
+    /*
     app.setPath('appData', appDataPath.path());
     app.setPath('userData', appDataPath.path());
     app.setPath('cache', appDataPath.path('GenCache'));
     app.setPath('userCache', appDataPath.path('AppCache'));
     app.setPath('temp', appDataPath.path('temp'));
+    */
+    nconf.file({ file: configPath });
+    winston.add(winston.transports.File, { json: false, filename: logfile, maxsize: 10485760, maxFiles: 2 });
+    winston.info(tag + 'Starting watchXBlocks version: ' + packageData.version);
+    winston.info(tag + 'watchXBlocks root dir: ' + projectRootPath.path());
+    winston.info(tag + "Logs: " + logfile);
+    winston.info(tag + "AppData: " + appDataPath.path());
+    winston.info(tag + "Config: " + configPath);
+    // Relevant OS could be win32, linux, darwin
+    winston.info(tag + 'OS detected: ' + process.platform + " arch:" + process.arch);
 })();
 
 // Ensure this is a single instance application
@@ -46,7 +63,11 @@ const shouldQuit = app.makeSingleInstance(function(cmdLine, workingDirectory) {
     }
 });
 */
-app.requestSingleInstanceLock()
+var app_lock = app.requestSingleInstanceLock();
+if(!app_lock) {
+    app.quit();
+    process.exit(0);
+}
 app.on('second-instance', (event, argv, cwd) => {
     if (mainWindow) {
         if (mainWindow.isMinimized()) mainWindow.restore();
@@ -59,7 +80,6 @@ app.on('ready', function() {
         app.quit();
         return;
     }*/
-    setupLogging();
     createSplashWindow();
     server.startServer(8000, (port) => {
         // Set the download directory to the home folder
@@ -160,17 +180,3 @@ function createSplashWindow() {
     }
 }
 
-function setupLogging() {
-    var projectRootPath = projectLocator.getVacJetPack();
-    winston.add(winston.transports.File, {
-        json: false,
-        filename: projectRootPath.path('watchxblocks.log'),
-        maxsize: 10485760,
-        maxFiles: 2
-    });
-    winston.info(tag + 'Starting watchXBlocks version: ' + packageData.version);
-    winston.info(tag + 'watchXBlocks root dir: ' + projectRootPath.path());
-
-    // Relevant OS could be win32, linux, darwin
-    winston.info(tag + 'OS detected: ' + process.platform);
-}

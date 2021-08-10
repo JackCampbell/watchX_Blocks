@@ -34,9 +34,6 @@ const ide_options = {
 const board_list = {
 	'watchX': 'arduino:avr:leonardo'
 };
-nconf.file({
-	file: projectLocator.getVacJetPack().path("config.json")
-});
 
 module.exports = {
 	get_selected_ide: function() {
@@ -66,7 +63,7 @@ module.exports = {
 	get_sketch_path: function() {
 		var absolute_path = nconf.get(CFG_KEY.SKETCH);
 		if(absolute_path != null) {
-			absolute_path = get_dir_exists(path);
+			absolute_path = get_dir_exists(absolute_path);
 		}
 		if(absolute_path == null) {
 			absolute_path = projectLocator.getSketchPath();

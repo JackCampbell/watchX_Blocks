@@ -423,8 +423,7 @@ watchXBlocks.setSketchLocationHtml = function (newEl) {
 
     var sketchLocIp = document.getElementById('settings_sketch_location');
     if (sketchLocIp != null) {
-        sketchLocIp.value = newEl.value || sketchLocIp.value ||
-            'Please enter a folder to store the Arduino Sketch';
+        sketchLocIp.value = newEl.value || sketchLocIp.value || 'Please enter a folder to store the Arduino Sketch';
         sketchLocIp.style.cssText = newEl.style.cssText;
     }
 };
