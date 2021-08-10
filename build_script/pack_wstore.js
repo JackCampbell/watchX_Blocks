@@ -6,5 +6,5 @@ installer({
 	dest: 'dist/wstore/',
 	icon: 'resources/windows/setup-icon.ico'
 }, function(error) {
-	console.log("out", error);
+	console.log("State:", error);
 });

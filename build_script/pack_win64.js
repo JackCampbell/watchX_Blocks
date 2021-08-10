@@ -3,7 +3,6 @@ const path = require("path");
 
 // electron-packager . watchXBlocks --overwrite --out=dist/osx --platform=darwin --arch=x64 --icon=resources/osx/icon.icns --ignore='watchx_exec' --ignore='watchxblocks.log' --ignore='dist' --ignore='arduino-cli/darwin-x64' --app-bundle-id='jack.campbell.watchxblocks' && npm run codesign
 packager({
-	name: "watchXBlocks",
 	dir : path.join(__dirname, '../'),
 	asar: true,
 	prune: true,
@@ -17,7 +16,6 @@ packager({
 	extraResource: [
 		'arduino-cli/windows-x64/',
 		'include/',
-		'watchxsketch/',
 		'watchxblocks.vac'
 	],
 	ignore: function(filepath) {

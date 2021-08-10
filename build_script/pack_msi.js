@@ -15,7 +15,11 @@ const msiCreator = new MSICreator({
 	appIconPath: 'resources/windows/icon.ico',
 	// Configure installer User Interface
 	ui: {
-		chooseDirectory: true
+		chooseDirectory: true,
+		images: {
+			// background: path.join(__dirname, "..\\resources\\windows\\setup-banner.bmp"),
+			infoIcon: path.join(__dirname, "..\\resources\\windows\\icon.ico")
+		}
 	}
 });
 msiCreator.create().then(function(){
