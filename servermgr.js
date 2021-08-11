@@ -12,6 +12,9 @@ const express = require('express');
 const projectLocator = require('./projectlocator.js');
 const config = require("./cfgconst");
 const helper = require("./cfghelper");
+const { dialog } = require('electron');
+const fs = require("fs");
+const path = require("path");
 
 
 const tagMgr = '[watchXMgr] ';
@@ -219,6 +222,55 @@ app.post("/code", express.json(), (req, res, next) => {
 			'ide_data': { 'std_output': stdout, 'err_output': stderr, 'exit_code': code }
 		});
 	});
+});
+app.get("/editor/open", (req, res, next) => {
+	var files = dialog.showOpenDialogSync(null, {
+		title: "Open Dialog",
+		properties: ['openFile'],
+		filters: [
+			{ name: 'Blocks Xml', extensions: ['wxs'] }
+		]
+	});
+	if(files == null) {
+		return res.json({ "filename": null });
+	}
+	var content = fs.readFileSync(files[0], "utf-8");
+	winston.info(tagMgr + 'Load path: ' + files[0]);
+	return res.json({ "filename": files[0], "content": content });
+});
+app.post("/editor/save", express.json(), (req, res, next) => {
+	var { filename, content } = req.body;
+	if(filename == null) {
+		filename = dialog.showSaveDialogSync(null, {
+			title: "Save Dialog",
+			properties: ['createDirectory'],
+			filters: [
+				{ name: 'Blocks Xml', extensions: ['wxs'] }
+			]
+		});
+		if(filename == null) {
+			return res.json({ "filename": null });
+		}
+	}
+	fs.writeFileSync(filename, content, "utf-8");
+	winston.info(tagMgr + 'Save path: ' + filename);
+	return res.json({ "filename": filename });
+});
+app.post("/editor/export", express.json(), (req, res, next) => {
+	var { content } = req.body;
+	var filename = dialog.showSaveDialogSync(null, {
+		title: "Save Dialog",
+		properties: ['createDirectory'],
+		filters: [
+			{ name: 'Arduino Source Code', extensions: ['ino'] }
+		]
+	});
+	if(filename == null) {
+		return res.json({ "filename": null });
+	}
+	fs.writeFileSync(filename, content, "utf-8");
+	winston.info(tagMgr + 'Export path: ' + filename);
+	return res.json({ "filename": filename });
 });
 app.get(["/", "/watchx"], (req, res, next) => {
 	return res.redirect("/watchx/index.html");

@@ -88,7 +88,6 @@ function write_sketch(sketch_code, sketch_path) {
 	return filename;
 }
 
-
 function compile_process(args, callback) {
 	var cmdline = args.join(' ');
 	// console.log(">>>", cmdline);

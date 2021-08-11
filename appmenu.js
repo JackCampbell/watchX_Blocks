@@ -85,24 +85,35 @@ var getFileMenuData = function () {
             {
                 label: 'New',
                 accelerator: 'CmdOrCtrl+N',
-                click: functionNotImplemented
+                click: function () {
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.newSketchFile()', true);
+                }
+            }, {
+                type: 'separator'
             }, {
                 label: 'Open',
                 accelerator: 'CmdOrCtrl+O',
                 click: function () {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadUserXmlFile()', true);
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.openSketchFile()', true);
                 }
             }, {
-                label: 'Save Blocks as',
+                label: 'Save',
                 accelerator: 'CmdOrCtrl+S',
                 click: function () {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.saveXmlFile()');
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.saveSketchFile()');
                 }
             }, {
-                label: 'Save Arduino Sketch as',
+                label: 'Save As',
                 accelerator: 'Shift+CmdOrCtrl+S',
                 click: function () {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.saveSketchFile()');
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.saveAsSketchFile()');
+                }
+            }, {
+                type: 'separator'
+            }, {
+                label: 'Export Blocks',
+                click: function () {
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.exportArduinoFile()');
                 }
             }
         ]

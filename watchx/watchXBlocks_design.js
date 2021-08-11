@@ -14,8 +14,6 @@ var watchXBlocks = watchXBlocks || {};
 watchXBlocks.designJsInit = function() {
   watchXBlocks.materializeJsInit();
   watchXBlocks.resizeToggleToolboxBotton();
-  watchXBlocks.sketchNameSizeEffect();
-  watchXBlocks.sketchNameSet();
 };
 
 /**
@@ -24,20 +22,11 @@ watchXBlocks.designJsInit = function() {
  */
 watchXBlocks.materializeJsInit = function() {
   // Navigation bar
-  $('.button-collapse').sideNav({
-      menuWidth: 240,
-      activationWidth: 70,
-      edge: 'left'
-  });
+  $('.button-collapse').sideNav({ menuWidth: 240, activationWidth: 70, edge: 'left' });
   // Drop down menus
-  $('.dropdown-button').dropdown({hover: false});
+  $('.dropdown-button').dropdown({ hover: false });
   // Overlay content panels using modals (android dialogs)
-  $('.modal-trigger').leanModal({
-      dismissible: true,
-      opacity: .5,
-      in_duration: 200,
-      out_duration: 250
-   });
+  $('.modal-trigger').leanModal({ dismissible: true, opacity: .5, in_duration: 200, out_duration: 250 });
   // Pop-up tool tips
   $('.tooltipped').tooltip({'delay': 50});
   // Select menus
@@ -47,23 +36,14 @@ watchXBlocks.materializeJsInit = function() {
 /** Binds the event listeners relevant to the page design. */
 watchXBlocks.bindDesignEventListeners = function() {
   // Resize blockly workspace on window resize
-  window.addEventListener(
-      'resize', watchXBlocks.resizeBlocklyWorkspace, false);
+  window.addEventListener( 'resize', watchXBlocks.resizeBlocklyWorkspace, false );
   // Display/hide the XML load button when the XML collapsible header is clicked
-  document.getElementById('xml_collapsible_header').addEventListener(
-      'click', watchXBlocks.buttonLoadXmlCodeDisplay);
+  document.getElementById('xml_collapsible_header').addEventListener( 'click', watchXBlocks.buttonLoadXmlCodeDisplay );
   // Toggle the content height on click to the IDE output collapsible header
-  document.getElementById('ide_output_collapsible_header').addEventListener(
-      'click', function() {
-        watchXBlocks.contentHeightToggle();
-      });
+  document.getElementById('ide_output_collapsible_header').addEventListener( 'click', function() { watchXBlocks.contentHeightToggle(); });
   // Display/hide the additional IDE buttons when mouse over/out of play button
-  $('#button_ide_large').mouseenter(function() {
-      watchXBlocks.showExtraIdeButtons(true);
-  });
-  $('#ide_buttons_wrapper').mouseleave(function() {
-      watchXBlocks.showExtraIdeButtons(false);
-  });
+  $('#button_ide_large').mouseenter(function() { watchXBlocks.showExtraIdeButtons(true); });
+  $('#ide_buttons_wrapper').mouseleave(function() { watchXBlocks.showExtraIdeButtons(false); });
 };
 
 /**
@@ -96,34 +76,25 @@ watchXBlocks.changeIdeButtonsDesign = function(value) {
   var iconLarge = document.getElementById('button_ide_large_icon');
 
   if (value === 'upload') {
-    buttonLeft.className =
-        buttonLeft.className.replace(/arduino_\S+/, 'arduino_yellow');
+    buttonLeft.className = buttonLeft.className.replace(/arduino_\S+/, 'arduino_yellow');
     iconLeft.className = 'mdi-action-open-in-browser';
-    buttonMiddle.className =
-        buttonMiddle.className.replace(/arduino_\S+/, 'arduino_teal');
+    buttonMiddle.className = buttonMiddle.className.replace(/arduino_\S+/, 'arduino_teal');
     iconMiddle.className = 'mdi-navigation-check';
-    buttonLarge.className =
-        buttonLarge.className.replace(/arduino_\S+/, 'arduino_orange');
+    buttonLarge.className = buttonLarge.className.replace(/arduino_\S+/, 'arduino_orange');
     iconLarge.className = 'mdi-av-play-arrow';
   } else if (value === 'verify') {
-    buttonLeft.className =
-        buttonLeft.className.replace(/arduino_\S+/, 'arduino_yellow');
+    buttonLeft.className = buttonLeft.className.replace(/arduino_\S+/, 'arduino_yellow');
     iconLeft.className = 'mdi-action-open-in-browser';
-    buttonMiddle.className =
-        buttonMiddle.className.replace(/arduino_\S+/, 'arduino_orange');
+    buttonMiddle.className = buttonMiddle.className.replace(/arduino_\S+/, 'arduino_orange');
     iconMiddle.className = 'mdi-av-play-arrow';
-    buttonLarge.className =
-        buttonLarge.className.replace(/arduino_\S+/, 'arduino_teal');
+    buttonLarge.className = buttonLarge.className.replace(/arduino_\S+/, 'arduino_teal');
     iconLarge.className = 'mdi-navigation-check';
   } else if (value === 'open') {
-    buttonLeft.className =
-        buttonLeft.className.replace(/arduino_\S+/, 'arduino_teal');
+    buttonLeft.className = buttonLeft.className.replace(/arduino_\S+/, 'arduino_teal');
     iconLeft.className = 'mdi-navigation-check';
-    buttonMiddle.className =
-        buttonMiddle.className.replace(/arduino_\S+/, 'arduino_orange');
+    buttonMiddle.className = buttonMiddle.className.replace(/arduino_\S+/, 'arduino_orange');
     iconMiddle.className = 'mdi-av-play-arrow';
-    buttonLarge.className =
-        buttonLarge.className.replace(/arduino_\S+/, 'arduino_yellow');
+    buttonLarge.className = buttonLarge.className.replace(/arduino_\S+/, 'arduino_yellow');
     iconLarge.className = 'mdi-action-open-in-browser';
   }
 };
@@ -205,7 +176,7 @@ watchXBlocks.displayToolbox = function(show) {
         width: $('#button_toggle_toolbox').width(),
         cursor: 'pointer',
         zIndex: 12
-      },
+      }
   }).appendTo('body');
 
   var classOn = 'button_toggle_toolbox_on';
@@ -216,13 +187,13 @@ watchXBlocks.displayToolbox = function(show) {
     toolbox.show();
     button.className = button.className.replace(classOn, classOff);
     buttonIcon.className = buttonIcon.className.replace(visOn, visOff);
-    toolbox.animate(
-        {height: document.getElementById('content_blocks').style.height}, 300,
-        function() {
-          toolboxTree.css('overflow-y', 'auto');
-          window.dispatchEvent(new Event('resize'));
-          $('#toolboxButtonScreen').remove();
-        });
+    toolbox.animate({
+        height: document.getElementById('content_blocks').style.height
+      }, 300, function() {
+        toolboxTree.css('overflow-y', 'auto');
+        window.dispatchEvent(new Event('resize'));
+        $('#toolboxButtonScreen').remove();
+      });
   } else {
     toolboxTree.css('overflow-y', 'hidden');
     buttonIcon.className = buttonIcon.className.replace(visOff, visOn);
@@ -256,19 +227,16 @@ watchXBlocks.resizeToggleToolboxBotton = function() {
 /** Resizes the container for the Blockly workspace. */
 watchXBlocks.resizeBlocklyWorkspace = function() {
   var contentBlocks = document.getElementById('content_blocks');
-  var wrapperPanelSize =
-      watchXBlocks.getBBox_(document.getElementById('blocks_panel'));
+  var wrapperPanelSize = watchXBlocks.getBBoxEx(document.getElementById('blocks_panel'));
 
   contentBlocks.style.top = wrapperPanelSize.y + 'px';
   contentBlocks.style.left = wrapperPanelSize.x + 'px';
   // Height and width need to be set, read back, then set again to
   // compensate for scrollbars.
   contentBlocks.style.height = wrapperPanelSize.height + 'px';
-  contentBlocks.style.height =
-      (2 * wrapperPanelSize.height - contentBlocks.offsetHeight) + 'px';
+  contentBlocks.style.height = (2 * wrapperPanelSize.height - contentBlocks.offsetHeight) + 'px';
   contentBlocks.style.width = wrapperPanelSize.width + 'px';
-  contentBlocks.style.width =
-      (2 * wrapperPanelSize.width - contentBlocks.offsetWidth) + 'px';
+  contentBlocks.style.width = (2 * wrapperPanelSize.width - contentBlocks.offsetWidth) + 'px';
 };
 
 /**
@@ -276,10 +244,8 @@ watchXBlocks.resizeBlocklyWorkspace = function() {
  * alert-like HTML messages.
  * @param {!string} title HTML to include in title.
  * @param {!element} body HTML to include in body.
- * @param {boolean=} confirm Indicates if the user is shown and option to just
- *     'Ok' or 'Ok and cancel'.
- * @param {string=|function=} callback If confirm option is selected this would
- *     be the function called when clicked 'OK'.
+ * @param {boolean=} confirm Indicates if the user is shown and option to just 'Ok' or 'Ok and cancel'.
+ * @param {string=|function=} callback If confirm option is selected this would be the function called when clicked 'OK'.
  */
 watchXBlocks.materialAlert = function(title, body, confirm, callback) {
   $('#gen_alert_title').text(title);
@@ -300,22 +266,12 @@ watchXBlocks.materialAlert = function(title, body, confirm, callback) {
 
 /** Opens the modal that displays the "not connected to server" message. */
 watchXBlocks.openNotConnectedModal = function() {
-  $('#not_running_dialog').openModal({
-    dismissible: true,
-    opacity: .5,
-    in_duration: 200,
-    out_duration: 250
-  });
+  $('#not_running_dialog').openModal({ dismissible: true, opacity: .5, in_duration: 200, out_duration: 250 });
 };
 
 /** Opens the modal that displays the Settings. */
 watchXBlocks.openSettingsModal = function() {
-  $('#settings_dialog').openModal({
-    dismissible: true,
-    opacity: .5,
-    in_duration: 200,
-    out_duration: 250
-  });
+  $('#settings_dialog').openModal({ dismissible: true, opacity: .5, in_duration: 200, out_duration: 250 });
 };
 
 
@@ -325,17 +281,12 @@ watchXBlocks.openAboutDialog = function() {
 
 /**
  * Opens the modal that allows selection on additional toolbox categories.
- * @param {!element} htmlContent HTML to include in modal body.
+ * @param {!element} html_content HTML to include in modal body.
  */
-watchXBlocks.openAdditionalBlocksModal = function(htmlContent) {
+watchXBlocks.openAdditionalBlocksModal = function(html_content) {
   $('#blocks_menu_body').text('');
-  $('#blocks_menu_body').append(htmlContent);
-  $('#blocks_menu').openModal({
-    dismissible: true,
-    opacity: .5,
-    in_duration: 200,
-    out_duration: 250
-  });
+  $('#blocks_menu_body').append(html_content);
+  $('#blocks_menu').openModal({ dismissible: true, opacity: .5, in_duration: 200, out_duration: 250 });
 };
 
 /**
@@ -397,46 +348,22 @@ watchXBlocks.arduinoIdeOutput = function(bodyEl) {
  */
 watchXBlocks.resetIdeOutputContent = function(bodyEl) {
   var ideOuputContent = document.getElementById('content_ide_output');
-  ideOuputContent.innerHTML = '<span class="arduino_dialog_out">' +
-      watchXBlocks.getLocalStr('arduinoOpWaiting') + '</span>';
+  ideOuputContent.innerHTML = '<span class="arduino_dialog_out">' + watchXBlocks.getLocalStr('arduinoOpWaiting') + '</span>';
 };
 
-/**
- * Initialises the sketch name input text JavaScript to dynamically adjust its
- * width to the width of its contents.
- */
-watchXBlocks.sketchNameSizeEffect = function() {
-  var resizeInput = function() {
-    $(this).attr('size', $(this).val().length);
-  };
-
-  var correctInput = function() {
-    // If nothing in the input, add default name
-    if ($(this).val() == '') {
-      $(this).val('Sketch_Name');
-      $(this).attr('size', 10);
-    }
-    // Replace all spaces with underscores
-    $(this).val($(this).val().replace(/ /g, '_'));
-  };
-
+watchXBlocks.setSketchFileName = function(new_name) {
   var sketchNameInput = $('#sketch_name');
-  sketchNameInput.keydown(resizeInput).each(resizeInput);
-  sketchNameInput.blur(correctInput);
+  sketchNameInput.attr("data-filename", new_name); // null
+  if(new_name == null) {
+    sketchNameInput.text("unnamed");
+  } else {
+    sketchNameInput.text( new_name.replace(/^.*[\\\/]/, '') );
+  }
 };
 
-/**
- * Sets a string to the SketchName input field and triggers the events set from
- * watchXBlocks.sketchNameSizeEffect().
- * @param {string?} newName Optional string to place in the sketch_name input.
- */
-watchXBlocks.sketchNameSet = function(newName) {
-  var sketchNewName = newName || '';
+watchXBlocks.getSketchFileName = function() {
   var sketchNameInput = $('#sketch_name');
-  sketchNameInput.val(sketchNewName);
-  sketchNameInput.attr('size', sketchNewName.length);
-  sketchNameInput.keydown();
-  sketchNameInput.blur();
+  return sketchNameInput.attr("data-filename");
 };
 
 /** Creates a highlight animation to the Arduino IDE output header. */
@@ -504,20 +431,14 @@ watchXBlocks.contentHeightToggle = function() {
  * @return {!Object} Contains height, width, x, and y properties.
  * @private
  */
-watchXBlocks.getBBox_ = function(element) {
+watchXBlocks.getBBoxEx = function(element) {
   var height = element.offsetHeight;
   var width = element.offsetWidth;
-  var x = 0;
-  var y = 0;
+  var x = 0, y = 0;
   do {
     x += element.offsetLeft;
     y += element.offsetTop;
     element = element.offsetParent;
   } while (element);
-  return {
-    height: height,
-    width: width,
-    x: x,
-    y: y
-  };
+  return { height: height, width: width, x: x, y: y };
 };
