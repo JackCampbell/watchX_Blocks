@@ -19,6 +19,7 @@
   font-family: "Droid Sans Mono";
   src: url("font/droid/DroidSansMono.ttf") format("truetype");
 }
+
 @font-face {
   font-family: "Mulish";
   src: url("font/mulish/Mulish-Regular.ttf") format("truetype");
@@ -33,6 +34,7 @@ body {
   height: 100% !important;
   padding: 0;
   margin: 0;
+  font-family: "Mulish", monospace !important;
 }
 
 body {
@@ -723,7 +725,8 @@ ul.side-nav li.side-menu-end {
   border: none !important;
   margin: 0px !important;
   padding: 0px 0px 0px 0px !important;
-  background: rgba(98, 174, 178, .2) !important;  /* Arduino Light Teal */
+  /*background: rgba(98, 174, 178, .2) !important;*/
+  background: rgba(222, 240, 240, .95) !important;
   -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
@@ -763,8 +766,8 @@ ul.side-nav li.side-menu-end {
 
 /* Toolbox second column with blocks*/
 .blocklyFlyoutBackground {
-  fill: #DEEEEF !important;
-  fill-opacity: 0.7 !important;
+  fill: #def0f0 !important;
+  fill-opacity: 0.9 !important;
   -webkit-border-radius: 0px 4px 4px 0px !important;
   -moz-border-radius: 0px 4px 4px 0px !important;
   border-radius: 0px 4px 4px 0px !important;

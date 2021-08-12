@@ -269,6 +269,8 @@ watchXBlocks.loadServerXmlFile = function (xmlFile) {
     }
 };
 
+watchXBlocks.defaultBaseName = "New Code";
+
 watchXBlocks.newSketchFile = function () {
     watchXBlocks.discardAllBlocks();
     watchXBlocks.setSketchFileName(null);
@@ -300,8 +302,9 @@ watchXBlocks.openSketchFile = function () {
  */
 watchXBlocks.saveSketchFile = function () {
     var filename = watchXBlocks.getSketchFileName();
+    var basename = watchXBlocks.defaultBaseName;
     var content = watchXBlocks.generateXml();
-    watchXBlocksServer.sendRequest("/editor/save", "POST", "application/json", { filename, content }, (json) => {
+    watchXBlocksServer.sendRequest("/editor/save", "POST", "application/json", { filename, content, basename }, (json) => {
         if(json.filename == null) {
             return;
         }
@@ -311,7 +314,8 @@ watchXBlocks.saveSketchFile = function () {
 watchXBlocks.saveAsSketchFile = function () {
     var content = watchXBlocks.generateXml();
     var filename = null;
-    watchXBlocksServer.sendRequest("/editor/save", "POST", "application/json", { filename, content }, (json) => {
+    var basename = watchXBlocks.defaultBaseName;
+    watchXBlocksServer.sendRequest("/editor/save", "POST", "application/json", { filename, content, basename }, (json) => {
         if(json.filename == null) {
             return;
         }

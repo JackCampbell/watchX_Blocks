@@ -228,7 +228,7 @@ app.get("/editor/open", (req, res, next) => {
 		title: "Open Dialog",
 		properties: ['openFile'],
 		filters: [
-			{ name: 'Blocks Xml', extensions: ['wxs'] }
+			{ name: 'Blocks Xml', extensions: ['wxb'] }
 		]
 	});
 	if(files == null) {
@@ -239,13 +239,14 @@ app.get("/editor/open", (req, res, next) => {
 	return res.json({ "filename": files[0], "content": content });
 });
 app.post("/editor/save", express.json(), (req, res, next) => {
-	var { filename, content } = req.body;
+	var { filename, content, basename } = req.body;
 	if(filename == null) {
 		filename = dialog.showSaveDialogSync(null, {
 			title: "Save Dialog",
+			defaultPath: basename || "New Code",
 			properties: ['createDirectory'],
 			filters: [
-				{ name: 'Blocks Xml', extensions: ['wxs'] }
+				{ name: 'Blocks Xml', extensions: ['wxb'] }
 			]
 		});
 		if(filename == null) {

@@ -1,7 +1,7 @@
 {
   "name": "watchXBlocks",
-  "productName": "watchXBlocks",
-  "description": "Visual programming for watchX",
+  "productName": "watchX Blocks",
+  "description": "Visual coding for watchX",
   "version": "0.9.0",
   "author": "Jack Campbell",
   "copyright": "© 2021, Jack Campbell / ArgeX Inc.",
@@ -19,14 +19,10 @@
     "electron-installer-dmg": "^3.0.0",
     "electron-installer-windows": "^3.0.0",
     "electron-packager": "^15.3.0",
-    "electron-wix-msi": "^3.2.0"
+    "electron-wix-msi": "^3.2.0",
+    "node-build-number": "^1.0.2"
   },
   "packageNameTemplate": "{{name}}-v{{version}}-{{platform}}-{{arch}}",
-  "osx": {
-    "build": "1",
-    "identifier": "com.argex.watchxblocks",
-    "LSApplicationCategoryType": "public.app-category.developer-tools"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/JackCampbell/watchX_Blocks.git"
@@ -42,8 +38,19 @@
     "pack:win64": "node ./build_script/pack_win64.js",
     "setup:wstore": "node ./build_script/pack_wstore.js",
     "setup:msi": "node ./build_script/pack_msi.js",
-    "build": "npm run pack:osx && npm run pack:win32 && npm run pack:win64",
-    "start_osx": "NODE_ENV=development electron . --enable-logging",
-	"start_win": "set NODE_ENV=development && electron . --enable-logging"
+    "start_osx": "nbn && NODE_ENV=development electron . --enable-logging",
+    "start_win": "set NODE_ENV=development && electron . --enable-logging"
+  },
+  "build": {
+    "unique": "watchXBlocks:v0.9.0-master[build:133]",
+    "number": 133,
+    "timestamp": "8/12/2021, 3:35:34 PM",
+    "git-branch": "master",
+    "git-user": "JackCampbell <jack_campbell_512@hotmail.com>",
+    "git-version": "2.32.0",
+    "node-version": "v16.6.1",
+    "user": "jack",
+    "shell": "/bin/zsh",
+    "uname": "Darwin"
   }
 }

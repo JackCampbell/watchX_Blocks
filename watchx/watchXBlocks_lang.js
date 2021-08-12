@@ -42,7 +42,8 @@ watchXBlocks.initLanguage = function () {
     // Check server settings and url language, url gets priority
     watchXBlocks.LANG = watchXBlocks.getUrlLanguage() || watchXBlocks.getLanguageSetting() || watchXBlocks.LANG;
     watchXBlocks.populateLanguageMenu(watchXBlocks.LANG);
-    if (defaultLang !== watchXBlocks.LANG) {
+    // if (defaultLang !== watchXBlocks.LANG)
+    {
         watchXBlocks.duplicateDefaultLang();
         watchXBlocks.injectLanguageJsSources(watchXBlocks.LANG);
         watchXBlocks.updateLanguageText();

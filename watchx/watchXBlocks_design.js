@@ -355,7 +355,7 @@ watchXBlocks.setSketchFileName = function(new_name) {
   var sketchNameInput = $('#sketch_name');
   sketchNameInput.attr("data-filename", new_name); // null
   if(new_name == null) {
-    sketchNameInput.text("unnamed");
+    sketchNameInput.text(watchXBlocks.defaultBaseName);
   } else {
     sketchNameInput.text( new_name.replace(/^.*[\\\/]/, '') );
   }

@@ -68,9 +68,9 @@ watchXBlocks.LOCALISED_TEXT = {
   noServerNoLangBody: "If the watchX Blocks application is not running the language cannot be fully changed.",
   addBlocksTitle: "Additional Blocks",
   aboutTitle: 'About',
-  aboutBody:  '<h5>watchX Blocks is a visual programming editor<br/>for watchX</h5>\n' +
+  aboutBody:  '<h5>watchX Blocks is a visual coding editor<br/>for watchX</h5>\n' +
               '<p><i>Copyright (c) 2021 argeX</i></p>\n' +
-              '<p>Unless stated otherwise, the source code of this projects is licensed under the Apache License, Version 2.0 (the "License"); you may not use any of the licensed files within this project except in compliance with the License.</p>\n' +
+              '<p>Unless stated otherwise, the source code of this projects is licensed under the Apache License, Version 2.0 (the "License");<br/>you may not use any of the licensed files within this project except in compliance with the License.</p>\n' +
               '<p>The full document can be found in the <a target="_blank" href="https://github.com/JackCampbell/watchX_blocks/blob/master/LICENSE">LICENSE</a> file.</p>\n' +
               '<h5>Credits</h5>\n' +
               '<p>This project has been inspired by <a href="https://github.com/BlocklyDuino/BlocklyDuino">BlocklyDuino</a> and forked directly from <a target="_blank" href="https://github.com/carlosperate/ardublockly">Ardublockly</a> by <a target="_blank" href="https://www.watchx.io/">argeX</a>.<br/><a target="_blank" href="https://developers.google.com/blockly/">Blockly</a> original source is Copyright of Google Inc.</p>\n' +
@@ -120,5 +120,15 @@ watchXBlocks.LOCALISED_TEXT = {
   catBattery: "Battery",
   catUSB: "USB",
   catSleep: "Sleep",
-  catBluetooth: "Bluetooth"
+  catBluetooth: "Bluetooth",
+  exampleBlink: 'Blink',
+  exampleHelloWorld: 'Hello World',
+  exampleButtonCounter: 'Button Counter',
+  exampleDrawingLines: 'Drawing Lines',
+  exampleSensorMovement: 'Sensor - Movement',
+  exampleSensorTempAndPress: 'Sensor - Temp Prs',
+  exampleMoveTheDot: 'Move the Dot',
+  exampleSiren: 'Siren',
+  exampleWatchFace: 'Watch Face',
+  exampleBounce: 'Bounce'
 };
