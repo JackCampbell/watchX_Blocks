@@ -14,8 +14,6 @@ window.JsDiff = require('./js_libs/diff.js');
 /** Create a namespace for the application. */
 var watchXBlocks = watchXBlocks || {};
 
-// watchXBlocks.app_version = electron.remote.app.getVersion();
-
 watchXBlocks.bindClickEx = function (el, func) {
 	if (typeof el == 'string') {
 		el = document.getElementById(el);
@@ -201,6 +199,8 @@ watchXBlocks.redirectConsoleLogging = function() {
 window.addEventListener('load', function load(event) {
 	// window.removeEventListener('load', load, false);
 	// if(watchXBlocks.isRunningElectron())
+	console.log(electron);
+	document.getElementById("watchx_version").innerHTML = electron.remote.app.getVersion();
 	{
 		// Edit the page layout for better appearance on desktop
 		watchXBlocks.containerFullWidth();
