@@ -1,7 +1,7 @@
 var watchXBlocks = watchXBlocks || {};
 watchXBlocks.LOCALISED_TEXT = {
   translationLanguage: "English",
-  title: "watchXBlocks",
+  title: "watchX Blocks",
   blocks: "Blocks",
   /* Menu */
   new: 'New',
