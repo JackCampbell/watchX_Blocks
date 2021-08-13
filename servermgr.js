@@ -223,12 +223,15 @@ app.post("/code", express.json(), (req, res, next) => {
 		});
 	});
 });
+
+const wxb_filter_name = "watchX Blocks File";
+
 app.get("/editor/open", (req, res, next) => {
 	var files = dialog.showOpenDialogSync(null, {
 		title: "Open Dialog",
 		properties: ['openFile'],
 		filters: [
-			{ name: 'Blocks Xml', extensions: ['wxb'] }
+			{ name: wxb_filter_name, extensions: ['wxb'] }
 		]
 	});
 	if(files == null) {
@@ -246,7 +249,7 @@ app.post("/editor/save", express.json(), (req, res, next) => {
 			defaultPath: basename || "New Code",
 			properties: ['createDirectory'],
 			filters: [
-				{ name: 'Blocks Xml', extensions: ['wxb'] }
+				{ name: wxb_filter_name, extensions: ['wxb'] }
 			]
 		});
 		if(filename == null) {
