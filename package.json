@@ -33,7 +33,7 @@
   "scripts": {
     "pack:osx": "node ./build_script/pack_osx.js && npm run codesign",
     "setup:dmg": "node ./build_script/pack_dmg.js",
-    "codesign": "codesign --verbose --deep --force --sign 'jack_campbell_512@hotmail.com' dist/osx/watchXBlocks-darwin-x64/watchXBlocks.app",
+    "codesign": "codesign --verbose --deep --force --sign 'jack_campbell_512@hotmail.com' 'dist/osx/watchX Blocks-darwin-x64/watchX Blocks.app'",
     "pack:win32": "node ./build_script/pack_win32.js",
     "pack:win64": "node ./build_script/pack_win64.js",
     "setup:wstore": "node ./build_script/pack_wstore.js",
