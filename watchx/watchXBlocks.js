@@ -756,3 +756,15 @@ watchXBlocks.bindClick_ = function (el, func) {
     el.addEventListener('ontouchend', propagateOnce);
     el.addEventListener('click', propagateOnce);
 };
+
+watchXBlocks.connectDevice = function(state) {
+    var e = document.getElementById("button_ide_large");
+    if(!e) {
+        return;
+    }
+    if(state) {
+        e.style.backgroundColor = '#ff7f00';
+    } else {
+        e.style.backgroundColor = '#505050';
+    }
+};

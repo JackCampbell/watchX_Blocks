@@ -132,5 +132,5 @@ watchXBlocks.LOCALISED_TEXT = {
   exampleBounce: 'Bounce',
   version: 'Version',
   source_code: '<a target="_blank" href="https://github.com/JackCampbell/watchX_Blocks">source code</a><br/>Contact: <a target="_blank" href="mailto:info@argex.io">info@argex.io</a>',
-  argex_team: '<h5>argeX Team<br/><small>is</small></h5>'
+  argex_team: '<h5>argeX Team</h5>'
 };

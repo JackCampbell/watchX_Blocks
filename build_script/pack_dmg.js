@@ -2,9 +2,9 @@ var createDMG = require('electron-installer-dmg');
 const path = require('path');
 
 createDMG({
-	appPath: 'dist/osx/watchXBlocks-darwin-x64/watchXBlocks.app',
+	appPath: 'dist/osx/watchX Blocks-darwin-x64/watchX Blocks.app',
 	icon: 'resources/osx/dmg-icon.icns',
-	name: 'watchXBlocks',
+	name: 'watchX Blocks',
 	overwrite: true,
 	background: 'resources/osx/dmg-background.png',
 	out: path.join(__dirname, '..', 'dist', 'osx'),

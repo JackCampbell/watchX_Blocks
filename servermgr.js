@@ -12,7 +12,7 @@ const express = require('express');
 const projectLocator = require('./projectlocator.js');
 const config = require("./cfgconst");
 const helper = require("./cfghelper");
-const { dialog } = require('electron');
+const { dialog, BrowserWindow } = require('electron');
 const fs = require("fs");
 const path = require("path");
 
@@ -281,6 +281,33 @@ app.use((req, res, next) => {
 });
 
 
+var usb_interval;
+var last_usb_state = null;
+function usb_connect() {
+	const compiler = config.get_compiler_path();
+	if(compiler == null) {
+		return;
+	}
+	const board = config.get_selected_fqbn();
+	if(board == null) {
+		return;
+	}
+	helper.find_serial_ports_cb(compiler, board, (code, list) => {
+		var curr_usb_state = list.length != 0; // connect
+		if(last_usb_state == null) {
+			last_usb_state = !curr_usb_state;
+		}
+		if(curr_usb_state ^ last_usb_state) {
+			var main = BrowserWindow.getFocusedWindow();
+			if(main == null) {
+				return;
+			}
+			main.webContents.executeJavaScript('watchXBlocks.connectDevice(' + curr_usb_state + ')');
+			console.log("usb_connect: ", curr_usb_state);
+			last_usb_state = curr_usb_state;
+		}
+	});
+}
 
 
 
@@ -296,10 +323,12 @@ module.exports.startServer = function(port, callback) {
 		if(callback) {
 			callback(port);
 		}
+		// usb_interval = setInterval(usb_connect, 5 * 1000);
 	});
 }
 module.exports.stopServer = function() {
 	if (server !== null) {
+		// clearInterval(usb_interval);
 		// Server executable needs to clean up (kill child), so no SIGKILL
 		server.close();
 		server = null;

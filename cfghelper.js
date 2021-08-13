@@ -76,7 +76,17 @@ function check_compiler(compiler) {
 		return { code: error.status, stderr: error.message };
 	}
 }
-
+function find_serial_ports_cb(compiler, fqbn = "arduino:avr:leonardo", callback) {
+	compiler = insert_quote(compiler);
+	var cmdline = [compiler, 'board', 'list'].join(' ');
+	exec(cmdline, (error, stdout, stderr) => {
+		if(error) {
+			return callback(error.code, null);
+		}
+		var list = stdout.toString().trim().split('\n').filter(item => item.indexOf(fqbn) != -1).map(item => item.split(' ').shift())
+		callback(0, list);
+	});
+}
 
 function write_sketch(sketch_code, sketch_path) {
 	var dir = path.join(sketch_path, 'watchxsketch');
@@ -121,6 +131,7 @@ module.exports = {
 	get_first_value,
 
 	find_serial_ports,
+	find_serial_ports_cb,
 	check_compiler,
 	write_sketch,
 	compile_process,
