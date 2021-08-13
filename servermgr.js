@@ -304,11 +304,11 @@ function usb_connect() {
 			last_usb_state = !curr_usb_state;
 		}
 		if(curr_usb_state ^ last_usb_state) {
-			var main = BrowserWindow.getFocusedWindow();
-			if(main == null) {
+			var mainWindow = BrowserWindow.getFocusedWindow();
+			if(mainWindow == null) {
 				return;
 			}
-			main.webContents.executeJavaScript('watchXBlocks.connectDevice(' + curr_usb_state + ')');
+			mainWindow.webContents.executeJavaScript('watchXBlocks.connectDevice(' + curr_usb_state + ')');
 			console.log("usb_connect: ", curr_usb_state);
 			last_usb_state = curr_usb_state;
 		}

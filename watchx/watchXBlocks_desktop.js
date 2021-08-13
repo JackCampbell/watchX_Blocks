@@ -7,6 +7,7 @@
  */
 //'use strict';
 var electron = require('electron');
+const {BrowserWindow} = require("electron");
 window.Hammer = require("./js_libs/hammer.min.js");
 window.JsDiff = require('./js_libs/diff.js');
 // window.$ = window.jQuery = require('./js_libs/jquery-2.1.3.min.js');
@@ -225,5 +226,13 @@ window.addEventListener('load', function load(event) {
 		// Electron does not offer a prompt, so replace Blocks version with modal
 		// Original signature: function(message, opt_defaultInput, opt_callback)
 		Blockly.prompt = watchXBlocks.htmlPrompt;
+
+		setTimeout(() => {
+			var mainWindow = BrowserWindow.getFocusedWindow();
+			if(mainWindow == null) {
+				return;
+			}
+			mainWindow.webContents.reload();
+		}, 350);
 	}
 });
