@@ -107,14 +107,11 @@ watchXBlocks.bindActionFunctions = function () {
     });
 
     // Floating buttons
-    watchXBlocks.bindClick_('button_ide_large', function () {
-        watchXBlocks.ideButtonLargeAction();
+    watchXBlocks.bindClick_('button_upload', function () {
+        watchXBlocks.ideSendUpload();
     });
-    watchXBlocks.bindClick_('button_ide_middle', function () {
-        watchXBlocks.ideButtonMiddleAction();
-    });
-    watchXBlocks.bindClick_('button_ide_left', function () {
-        watchXBlocks.ideButtonLeftAction();
+    watchXBlocks.bindClick_('button_verify', function () {
+        watchXBlocks.ideSendVerify();
     });
     watchXBlocks.bindClick_('button_load_xml', watchXBlocks.XmlTextareaToBlocks);
     watchXBlocks.bindClick_('button_toggle_toolbox', watchXBlocks.toogleToolbox);
@@ -148,98 +145,22 @@ watchXBlocks.bindActionFunctions = function () {
 
 /** Sets the watchXBlocks server IDE setting to upload and sends the code. */
 watchXBlocks.ideSendUpload = function () {
-    // Check if this is the currently selected option before edit sever setting
-    if (watchXBlocks.ideButtonLargeAction !== watchXBlocks.ideSendUpload) {
-        watchXBlocks.showExtraIdeButtons(false);
-        watchXBlocks.setIdeSettings(null, 'upload');
-    }
     watchXBlocks.shortMessage(watchXBlocks.getLocalStr('uploadingSketch'));
     watchXBlocks.resetIdeOutputContent();
-    watchXBlocks.sendCode();
+    watchXBlocks.sendCode("upload");
 };
 
 /** Sets the watchXBlocks server IDE setting to verify and sends the code. */
 watchXBlocks.ideSendVerify = function () {
-    // Check if this is the currently selected option before edit sever setting
-    if (watchXBlocks.ideButtonLargeAction !== watchXBlocks.ideSendVerify) {
-        watchXBlocks.showExtraIdeButtons(false);
-        watchXBlocks.setIdeSettings(null, 'verify');
-    }
     watchXBlocks.shortMessage(watchXBlocks.getLocalStr('verifyingSketch'));
     watchXBlocks.resetIdeOutputContent();
-    watchXBlocks.sendCode();
+    watchXBlocks.sendCode("verify");
 };
-
-/** Sets the watchXBlocks server IDE setting to open and sends the code. */
-watchXBlocks.ideSendOpen = function () {
-    // Check if this is the currently selected option before edit sever setting
-    if (watchXBlocks.ideButtonLargeAction !== watchXBlocks.ideSendOpen) {
-        watchXBlocks.showExtraIdeButtons(false);
-        watchXBlocks.setIdeSettings(null, 'open');
-    }
-    watchXBlocks.shortMessage(watchXBlocks.getLocalStr('openingSketch'));
-    watchXBlocks.resetIdeOutputContent();
-    watchXBlocks.sendCode();
-};
-
-/** Function bound to the left IDE button, to be changed based on settings. */
-watchXBlocks.ideButtonLargeAction = watchXBlocks.ideSendUpload;
-
-/** Function bound to the middle IDE button, to be changed based on settings. */
-watchXBlocks.ideButtonMiddleAction = watchXBlocks.ideSendVerify;
-
-/** Function bound to the large IDE button, to be changed based on settings. */
-watchXBlocks.ideButtonLeftAction = watchXBlocks.ideSendOpen;
 
 /** Initialises the IDE buttons with the default option from the server. */
 watchXBlocks.initialiseIdeButtons = function () {
-    document.getElementById('button_ide_left').title = watchXBlocks.getLocalStr('openSketch');
-    document.getElementById('button_ide_middle').title = watchXBlocks.getLocalStr('verifySketch');
-    document.getElementById('button_ide_large').title = watchXBlocks.getLocalStr('uploadSketch');
-    watchXBlocksServer.requestIdeOptions(function (jsonObj) {
-        if (jsonObj != null) {
-            watchXBlocks.changeIdeButtons(jsonObj.selected);
-        } // else Null: watchXBlocks server is not running, do nothing
-    });
-};
-
-/**
- * Changes the IDE launch buttons based on the option indicated in the argument.
- * @param {!string} value One of the 3 possible values from the drop down select
- *     in the settings modal: 'upload', 'verify', or 'open'.
- */
-watchXBlocks.changeIdeButtons = function (value) {
-    var largeButton = document.getElementById('button_ide_large');
-    var middleButton = document.getElementById('button_ide_middle');
-    var leftButton = document.getElementById('button_ide_left');
-    var openTitle = watchXBlocks.getLocalStr('openSketch');
-    var verifyTitle = watchXBlocks.getLocalStr('verifySketch');
-    var uploadTitle = watchXBlocks.getLocalStr('uploadSketch');
-    if (value === 'upload') {
-        watchXBlocks.changeIdeButtonsDesign(value);
-        watchXBlocks.ideButtonLeftAction = watchXBlocks.ideSendOpen;
-        watchXBlocks.ideButtonMiddleAction = watchXBlocks.ideSendVerify;
-        watchXBlocks.ideButtonLargeAction = watchXBlocks.ideSendUpload;
-        leftButton.title = openTitle;
-        middleButton.title = verifyTitle;
-        largeButton.title = uploadTitle;
-    } else if (value === 'verify') {
-        watchXBlocks.changeIdeButtonsDesign(value);
-        watchXBlocks.ideButtonLeftAction = watchXBlocks.ideSendOpen;
-        watchXBlocks.ideButtonMiddleAction = watchXBlocks.ideSendUpload;
-        watchXBlocks.ideButtonLargeAction = watchXBlocks.ideSendVerify;
-        leftButton.title = openTitle;
-        middleButton.title = uploadTitle;
-        largeButton.title = verifyTitle;
-    } else if (value === 'open') {
-        watchXBlocks.changeIdeButtonsDesign(value);
-        watchXBlocks.ideButtonLeftAction = watchXBlocks.ideSendVerify;
-        watchXBlocks.ideButtonMiddleAction = watchXBlocks.ideSendUpload;
-        watchXBlocks.ideButtonLargeAction = watchXBlocks.ideSendOpen;
-        leftButton.title = verifyTitle;
-        middleButton.title = uploadTitle;
-        largeButton.title = openTitle;
-    }
+    document.getElementById('button_verify').title = watchXBlocks.getLocalStr('verifySketch');
+    document.getElementById('button_upload').title = watchXBlocks.getLocalStr('uploadSketch');
 };
 
 /**
@@ -367,9 +288,6 @@ watchXBlocks.openSettings = function () {
     watchXBlocksServer.requestSerialPorts(function (jsonObj) {
         watchXBlocks.setSerialPortsHtml( watchXBlocksServer.jsonToHtmlDropdown(jsonObj) );
     });
-    watchXBlocksServer.requestIdeOptions(function (jsonObj) {
-        watchXBlocks.setIdeHtml( watchXBlocksServer.jsonToHtmlDropdown(jsonObj) );
-    });
     // Language menu only set on page load within watchXBlocks.initLanguage()
     watchXBlocks.openSettingsModal();
 };
@@ -477,51 +395,11 @@ watchXBlocks.setSerial = function () {
 };
 
 /**
- * Replaces IDE options form data with a new HTMl element.
- * Ensures there is a change listener to call 'setIdeSettings' function
- * @param {element} jsonResponse JSON data coming back from the server.
- * @return {undefined} Might exit early if response is null.
- */
-watchXBlocks.setIdeHtml = function (newEl) {
-    if (newEl === null) return watchXBlocks.openNotConnectedModal();
-
-    var ideDropdown = document.getElementById('ide_settings');
-    if (ideDropdown !== null) {
-        // Restarting the select elements built by materialize
-        $('select').material_select('destroy');
-        newEl.name = 'settings_ide';
-        newEl.id = 'ide_settings';
-        newEl.onchange = watchXBlocks.setIdeSettings;
-        ideDropdown.parentNode.replaceChild(newEl, ideDropdown);
-        // Refresh the materialize select menus
-        $('select').material_select();
-    }
-};
-
-/**
- * Sets the IDE settings data with the selected user input from the drop down.
- * @param {Event} e Event that triggered this function call. Required for link it to the listeners, but not used.
- * @param {string} preset A value to set the IDE settings bypassing the drop down selected value. Valid data: 'upload', 'verify', or 'open'.
- */
-watchXBlocks.setIdeSettings = function (e, preset) {
-    if (preset !== undefined) {
-        var ideValue = preset;
-    } else {
-        var el = document.getElementById('ide_settings');
-        var ideValue = el.options[el.selectedIndex].value;
-    }
-    watchXBlocks.changeIdeButtons(ideValue);
-    watchXBlocksServer.setIdeOptions(ideValue, function (jsonObj) {
-        watchXBlocks.setIdeHtml(watchXBlocksServer.jsonToHtmlDropdown(jsonObj));
-    });
-};
-
-/**
  * Send the Arduino Code to the watchXBlocksServer to process.
  * Shows a loader around the button, blocking it (unblocked upon received
  * message from server).
  */
-watchXBlocks.sendCode = function () {
+watchXBlocks.sendCode = function (action) {
     watchXBlocks.largeIdeButtonSpinner(true);
     /**
      * Receives the IDE data back to be displayed and stops spinner.
@@ -536,7 +414,7 @@ watchXBlocks.sendCode = function () {
         var dataBack = watchXBlocksServer.jsonToIdeModal(jsonObj);
         watchXBlocks.arduinoIdeOutput(dataBack);
     };
-    watchXBlocksServer.sendSketchToServer( watchXBlocks.generateArduino(), sendCodeReturn );
+    watchXBlocksServer.sendSketchToServer( watchXBlocks.generateArduino(), action, sendCodeReturn );
 };
 
 /** Populate the workspace blocks with the XML written in the XML text area. */

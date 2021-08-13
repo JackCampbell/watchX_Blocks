@@ -13,6 +13,8 @@ The project is relatively new and still a "work in progress", this readme and ot
 
 watchX Blocks is still under development. A to-do list will be released soon.
 
+You will also need the [Arduino IDE version 1.6.x or higher][2].
+
 
 ## Documentation
 The documentation, including installation instructions, configuration instructions, and developer information will be released soon.

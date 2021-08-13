@@ -42,7 +42,7 @@ watchXBlocks.bindDesignEventListeners = function() {
   // Toggle the content height on click to the IDE output collapsible header
   document.getElementById('ide_output_collapsible_header').addEventListener( 'click', function() { watchXBlocks.contentHeightToggle(); });
   // Display/hide the additional IDE buttons when mouse over/out of play button
-  $('#button_ide_large').mouseenter(function() { watchXBlocks.showExtraIdeButtons(true); });
+  $('#button_upload').mouseenter(function() { watchXBlocks.showExtraIdeButtons(true); });
   $('#ide_buttons_wrapper').mouseleave(function() { watchXBlocks.showExtraIdeButtons(false); });
 };
 
@@ -62,42 +62,6 @@ watchXBlocks.buttonLoadXmlCodeDisplay = function() {
   }, 400);
 };
 
-/**
- * Changes the IDE launch buttons based on the option indicated in the argument.
- * @param {!string} value One of the 3 possible values from the drop down select
- *     in the settings modal: 'upload', 'verify', or 'open'.
- */
-watchXBlocks.changeIdeButtonsDesign = function(value) {
-  var buttonLeft = document.getElementById('button_ide_left');
-  var iconLeft = document.getElementById('button_ide_left_icon');
-  var buttonMiddle = document.getElementById('button_ide_middle');
-  var iconMiddle = document.getElementById('button_ide_middle_icon');
-  var buttonLarge = document.getElementById('button_ide_large');
-  var iconLarge = document.getElementById('button_ide_large_icon');
-
-  if (value === 'upload') {
-    buttonLeft.className = buttonLeft.className.replace(/arduino_\S+/, 'arduino_yellow');
-    iconLeft.className = 'mdi-action-open-in-browser';
-    buttonMiddle.className = buttonMiddle.className.replace(/arduino_\S+/, 'arduino_teal');
-    iconMiddle.className = 'mdi-navigation-check';
-    buttonLarge.className = buttonLarge.className.replace(/arduino_\S+/, 'arduino_orange');
-    iconLarge.className = 'mdi-av-play-arrow';
-  } else if (value === 'verify') {
-    buttonLeft.className = buttonLeft.className.replace(/arduino_\S+/, 'arduino_yellow');
-    iconLeft.className = 'mdi-action-open-in-browser';
-    buttonMiddle.className = buttonMiddle.className.replace(/arduino_\S+/, 'arduino_orange');
-    iconMiddle.className = 'mdi-av-play-arrow';
-    buttonLarge.className = buttonLarge.className.replace(/arduino_\S+/, 'arduino_teal');
-    iconLarge.className = 'mdi-navigation-check';
-  } else if (value === 'open') {
-    buttonLeft.className = buttonLeft.className.replace(/arduino_\S+/, 'arduino_teal');
-    iconLeft.className = 'mdi-navigation-check';
-    buttonMiddle.className = buttonMiddle.className.replace(/arduino_\S+/, 'arduino_orange');
-    iconMiddle.className = 'mdi-av-play-arrow';
-    buttonLarge.className = buttonLarge.className.replace(/arduino_\S+/, 'arduino_yellow');
-    iconLarge.className = 'mdi-action-open-in-browser';
-  }
-};
 
 /**
  * Displays or hides the additional Arduino IDE action buttons.
@@ -105,29 +69,20 @@ watchXBlocks.changeIdeButtonsDesign = function(value) {
  * @param {!boolean} show Indicates if the extra buttons are to be shown.
  */
 watchXBlocks.showExtraIdeButtons = function(show) {
-  var IdeButtonLeft = document.getElementById('button_ide_left');
-  var IdeButtonMiddle = document.getElementById('button_ide_middle');
+  var IdeButtonMiddle = document.getElementById('button_verify');
   if (show) {
     // prevent previously set time-out to hide buttons while trying to show them
     clearTimeout(watchXBlocks.outHoldtimeoutHandle);
     clearTimeout(watchXBlocks.hidetimeoutHandle);
     IdeButtonMiddle.style.visibility = 'visible';
     IdeButtonMiddle.style.opacity = '1';
-    watchXBlocks.showtimeoutHandle = setTimeout(function() {
-      IdeButtonLeft.style.visibility = 'visible';
-      IdeButtonLeft.style.opacity = '1';
-    }, 50);
   } else {
     // As the mouse out can be accidental, only hide them after a delay
     watchXBlocks.outHoldtimeoutHandle = setTimeout(function() {
       // Prevent show time-out to affect the hiding of the buttons
       clearTimeout(watchXBlocks.showtimeoutHandle);
-      IdeButtonLeft.style.visibility = 'hidden';
-      IdeButtonLeft.style.opacity = '0';
-      watchXBlocks.hidetimeoutHandle = setTimeout(function() {
-        IdeButtonMiddle.style.visibility = 'hidden';
-        IdeButtonMiddle.style.opacity = '0';
-      }, 50);
+      IdeButtonMiddle.style.visibility = 'hidden';
+      IdeButtonMiddle.style.opacity = '0';
     }, 200);
   }
 };
@@ -137,16 +92,16 @@ watchXBlocks.showExtraIdeButtons = function(show) {
  * @param {!boolean} active True turns ON the spinner, false OFF.
  */
 watchXBlocks.largeIdeButtonSpinner = function(active) {
-  var spinner = document.getElementById('button_ide_large_spinner');
-  var buttonIdeLarge = document.getElementById('button_ide_large');
-  var buttonClass = buttonIdeLarge.className;
-  if (active) {
-    spinner.style.display = 'block';
-    buttonIdeLarge.className = buttonIdeLarge.className + ' grey';
-  } else {
-    spinner.style.display = 'none';
-    buttonIdeLarge.className = buttonClass.replace(' grey', '');
- }
+    var spinner = document.getElementById("button_ide_large_spinner");
+    var buttonIdeLarge = document.getElementById('button_upload');
+    var buttonClass = buttonIdeLarge.className;
+    if (active) {
+        spinner.style.display = 'block';
+        buttonIdeLarge.className = buttonIdeLarge.className + ' grey';
+    } else {
+        spinner.style.display = 'none';
+        buttonIdeLarge.className = buttonClass.replace(' grey', '');
+    }
 };
 
 /**

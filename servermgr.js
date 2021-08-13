@@ -162,7 +162,10 @@ app.put("/settings/:name", express.json(), (req, res, next) => {
 	}
 });
 app.post("/code", express.json(), (req, res, next) => {
-	const { sketch_code } = req.body;
+	const { sketch_code, action } = req.body;
+	if(["upload", "verify"].indexOf(action) == -1) {
+		return send_error(res, 72, 'Undefined action', 'ide_output');
+	}
 	if(sketch_code == null) {
 		return send_error(res, 64, 'Unable to parse sent JSON.', 'ide_output');
 	}
@@ -188,7 +191,7 @@ app.post("/code", express.json(), (req, res, next) => {
 	if(board == null) {
 		return send_error(res, 56, 'Arduino Board not configured in the Settings.', 'ide_output');
 	}
-	const action = config.get_selected_ide();
+	// const action = config.get_selected_ide();
 
 	var args = [];
 	args.push( insert_quote(compiler) );

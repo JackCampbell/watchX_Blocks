@@ -111,7 +111,7 @@ var getFileMenuData = function () {
             }, {
                 type: 'separator'
             }, {
-                label: 'Export Blocks',
+                label: 'Export as Arduino Sketch',
                 click: function () {
                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.exportArduinoFile()');
                 }
@@ -271,12 +271,6 @@ var getProgramMenuData = function() {
         label: 'Program',
         submenu: [
             {
-                label: 'Open sketch in IDE',
-                accelerator: 'CmdOrCtrl+Shift+O',
-                click: function() {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.ideSendOpen()');
-                }
-            }, {
                 label: 'Verify',
                 accelerator: 'CmdOrCtrl+R',
                 click: function() {

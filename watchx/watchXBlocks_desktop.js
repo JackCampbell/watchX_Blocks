@@ -10,7 +10,6 @@ var electron = require('electron');
 window.Hammer = require("./js_libs/hammer.min.js");
 window.JsDiff = require('./js_libs/diff.js');
 // window.$ = window.jQuery = require('./js_libs/jquery-2.1.3.min.js');
-const { build } = require("../package.json");
 
 /** Create a namespace for the application. */
 var watchXBlocks = watchXBlocks || {};
@@ -196,9 +195,12 @@ watchXBlocks.redirectConsoleLogging = function() {
 	};
 };
 
-watchXBlocks.setVersionData = function() {
+watchXBlocks.setVersionAndBuilder = function() {
 	var element = document.getElementById("watchx_version");
-	element.innerHTML = electron.remote.app.getVersion() + "." + build.number;
+	if(element == null) {
+		return;
+	}
+	element.innerHTML = electron.remote.app.getVersion();
 }
 
 /** Initialize watchXBlocks code required for Electron on page load. */
@@ -206,7 +208,7 @@ window.addEventListener('load', function load(event) {
 	// window.removeEventListener('load', load, false);
 	// if(watchXBlocks.isRunningElectron())
 	{
-		watchXBlocks.setVersionData();
+		watchXBlocks.setVersionAndBuilder();
 		// Edit the page layout for better appearance on desktop
 		watchXBlocks.containerFullWidth();
 		// watchXBlocks.hideSideMenuButton();

@@ -143,45 +143,44 @@
         <a id="button_toggle_toolbox" class="waves-effect waves-light btn-flat button_toggle_toolbox_off" style="display: none"><i id="button_toggle_toolbox_icon" class="mdi-action-visibility-off"></i></a>
         <!-- Arduino IDE action buttons -->
         <div id="ide_buttons_wrapper">
-          <a id="button_ide_left" class="waves-effect waves-light waves-circle btn-floating z-depth-1-half arduino_yellow"><i id="button_ide_left_icon" class="mdi-action-open-in-browser"></i></a>
-          <a id="button_ide_middle" class="waves-effect waves-light waves-circle btn-floating z-depth-1-half arduino_teal"><i id="button_ide_middle_icon" class="mdi-navigation-check"></i></a>
-          <a id="button_ide_large" class="waves-effect waves-light waves-circle btn-floating z-depth-1-half arduino_orange"><i id="button_ide_large_icon" class="mdi-av-play-arrow"></i></a>
+          <a id="button_verify" class="waves-effect waves-light waves-circle btn-floating z-depth-1-half arduino_teal"><i class="mdi-navigation-check"></i></a>
+          <a id="button_upload" class="waves-effect waves-light waves-circle btn-floating z-depth-1-half arduino_orange"><i class="mdi-av-play-arrow"></i></a>
           <div id="button_ide_large_spinner" class="preloader-wrapper active ide_loader" style="display:none">
             <div class="spinner-layer spinner-orange">
               <div class="circle-clipper left">
                 <div class="circle"></div>
               </div><div class="gap-patch">
-                <div class="circle"></div>
-              </div><div class="circle-clipper right">
-                <div class="circle"></div>
-              </div>
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
             </div>
             <div class="spinner-layer spinner-dark-teal">
               <div class="circle-clipper left">
                 <div class="circle"></div>
               </div><div class="gap-patch">
-                <div class="circle"></div>
-              </div><div class="circle-clipper right">
-                <div class="circle"></div>
-              </div>
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
             </div>
             <div class="spinner-layer spinner-yellow">
               <div class="circle-clipper left">
                 <div class="circle"></div>
               </div><div class="gap-patch">
-                <div class="circle"></div>
-              </div><div class="circle-clipper right">
-                <div class="circle"></div>
-              </div>
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
             </div>
             <div class="spinner-layer spinner-light-teal">
               <div class="circle-clipper left">
                 <div class="circle"></div>
               </div><div class="gap-patch">
-                <div class="circle"></div>
-              </div><div class="circle-clipper right">
-                <div class="circle"></div>
-              </div>
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
             </div>
           </div>
         </div>
@@ -256,12 +255,6 @@
         <label for="serial_port"><span class="translatable_comPort">COM Port</span>:</label>
         <select name="settings_serial" id="serial_port">
           <option value="COMX" class="translatable_comPortDefault">COM Port unknown</option>
-        </select>
-      </div>
-      <div class="modal_section">
-        <label><span class="translatable_defaultIdeButton">Default IDE button</span>:</label>
-        <select name="settings_ide" id="ide_settings">
-          <option value="verify" class="translatable_defaultIdeButtonDefault">IDE options unknown</option>
         </select>
       </div>
       <div class="modal_section">

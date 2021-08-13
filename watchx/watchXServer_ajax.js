@@ -328,6 +328,6 @@ watchXBlocksServer.setIdeOptions = function (ide_option, callback) {
  * @param {!function} callback Callback function for the server request, must
  *     have one argument to receive the JSON response.
  */
-watchXBlocksServer.sendSketchToServer = function (code, callback) {
-    watchXBlocksServer.sendRequest('/code', 'POST', 'application/json', {"sketch_code": code}, callback);
+watchXBlocksServer.sendSketchToServer = function (code, action, callback) {
+    watchXBlocksServer.sendRequest('/code', 'POST', 'application/json', {"sketch_code": code, "action": action }, callback);
 };
