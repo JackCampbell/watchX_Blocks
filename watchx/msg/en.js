@@ -74,8 +74,7 @@ watchXBlocks.LOCALISED_TEXT = {
               '<p>The full document can be found in the <a target="_blank" href="https://github.com/JackCampbell/watchX_blocks/blob/master/LICENSE">LICENSE</a> file.</p>\n' +
               '<h5>Credits</h5>\n' +
               '<p>This project has been inspired by <a href="https://github.com/BlocklyDuino/BlocklyDuino">BlocklyDuino</a> and forked directly from <a target="_blank" href="https://github.com/carlosperate/ardublockly">Ardublockly</a> by <a target="_blank" href="https://www.watchx.io/">argeX</a>.<br/><a target="_blank" href="https://developers.google.com/blockly/">Blockly</a> original source is Copyright of Google Inc.</p>\n' +
-              '<p><a target="_blank" href="https://github.com/arduino/Arduino">Arduino IDE</a> is used under <a target="_blank" href="https://github.com/arduino/Arduino/blob/master/license.txt">GNU GPL v2.0 and LGPL</a></p>' +
-              '<p><a target="_blank" href="https://github.com/JackCampbell/watchX_Blocks">source code</a><br/>Contact: <a target="_blank" href="mailto:info@argex.io">info@argex.io</a></p>',
+              '<p><a target="_blank" href="https://github.com/arduino/Arduino">Arduino IDE</a> is used under <a target="_blank" href="https://github.com/arduino/Arduino/blob/master/license.txt">GNU GPL v2.0 and LGPL</a></p>',
   close: 'Close',
   /* Alerts */
   loadNewBlocksTitle: "Load new blocks?",
@@ -130,5 +129,8 @@ watchXBlocks.LOCALISED_TEXT = {
   exampleMoveTheDot: 'Move the Dot',
   exampleSiren: 'Siren',
   exampleWatchFace: 'Watch Face',
-  exampleBounce: 'Bounce'
+  exampleBounce: 'Bounce',
+  version: 'Version',
+  source_code: '<a target="_blank" href="https://github.com/JackCampbell/watchX_Blocks">source code</a><br/>Contact: <a target="_blank" href="mailto:info@argex.io">info@argex.io</a>',
+  argex_team: '<h5>argeX Team<br/><small>is</small></h5>'
 };
