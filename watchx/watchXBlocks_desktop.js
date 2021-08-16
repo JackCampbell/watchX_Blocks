@@ -209,7 +209,7 @@ window.addEventListener('load', function load(event) {
 	// window.removeEventListener('load', load, false);
 	// if(watchXBlocks.isRunningElectron())
 	{
-		watchXBlocks.setVersionAndBuilder();
+		// watchXBlocks.setVersionAndBuilder();
 		// Edit the page layout for better appearance on desktop
 		watchXBlocks.containerFullWidth();
 		// watchXBlocks.hideSideMenuButton();
@@ -226,7 +226,7 @@ window.addEventListener('load', function load(event) {
 		// Electron does not offer a prompt, so replace Blocks version with modal
 		// Original signature: function(message, opt_defaultInput, opt_callback)
 		Blockly.prompt = watchXBlocks.htmlPrompt;
-
+		/*
 		setTimeout(() => {
 			var mainWindow = BrowserWindow.getFocusedWindow();
 			if(mainWindow == null) {
@@ -234,5 +234,6 @@ window.addEventListener('load', function load(event) {
 			}
 			mainWindow.webContents.reload();
 		}, 350);
+		*/
 	}
 });

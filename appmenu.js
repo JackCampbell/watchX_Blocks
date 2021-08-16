@@ -36,6 +36,7 @@ var getMacMenuData = function() {
         submenu: [
             {
                 label: 'About',
+                accelerator: 'F1',
                 click: function() {
                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.openAboutUs()');
                 }

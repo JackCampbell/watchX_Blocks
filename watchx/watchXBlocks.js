@@ -292,8 +292,20 @@ watchXBlocks.openSettings = function () {
     watchXBlocks.openSettingsModal();
 };
 
+var once_version = false;
 watchXBlocks.openAboutUs = function () {
-    watchXBlocks.openAboutDialog();
+    if(once_version == true) {
+        watchXBlocks.openAboutDialog();
+        return;
+    }
+    watchXBlocksServer.sendRequest("/version", "GET", "application/json", null, json => {
+        var element = document.getElementById("watchx_version");
+        if(element && json.version) {
+            element.innerHTML = json.version;
+        }
+        watchXBlocks.openAboutDialog();
+        once_version = true;
+    });
 };
 
 /**

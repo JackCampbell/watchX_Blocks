@@ -12,7 +12,7 @@ const express = require('express');
 const projectLocator = require('./projectlocator.js');
 const config = require("./cfgconst");
 const helper = require("./cfghelper");
-const { dialog, BrowserWindow } = require('electron');
+const { dialog, BrowserWindow, app: capp } = require('electron');
 const fs = require("fs");
 const path = require("path");
 
@@ -278,6 +278,10 @@ app.post("/editor/export", express.json(), (req, res, next) => {
 	fs.writeFileSync(filename, content, "utf-8");
 	winston.info(tagMgr + 'Export path: ' + filename);
 	return res.json({ "filename": filename });
+});
+app.get("/version", (req, res, next) => {
+	const version = capp.getVersion();
+	return res.json({ version });
 });
 app.get(["/", "/watchx"], (req, res, next) => {
 	return res.redirect("/watchx/index.html");
