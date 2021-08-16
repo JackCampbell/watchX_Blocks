@@ -147,6 +147,7 @@ watchXBlocks.TOOLBOX_XML =
 '    <block type="io_highlow"></block>' +
 '    <block type="io_pulsein">' + Assume_Pin("PULSETYPE") + '</block>' +
 '    <block type="io_pulsetimeout">' + Assume_Pin("PULSETYPE") + Assume_Num("TIMEOUT", 100) + '</block>' +
+'    <block type="wx_input_down"></block>' +
 '  </category>' +
 '  <sep></sep>' +
 '  <category id="catTime" name="Time">' +

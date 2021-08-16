@@ -475,6 +475,24 @@ Blockly.Blocks['wx_play_freq'] = {
 		this.setHelpUrl("http://watchx.io");
 	}
 };
+
+Blockly.Blocks['wx_input_down'] = {
+	init: function() {
+		var btn = [["KEY_B1", "KEY_B1"], ["KEY_B2", "KEY_B2"], ["KEY_B3", "KEY_B3"]];
+		this.appendDummyInput()
+			.appendField(Blockly.Msg.WX_READ_BUTTON)
+			.appendField(new Blockly.FieldDropdown(btn), 'KEY');
+		this.setInputsInline(true);
+		this.setOutput(true, null);
+		this.setColour(Blockly.Blocks.io.BLUE);
+		this.setTooltip(Blockly.Msg.WX_READ_BUTTON_TIP);
+		this.setHelpUrl("http://watchx.io");
+	},
+	getBlockType: function() {
+		return Blockly.Types.BOOLEAN;
+	}
+};
+
 Blockly.Blocks['wx_btn_read'] = {
 	init: function() {
 		var btn = [["B1", "8"], ["B2", "11"], ["B3", "10"]];

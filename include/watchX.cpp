@@ -511,3 +511,61 @@ void wx_delay_sec(float seconds) {
         update_env();
     }
 }
+
+
+
+
+void wx_key_init(key_state_t *key, int pin, int bit) {
+	key->pin = pin;
+	key->down = 0;
+	key->impulse = 0;
+	key->count = 0;
+	key->bit = bit;
+	pinMode(pin, INPUT_PULLUP);
+}
+
+void wx_key_state(key_state_t *key) {
+	int state = digitalRead(key->pin);
+	if(state == LOW && key->down == 0) {
+	    key->down = 1;
+	    key->impulse = 0;
+	    key->count = 0;
+	} else if(state == LOW && key->down == 0) {
+	    key->count++;
+	} else if(state == HIGH && key->down == 1) {
+	    key->down = 0;
+	    key->impulse = 1;
+	}
+}
+
+int wx_key_impulse(key_state_t *key) {
+	int state = 0;
+	if(key->impulse == 1) {
+	    state |= key->bit;
+	}
+	key->impulse = 0;
+	// key->down = false;
+	key->count = 0;
+	return state;
+}
+
+
+
+void wx_init_input(wx_input_t *input) {
+	wx_key_init( &input->btn1, WX_BTN_B1, KEY_B1 );
+	wx_key_init( &input->btn2, WX_BTN_B2, KEY_B2 );
+	wx_key_init( &input->btn3, WX_BTN_B3, KEY_B3 );
+	input->state = 0;
+}
+
+void wx_update_input(wx_input_t *input) {
+	wx_key_state( &input->btn1 );
+	wx_key_state( &input->btn2 );
+	wx_key_state( &input->btn3 );
+    // --------------
+    input->state = 0;
+    input->state |= wx_key_impulse( &input->btn1 );
+    input->state |= wx_key_impulse( &input->btn2 );
+    input->state |= wx_key_impulse( &input->btn3 );
+}
+

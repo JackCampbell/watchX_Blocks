@@ -27,10 +27,6 @@
 #define BUILD_LED_R     6
 #define BUILD_LED_L     13
 
-#define WX_BTN_B1	8
-#define WX_BTN_B2	10
-#define WX_BTN_B3	11
-
 #define WX_GPAD_G0 A0
 #define WX_GPAD_G1 4
 #define WX_GPAD_G2 11
@@ -215,3 +211,27 @@ void wx_ble_send_keys(wx_ble_t *ble, const char *key);
 void wx_ble_media_control(wx_ble_t *ble, int cmd);
 void wx_ble_mouse_control(wx_ble_t *ble, int button, int state);
 
+
+// key state
+#define WX_BTN_B1	8
+#define WX_BTN_B2	11
+#define WX_BTN_B3	10
+
+struct key_state_t {
+	int         pin;
+	int         down;
+	int         impulse;
+	int         count;
+	int         bit;
+};
+enum {
+	KEY_B1      = BIT(0),
+	KEY_B2      = BIT(1),
+	KEY_B3      = BIT(2)
+};
+struct wx_input_t {
+	key_state_t btn1, btn2, btn3;
+	int         state;
+};
+void wx_init_input(wx_input_t *keys);
+void wx_update_input(wx_input_t *input);

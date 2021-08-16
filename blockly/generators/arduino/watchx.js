@@ -335,6 +335,15 @@ Blockly.Arduino['wx_play_freq'] = function(block) {
 	return code;
 };
 
+Blockly.Arduino["wx_input_down"] = function(block) {
+	var key = block.getFieldValue('KEY');
+	Blockly.Arduino.addInclude("io_watch", `#include "${watchx_include}"`);
+	Blockly.Arduino.addVariable("var_input", 'wx_input_t input;', false);
+	Blockly.Arduino.addSetup('wx_input', `wx_init_input(&input);\n`, false);
+	Blockly.Arduino.addFinish('wx_input', 'wx_update_input(&input);');
+	return [`(input.state & ${key}) != 0`, Blockly.Arduino.ORDER_ATOMIC];
+};
+
 Blockly.Arduino['wx_btn_read'] = function(block) {
 	var btn = block.getFieldValue('BUTTON');
 	Blockly.Arduino.reservePin(block, btn, Blockly.Arduino.PinTypes.INPUT_PULLUP, 'Button PIN');
