@@ -1,6 +1,9 @@
 const packager = require('electron-packager');
 const createDMG = require('electron-installer-dmg');
-const installer = require('electron-installer-windows');
+const installerWin = require('electron-installer-windows');
+const installerDeb = require('electron-installer-debian');
+const installerRPM = require('electron-installer-redhat')
+const zip = require('electron-installer-zip');
 const { MSICreator } = require('electron-wix-msi');
 const config = require("../package.json");
 const path = require("path");
@@ -87,14 +90,30 @@ const win32_package_opts = {
 };
 const win64_package_opts = {
 	...package_opts,
-	'out': path.join(dist_path, "win32"),
+	'out': path.join(dist_path, "win64"),
 	'platform': 'win32',
 	'arch': 'x64',
 	'icon': 'resources/windows/icon.ico',
 	'extraResource': package_opts.extraResource.concat('arduino-cli/windows-x64/')
 };
+const linux64_package_opts = {
+	...package_opts,
+	'out': path.join(dist_path, "linux64"),
+	'platform': 'linux',
+	'arch': 'amd64',
+	'icon': 'resources/windows/icon.ico',
+	'extraResource': package_opts.extraResource.concat('arduino-cli/linux-x64/')
+};
+const linux32_package_opts = {
+	...package_opts,
+	'out': path.join(dist_path, "linux32"),
+	'platform': 'linux',
+	'arch': 'i386',
+	'icon': 'resources/windows/icon.ico',
+	'extraResource': package_opts.extraResource.concat('arduino-cli/linux-x32/')
+};
 const dmg_package_opts = {
-	'appPath': 'dist/osx/watchX Blocks-darwin-x64/watchX Blocks.app',
+	'appPath': null, //'dist/osx/watchX Blocks-darwin-x64/watchX Blocks.app',
 	'icon': 'resources/osx/dmg-icon.icns',
 	'name': 'watchX Blocks',
 	'overwrite': true,
@@ -108,28 +127,51 @@ const dmg_package_opts = {
 	}
 };
 const wstore_package_opts = {
-	src: 'dist/win/watchXBlocks-win32-x64',
-	dest: path.join(dist_path, 'wstore'),
-	icon: 'resources/windows/setup-icon.ico'
+	'src': null, //'dist/win/watchXBlocks-win32-x64',
+	'dest': path.join(dist_path, 'wstore'),
+	'icon': 'resources/windows/setup-icon.ico',
+	'name': config.name,
+	'exe': config.productName + ".exe",
+	'authors': [config.author],
+	'version': samver_version(),
+	'description': config.description,
+	'copyright': config.copyright
 };
 const msi_package_opts = {
-	appDirectory: path.join(dist_path, "win", "watchXBlocks-win32-x64"),
-	outputDirectory: path.join(dist_path, "msi"),
-	description: config.description,
-	exe: config.name,
-	name: config.name,
-	manufacturer: config.author,
-	version: config.version,
-	appIconPath: 'resources/windows/icon.ico',
-	ui: {
-		chooseDirectory: true,
-		images: {
-			// background: path.join(project_path, "resources", "windows", "setup-banner.bmp"),
-			infoIcon: path.join(project_path, "resources", "windows", "icon.ico")
+	'appDirectory': null, //path.join(dist_path, "win64", "watchXBlocks-win32-x64"),
+	'outputDirectory': path.join(dist_path, "msi"),
+	'description': config.description,
+	'exe': config.productName + ".exe",
+	'name': config.name,
+	'manufacturer': config.author,
+	'version': config.version,
+	'appIconPath': 'resources/windows/icon.ico',
+	'ui': {
+		'chooseDirectory': true,
+		'images': {
+			// 'background': path.join(project_path, "resources", "windows", "setup-banner.bmp"),
+			'infoIcon': path.join(project_path, "resources", "windows", "icon.ico")
 		}
 	}
 };
-
+const zip_package_opts = {
+	'dir': null, // path.join(dist_path, "win64", "watchXBlocks-win32-x64"),
+	'out': path.join(dist_path, "win64", config.productName + ".zip")
+};
+function samver_version() {
+	return config.version.split(".").slice(0, 3).join(".");
+}
+function pack_zip(opts) {
+	return new Promise((resolve, reject) => {
+		zip(opts, function(error, result) {
+			if(error) {
+				reject(error);
+			} else {
+				resolve(result);
+			}
+		})
+	});
+}
 
 function pack_osx() {
 	console.log("build osx");
@@ -143,25 +185,34 @@ function pack_osx() {
 	});
 }
 function pack_win32() {
-	console.log("build window32");
+	console.log("build win32");
 	packager(win32_package_opts).then(result => {
 		const { 0: app_path } = result;
 		console.log("Win32 success: ", app_path);
 	});
 }
 function pack_win64() {
-	console.log("build window64");
+	console.log("build win64");
 	packager(win64_package_opts).then(result => {
 		const { 0: app_path } = result;
 		wstore_package_opts.src = app_path;
 		msi_package_opts.appDirectory = app_path;
-
+		zip_package_opts.dir = app_path;
 		const msiCreator = new MSICreator(msi_package_opts);
 		return Promise.all([
-			installer(wstore_package_opts),
-			msiCreator.create().then(result => msiCreator.compile())
+			installerWin(wstore_package_opts),
+			msiCreator.create().then(result => msiCreator.compile()),
+			pack_zip(zip_package_opts)
 		]);
+	}).then(result => {
+		console.log("Win64 success: ", result);
 	});
+}
+function pack_linux64() {
+ 	// TODO ..
+}
+function pack_linux32() {
+	// TODO ...
 }
 
 function write_version() {
@@ -169,12 +220,17 @@ function write_version() {
 	fs.writeFileSync(ver_path, config.version, "utf8");
 }
 
-
 write_version();
 if(process.platform == 'darwin') {
 	pack_osx();
 } else if(process.platform == 'win32' && (process.arch == 'ia32' || process.arch == 'x86')) {
 	pack_win32();
-} else if(process.platform == 'win32' && (process.arch == 'amd64' || process.arch == 'x86_64')) {
+} else if(process.platform == 'win32' && (process.arch == 'x86_64' || process.arch == 'x64')) {
 	pack_win64();
+} else if(process.platform == 'linux' && process.arch == 'i386') {
+	pack_linux32();
+} else if(process.platform == 'linux' && process.arch == 'amd64') {
+	pack_linux64();
+} else {
+	console.error("Undefined platform ...");
 }

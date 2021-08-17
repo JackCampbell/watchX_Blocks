@@ -2,22 +2,25 @@
 	"name": "watchXBlocks",
 	"productName": "watchX Blocks",
 	"description": "Visual coding for watchX",
-	"version": "0.9.0.271",
+	"version": "0.9.0.272",
 	"author": "Jack Campbell",
 	"copyright": "© 2021, Jack Campbell / ArgeX Inc.",
 	"homepage": "https://watchx.io",
 	"main": "main.js",
 	"dependencies": {
 		"electron-squirrel-startup": "^1.0.0",
-		"express": "*",
+		"express": "^4.17.1",
+		"electron": "^13.1.8",
 		"fs-jetpack": "^0.9.0",
-		"nconf": "*",
+		"nconf": "^0.11.3",
 		"winston": "^1.0.1"
 	},
 	"devDependencies": {
-		"electron": "^13.1.8",
 		"electron-installer-dmg": "^3.0.0",
 		"electron-installer-windows": "^3.0.0",
+		"electron-installer-zip": "^0.1.2",
+		"electron-installer-redhat": "^3.3.0",
+		"electron-installer-debian": "^3.1.0",
 		"electron-packager": "^15.3.0",
 		"electron-wix-msi": "^3.2.0"
 	},
@@ -36,8 +39,8 @@
 		"prebuild": "node ./build_script/builder.js ./package.json"
 	},
 	"build": {
-		"count": 271,
-		"timestamp": "Tue Aug 17 2021 11:29:32 GMT+0300 (GMT+03:00)",
+		"count": 272,
+		"timestamp": "Tue Aug 17 2021 14:49:20 GMT+0300 (GMT+03:00)",
 		"platform": "darwin",
 		"arch": "x64",
 		"username": "jack",
