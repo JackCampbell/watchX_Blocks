@@ -137,6 +137,7 @@ watchXBlocks.TOOLBOX_XML =
 '  <sep></sep>' +
 '  <category id="catInputOutput" name="Input/Output">' +
 '    <block type="wx_btn_read"></block>' +
+'    <block type="wx_input_down"></block>' +
 '    <block type="wx_gpad_read"></block>' +
 '    <block type="wx_led">' + Assume_Pin("STATE") + '</block>' +
 '    <block type="wx_led_brightness"></block>' +  // '    <block type="LED_PIN"></block>' +
@@ -147,7 +148,6 @@ watchXBlocks.TOOLBOX_XML =
 '    <block type="io_highlow"></block>' +
 '    <block type="io_pulsein">' + Assume_Pin("PULSETYPE") + '</block>' +
 '    <block type="io_pulsetimeout">' + Assume_Pin("PULSETYPE") + Assume_Num("TIMEOUT", 100) + '</block>' +
-'    <block type="wx_input_down"></block>' +
 '  </category>' +
 '  <sep></sep>' +
 '  <category id="catTime" name="Time">' +

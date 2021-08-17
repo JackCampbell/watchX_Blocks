@@ -68,28 +68,6 @@ watchXBlocks.hideSideMenuButton = function() {
 	var sideMenuButton = document.getElementById('button-collapse');
 	sideMenuButton.style.setProperty('display', 'none', 'important');
 };
-
-/**
- * Launches a materialize modal as a text prompt
- * @param {string} message Main text message for the window prompt.
- * @param {string=} defaultValue Input string to be displayed by default.
- * @param {function} callback To process the user input.
- */
-watchXBlocks.htmlPrompt = function(message, defaultValue, callback) {
-	$('#gen_prompt_message').text('');
-	$('#gen_prompt_message').append(message);
-	$('#gen_prompt_input').val(defaultValue);
-	// Bind callback events to buttons
-	$('#gen_prompt_ok_link').bind('click', function() {
-		callback($('#gen_prompt_input').val());
-	});
-	$('#gen_prompt_cancel_link').bind('click', function() {
-		callback(null);
-	});
-	$('#gen_prompt').openModal();
-	window.location.hash = '';
-};
-
 /**
  * Add click listeners to the Compiler and Sketch input fields to launch the
  * Electron file/folder browsers.
@@ -225,7 +203,7 @@ window.addEventListener('load', function load(event) {
 
 		// Electron does not offer a prompt, so replace Blocks version with modal
 		// Original signature: function(message, opt_defaultInput, opt_callback)
-		Blockly.prompt = watchXBlocks.htmlPrompt;
+		//Blockly.prompt = watchXBlocks.htmlPrompt;
 		/*
 		setTimeout(() => {
 			var mainWindow = BrowserWindow.getFocusedWindow();

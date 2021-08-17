@@ -289,5 +289,5 @@ Blockly.Msg.WX_PRESSED = 'Pressed';
 Blockly.Msg.WX_RELEASE = 'Release';
 Blockly.Msg.WX_BLE_MOUSE_CONTROL = 'Bluetooth mouse button';
 Blockly.Msg.WX_BLE_MOUSE_CONTROL_TIP = 'Allows to send Bluetooth mouse click.';
-Blockly.Msg.WX_INPUT_DOWN = 'Read button once';
+Blockly.Msg.WX_INPUT_DOWN = 'read button once';
 Blockly.Msg.WX_INPUT_DOWN_TIP = 'Gets the status of the button, single-shot pressed-on time duration. Delivers input value (state) after it has been stable.';

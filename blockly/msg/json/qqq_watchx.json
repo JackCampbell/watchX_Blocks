@@ -10,7 +10,7 @@
 	"ARD_TYPE_NULL": "Arduino Types - Null C type void",
 	"ARD_TYPE_UNDEF": "Arduino Types - Undefined type",
 	"ARD_TYPE_CHILDBLOCKMISSING": "Arduino Types - Place holder value, indicates block with type not connected",
-	"ARD_HIGH": "Arduino Blocks",
+	"ARD_HIGH": "",
 	"ARD_LOW": "",
 	"ARD_ANALOGREAD": "",
 	"ARD_ANALOGREAD_TIP": "",

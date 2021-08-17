@@ -1,7 +1,7 @@
 {
 	"@metadata": {
 		"author": "carlosperate",
-		"lastupdated": "2021-08-17 08:56:00.873480",
+		"lastupdated": "2021-08-17 09:37:44.268456",
 		"locale": "en",
 		"messagedocumentation" : "qqq_watchx"
 	},
@@ -232,6 +232,6 @@
 	"WX_RELEASE": "Release",
 	"WX_BLE_MOUSE_CONTROL": "Bluetooth mouse button",
 	"WX_BLE_MOUSE_CONTROL_TIP": "Allows to send Bluetooth mouse click.",
-	"WX_INPUT_DOWN": "Read button once",
+	"WX_INPUT_DOWN": "read button once",
 	"WX_INPUT_DOWN_TIP": "Gets the status of the button, single-shot pressed-on time duration. Delivers input value (state) after it has been stable."
 }

@@ -478,7 +478,7 @@ Blockly.Blocks['wx_play_freq'] = {
 
 Blockly.Blocks['wx_input_down'] = {
 	init: function() {
-		var btn = [["KEY_B1", "KEY_B1"], ["KEY_B2", "KEY_B2"], ["KEY_B3", "KEY_B3"]];
+		var btn = [["B1", "KEY_B1"], ["B2", "KEY_B2"], ["B3", "KEY_B3"]];
 		this.appendDummyInput()
 			.appendField(Blockly.Msg.WX_INPUT_DOWN)
 			.appendField(new Blockly.FieldDropdown(btn), 'KEY');

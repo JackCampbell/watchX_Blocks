@@ -32,6 +32,7 @@ watchXBlocks.injectBlockly = function (blocklyEl, toolboxXml, blocklyPath) {
     if (blocklyPath.substr(-1) === '/') {
         blocklyPath = blocklyPath.slice(0, -1);
     }
+    Blockly.prompt = watchXBlocks.htmlPrompt;
     watchXBlocks.xmlTree = Blockly.Xml.textToDom(toolboxXml);
     // The Toolbox menu language is edited directly from the XML nodes.
     watchXBlocks.updateToolboxLanguage();
@@ -47,7 +48,8 @@ watchXBlocks.injectBlockly = function (blocklyEl, toolboxXml, blocklyPath) {
         sounds: true,
         toolbox: watchXBlocks.xmlTree,
         trashcan: true,
-        /*grid: false,
+        /*
+        grid: false,
         zoom: {
           controls: true,
           wheel: false,
@@ -85,10 +87,9 @@ watchXBlocks.bindBlocklyEventListeners = function () {
         }
     });
     // Ensure the Blockly workspace resizes accordingly
-    window.addEventListener('resize',
-        function () {
-            Blockly.asyncSvgResize(watchXBlocks.workspace);
-        }, false);
+    window.addEventListener('resize', function () {
+        Blockly.asyncSvgResize(watchXBlocks.workspace);
+    }, false);
 };
 
 /** @return {!string} Generated Arduino code from the Blockly workspace. */
@@ -101,6 +102,10 @@ watchXBlocks.generateXml = function () {
     var xmlDom = Blockly.Xml.workspaceToDom(watchXBlocks.workspace);
     return Blockly.Xml.domToPrettyText(xmlDom);
 };
+watchXBlocks.generatorJS = function() {
+    var xmlDom = Blockly.Xml.workspaceToDom(watchXBlocks.workspace);
+    return Blockly.JavaScript.domToPrettyText(xmlDom);
+}
 
 /**
  * Loads an XML file from the server and replaces the current blocks into the
@@ -201,12 +206,10 @@ watchXBlocks.discardAllBlocks = function () {
         watchXBlocks.workspace.clear();
         watchXBlocks.renderContent();
     } else if (blockCount > 1) {
-        watchXBlocks.alertMessage(
-            watchXBlocks.getLocalStr('discardBlocksTitle'),
-            watchXBlocks.getLocalStr('discardBlocksBody').replace('%1', blockCount), true, function () {
-                watchXBlocks.workspace.clear();
-                watchXBlocks.renderContent();
-            });
+        watchXBlocks.alertMessage(watchXBlocks.getLocalStr('discardBlocksTitle'), watchXBlocks.getLocalStr('discardBlocksBody').replace('%1', blockCount), true, function () {
+            watchXBlocks.workspace.clear();
+            watchXBlocks.renderContent();
+        });
     }
 };
 
@@ -340,4 +343,26 @@ watchXBlocks.ajaxRequest = function () {
         }
     }
     return request;
+};
+
+
+/**
+ * Launches a materialize modal as a text prompt
+ * @param {string} message Main text message for the window prompt.
+ * @param {string=} defaultValue Input string to be displayed by default.
+ * @param {function} callback To process the user input.
+ */
+watchXBlocks.htmlPrompt = function(message, defaultValue, callback) {
+    $('#gen_prompt_message').text('');
+    $('#gen_prompt_message').append(message);
+    $('#gen_prompt_input').val(defaultValue);
+    // Bind callback events to buttons
+    $('#gen_prompt_ok_link').bind('click', function() {
+        callback($('#gen_prompt_input').val());
+    });
+    $('#gen_prompt_cancel_link').bind('click', function() {
+        callback(null);
+    });
+    $('#gen_prompt').openModal();
+    window.location.hash = '';
 };
