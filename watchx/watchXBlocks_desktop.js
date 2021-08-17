@@ -55,19 +55,6 @@ function loadJsInElectron() { // no call
 	}
 }
 
-/** Sets all the elements using the container class to have a width of 100%. */
-watchXBlocks.containerFullWidth = function() {
-	var containers = $('.container');
-	for(var i = 0; i < containers.length; i++) {
-		containers[i].style.width = '100%';
-	}
-};
-
-/** Hides the side menu button. */
-watchXBlocks.hideSideMenuButton = function() {
-	var sideMenuButton = document.getElementById('button-collapse');
-	sideMenuButton.style.setProperty('display', 'none', 'important');
-};
 /**
  * Add click listeners to the Compiler and Sketch input fields to launch the
  * Electron file/folder browsers.
@@ -188,9 +175,6 @@ window.addEventListener('load', function load(event) {
 	// if(watchXBlocks.isRunningElectron())
 	{
 		// watchXBlocks.setVersionAndBuilder();
-		// Edit the page layout for better appearance on desktop
-		watchXBlocks.containerFullWidth();
-		// watchXBlocks.hideSideMenuButton();
 
 		// Open the file or directory browsers when clicking on the Settings inputs
 		watchXBlocks.bindSettingsPathInputs();
@@ -204,14 +188,5 @@ window.addEventListener('load', function load(event) {
 		// Electron does not offer a prompt, so replace Blocks version with modal
 		// Original signature: function(message, opt_defaultInput, opt_callback)
 		//Blockly.prompt = watchXBlocks.htmlPrompt;
-		/*
-		setTimeout(() => {
-			var mainWindow = BrowserWindow.getFocusedWindow();
-			if(mainWindow == null) {
-				return;
-			}
-			mainWindow.webContents.reload();
-		}, 350);
-		*/
 	}
 });

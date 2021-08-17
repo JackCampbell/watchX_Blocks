@@ -77,6 +77,9 @@ watchXBlocks.injectBlockly = function (blocklyEl, toolboxXml, blocklyPath) {
     });
     // On language change the blocks have been stored in session storage
     watchXBlocks.loadSessionStorageBlocks();
+    // Edit the page layout for better appearance on desktop
+    watchXBlocks.containerFullWidth();
+    // watchXBlocks.hideSideMenuButton();
 };
 
 /** Binds the event listeners relevant to Blockly. */
@@ -365,4 +368,18 @@ watchXBlocks.htmlPrompt = function(message, defaultValue, callback) {
     });
     $('#gen_prompt').openModal();
     window.location.hash = '';
+};
+
+/** Sets all the elements using the container class to have a width of 100%. */
+watchXBlocks.containerFullWidth = function() {
+    var containers = $('.container');
+    for(var i = 0; i < containers.length; i++) {
+        containers[i].style.width = '100%';
+    }
+};
+
+/** Hides the side menu button. */
+watchXBlocks.hideSideMenuButton = function() {
+    var sideMenuButton = document.getElementById('button-collapse');
+    sideMenuButton.style.setProperty('display', 'none', 'important');
 };
