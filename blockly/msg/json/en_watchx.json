@@ -1,9 +1,9 @@
 {
 	"@metadata": {
 		"author": "carlosperate",
-		"lastupdated": "2021-06-28 10:11:47.597907",
+		"lastupdated": "2021-08-17 08:56:00.873480",
 		"locale": "en",
-		"messagedocumentation" : "qqq_ardublockly"
+		"messagedocumentation" : "qqq_watchx"
 	},
 	"ARD_TYPE_CHAR": "Character",
 	"ARD_TYPE_TEXT": "Text",
@@ -231,5 +231,7 @@
 	"WX_PRESSED": "Pressed",
 	"WX_RELEASE": "Release",
 	"WX_BLE_MOUSE_CONTROL": "Bluetooth mouse button",
-	"WX_BLE_MOUSE_CONTROL_TIP": "Allows to send Bluetooth mouse click."
+	"WX_BLE_MOUSE_CONTROL_TIP": "Allows to send Bluetooth mouse click.",
+	"WX_INPUT_DOWN": "Read button once",
+	"WX_INPUT_DOWN_TIP": "Gets the status of the button, single-shot pressed-on time duration. Delivers input value (state) after it has been stable."
 }

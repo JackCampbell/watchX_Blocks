@@ -480,12 +480,12 @@ Blockly.Blocks['wx_input_down'] = {
 	init: function() {
 		var btn = [["KEY_B1", "KEY_B1"], ["KEY_B2", "KEY_B2"], ["KEY_B3", "KEY_B3"]];
 		this.appendDummyInput()
-			.appendField(Blockly.Msg.WX_READ_BUTTON)
+			.appendField(Blockly.Msg.WX_INPUT_DOWN)
 			.appendField(new Blockly.FieldDropdown(btn), 'KEY');
 		this.setInputsInline(true);
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.BLUE);
-		this.setTooltip(Blockly.Msg.WX_READ_BUTTON_TIP);
+		this.setTooltip(Blockly.Msg.WX_INPUT_DOWN_TIP);
 		this.setHelpUrl("http://watchx.io");
 	},
 	getBlockType: function() {

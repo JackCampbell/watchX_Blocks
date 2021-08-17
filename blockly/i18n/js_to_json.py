@@ -45,32 +45,22 @@ import codecs
 import json
 import os
 import re
-from common import write_files, write_files_ardublockly
+from common import write_files, write_files_watchx
 
 # Original RegEx kept as a reminder that it'll conflict when upstreamed pulled
 #_INPUT_DEF_PATTERN = re.compile("""Blockly.Msg.(\w*)\s*=\s*'([^']*)';?$""")
 _INPUT_DEF_PATTERN = re.compile("""Blockly.Msg.(\w*)\s*=\s*'(.*)';?\r?$""")
-
-_INPUT_SYN_PATTERN = re.compile(
-    """Blockly.Msg.(\w*)\s*=\s*Blockly.Msg.(\w*);""")
+_INPUT_SYN_PATTERN = re.compile("""Blockly.Msg.(\w*)\s*=\s*Blockly.Msg.(\w*);""")
 
 def main():
   # Set up argument parser.
   parser = argparse.ArgumentParser(description='Create translation files.')
-  parser.add_argument(
-      '--author',
-      default='Ellen Spertus <ellen.spertus@gmail.com>',
-      help='name and email address of contact for translators')
-  parser.add_argument('--lang', default='en',
-                      help='ISO 639-1 source language code')
-  parser.add_argument('--output_dir', default='json',
-                      help='relative directory for output files')
-  parser.add_argument('--input_file', default='messages.js',
-                      help='input file')
-  parser.add_argument('--quiet', action='store_true', default=False,
-                      help='only display warnings, not routine info')
-  parser.add_argument('--ardublockly', action='store_true', default=False,
-                      help='Create files for Ardublockly messages')
+  parser.add_argument('--author', default='Ellen Spertus <ellen.spertus@gmail.com>', help='name and email address of contact for translators')
+  parser.add_argument('--lang', default='en', help='ISO 639-1 source language code')
+  parser.add_argument('--output_dir', default='json', help='relative directory for output files')
+  parser.add_argument('--input_file', default='messages.js', help='input file')
+  parser.add_argument('--quiet', action='store_true', default=False, help='only display warnings, not routine info')
+  parser.add_argument('--watchx', action='store_true', default=False, help='Create files for watchXBlocks messages')
   args = parser.parse_args()
   if (not args.output_dir.endswith(os.path.sep)):
     args.output_dir += os.path.sep
@@ -101,27 +91,24 @@ def main():
         match = _INPUT_SYN_PATTERN.match(line)
         if match:
           if description:
-            print('Warning: Description preceding definition of synonym {0}.'.
-                  format(match.group(1)))
+            print('Warning: Description preceding definition of synonym {0}.'. format(match.group(1)))
             description = ''
           synonyms[match.group(1)] = match.group(2)
   infile.close()
 
   # Create <lang_file>.json, keys.json, and qqq.json.
-  if args.ardublockly:
-    write_files_ardublockly(args.author, args.lang, args.output_dir, results)
+  if args.watchx:
+    write_files_watchx(args.author, args.lang, args.output_dir, results)
   else:
     write_files(args.author, args.lang, args.output_dir, results, False)
 
   # Create synonyms.json.
-  synonym_name = 'synonyms' + \
-                 ('_ardublockly.json' if args.ardublockly else '.json')
+  synonym_name = 'synonyms' + ('_watchx.json' if args.watchx else '.json')
   synonym_file_name = os.path.join(os.curdir, args.output_dir, synonym_name)
   with open(synonym_file_name, 'w') as outfile:
     json.dump(synonyms, outfile)
   if not args.quiet:
-    print("Wrote {0} synonym pairs to {1}.".format(
-        len(synonyms), synonym_file_name))
+    print( "Wrote {0} synonym pairs to {1}.".format( len(synonyms), synonym_file_name) )
 
 
 if __name__ == '__main__':

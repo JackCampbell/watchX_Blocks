@@ -393,7 +393,7 @@ Blockly.Msg.TEXT_CREATE_JOIN_ITEM_TITLE_ITEM = Blockly.Msg.VARIABLES_DEFAULT_NAM
 Blockly.Msg.LISTS_INDEX_OF_INPUT_IN_LIST = Blockly.Msg.LISTS_INLIST;
 Blockly.Msg.PROCEDURES_DEFRETURN_COMMENT = Blockly.Msg.PROCEDURES_DEFNORETURN_COMMENT;
 
-// Ardublockly strings
+// watchx strings
 Blockly.Msg.ARD_ANALOGREAD = "read analog pin#";
 Blockly.Msg.ARD_ANALOGREAD_TIP = "Return value between 0 and 1024";
 Blockly.Msg.ARD_ANALOGWRITE = "set analog pin#";
@@ -568,6 +568,8 @@ Blockly.Msg.WX_GET_TIME_TIP = "Gets the current date/time unit from the watchX t
 Blockly.Msg.WX_HOUR = "hour";
 Blockly.Msg.WX_ID = "id";
 Blockly.Msg.WX_INIT = "init";
+Blockly.Msg.WX_INPUT_DOWN = "Read button once";
+Blockly.Msg.WX_INPUT_DOWN_TIP = "Gets the status of the button, single-shot pressed-on time duration. Delivers input value (state) after it has been stable.";
 Blockly.Msg.WX_INTERVALS = "intervals";
 Blockly.Msg.WX_LED_BRIGHTNESS = "LED brightness";
 Blockly.Msg.WX_LED_BRIGHTNESS_TIP = "Selected light on or off with brightness control.";

@@ -41,22 +41,13 @@ def main():
 
   # Process command-line arguments.
   parser = argparse.ArgumentParser(description='Convert JSON files to JS.')
-  parser.add_argument('--source_lang', default='en',
-                      help='ISO 639-1 source language code')
-  parser.add_argument('--source_lang_file',
-                      default=os.path.join('json', 'en.json'),
-                      help='Path to .json file for source language')
-  parser.add_argument('--source_synonym_file',
-                      default=os.path.join('json', 'synonyms.json'),
-                      help='Path to .json file with synonym definitions')
-  parser.add_argument('--output_dir', default='js/',
-                      help='relative directory for output files')
-  parser.add_argument('--key_file', default='keys.json',
-                      help='relative path to input keys file')
-  parser.add_argument('--quiet', action='store_true', default=False,
-                      help='do not write anything to standard output')
-  parser.add_argument('--ardublockly', action='store_true', default=False,
-                      help='Attach Ardublockly strings to lang js files')
+  parser.add_argument('--source_lang', default='en', help='ISO 639-1 source language code')
+  parser.add_argument('--source_lang_file', default=os.path.join('json', 'en.json'), help='Path to .json file for source language')
+  parser.add_argument('--source_synonym_file', default=os.path.join('json', 'synonyms.json'), help='Path to .json file with synonym definitions')
+  parser.add_argument('--output_dir', default='js/', help='relative directory for output files')
+  parser.add_argument('--key_file', default='keys.json', help='relative path to input keys file')
+  parser.add_argument('--quiet', action='store_true', default=False, help='do not write anything to standard output')
+  parser.add_argument('--watchx', action='store_true', default=False, help='Attach watchx strings to lang js files')
   parser.add_argument('files', nargs='+', help='input files')
   args = parser.parse_args()
   if not args.output_dir.endswith(os.path.sep):
@@ -85,42 +76,38 @@ def main():
     (dir_, filename) = os.path.split(arg_file)
     target_lang = filename[:filename.index('.')]
     if target_lang not in ('qqq', 'keys', 'synonyms'):
-      if args.ardublockly:
-        # For Ardublockly pass search for {lang}_ardublockly.json target file
+      if args.watchx:
+        # For watchx pass search for {lang}_watchx.json target file
         target_defs = {}
-        ardu_json = os.path.join(dir_, target_lang + '_ardublockly.json')
+        ardu_json = os.path.join(dir_, target_lang + '_watchx.json')
         if os.path.isfile(ardu_json):
           target_defs = read_json_file(os.path.join(os.curdir, ardu_json))
-          print(u'Processed Ardublockly translation: {0}'.format(ardu_json))
+          print(u'Processed watchx translation: {0}'.format(ardu_json))
       else:
         target_defs = read_json_file(os.path.join(os.curdir, arg_file))
 
       # Verify that keys are 'ascii'
       bad_keys = [key for key in target_defs if not string_is_ascii(key)]
       if bad_keys:
-        print(u'These keys in {0} contain non ascii characters: {1}'.format(
-            filename, ', '.join(bad_keys)))
+        print(u'These keys in {0} contain non ascii characters: {1}'.format(filename, ', '.join(bad_keys)))
 
       # If there's a '\n' or '\r', remove it and print a warning.
       for key, value in target_defs.items():
         if _NEWLINE_PATTERN.search(value):
-          print(u'WARNING: definition of {0} in {1} contained '
-                'a newline character.'.
-                format(key, arg_file))
+          print(u'WARNING: definition of {0} in {1} contained a newline character.'. format(key, arg_file))
           target_defs[key] = _NEWLINE_PATTERN.sub(' ', value)
 
-      # Prepare differences from parsing lang.json and lang_ardublockly.json
-      if args.ardublockly:
+      # Prepare differences from parsing lang.json and lang_watchx.json
+      if args.watchx:
         file_write_mode = 'a'
-        start_str = '\n\n// Ardublockly strings\n'
+        start_str = '\n\n// watchx strings\n'
       else:
         file_write_mode = 'w'
         start_str = ("// This file was automatically generated.  "
                      "Do not modify.\n\n"
                       "'use strict';\n\n"
                       "goog.provide('Blockly.Msg.{0}');\n\n"
-                      "goog.require('Blockly.Msg');\n\n").format(
-                          target_lang.replace('-', '.'))
+                      "goog.require('Blockly.Msg');\n\n").format(target_lang.replace('-', '.'))
 
       # Output file.
       outname = os.path.join(os.curdir, args.output_dir, target_lang + '.js')
@@ -138,8 +125,7 @@ def main():
             value = source_defs[key]
             comment = '  // untranslated'
           value = value.replace('"', '\\"')
-          outfile.write(u'Blockly.Msg.{0} = "{1}";{2}\n'.format(
-              key, value, comment))
+          outfile.write(u'Blockly.Msg.{0} = "{1}";{2}\n'.format(key, value, comment))
 
         # Announce any keys defined only for target language.
         if target_defs:
@@ -147,11 +133,9 @@ def main():
           synonym_keys = [key for key in target_defs if key in synonym_defs]
           if not args.quiet:
             if extra_keys:
-              print(u'These extra keys appeared in {0}: {1}'.format(
-                  filename, ', '.join(extra_keys)))
+              print(u'These extra keys appeared in {0}: {1}'.format(filename, ', '.join(extra_keys)))
             if synonym_keys:
-              print(u'These synonym keys appeared in {0}: {1}'.format(
-                  filename, ', '.join(synonym_keys)))
+              print(u'These synonym keys appeared in {0}: {1}'.format(filename, ', '.join(synonym_keys)))
 
         outfile.write(synonym_text)
 

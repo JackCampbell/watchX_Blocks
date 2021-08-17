@@ -20,4 +20,4 @@ goog.require('Blockly.Msg.en');
 Blockly.Msg.BLOCKS_TEST_CATEGORY = 'Test';
 
 /// Ardublockly name
-Blockly.Msg.BLOCKS_TEST_ = 'Ardublockly';
+Blockly.Msg.BLOCKS_TEST_ = 'watchXBlocks';
