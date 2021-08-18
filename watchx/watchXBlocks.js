@@ -62,43 +62,43 @@ watchXBlocks.bindActionFunctions = function () {
         $('.button-collapse').sideNav('hide');
     });
     watchXBlocks.bindClick_('menu_example_1', function () {
-        watchXBlocks.loadServerXmlFile('../examples/blink.xml');
+        watchXBlocks.loadServerXmlFile('../examples/blink.wxb');
         $('.button-collapse').sideNav('hide');
     });
     watchXBlocks.bindClick_('menu_example_2', function () {
-        watchXBlocks.loadServerXmlFile('../examples/hello_world.xml');
+        watchXBlocks.loadServerXmlFile('../examples/hello_world.wxb');
         $('.button-collapse').sideNav('hide');
     });
     watchXBlocks.bindClick_('menu_example_3', function () {
-        watchXBlocks.loadServerXmlFile('../examples/button_counter.xml');
+        watchXBlocks.loadServerXmlFile('../examples/button_counter.wxb');
         $('.button-collapse').sideNav('hide');
     });
     watchXBlocks.bindClick_('menu_example_4', function () {
-        watchXBlocks.loadServerXmlFile('../examples/drawing_lines.xml');
+        watchXBlocks.loadServerXmlFile('../examples/drawing_lines.wxb');
         $('.button-collapse').sideNav('hide');
     });
     watchXBlocks.bindClick_('menu_example_5', function () {
-        watchXBlocks.loadServerXmlFile('../examples/sensor_read_movement.xml');
+        watchXBlocks.loadServerXmlFile('../examples/sensor_read_movement.wxb');
         $('.button-collapse').sideNav('hide');
     });
     watchXBlocks.bindClick_('menu_example_6', function () {
-        watchXBlocks.loadServerXmlFile('../examples/sensor_read_temp_pressure.xml');
+        watchXBlocks.loadServerXmlFile('../examples/sensor_read_temp_pressure.wxb');
         $('.button-collapse').sideNav('hide');
     });
     watchXBlocks.bindClick_('menu_example_7', function () {
-        watchXBlocks.loadServerXmlFile('../examples/move_the_dot.xml');
+        watchXBlocks.loadServerXmlFile('../examples/move_the_dot.wxb');
         $('.button-collapse').sideNav('hide');
     });
     watchXBlocks.bindClick_('menu_example_8', function () {
-        watchXBlocks.loadServerXmlFile('../examples/siren.xml');
+        watchXBlocks.loadServerXmlFile('../examples/siren.wxb');
         $('.button-collapse').sideNav('hide');
     });
     watchXBlocks.bindClick_('menu_example_9', function () {
-        watchXBlocks.loadServerXmlFile('../examples/watch_face.xml');
+        watchXBlocks.loadServerXmlFile('../examples/watch_face.wxb');
         $('.button-collapse').sideNav('hide');
     });
     watchXBlocks.bindClick_('menu_example_10', function () {
-        watchXBlocks.loadServerXmlFile('../examples/bounce.xml');
+        watchXBlocks.loadServerXmlFile('../examples/bounce.wxb');
         $('.button-collapse').sideNav('hide');
     });
     watchXBlocks.bindClick_('menu_about', function () {

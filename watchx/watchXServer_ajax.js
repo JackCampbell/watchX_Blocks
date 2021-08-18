@@ -105,8 +105,7 @@ watchXBlocksServer.jsonToIdeModal = function (jsonObj) {
     if (!jsonObj) return null;
 
     var elTitle = document.createElement('h4');
-    elTitle.className = (jsonObj && jsonObj.success) ? 'arduino_dialog_success' :
-        'arduino_dialog_failure';
+    elTitle.className = (jsonObj && jsonObj.success) ? 'arduino_dialog_success' : 'arduino_dialog_failure';
     var elStdOp = document.createElement('span');
     elStdOp.className = 'arduino_dialog_out';
     var elErrOp = document.createElement('span');
@@ -119,10 +118,9 @@ watchXBlocksServer.jsonToIdeModal = function (jsonObj) {
         elStdOp.innerHTML = ideData.std_output.split('\n').join('<br />');
         elErrOp.innerHTML = ideData.err_output.split('\n').join('<br />');
     } else {
-        console.error(jsonObj);
-        console.error('The IDE out JSON response does not have valid "ide_data".');
+        // console.error(jsonObj);
+        console.warn('The IDE out JSON response does not have valid "ide_data".');
     }
-
     if (jsonObj.errors) {
         // Prepare error message
         elTitle.innerHTML = watchXBlocks.getLocalStr('arduinoOpErrorTitle');
@@ -143,16 +141,12 @@ watchXBlocksServer.jsonToIdeModal = function (jsonObj) {
             elTitle.innerHTML = watchXBlocks.getLocalStr('arduinoOpUploadedTitle');
         } else if (jsonObj.ide_mode == 'verify') {
             elTitle.innerHTML = watchXBlocks.getLocalStr('arduinoOpVerifiedTitle');
-        } else if (jsonObj.ide_mode == 'open') {
-            elTitle.innerHTML = watchXBlocks.getLocalStr('arduinoOpOpenedTitle');
-            // This is a corner case where we also add to the stand out
-            elStdOp.innerHTML += watchXBlocks.getLocalStr('arduinoOpOpenedBody');
         } else {
             elTitle.innerHTML = watchXBlocks.getLocalStr('arduinoOpErrorTitle');
         }
     } else {
-        console.error(jsonObj);
-        console.error('Unexpected response format, printed above.');
+        // console.error(jsonObj);
+        console.warn('Unexpected response format, printed above.');
     }
 
     var element = document.createElement('div');

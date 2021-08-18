@@ -24,7 +24,11 @@ function ignore_package(filepath) {
 			return true;
 		}
 	}
-	if( filepath.startsWith("/.git") ||
+	if( filepath.startsWith("/blockly/tests") ||
+		filepath.startsWith("/blockly/demos") ||
+		filepath.startsWith("/build_pack") ||
+		filepath.startsWith("/build_script") ||
+		filepath.startsWith("/.git") ||
 		filepath.startsWith("/.idea") ||
 		filepath.startsWith("/dist") ||
 		filepath.startsWith("/build") ||
@@ -55,8 +59,8 @@ const package_opts = {
 	'extraResource': [ 'include/', 'watchxblocks.vac' ],
 	'ignore': ignore_package,
 	'protocols': {
-		'name': "watchX-blocks-linking",
-		'schemes': ["watchX"] // calismadi !!!
+		'name': "watchX-blocks-metadata",
+		'schemes': ["watchx"] // calismadi !!!
 	},
 	'osxSign': {
 		'identity': 'Apple Development: jack_campbell_512@hotmail.com (BU6S277FZG)',

@@ -215,52 +215,52 @@ var getExamplesMenuData = function() {
             {
                 label: 'Blink',
                 click: function() {
-                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/blink.xml");');
+                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/blink.wxb");');
                 }
             }, {
                 label: 'Hello World',
                 click: function() {
-                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/hello_world.xml");');
+                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/hello_world.wxb");');
                 }
             }, {
                 label: 'Button Counter',
                 click: function() {
-                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/button_counter.xml");');
+                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/button_counter.wxb");');
                 }
             }, {
                 label: 'Drawing Lines',
                 click: function() {
-                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/drawing_lines.xml");');
+                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/drawing_lines.wxb");');
                 }
             }, {
                 label: 'Sensor - Movement',
                 click: function() {
-                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/sensor_read_movement.xml");');
+                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/sensor_read_movement.wxb");');
                 }
             }, {
                 label: 'Sensor - Temp Prs',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/sensor_read_temp_pressure.xml");');
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/sensor_read_temp_pressure.wxb");');
                 }
             }, {
                 label: 'Move the Dot',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/move_the_dot.xml");');
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/move_the_dot.wxb");');
                 }
             }, {
                 label: 'Siren',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/siren.xml");');
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/siren.wxb");');
                 }
             }, {
                 label: 'Watch Face',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/watch_face.xml");');
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/watch_face.wxb");');
                 }
             }, {
                 label: 'Bounce',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/bounce.xml");');
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("../examples/bounce.wxb");');
                 }
             }
         ]

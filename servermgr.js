@@ -368,7 +368,7 @@ module.exports.initializeCore = function(callback) {
 
 
 function send_error(res, id, description, type = 'invalid') {
-	return res.json({ 'response_type': 'settings', 'response_state': 'full_response', 'settings_type': type, 'errors': { 'id': id, 'description': description }, 'success': false });
+	return res.json({ 'response_type': 'settings', 'response_state': 'full_response', 'settings_type': type, 'errors': [{ 'id': id, 'description': description }], 'success': false });
 }
 function send_option_select(res, options, selected, type = 'invalid') {
 	return res.json({ 'response_type': 'settings', 'response_state': 'full_response', 'settings_type': type, 'options': options, 'selected': selected, 'success': true });
@@ -376,7 +376,6 @@ function send_option_select(res, options, selected, type = 'invalid') {
 function send_simple_select(res, selected, type = 'invalid') {
 	return res.json({ 'response_type': 'settings', 'response_state': 'full_response', 'settings_type': type, 'selected': selected, 'success': true });
 }
-
 
 function insert_quote(compiler) {
 	return '"' + compiler + '"';
