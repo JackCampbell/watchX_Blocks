@@ -2,7 +2,7 @@
 	"name": "watchXBlocks",
 	"productName": "watchX Blocks",
 	"description": "Visual coding for watchX",
-	"version": "0.9.0.285",
+	"version": "0.9.0.291",
 	"author": "Jack Campbell",
 	"copyright": "© 2021, Jack Campbell / ArgeX Inc.",
 	"homepage": "https://watchx.io",
@@ -39,8 +39,8 @@
 		"prebuild": "node ./build_script/builder.js ./package.json"
 	},
 	"build": {
-		"count": 285,
-		"timestamp": "Wed Aug 18 2021 11:25:18 GMT+0300 (GMT+03:00)",
+		"count": 291,
+		"timestamp": "Wed Aug 18 2021 14:39:24 GMT+0300 (GMT+03:00)",
 		"platform": "darwin",
 		"arch": "x64",
 		"username": "jack",

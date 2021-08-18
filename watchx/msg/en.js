@@ -28,7 +28,7 @@ watchXBlocks.LOCALISED_TEXT = {
   languageDefault: "Language unknown",
   sketchName: "Sketch Name",
   /* Arduino console output */
-  arduinoOpMainTitle: "Arduino IDE output",
+  arduinoOpMainTitle: "Communication Messages",
   arduinoOpWaiting: "Waiting for the IDE output...",
   arduinoOpUploadedTitle: "Successfully Uploaded Sketch",
   arduinoOpVerifiedTitle: "Successfully Verified Sketch",
@@ -74,7 +74,7 @@ watchXBlocks.LOCALISED_TEXT = {
               '<p>The full document can be found in the <a target="_blank" href="https://github.com/JackCampbell/watchX_blocks/blob/master/LICENSE">LICENSE</a> file.</p>\n' +
               '<h5>Credits</h5>\n' +
               '<p>This project has been inspired by <a href="https://github.com/BlocklyDuino/BlocklyDuino">BlocklyDuino</a> and forked directly from <a target="_blank" href="https://github.com/carlosperate/ardublockly">Ardublockly</a> by <a target="_blank" href="https://www.watchx.io/">argeX</a>.<br/><a target="_blank" href="https://developers.google.com/blockly/">Blockly</a> original source is Copyright of Google Inc.</p>\n' +
-              '<p><a target="_blank" href="https://github.com/arduino/Arduino">Arduino IDE</a> is used under <a target="_blank" href="https://github.com/arduino/Arduino/blob/master/license.txt">GNU GPL v2.0 and LGPL</a></p>',
+              '<p><a target="_blank" href="https://github.com/arduino/arduino-cli">Arduino-CLI</a> is used under <a target="_blank" href="https://github.com/arduino/arduino-cli/blob/master/LICENSE.txt">GNU GPL v3.0</a></p>',
   close: 'Close',
   /* Alerts */
   loadNewBlocksTitle: "Load new blocks?",
@@ -86,8 +86,8 @@ watchXBlocks.LOCALISED_TEXT = {
   invalidXmlTitle: "Invalid XML",
   invalidXmlBody: "The XML file was not successfully parsed into blocks. Please review the XML code and try again.",
   /* Tooltips */
-  uploadingSketch: "Uploading Sketch into Arduino...",
-  uploadSketch: "Upload Sketch to the Arduino",
+  uploadingSketch: "Uploading Sketch into watchX ...",
+  uploadSketch: "Upload Sketch to the watchX",
   verifyingSketch: "Verifying Sketch...",
   verifySketch: "Verify the Sketch",
   openingSketch: "Opening Sketch in the Arduino IDE...",
