@@ -144,13 +144,5 @@ watchXBlocks.LOCALISED_TEXT = {
   example_watch_face: 'Watch Face',
   example_watch_face_desc: 'by argeX',
   example_bounce: 'Bounce',
-  example_bounce_desc: 'by argeX',
-  watch_face_tap_clock: 'Tap Clock',
-  watch_face_tap_clock_desc: 'Ahmet Kemal Cavusoglu <small>ahmetkcavusoglu</small>',
-  watch_face_pacman: 'Pacman',
-  watch_face_pacman_desc: 'Ahmet Kemal Cavusoglu <small>ahmetkcavusoglu</small>',
-  watch_face_tetris: 'Tetris',
-  watch_face_tetris_desc: 'Ahmet Kemal Cavusoglu <small>ahmetkcavusoglu</small>',
-  watch_face_nwatch: 'NWatch',
-  watch_face_nwatch_desc: 'Karl Hunt <small>kghunt</small>'
+  example_bounce_desc: 'by argeX'
 };

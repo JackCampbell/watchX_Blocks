@@ -677,12 +677,24 @@ watchXBlocks.initExampleList = function() {
 
 
 watchXBlocks.watchFaceList = [
-    { title: 'watch_face_tap_clock',                cover: 'img/watchx_face.svg',  path: 'examples/tap_clock.hex' },
-    { title: 'watch_face_pacman',                   cover: 'img/watchx_face.svg',  path: 'examples/pacman.hex' },
-    { title: 'watch_face_tetris',                   cover: 'img/watchx_face.svg',  path: 'examples/tetris.hex' },
-    // { title: 'example_drawing_lines',           cover: 'img/watchx_face.svg',  path: 'examples/drawing_lines.hex' },
-    // { title: 'example_sensor_movement',         cover: 'img/watchx_face.svg',  path: 'examples/sensor_movement.hex' },
-    // { title: 'example_sensor_temp_and_press',   cover: 'img/watchx_face.svg',  path: 'examples/sensor_temp_and_press.hex' },
+    { title: 'Tap Clock', cover: 'img/TapClock.svg', path: 'binaries/TapClock.hex',
+        desc: 'by <a target="_blank" href="https://github.com/venice1200/TapClock/tree/master/TapClock">venice1200</a>'
+    },
+    { title: 'Word Clock', cover: 'img/WordClock.svg', path: 'binaries/WordClock.hex',
+        desc: 'by <a target="_blank" href="https://github.com/venice1200/TapClock/tree/master/WordClock">venice1200</a>'
+    },
+    { title: 'Pacman', cover: 'img/Pacman.svg', path: 'binaries/Pacman.hex',
+        desc: 'by <a target="_blank" href="https://github.com/mic159/Pong_Clock">0miker0 & mic159</a>'
+    },
+    { title: 'Pong', cover: 'img/Pong.svg', path: 'binaries/Pong.hex',
+        desc: 'by <a target="_blank" href="https://github.com/mic159/Pong_Clock">0miker0 & mic159</a>'
+    },
+    { title: 'Tetris', cover: 'img/Tetris.svg', path: 'binaries/Tetris.hex',
+        desc: 'by <a target="_blank" href="https://github.com/mic159/Pong_Clock">0miker0 & mic159</a>'
+    },
+    { title: 'Nwatch', cover: 'img/Nwatch.svg', path: 'binaries/Nwatch.hex',
+        desc: 'by <a target="_blank" href="https://github.com/zkemble/NWatch">Zak Kemble</a> & <a target="_blank" href="https://www.reddit.com/r/watchX/comments/8wjh6j/porting_nwatch_source_code">sasapea3</a>'
+    }
 ];
 watchXBlocks.initWatchFaceList = function() {
     var container = document.getElementById('watch-face-container');
@@ -696,29 +708,24 @@ watchXBlocks.initWatchFaceList = function() {
         var template = document.getElementById("watch_face_item");
         var clone = template.content.cloneNode(true);
         if(item.desc == null) {
-            item.desc = item.title + "_desc";
+            item.desc = "By argeX";
         }
         watchXBlocks.setupImageEx(clone, ".media-cover", item.title, item.cover);
-        watchXBlocks.setupTranslateEx(clone, ".media-title", item.title);
-        watchXBlocks.setupTranslateEx(clone, ".media-desc", item.desc);
+        watchXBlocks.setTextEx(clone, ".media-title", item.title);
+        watchXBlocks.setTextEx(clone, ".media-desc", item.desc);
         var node = watchXBlocks.setupDataPathEx(clone, ".upload-hex", item.path);
         if(node) {
             watchXBlocks.bindClick_(node, function(e) {
                 var footer = e.target.closest(".media-footer");
                 var anchor = footer.querySelector("a.upload-hex");
-                var preloader = footer.querySelector("div.preloader-wrapper");
                 var data = anchor.getAttribute('data-wxb');
                 if(!data) {
                     return;
                 }
-                if(preloader) {
-                    preloader.style.display = '';
-                }
+                footer.classList.add('media-active');
                 watchXBlocks.resetIdeOutputContent();
                 watchXBlocksServer.sendRequest('/upload-hex', 'POST', 'application/json', {"hex_path": data }, jsonObj => {
-                    if(preloader) {
-                        preloader.style.display = 'none';
-                    }
+                    footer.classList.remove('media-active');
                     if (jsonObj === null) {
                         return watchXBlocks.openNotConnectedModal();
                     }
@@ -743,6 +750,13 @@ watchXBlocks.setupTranslateEx = function(wrapper, selector, string_id) {
     var e = wrapper.querySelector(selector);
     if(e) {
         e.classList.add("translatable_" + string_id);
+    }
+    return e;
+}
+watchXBlocks.setTextEx = function(wrapper, selector, string_id) {
+    var e = wrapper.querySelector(selector);
+    if(e) {
+        e.innerHTML = string_id;
     }
     return e;
 }
