@@ -1029,3 +1029,137 @@ ul.side-nav li ul li ul li {
 .side-nav > li:last-child {
   border-bottom-right-radius: 0 !important;
 }
+
+
+.grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-column-gap: 8px;
+  grid-row-gap: 8px;
+  margin: 1em;
+  background-color: white;
+}
+
+.grid-box {
+  background-color: #dcdcdc;
+  justify-content: center;
+  vertical-align: bottom;
+  /*display: grid;*/
+  /*font-size: 70px;*/
+  color: white;
+  line-height: 1;
+  border-radius: 5px;
+  overflow: hidden;
+  min-height: 240px;
+  text-align: center;
+  transition: all .2s ease-in-out;
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: center;
+}
+
+.grid-box:hover {
+  transform: scale(1.05);
+}
+
+.grid-box > p {
+  background-color: rgba(0, 0, 0, .5);
+  padding: 14px;
+  margin: 0;
+}
+.grid-box > a.upload-hex,
+.grid-box > a.load-wxb {
+  margin: 60px auto;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+}
+
+.grid-box:hover > a.upload-hex,
+.grid-box:hover > a.load-wxb {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+/** NEW */
+.cgrid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-column-gap: 8px;
+  grid-row-gap: 8px;
+  margin: 1em;
+  /*background-color: white;*/
+}
+
+.cgrid-box {
+  /*background-color: #dcdcdc;*/
+  justify-content: center;
+  vertical-align: bottom;
+  /*display: grid;*/
+  /*font-size: 70px;*/
+  color: white;
+  line-height: 1;
+  border-radius: 5px;
+  overflow: hidden;
+  min-height: 240px;
+  text-align: center;
+}
+
+.media {
+  padding: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: black;
+}
+
+.media > img.media-cover {
+  height: 160px;
+  width: 100%;
+  background: gray;
+}
+
+.media > p.media-title {
+  margin-top: 20px;
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.media > span.media-desc {
+  display: inline-block;
+  font-size: 10px;
+  margin-bottom: 12px;
+}
+
+.media-footer {
+  padding: 12px;
+}
+
+.btn-nav {
+  width: 37px;
+  height: 37px;
+  display: inline-block;
+  color: black;
+}
+
+.btn-nav > i {
+  line-height: 37px;
+  display: inline-block;
+  font-size: 1.6rem;
+}
+
+.loader-wave {
+  position: relative;
+  display: inline-block;
+}
+
+.loader-wave > a {
+  margin: 4px;
+}
+
+.upload-loader {
+  position: absolute !important;
+  right: 0px !important;
+  top: 0px !important;
+  width: 45px !important;
+  height: 45px !important;
+  z-index: 5;
+}

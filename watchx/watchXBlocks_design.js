@@ -234,6 +234,14 @@ watchXBlocks.openAboutDialog = function() {
   $('#about_us').openModal({ dismissible: true, opacity: .5, in_duration: 200, out_duration: 250 });
 };
 
+watchXBlocks.openWatchFaceDialog = function() {
+  $('#face_dialog').openModal({ dismissible: true, opacity: .5, in_duration: 200, out_duration: 250 });
+};
+
+watchXBlocks.openExampleDialog = function() {
+  $('#example_dialog').openModal({ dismissible: true, opacity: .5, in_duration: 200, out_duration: 250 });
+};
+
 /**
  * Opens the modal that allows selection on additional toolbox categories.
  * @param {!element} html_content HTML to include in modal body.

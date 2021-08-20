@@ -227,6 +227,45 @@ app.post("/code", express.json(), (req, res, next) => {
 	});
 });
 
+app.post("/upload-hex", express.json(), (req, res, next) => {
+	const { hex_path } = req.body;
+	const compiler = config.get_compiler_path();
+	if(compiler == null) {
+		return send_error(res, 53, 'Compiler directory not configured in the Settings', 'ide_output');
+	}
+	const board = config.get_selected_fqbn();
+	if(board == null) {
+		return send_error(res, 56, 'Arduino Board not configured in the Settings.', 'ide_output');
+	}
+	const { ports } = helper.find_serial_ports(compiler, board);
+	const serialport = config.get_serial_port(ports);
+	if(serialport == null) {
+		return send_error(res, 55, 'Serial Port configured in Settings not accessible.', 'ide_output');
+	}
+	var filename = path.join(__dirname, hex_path);
+	var args = [];
+	args.push( insert_quote(compiler) );
+	args.push( "upload" );
+	args.push( "--fqbn" );
+	args.push( board );
+	args.push( "--port" );
+	args.push( serialport );
+	args.push( "--input-file" );
+	args.push( insert_quote(filename) );
+	helper.compile_process(args, (code, stdout, stderr) => {
+		if(code != 0) {
+			// return send_error(res, 56, 'Unexpected Arduino exit error code:' + code, 'ide_output');
+		}
+		return res.json({
+			'response_type': 'ide_output',
+			'response_state': 'full_response',
+			'success': code == 0,
+			'ide_mode': "upload-hex",
+			'ide_data': { 'std_output': stdout, 'err_output': stderr, 'exit_code': code }
+		});
+	});
+});
+
 const wxb_filter_name = "watchX Blocks File";
 
 app.get("/editor/open", (req, res, next) => {

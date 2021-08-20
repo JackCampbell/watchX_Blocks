@@ -14,6 +14,7 @@
 
   <script src="/closure-library/closure/goog/base.js"></script>
   <!-- watchXBlocks - These three files contain the compress version -->
+  
   <script src="/blockly/blockly_compressed.js"></script>
   <script src="/blockly/blocks_compressed.js"></script>
   <script src="/blockly/arduino_compressed.js"></script>
@@ -105,30 +106,11 @@
         <li id="menu_save"><a href="#"><span class="translatable_save">Save</span><i class="mdi-file-file-download left"></i></a></li>
         <li id="menu_delete"><a href="#"><span class="translatable_deleteAll">Delete All</span><i class="mdi-action-delete left"></i></a></li>
         <li id="menu_settings"><a href="#"><span class="translatable_settings">Settings</span><i class="mdi-action-settings left"></i></a></li>
-      </ul>
-    <li class="no-padding">
-      <ul class="collapsible collapsible-accordion">
+        <li id="menu_example"><a href="#"><span class="translatable_examples">Examples</span><i class="mdi-device-now-widgets left"></i></a></li>
+        <li id="menu_face"><a href="#"><span class="translatable_watch_faces">Watch Faces</span><i class="mdi-hardware-watch left"></i></a></li>
         <li>
-          <div class="collapsible-header"><span class="translatable_examples">Examples</span><i class="mdi-navigation-arrow-drop-down"></i></div>
-          <div class="collapsible-body">
-            <ul>
-              <li id="menu_example_1"><a href="#!" class="translatable_exampleBlink">Blink</a></li>
-              <li id="menu_example_2"><a href="#!" class="translatable_exampleHelloWorld">Hello World</a></li>
-              <li id="menu_example_3"><a href="#!" class="translatable_exampleButtonCounter">Button Counter</a></li>
-              <li id="menu_example_4"><a href="#!" class="translatable_exampleDrawingLines">Drawing Lines</a></li>
-              <li id="menu_example_5"><a href="#!" class="translatable_exampleSensorMovement">Sensor - Movement</a></li>
-              <li id="menu_example_6"><a href="#!" class="translatable_exampleSensorTempAndPress">Sensor - Temp Prs</a></li>
-              <li id="menu_example_7"><a href="#!" class="translatable_exampleMoveTheDot">Move the Dot</a></li>
-              <li id="menu_example_8"><a href="#!" class="translatable_exampleSiren">Siren</a></li>
-              <li id="menu_example_9"><a href="#!" class="translatable_exampleWatchFace">Watch Face</a></li>
-              <li id="menu_example_10"><a href="#!" class="translatable_exampleBounce">Bounce</a></li>
-            </ul>
-          </div>
+          <a href="http://lms.watchx.io" target="_blank"><span class="translatable_learning_center">Learning</span><i class="mdi-social-school left"></i></a>
         </li>
-      </ul>
-    </li>
-    <li class="no-padding">
-      <ul>
         <li id="menu_about"><a href="#"><span class="translatable_about">About</span><i class="mdi-action-help left"></i></a></li>
       </ul>
     </li>
@@ -149,38 +131,46 @@
             <div class="spinner-layer spinner-orange">
               <div class="circle-clipper left">
                 <div class="circle"></div>
-              </div><div class="gap-patch">
-              <div class="circle"></div>
-            </div><div class="circle-clipper right">
-              <div class="circle"></div>
-            </div>
+              </div>
+              <div class="gap-patch">
+                <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
             </div>
             <div class="spinner-layer spinner-dark-teal">
               <div class="circle-clipper left">
                 <div class="circle"></div>
-              </div><div class="gap-patch">
-              <div class="circle"></div>
-            </div><div class="circle-clipper right">
-              <div class="circle"></div>
-            </div>
+              </div>
+              <div class="gap-patch">
+                <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
             </div>
             <div class="spinner-layer spinner-yellow">
               <div class="circle-clipper left">
                 <div class="circle"></div>
-              </div><div class="gap-patch">
-              <div class="circle"></div>
-            </div><div class="circle-clipper right">
-              <div class="circle"></div>
-            </div>
+              </div>
+              <div class="gap-patch">
+                <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
             </div>
             <div class="spinner-layer spinner-light-teal">
               <div class="circle-clipper left">
                 <div class="circle"></div>
-              </div><div class="gap-patch">
-              <div class="circle"></div>
-            </div><div class="circle-clipper right">
-              <div class="circle"></div>
-            </div>
+              </div>
+              <div class="gap-patch">
+                <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -316,8 +306,7 @@
       <a href="#" class="waves-effect btn-flat modal-close"><span class="translatable_okay">Okay</span></a>
     </div>
   </div>
-
-
+  
   <div id="about_us" class="modal modal-fixed-footer">
     <div class="modal-content">
       <div>
@@ -331,7 +320,7 @@
           </p>
           <span class="translatable_argex_team"></span>
           <p>
-            B.Fırat ÖZDEMİR<br/>
+            B. Fırat ÖZDEMİR<br/>
             Mustafa TÜLÜ<br/>
             Enes ÇALDIR<br/>
             Hande KOÇHAN<br/>
@@ -339,6 +328,98 @@
           </p>
         </div>
       </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="waves-effect btn-flat modal-close"><span class="translatable_close">Close</span></a>
+    </div>
+  </div>
+  
+  <template id="watch_face_item">
+    <div class="cgrid-box">
+      <div class="media">
+        <img class="media-cover" src="img/watchx_face.svg" alt="cover"/>
+        <p class="media-title">Title</p>
+        <span class="media-desc">Desc</span>
+      </div>
+      <div class="media-footer">
+        <div class="loader-wave">
+          <a data-wxb="#" class="upload-hex btn-floating waves-effect waves-light arduino_orange z-depth-1-half"><i class="mdi-av-play-arrow"></i></a>
+          <div class="preloader-wrapper active upload-loader" style="display:none">
+            <div class="spinner-layer spinner-orange">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div>
+              <div class="gap-patch">
+                <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+            <div class="spinner-layer spinner-dark-teal">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div>
+              <div class="gap-patch">
+                <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+            <div class="spinner-layer spinner-yellow">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div>
+              <div class="gap-patch">
+                <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+            <div class="spinner-layer spinner-light-teal">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div>
+              <div class="gap-patch">
+                <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <div id="face_dialog" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <div class="cgrid-wrapper" id="watch-face-container"></div>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="waves-effect btn-flat modal-close"><span class="translatable_close">Close</span></a>
+    </div>
+  </div>
+  
+  <!-- EXAMPLE -->
+  <template id="example_item">
+    <div class="cgrid-box">
+      <div class="media">
+        <img class="media-cover" src="img/watchx_face.svg" alt="cover"/>
+        <p class="media-title">Title</p>
+        <span class="media-desc">Desc</span>
+      </div>
+      <div class="media-footer">
+        <a data-wxb="#" class="load-wxb btn-nav waves-effect waves-light modal-close"><i class="mdi-file-file-upload"></i></a>
+      </div>
+    </div>
+  </template>
+  
+  <div id="example_dialog" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <div class="cgrid-wrapper" id="example-container"></div>
     </div>
     <div class="modal-footer">
       <a href="#" class="waves-effect btn-flat modal-close"><span class="translatable_close">Close</span></a>

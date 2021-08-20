@@ -11,7 +11,8 @@ var watchXBlocks = watchXBlocks || {};
 
 /** Initialize function for watchXBlocks, to be called on page load. */
 watchXBlocks.init = function () {
-    // Lang init must run first for the rest of the page to pick the right msgs
+    watchXBlocks.initExampleList();
+    watchXBlocks.initWatchFaceList();
     watchXBlocks.initLanguage();
 
     // Inject Blockly into content_blocks and fetch additional blocks
@@ -61,51 +62,18 @@ watchXBlocks.bindActionFunctions = function () {
         watchXBlocks.openSettings();
         $('.button-collapse').sideNav('hide');
     });
-    watchXBlocks.bindClick_('menu_example_1', function () {
-        watchXBlocks.loadServerXmlFile('../examples/blink.wxb');
+    watchXBlocks.bindClick_('menu_example', function() {
+        watchXBlocks.openExampleDialog();
         $('.button-collapse').sideNav('hide');
     });
-    watchXBlocks.bindClick_('menu_example_2', function () {
-        watchXBlocks.loadServerXmlFile('../examples/hello_world.wxb');
-        $('.button-collapse').sideNav('hide');
-    });
-    watchXBlocks.bindClick_('menu_example_3', function () {
-        watchXBlocks.loadServerXmlFile('../examples/button_counter.wxb');
-        $('.button-collapse').sideNav('hide');
-    });
-    watchXBlocks.bindClick_('menu_example_4', function () {
-        watchXBlocks.loadServerXmlFile('../examples/drawing_lines.wxb');
-        $('.button-collapse').sideNav('hide');
-    });
-    watchXBlocks.bindClick_('menu_example_5', function () {
-        watchXBlocks.loadServerXmlFile('../examples/sensor_read_movement.wxb');
-        $('.button-collapse').sideNav('hide');
-    });
-    watchXBlocks.bindClick_('menu_example_6', function () {
-        watchXBlocks.loadServerXmlFile('../examples/sensor_read_temp_pressure.wxb');
-        $('.button-collapse').sideNav('hide');
-    });
-    watchXBlocks.bindClick_('menu_example_7', function () {
-        watchXBlocks.loadServerXmlFile('../examples/move_the_dot.wxb');
-        $('.button-collapse').sideNav('hide');
-    });
-    watchXBlocks.bindClick_('menu_example_8', function () {
-        watchXBlocks.loadServerXmlFile('../examples/siren.wxb');
-        $('.button-collapse').sideNav('hide');
-    });
-    watchXBlocks.bindClick_('menu_example_9', function () {
-        watchXBlocks.loadServerXmlFile('../examples/watch_face.wxb');
-        $('.button-collapse').sideNav('hide');
-    });
-    watchXBlocks.bindClick_('menu_example_10', function () {
-        watchXBlocks.loadServerXmlFile('../examples/bounce.wxb');
+    watchXBlocks.bindClick_('menu_face', function() {
+        watchXBlocks.openWatchFaceDialog();
         $('.button-collapse').sideNav('hide');
     });
     watchXBlocks.bindClick_('menu_about', function () {
         watchXBlocks.openAboutUs();
         $('.button-collapse').sideNav('hide');
     });
-
     // Floating buttons
     watchXBlocks.bindClick_('button_upload', function () {
         watchXBlocks.ideSendUpload();
@@ -641,7 +609,7 @@ watchXBlocks.bindClick_ = function (el, func) {
     var propagateOnce = function (e) {
         e.stopPropagation();
         e.preventDefault();
-        func();
+        func(e);
     };
     el.addEventListener('ontouchend', propagateOnce);
     el.addEventListener('click', propagateOnce);
@@ -658,3 +626,130 @@ watchXBlocks.connectDevice = function(state) {
         e.style.backgroundColor = '#505050';
     }
 };
+
+
+
+watchXBlocks.exampleList = [
+    { title: 'example_blink',                   cover: 'img/watchx_face.svg',  path: 'examples/blink.wxb' },
+    { title: 'example_hello_world',             cover: 'img/watchx_face.svg',  path: 'examples/hello_world.wxb' },
+    { title: 'example_button_counter',          cover: 'img/watchx_face.svg',  path: 'examples/button_counter.wxb' },
+    { title: 'example_drawing_lines',           cover: 'img/watchx_face.svg',  path: 'examples/drawing_lines.wxb' },
+    { title: 'example_sensor_movement',         cover: 'img/watchx_face.svg',  path: 'examples/sensor_movement.wxb' },
+    { title: 'example_sensor_temp_and_press',   cover: 'img/watchx_face.svg',  path: 'examples/sensor_temp_and_press.wxb' },
+    { title: 'example_move_the_dot',            cover: 'img/watchx_face.svg',  path: 'examples/move_the_dot.wxb' },
+    { title: 'example_siren',                   cover: 'img/watchx_face.svg',  path: 'examples/siren.wxb' },
+    { title: 'example_watch_face',              cover: 'img/watchx_face.svg',  path: 'examples/watch_face.wxb' },
+    { title: 'example_bounce',                  cover: 'img/watchx_face.svg',  path: 'examples/bounce.wxb' }
+];
+
+watchXBlocks.initExampleList = function() {
+    var container = document.getElementById('example-container');
+    if(container == null) {
+        return;
+    }
+    while (container.lastElementChild) {
+        container.removeChild(container.lastElementChild);
+    }
+    for(var item of watchXBlocks.exampleList) {
+        var template = document.getElementById("example_item");
+        var clone = template.content.cloneNode(true);
+        if(item.desc == null) {
+            item.desc = item.title + "_desc";
+        }
+        watchXBlocks.setupImageEx(clone, ".media-cover", item.title, item.cover);
+        watchXBlocks.setupTranslateEx(clone, ".media-title", item.title);
+        watchXBlocks.setupTranslateEx(clone, ".media-desc", item.desc);
+        var node = watchXBlocks.setupDataPathEx(clone, ".load-wxb", item.path);
+        if(node) {
+            watchXBlocks.bindClick_(node, function(e) {
+                var footer = e.target.closest(".media-footer");
+                var anchor = footer.querySelector("a.load-wxb");
+                var data = anchor.getAttribute('data-wxb');
+                if(!data) {
+                    return;
+                }
+                watchXBlocks.loadServerXmlFile('/' + data);
+            });
+        }
+        container.appendChild(clone);
+    }
+};
+
+
+watchXBlocks.watchFaceList = [
+    { title: 'watch_face_tap_clock',                cover: 'img/watchx_face.svg',  path: 'examples/tap_clock.hex' },
+    { title: 'watch_face_pacman',                   cover: 'img/watchx_face.svg',  path: 'examples/pacman.hex' },
+    { title: 'watch_face_tetris',                   cover: 'img/watchx_face.svg',  path: 'examples/tetris.hex' },
+    // { title: 'example_drawing_lines',           cover: 'img/watchx_face.svg',  path: 'examples/drawing_lines.hex' },
+    // { title: 'example_sensor_movement',         cover: 'img/watchx_face.svg',  path: 'examples/sensor_movement.hex' },
+    // { title: 'example_sensor_temp_and_press',   cover: 'img/watchx_face.svg',  path: 'examples/sensor_temp_and_press.hex' },
+];
+watchXBlocks.initWatchFaceList = function() {
+    var container = document.getElementById('watch-face-container');
+    if(container == null) {
+        return;
+    }
+    while (container.lastElementChild) {
+        container.removeChild(container.lastElementChild);
+    }
+    for(var item of watchXBlocks.watchFaceList) {
+        var template = document.getElementById("watch_face_item");
+        var clone = template.content.cloneNode(true);
+        if(item.desc == null) {
+            item.desc = item.title + "_desc";
+        }
+        watchXBlocks.setupImageEx(clone, ".media-cover", item.title, item.cover);
+        watchXBlocks.setupTranslateEx(clone, ".media-title", item.title);
+        watchXBlocks.setupTranslateEx(clone, ".media-desc", item.desc);
+        var node = watchXBlocks.setupDataPathEx(clone, ".upload-hex", item.path);
+        if(node) {
+            watchXBlocks.bindClick_(node, function(e) {
+                var footer = e.target.closest(".media-footer");
+                var anchor = footer.querySelector("a.upload-hex");
+                var preloader = footer.querySelector("div.preloader-wrapper");
+                var data = anchor.getAttribute('data-wxb');
+                if(!data) {
+                    return;
+                }
+                if(preloader) {
+                    preloader.style.display = '';
+                }
+                watchXBlocks.resetIdeOutputContent();
+                watchXBlocksServer.sendRequest('/upload-hex', 'POST', 'application/json', {"hex_path": data }, jsonObj => {
+                    if(preloader) {
+                        preloader.style.display = 'none';
+                    }
+                    if (jsonObj === null) {
+                        return watchXBlocks.openNotConnectedModal();
+                    }
+                    var dataBack = watchXBlocksServer.jsonToIdeModal(jsonObj);
+                    watchXBlocks.arduinoIdeOutput(dataBack);
+                });
+            });
+        }
+        container.appendChild(clone);
+    }
+};
+
+watchXBlocks.setupImageEx = function(wrapper, selector, alt, src) {
+    var e = wrapper.querySelector(selector);
+    if(e) {
+        e.setAttribute("alt", alt);
+        e.setAttribute("src", src);
+    }
+    return e;
+}
+watchXBlocks.setupTranslateEx = function(wrapper, selector, string_id) {
+    var e = wrapper.querySelector(selector);
+    if(e) {
+        e.classList.add("translatable_" + string_id);
+    }
+    return e;
+}
+watchXBlocks.setupDataPathEx = function(wrapper, selector, data) {
+    var e = wrapper.querySelector(selector);
+    if(e) {
+        e.setAttribute("data-wxb", data);
+    }
+    return e;
+}

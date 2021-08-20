@@ -49,12 +49,19 @@ function ignore_package(filepath) {
 	return false;
 }
 const package_opts = {
-	'name': "watchX Blocks",
+	'name': config.productName,
 	'dir' : project_path,
 	'asar': true,
 	'prune': true,
 	'overwrite': true,
 	'appBundleId': 'jack.campbell.watchxblocks',
+	'appCopyright': config.copyright,
+	'appVersion': config.version,
+	'win32metadata': {
+		'CompanyName': 'argeX A.S.',
+		'FileDescription': config.productName
+	},
+	'darwinDarkModeSupport': false,
 	'appCategoryType': 'public.app-category.education',
 	'extraResource': [ 'include/', 'watchxblocks.vac' ],
 	'ignore': ignore_package,
@@ -220,6 +227,9 @@ function pack_linux32() {
 }
 
 function write_version() {
+	if(fs.existsSync(dist_path) == false) {
+		fs.mkdirSync(dist_path, { recursive: true });
+	}
 	var ver_path = path.join(dist_path, "version");
 	fs.writeFileSync(ver_path, config.version, "utf8");
 }

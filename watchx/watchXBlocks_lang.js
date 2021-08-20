@@ -11,13 +11,13 @@ var watchXBlocks = watchXBlocks || {};
 
 /** Lookup for names of supported languages. Keys in ISO 639 format. */
 watchXBlocks.LANGUAGE_NAME = {
-    'fr': 'Français',
+    // 'fr': 'Français',
     'en': 'English',
-    'es': 'Español',
-    'nl': 'Nederlands',
-    'pt': 'Português',
-    'it': 'Italiano',
-    'ru': 'Русский'
+    // 'es': 'Español',
+    // 'nl': 'Nederlands',
+    // 'pt': 'Português',
+    // 'it': 'Italiano',
+    // 'ru': 'Русский'
 };
 
 /**
