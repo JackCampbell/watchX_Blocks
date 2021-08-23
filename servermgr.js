@@ -264,7 +264,7 @@ app.post("/upload-hex", express.json(), (req, res, next) => {
 		return res.json({
 			'response_type': 'ide_output',
 			'response_state': 'full_response',
-			'success': code == 0,
+			'success': code == 0 ? true: false,
 			'ide_mode': "upload-hex",
 			'ide_data': { 'std_output': stdout, 'err_output': stderr, 'exit_code': code }
 		});

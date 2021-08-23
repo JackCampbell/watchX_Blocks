@@ -73,7 +73,9 @@ watchXBlocks.LOCALISED_TEXT = {
               '<p>Unless stated otherwise, the source code of this projects is licensed under the Apache License, Version 2.0 (the "License");<br/>you may not use any of the licensed files within this project except in compliance with the License.</p>\n' +
               '<p>The full document can be found in the <a target="_blank" href="https://github.com/JackCampbell/watchX_blocks/blob/master/LICENSE">LICENSE</a> file.</p>\n' +
               '<h5>Credits</h5>\n' +
-              '<p>This project has been inspired by <a href="https://github.com/BlocklyDuino/BlocklyDuino">BlocklyDuino</a> and forked directly from <a target="_blank" href="https://github.com/carlosperate/ardublockly">Ardublockly</a> by <a target="_blank" href="https://www.watchx.io/">argeX</a>.<br/><a target="_blank" href="https://developers.google.com/blockly/">Blockly</a> original source is Copyright of Google Inc.</p>\n' +
+              '<p>This project has been inspired by <a href="https://github.com/BlocklyDuino/BlocklyDuino">BlocklyDuino</a> and forked directly from <a target="_blank" href="https://github.com/carlosperate/ardublockly">Ardublockly</a> by <a target="_blank" href="https://www.watchx.io/">argeX</a>.<br/>' +
+              '<a target="_blank" href="https://developers.google.com/blockly/">Blockly</a> original source is Copyright of Google Inc.<br/>' +
+              '<a target="_blank" href="https://github.com/electron/electron">Electron</a> is used under <a target="_blank" href="https://github.com/electron/electron/blob/main/LICENSE">MIT</a> License.</p>\n' +
               '<p><a target="_blank" href="https://github.com/arduino/arduino-cli">Arduino-CLI</a> is used under <a target="_blank" href="https://github.com/arduino/arduino-cli/blob/master/LICENSE.txt">GNU GPL v3.0</a></p>',
   close: 'Close',
   /* Alerts */

@@ -64,6 +64,9 @@ const package_opts = {
 	'darwinDarkModeSupport': false,
 	'appCategoryType': 'public.app-category.education',
 	'extraResource': [ 'include/', 'watchxblocks.vac', 'hex-data/' ],
+	'extraFiles': [
+		'LICENSE'
+	],
 	'ignore': ignore_package,
 	'protocols': {
 		'name': "watchX-blocks-metadata",
