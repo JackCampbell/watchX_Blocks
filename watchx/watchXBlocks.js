@@ -616,30 +616,30 @@ watchXBlocks.bindClick_ = function (el, func) {
 };
 
 watchXBlocks.connectDevice = function(state) {
-    var e = document.getElementById("button_ide_large");
+    var e = document.getElementById("usb-connected");
     if(!e) {
         return;
     }
     if(state) {
-        e.style.backgroundColor = '#ff7f00';
+        e.style.color = '#7de224';
     } else {
-        e.style.backgroundColor = '#505050';
+        e.style.color = '#ff4646';
     }
 };
 
 
 
 watchXBlocks.exampleList = [
-    { title: 'example_blink',                   cover: 'img/watchx_face.svg',  path: 'examples/blink.wxb' },
-    { title: 'example_hello_world',             cover: 'img/watchx_face.svg',  path: 'examples/hello_world.wxb' },
-    { title: 'example_button_counter',          cover: 'img/watchx_face.svg',  path: 'examples/button_counter.wxb' },
-    { title: 'example_drawing_lines',           cover: 'img/watchx_face.svg',  path: 'examples/drawing_lines.wxb' },
-    { title: 'example_sensor_movement',         cover: 'img/watchx_face.svg',  path: 'examples/sensor_movement.wxb' },
-    { title: 'example_sensor_temp_and_press',   cover: 'img/watchx_face.svg',  path: 'examples/sensor_temp_and_press.wxb' },
-    { title: 'example_move_the_dot',            cover: 'img/watchx_face.svg',  path: 'examples/move_the_dot.wxb' },
-    { title: 'example_siren',                   cover: 'img/watchx_face.svg',  path: 'examples/siren.wxb' },
-    { title: 'example_watch_face',              cover: 'img/watchx_face.svg',  path: 'examples/watch_face.wxb' },
-    { title: 'example_bounce',                  cover: 'img/watchx_face.svg',  path: 'examples/bounce.wxb' }
+    { title: 'example_blink',                   cover: 'img/watchx_face.svg',  path: 'blink.wxb' },
+    { title: 'example_hello_world',             cover: 'img/watchx_face.svg',  path: 'hello_world.wxb' },
+    { title: 'example_button_counter',          cover: 'img/watchx_face.svg',  path: 'button_counter.wxb' },
+    { title: 'example_drawing_lines',           cover: 'img/watchx_face.svg',  path: 'drawing_lines.wxb' },
+    { title: 'example_sensor_movement',         cover: 'img/watchx_face.svg',  path: 'sensor_read_movement.wxb' },
+    { title: 'example_sensor_temp_and_press',   cover: 'img/watchx_face.svg',  path: 'sensor_read_temp_pressure.wxb' },
+    { title: 'example_move_the_dot',            cover: 'img/watchx_face.svg',  path: 'move_the_dot.wxb' },
+    { title: 'example_siren',                   cover: 'img/watchx_face.svg',  path: 'siren.wxb' },
+    { title: 'example_watch_face',              cover: 'img/watchx_face.svg',  path: 'watch_face.wxb' },
+    { title: 'example_bounce',                  cover: 'img/watchx_face.svg',  path: 'bounce.wxb' }
 ];
 
 watchXBlocks.initExampleList = function() {
@@ -668,7 +668,7 @@ watchXBlocks.initExampleList = function() {
                 if(!data) {
                     return;
                 }
-                watchXBlocks.loadServerXmlFile('/' + data);
+                watchXBlocks.loadServerXmlFile('/examples/' + data);
             });
         }
         container.appendChild(clone);

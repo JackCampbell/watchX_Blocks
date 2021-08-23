@@ -140,7 +140,7 @@ module.exports = {
             return null;
         }
         var criteria = getHostPlatform() + "-" + getHostArch();
-        console.log("Find Criterial: " + criteria);
+        // console.log("Find Criterial: " + criteria);
         var filename = getArduinoCliName();
 
         var relative = base_path.path("arduino-cli", criteria, filename);

@@ -101,7 +101,7 @@ function write_sketch(sketch_code, sketch_path) {
 function compile_process(args, callback) {
 	var cmdline = args.join(' ');
 	// console.log(">>>", cmdline);
-	exec(cmdline, (error, stdout, stderr) => {
+	return exec(cmdline, (error, stdout, stderr) => {
 		var code = 0;
 		if(error) {
 			code = error.code;
@@ -112,7 +112,7 @@ function compile_process(args, callback) {
 function install_core(compile_dir, callback) {
 	compile_dir = insert_quote(compile_dir);
 	var cmdline = [compile_dir, 'core', 'install', 'arduino:avr'].join(' ');
-	exec(cmdline, (error, stdout, stderr) => {
+	return exec(cmdline, (error, stdout, stderr) => {
 		var code = 0;
 		if(error) {
 			code = error.code;

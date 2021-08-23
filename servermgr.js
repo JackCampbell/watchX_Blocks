@@ -21,6 +21,7 @@ const tagMgr = '[watchXMgr] ';
 const tagSrv = '[watchXSvr] ';
 
 const server_path = projectLocator.getServerPath();
+var cprocess = null;
 
 
 const app = express();
@@ -166,6 +167,9 @@ app.post("/code", express.json(), (req, res, next) => {
 	if(["upload", "verify"].indexOf(action) == -1) {
 		return send_error(res, 72, 'Undefined action', 'ide_output');
 	}
+	if(cprocess != null) {
+		return send_error(res, 76, 'Already process ...', 'ide_output');
+	}
 	if(sketch_code == null) {
 		return send_error(res, 64, 'Unable to parse sent JSON.', 'ide_output');
 	}
@@ -213,7 +217,8 @@ app.post("/code", express.json(), (req, res, next) => {
 		args.push( serialport );
 	}
 	args.push( insert_quote(filename) );
-	helper.compile_process(args, (code, stdout, stderr) => {
+	cprocess = helper.compile_process(args, (code, stdout, stderr) => {
+		cprocess = null;
 		if(code != 0) {
 			// return send_error(res, 56, 'Unexpected Arduino exit error code:' + code, 'ide_output');
 		}
@@ -229,6 +234,9 @@ app.post("/code", express.json(), (req, res, next) => {
 
 app.post("/upload-hex", express.json(), (req, res, next) => {
 	const { hex_path } = req.body;
+	if(cprocess != null) {
+		return send_error(res, 76, 'Already process ...', 'ide_output');
+	}
 	const compiler = config.get_compiler_path();
 	if(compiler == null) {
 		return send_error(res, 53, 'Compiler directory not configured in the Settings', 'ide_output');
@@ -257,7 +265,8 @@ app.post("/upload-hex", express.json(), (req, res, next) => {
 	args.push( serialport );
 	args.push( "--input-file" );
 	args.push( insert_quote(filename) );
-	helper.compile_process(args, (code, stdout, stderr) => {
+	cprocess = helper.compile_process(args, (code, stdout, stderr) => {
+		cprocess = null;
 		if(code != 0) {
 			// return send_error(res, 56, 'Unexpected Arduino exit error code:' + code, 'ide_output');
 		}
@@ -337,7 +346,7 @@ app.use((error, req, res, next) => {
 	return send_error(res, 95, error.message);
 });
 
-var usb_interval;
+var usb_interval = null;
 var last_usb_state = null;
 function usb_connect() {
 	const compiler = config.get_compiler_path();
@@ -384,7 +393,14 @@ module.exports.startServer = function(port, callback) {
 }
 module.exports.stopServer = function() {
 	if (server !== null) {
-		// clearInterval(usb_interval);
+		if(usb_interval) {
+			clearInterval(usb_interval);
+			winston.info(tagMgr + 'kill usb interval');
+		}
+		if(cprocess != null) {
+			cprocess.kill('SIGKILL');
+			winston.info(tagMgr + 'kill alt process.:' + cprocess.pid);
+		}
 		// Server executable needs to clean up (kill child), so no SIGKILL
 		server.close();
 		server = null;
