@@ -121,7 +121,7 @@ module.exports = {
     getBuildHexPath: function(filename, temp_dir = null) {
         var absolute_path = find_criteria_nullable("watchxblocks.vac");
         if(absolute_path != null) {
-            var build_path = absolute_path.path("build", filename);
+            var build_path = absolute_path.path("hex-data", filename);
             if(jetpack.exists( build_path )) {
                 return build_path;
             }

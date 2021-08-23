@@ -63,7 +63,7 @@ const package_opts = {
 	},
 	'darwinDarkModeSupport': false,
 	'appCategoryType': 'public.app-category.education',
-	'extraResource': [ 'include/', 'watchxblocks.vac', 'build/' ],
+	'extraResource': [ 'include/', 'watchxblocks.vac', 'hex-data/' ],
 	'ignore': ignore_package,
 	'protocols': {
 		'name': "watchX-blocks-metadata",
@@ -257,7 +257,7 @@ function get_arch() {
 }
 
 function main() {
-	console.log(">>", process.argv);
+	//console.log(">>", process.argv);
 	var platform = get_platform();
 	var arch = get_arch();
 	if(process.argv.length >= 3) {
