@@ -63,7 +63,7 @@ const package_opts = {
 	},
 	'darwinDarkModeSupport': false,
 	'appCategoryType': 'public.app-category.education',
-	'extraResource': [ 'include/', 'watchxblocks.vac' ],
+	'extraResource': [ 'include/', 'watchxblocks.vac', 'build/' ],
 	'ignore': ignore_package,
 	'protocols': {
 		'name': "watchX-blocks-metadata",
@@ -83,92 +83,8 @@ const package_opts = {
 		'appleIdPassword': '----no-password'
 	}*/
 };
-const osx_package_opts = {
-	...package_opts,
-	'out': path.join(dist_path, "osx"),
-	'platform': 'darwin',
-	'arch': 'x64',
-	'icon': 'resources/osx/icon.icns',
-	'extraResource': package_opts.extraResource.concat('arduino-cli/darwin-x64/')
-};
-const win32_package_opts = {
-	...package_opts,
-	'out': path.join(dist_path, "win32"),
-	'platform': 'win32',
-	'arch': 'ia32',
-	'icon': 'resources/windows/icon.ico',
-	'extraResource': package_opts.extraResource.concat('arduino-cli/windows-x32/')
-};
-const win64_package_opts = {
-	...package_opts,
-	'out': path.join(dist_path, "win64"),
-	'platform': 'win32',
-	'arch': 'x64',
-	'icon': 'resources/windows/icon.ico',
-	'extraResource': package_opts.extraResource.concat('arduino-cli/windows-x64/')
-};
-const linux64_package_opts = {
-	...package_opts,
-	'out': path.join(dist_path, "linux64"),
-	'platform': 'linux',
-	'arch': 'amd64',
-	'icon': 'resources/windows/icon.ico',
-	'extraResource': package_opts.extraResource.concat('arduino-cli/linux-x64/')
-};
-const linux32_package_opts = {
-	...package_opts,
-	'out': path.join(dist_path, "linux32"),
-	'platform': 'linux',
-	'arch': 'i386',
-	'icon': 'resources/windows/icon.ico',
-	'extraResource': package_opts.extraResource.concat('arduino-cli/linux-x32/')
-};
-const dmg_package_opts = {
-	'appPath': null, //'dist/osx/watchX Blocks-darwin-x64/watchX Blocks.app',
-	'icon': 'resources/osx/dmg-icon.icns',
-	'name': 'watchX Blocks',
-	'overwrite': true,
-	'debug': false,
-	'background': 'resources/osx/dmg-background.png',
-	'out': path.join(dist_path, 'osx'),
-	'contents': function (opts) {
-		return [
-			{ x: 425, y: 225, type: 'link', path: '/Applications'},
-			{ x: 125, y: 225, type: 'file', path: opts.appPath } ];
-	}
-};
-const wstore_package_opts = {
-	'src': null, //'dist/win/watchXBlocks-win32-x64',
-	'dest': path.join(dist_path, 'wstore'),
-	'icon': 'resources/windows/setup-icon.ico',
-	'name': config.name,
-	'exe': config.productName + ".exe",
-	'authors': [config.author],
-	'version': samver_version(),
-	'description': config.description,
-	'copyright': config.copyright
-};
-const msi_package_opts = {
-	'appDirectory': null, //path.join(dist_path, "win64", "watchXBlocks-win32-x64"),
-	'outputDirectory': path.join(dist_path, "msi"),
-	'description': config.description,
-	'exe': config.productName + ".exe",
-	'name': config.name,
-	'manufacturer': config.author,
-	'version': config.version,
-	'appIconPath': 'resources/windows/icon.ico',
-	'ui': {
-		'chooseDirectory': true,
-		'images': {
-			// 'background': path.join(project_path, "resources", "windows", "setup-banner.bmp"),
-			'infoIcon': path.join(project_path, "resources", "windows", "icon.ico")
-		}
-	}
-};
-const zip_package_opts = {
-	'dir': null, // path.join(dist_path, "win64", "watchXBlocks-win32-x64"),
-	'out': path.join(dist_path, "win64", config.productName + ".zip")
-};
+
+
 function samver_version() {
 	return config.version.split(".").slice(0, 3).join(".");
 }
@@ -186,44 +102,132 @@ function pack_zip(opts) {
 
 function pack_osx() {
 	console.log("build osx");
-	return packager(osx_package_opts).then( result => {
+	return packager({
+		...package_opts,
+		'out': path.join(dist_path, "osx"),
+		'platform': 'darwin',
+		'arch': 'x64',
+		'icon': 'resources/osx/icon.icns',
+		'extraResource': package_opts.extraResource.concat('arduino-cli/darwin-x64/')
+	}).then( result => {
 		const { 0: app_path } = result;
 		console.log("OSX success: ", app_path);
-		dmg_package_opts.appPath = path.join(app_path, 'watchX Blocks.app');
-		return createDMG(dmg_package_opts);
+		return createDMG({
+			'appPath': path.join(app_path, 'watchX Blocks.app'),
+			'icon': 'resources/osx/dmg-icon.icns',
+			'name': 'watchX Blocks',
+			'overwrite': true,
+			'debug': false,
+			'background': 'resources/osx/dmg-background.png',
+			'out': path.join(dist_path, 'osx'),
+			'contents': function (opts) {
+				return [
+					{ x: 425, y: 225, type: 'link', path: '/Applications'},
+					{ x: 125, y: 225, type: 'file', path: opts.appPath } ];
+			}
+		});
 	}).then(result => {
 		console.log("DMG success: ", result.dmgPath, result.format);
 	});
 }
 function pack_win32() {
 	console.log("build win32");
-	packager(win32_package_opts).then(result => {
+	packager({
+		...package_opts,
+		'out': path.join(dist_path, "win32"),
+		'platform': 'win32',
+		'arch': 'ia32',
+		'icon': 'resources/windows/icon.ico',
+		'extraResource': package_opts.extraResource.concat('arduino-cli/windows-x32/')
+	}).then(result => {
 		const { 0: app_path } = result;
 		console.log("Win32 success: ", app_path);
 	});
 }
 function pack_win64() {
 	console.log("build win64");
-	packager(win64_package_opts).then(result => {
+	packager({
+		...package_opts,
+		'out': path.join(dist_path, "win64"),
+		'platform': 'win32',
+		'arch': 'x64',
+		'icon': 'resources/windows/icon.ico',
+		'extraResource': package_opts.extraResource.concat('arduino-cli/windows-x64/')
+	}).then(result => {
 		const { 0: app_path } = result;
-		wstore_package_opts.src = app_path;
-		msi_package_opts.appDirectory = app_path;
-		zip_package_opts.dir = app_path;
-		const msiCreator = new MSICreator(msi_package_opts);
-		return Promise.all([
-			installerWin(wstore_package_opts),
-			msiCreator.create().then(result => msiCreator.compile()),
-			pack_zip(zip_package_opts)
-		]);
+		const win_install = installerWin({
+			'src': app_path, // //path.join(dist_path, "win64", "watchXBlocks-win32-x64"),
+			'dest': path.join(dist_path, 'wstore'),
+			'icon': 'resources/windows/setup-icon.ico',
+			'name': config.name,
+			'exe': config.productName + ".exe",
+			'authors': [config.author],
+			'version': samver_version(),
+			'description': config.description,
+			'copyright': config.copyright
+		});
+		const msiCreator = new MSICreator({
+			'appDirectory': app_path, //path.join(dist_path, "win64", "watchXBlocks-win32-x64"),
+			'outputDirectory': path.join(dist_path, "msi"),
+			'description': config.description,
+			'exe': config.productName + ".exe",
+			'name': config.name,
+			'manufacturer': config.author,
+			'version': config.version,
+			'appIconPath': 'resources/windows/icon.ico',
+			'ui': {
+				'chooseDirectory': true,
+				'images': {
+					// 'background': path.join(project_path, "resources", "windows", "setup-banner.bmp"),
+					'infoIcon': path.join(project_path, "resources", "windows", "icon.ico")
+				}
+			}
+		});
+		const zip = pack_zip({
+			'dir': app_path, // path.join(dist_path, "win64", "watchXBlocks-win32-x64"),
+			'out': path.join(dist_path, "win64", config.productName + ".zip")
+		})
+		return Promise.all([ win_install, msiCreator.create().then(result => msiCreator.compile()), zip ]);
 	}).then(result => {
 		console.log("Win64 success: ", result);
 	});
 }
 function pack_linux64() {
- 	// TODO ..
-}
-function pack_linux32() {
-	// TODO ...
+	return packager({
+		...package_opts,
+		'out': path.join(dist_path, "linux64"),
+		'platform': 'linux',
+		'arch': 'x64',
+		'icon': 'resources/windows/icon.ico',
+		'extraResource': package_opts.extraResource.concat('arduino-cli/linux-x64/')
+	}).then( result => {
+		const { 0: app_path } = result;
+		console.log("Linux success: ", app_path);
+		const zip = pack_zip({
+			'dir': app_path, // path.join(dist_path, "linux", "watchXBlocks-linux-x64"),
+			'out': path.join(dist_path, "linux64", config.productName + ".zip")
+		});
+		const deb = installerDeb({
+			'src': app_path,
+			'dest': path.join(dist_path, 'linux64'),
+			'bin': 'watchX Blocks',
+			'arch': 'amd64',
+			'icon': "resources/icon.png",
+			"categories": [ "Utility" ],
+			"lintianOverrides": [ "changelog-file-missing-in-native-package" ]
+		});
+		const rpm = installerRPM({
+			'src': app_path,
+			'dest': path.join(dist_path, 'linux64'),
+			'bin': 'watchX Blocks',
+			'arch': 'amd64',
+			'license': 'Apache License',
+			'icon': "resources/icon.png",
+			"categories": [ "Utility" ],
+			"lintianOverrides": [ "changelog-file-missing-in-native-package" ]
+		});
+		return Promise.all([ zip, deb, rpm ]);
+	});
 }
 
 function write_version() {
@@ -233,18 +237,52 @@ function write_version() {
 	var ver_path = path.join(dist_path, "version");
 	fs.writeFileSync(ver_path, config.version, "utf8");
 }
-
-write_version();
-if(process.platform == 'darwin') {
-	pack_osx();
-} else if(process.platform == 'win32' && (process.arch == 'ia32' || process.arch == 'x86')) {
-	pack_win32();
-} else if(process.platform == 'win32' && (process.arch == 'x86_64' || process.arch == 'x64')) {
-	pack_win64();
-} else if(process.platform == 'linux' && process.arch == 'i386') {
-	pack_linux32();
-} else if(process.platform == 'linux' && process.arch == 'amd64') {
-	pack_linux64();
-} else {
-	console.error("Undefined platform ...");
+function get_platform() {
+	if(process.platform == 'darwin') {
+		return 'osx';
+	} else if(process.platform == 'win32') {
+		return 'windows';
+	} else if(process.platform == 'linux') {
+		return 'linux';
+	}
+	return null;
 }
+function get_arch() {
+	if(process.arch == 'x86_64' || process.arch == 'x64' || process.arch == 'amd64') {
+		return 'x64';
+	} else if(process.arch == 'ia32' || process.arch == 'x86' || process.arch == 'i386') {
+		return 'x32';
+	}
+	return null;
+}
+
+function main() {
+	console.log(">>", process.argv);
+	var platform = get_platform();
+	var arch = get_arch();
+	if(process.argv.length >= 3) {
+		platform = process.argv[2];
+	}
+	if(process.argv.length >= 4) {
+		arch = process.argv[3];
+	}
+	write_version();
+	if(platform == 'osx') {
+		pack_osx();
+	} else if(platform == 'windows' && arch == 'x32') {
+		pack_win32();
+	} else if(platform == 'windows' && arch == 'x64') {
+		pack_win64();
+	} else if(platform == 'linux' && arch == 'x64') {
+		pack_linux64();
+	} else {
+		console.error("Undefined platform ...");
+	}
+}
+
+main();
+
+/*
+
+
+*/

@@ -677,22 +677,22 @@ watchXBlocks.initExampleList = function() {
 
 
 watchXBlocks.watchFaceList = [
-    { title: 'Tap Clock', cover: 'img/TapClock.svg', path: 'binaries/TapClock.hex',
+    { title: 'Tap Clock', cover: 'img/TapClock.svg', path: 'TapClock.hex',
         desc: 'by <a target="_blank" href="https://github.com/venice1200/TapClock/tree/master/TapClock">venice1200</a>'
     },
-    { title: 'Word Clock', cover: 'img/WordClock.svg', path: 'binaries/WordClock.hex',
+    { title: 'Word Clock', cover: 'img/WordClock.svg', path: 'WordClock.hex',
         desc: 'by <a target="_blank" href="https://github.com/venice1200/TapClock/tree/master/WordClock">venice1200</a>'
     },
-    { title: 'Pacman', cover: 'img/Pacman.svg', path: 'binaries/Pacman.hex',
+    { title: 'Pacman', cover: 'img/Pacman.svg', path: 'Pacman.hex',
         desc: 'by <a target="_blank" href="https://github.com/mic159/Pong_Clock">0miker0 & mic159</a>'
     },
-    { title: 'Pong', cover: 'img/Pong.svg', path: 'binaries/Pong.hex',
+    { title: 'Pong', cover: 'img/Pong.svg', path: 'Pong.hex',
         desc: 'by <a target="_blank" href="https://github.com/mic159/Pong_Clock">0miker0 & mic159</a>'
     },
-    { title: 'Tetris', cover: 'img/Tetris.svg', path: 'binaries/Tetris.hex',
+    { title: 'Tetris', cover: 'img/Tetris.svg', path: 'Tetris.hex',
         desc: 'by <a target="_blank" href="https://github.com/mic159/Pong_Clock">0miker0 & mic159</a>'
     },
-    { title: 'Nwatch', cover: 'img/Nwatch.svg', path: 'binaries/Nwatch.hex',
+    { title: 'Nwatch', cover: 'img/Nwatch.svg', path: 'Nwatch.hex',
         desc: 'by <a target="_blank" href="https://github.com/zkemble/NWatch">Zak Kemble</a> & <a target="_blank" href="https://www.reddit.com/r/watchX/comments/8wjh6j/porting_nwatch_source_code">sasapea3</a>'
     }
 ];

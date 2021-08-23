@@ -242,7 +242,12 @@ app.post("/upload-hex", express.json(), (req, res, next) => {
 	if(serialport == null) {
 		return send_error(res, 55, 'Serial Port configured in Settings not accessible.', 'ide_output');
 	}
-	var filename = path.join(__dirname, hex_path);
+	var user_data_path = capp.getPath('userData');
+	var filename = projectLocator.getBuildHexPath(hex_path, user_data_path);
+	if(filename == null) {
+		// TODO sunuc kontrolu ...
+		return send_error(res, 74, 'file is not found: ' + filename, 'ide_output');
+	}
 	var args = [];
 	args.push( insert_quote(compiler) );
 	args.push( "upload" );
@@ -328,7 +333,9 @@ app.get(["/", "/watchx"], (req, res, next) => {
 app.use((req, res, next) => {
 	return res.status(405).send('Not Allowed, code can only be sent: ' + req.url);
 });
-
+app.use((error, req, res, next) => {
+	return send_error(res, 95, error.message);
+});
 
 var usb_interval;
 var last_usb_state = null;

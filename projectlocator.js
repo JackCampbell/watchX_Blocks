@@ -118,6 +118,22 @@ module.exports = {
         }
         return null;
     },
+    getBuildHexPath: function(filename, temp_dir = null) {
+        var absolute_path = find_criteria_nullable("watchxblocks.vac");
+        if(absolute_path != null) {
+            var build_path = absolute_path.path("build", filename);
+            if(jetpack.exists( build_path )) {
+                return build_path;
+            }
+        }
+        if(temp_dir != null) {
+            var build_path = jetpack.dir(temp_dir, filename);
+            if(jetpack.exists( build_path )) {
+                return build_path;
+            }
+        }
+        return null;
+    },
     getArduinoDir: function() {
         var base_path = find_criteria_nullable("watchxblocks.vac");
         if(base_path == null) {

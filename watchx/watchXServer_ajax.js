@@ -126,13 +126,17 @@ watchXBlocksServer.jsonToIdeModal = function (jsonObj) {
         elTitle.innerHTML = watchXBlocks.getLocalStr('arduinoOpErrorTitle');
         var errStr = [];
         for (var i = 0; i < jsonObj.errors.length; i++) {
+            const { id, description } = jsonObj.errors[i];
             var errorContext = 'Unrecognised error.';
             try {
-                errorContext = watchXBlocks.getLocalStr('arduinoOpErrorIdContext_' + jsonObj.errors[i].id);
+                errorContext = watchXBlocks.getLocalStr('arduinoOpErrorIdContext_' + id);
             } catch (e) {
                 // Swallow the exception, could be expanded to try to figure out issue
             }
-            errStr.push('\nError id ' + jsonObj.errors[i].id + ': ' + errorContext);
+            if(errorContext == '' && description != null) {
+                errorContext = 'Unrecognised error.: ' + description;
+            }
+            errStr.push('\nError id ' + id + ': ' + errorContext);
         }
         elErrOp.innerHTML += '<br />' + errStr.join('<br />');
     } else if (jsonObj.success && jsonObj.ide_mode) {
