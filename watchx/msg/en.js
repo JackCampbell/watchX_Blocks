@@ -32,6 +32,7 @@ watchXBlocks.LOCALISED_TEXT = {
   arduinoOpWaiting: "Waiting for the IDE output...",
   arduinoOpUploadedTitle: "Successfully Uploaded Sketch",
   arduinoOpVerifiedTitle: "Successfully Verified Sketch",
+  arduinoOpProcess: "Upload Successfull",
   arduinoOpOpenedTitle: "Sketch opened in IDE",
   arduinoOpOpenedBody: "The sketch should be loaded in the Arduino IDE.",
   arduinoOpErrorTitle: "There has been an error",
@@ -75,8 +76,8 @@ watchXBlocks.LOCALISED_TEXT = {
               '<h5>Credits</h5>\n' +
               '<p>This project has been inspired by <a href="https://github.com/BlocklyDuino/BlocklyDuino">BlocklyDuino</a> and forked directly from <a target="_blank" href="https://github.com/carlosperate/ardublockly">Ardublockly</a> by <a target="_blank" href="https://www.watchx.io/">argeX</a>.<br/>' +
               '<a target="_blank" href="https://developers.google.com/blockly/">Blockly</a> original source is Copyright of Google Inc.<br/>' +
-              '<a target="_blank" href="https://github.com/electron/electron">Electron</a> is used under <a target="_blank" href="https://github.com/electron/electron/blob/main/LICENSE">MIT</a> License.</p>\n' +
-              '<p><a target="_blank" href="https://github.com/arduino/arduino-cli">Arduino-CLI</a> is used under <a target="_blank" href="https://github.com/arduino/arduino-cli/blob/master/LICENSE.txt">GNU GPL v3.0</a></p>',
+              '<a target="_blank" href="https://github.com/electron/electron">Electron</a> is used under <a target="_blank" href="https://github.com/electron/electron/blob/main/LICENSE">MIT License</a>.<br/>\n' +
+              '<a target="_blank" href="https://github.com/arduino/arduino-cli">Arduino-CLI</a> is used under <a target="_blank" href="https://github.com/arduino/arduino-cli/blob/master/LICENSE.txt">GNU GPL v3.0</a>.</p>',
   close: 'Close',
   /* Alerts */
   loadNewBlocksTitle: "Load new blocks?",

@@ -146,13 +146,12 @@ watchXBlocksServer.jsonToIdeModal = function (jsonObj) {
         } else if (jsonObj.ide_mode == 'verify') {
             elTitle.innerHTML = watchXBlocks.getLocalStr('arduinoOpVerifiedTitle');
         } else {
-            elTitle.innerHTML = watchXBlocks.getLocalStr('arduinoOpErrorTitle');
+            elTitle.innerHTML = watchXBlocks.getLocalStr('arduinoOpProcess');
         }
     } else {
         // console.error(jsonObj);
         console.warn('Unexpected response format, printed above.');
     }
-
     var element = document.createElement('div');
     element.appendChild(elTitle);
     element.appendChild(elStdOp);

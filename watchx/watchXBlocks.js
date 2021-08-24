@@ -630,16 +630,16 @@ watchXBlocks.connectDevice = function(state) {
 
 
 watchXBlocks.exampleList = [
-    { title: 'example_blink',                   cover: 'img/watchx_face.svg',  path: 'blink.wxb' },
-    { title: 'example_hello_world',             cover: 'img/watchx_face.svg',  path: 'hello_world.wxb' },
-    { title: 'example_button_counter',          cover: 'img/watchx_face.svg',  path: 'button_counter.wxb' },
-    { title: 'example_drawing_lines',           cover: 'img/watchx_face.svg',  path: 'drawing_lines.wxb' },
-    { title: 'example_sensor_movement',         cover: 'img/watchx_face.svg',  path: 'sensor_read_movement.wxb' },
-    { title: 'example_sensor_temp_and_press',   cover: 'img/watchx_face.svg',  path: 'sensor_read_temp_pressure.wxb' },
-    { title: 'example_move_the_dot',            cover: 'img/watchx_face.svg',  path: 'move_the_dot.wxb' },
-    { title: 'example_siren',                   cover: 'img/watchx_face.svg',  path: 'siren.wxb' },
-    { title: 'example_watch_face',              cover: 'img/watchx_face.svg',  path: 'watch_face.wxb' },
-    { title: 'example_bounce',                  cover: 'img/watchx_face.svg',  path: 'bounce.wxb' }
+    { title: 'example_blink',                   cover: 'img/Blink.svg',  path: 'blink.wxb' },
+    { title: 'example_hello_world',             cover: 'img/HelloWorld.svg',  path: 'hello_world.wxb' },
+    { title: 'example_button_counter',          cover: 'img/ButtonCounter.svg',  path: 'button_counter.wxb' },
+    { title: 'example_drawing_lines',           cover: 'img/DrawingLines.svg',  path: 'drawing_lines.wxb' },
+    { title: 'example_sensor_movement',         cover: 'img/SensorMovement.svg',  path: 'sensor_read_movement.wxb' },
+    { title: 'example_sensor_temp_and_press',   cover: 'img/SensorTempPress.svg',  path: 'sensor_read_temp_pressure.wxb' },
+    { title: 'example_move_the_dot',            cover: 'img/MoveTheDot.svg',  path: 'move_the_dot.wxb' },
+    { title: 'example_siren',                   cover: 'img/Siren.svg',  path: 'siren.wxb' },
+    { title: 'example_watch_face',              cover: 'img/WatchFace.svg',  path: 'watch_face.wxb' },
+    { title: 'example_bounce',                  cover: 'img/Bounce.svg',  path: 'bounce.wxb' }
 ];
 
 watchXBlocks.initExampleList = function() {
@@ -677,24 +677,12 @@ watchXBlocks.initExampleList = function() {
 
 
 watchXBlocks.watchFaceList = [
-    { title: 'Tap Clock', cover: 'img/TapClock.svg', path: 'TapClock.hex',
-        desc: 'by <a target="_blank" href="https://github.com/venice1200/TapClock/tree/master/TapClock">venice1200</a>'
-    },
-    { title: 'Word Clock', cover: 'img/WordClock.svg', path: 'WordClock.hex',
-        desc: 'by <a target="_blank" href="https://github.com/venice1200/TapClock/tree/master/WordClock">venice1200</a>'
-    },
-    { title: 'Pacman', cover: 'img/Pacman.svg', path: 'Pacman.hex',
-        desc: 'by <a target="_blank" href="https://github.com/mic159/Pong_Clock">0miker0 & mic159</a>'
-    },
-    { title: 'Pong', cover: 'img/Pong.svg', path: 'Pong.hex',
-        desc: 'by <a target="_blank" href="https://github.com/mic159/Pong_Clock">0miker0 & mic159</a>'
-    },
-    { title: 'Tetris', cover: 'img/Tetris.svg', path: 'Tetris.hex',
-        desc: 'by <a target="_blank" href="https://github.com/mic159/Pong_Clock">0miker0 & mic159</a>'
-    },
-    { title: 'Nwatch', cover: 'img/Nwatch.svg', path: 'Nwatch.hex',
-        desc: 'by <a target="_blank" href="https://github.com/zkemble/NWatch">Zak Kemble</a> & <a target="_blank" href="https://www.reddit.com/r/watchX/comments/8wjh6j/porting_nwatch_source_code">sasapea3</a>'
-    }
+    { title: 'Tap Clock', cover: 'img/TapClock.svg', path: 'TapClock.hex', desc: 'by <a target="_blank" href="https://github.com/venice1200/TapClock/tree/master/TapClock">venice1200</a>' },
+    { title: 'Word Clock', cover: 'img/WordClock.svg', path: 'WordClock.hex', desc: 'by <a target="_blank" href="https://github.com/venice1200/TapClock/tree/master/WordClock">venice1200</a>' },
+    { title: 'Pacman', cover: 'img/Pacman.svg', path: 'Pacman.hex', desc: 'by <a target="_blank" href="https://github.com/mic159/Pong_Clock">0miker0 & mic159</a>' },
+    { title: 'Pong', cover: 'img/Pong.svg', path: 'Pong.hex', desc: 'by <a target="_blank" href="https://github.com/mic159/Pong_Clock">0miker0 & mic159</a>' },
+    { title: 'Tetris', cover: 'img/Tetris.svg', path: 'Tetris.hex', desc: 'by <a target="_blank" href="https://github.com/mic159/Pong_Clock">0miker0 & mic159</a>' },
+    { title: 'Nwatch', cover: 'img/Nwatch.svg', path: 'Nwatch.hex', desc: 'by <a target="_blank" href="https://github.com/zkemble/NWatch">Zak Kemble</a> & <a target="_blank" href="https://www.reddit.com/r/watchX/comments/8wjh6j/porting_nwatch_source_code">sasapea3</a>' }
 ];
 watchXBlocks.initWatchFaceList = function() {
     var container = document.getElementById('watch-face-container');

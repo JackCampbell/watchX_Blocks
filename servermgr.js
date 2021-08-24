@@ -216,6 +216,9 @@ app.post("/code", express.json(), (req, res, next) => {
 		args.push("--port");
 		args.push( serialport );
 	}
+	// args.push( "--log-level" );
+	// args.push( "debug" );
+	// args.push( "-v" );
 	args.push( insert_quote(filename) );
 	cprocess = helper.compile_process(args, (code, stdout, stderr) => {
 		cprocess = null;
@@ -263,6 +266,9 @@ app.post("/upload-hex", express.json(), (req, res, next) => {
 	args.push( board );
 	args.push( "--port" );
 	args.push( serialport );
+	// args.push( "--log-level" );
+	// args.push( "debug" );
+	// args.push( "-v" );
 	args.push( "--input-file" );
 	args.push( insert_quote(filename) );
 	cprocess = helper.compile_process(args, (code, stdout, stderr) => {

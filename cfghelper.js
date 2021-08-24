@@ -106,7 +106,13 @@ function compile_process(args, callback) {
 		if(error) {
 			code = error.code;
 		}
-		callback(code, stdout || '', stderr || '');
+		var c_stdout = stdout || '';
+		var c_stderr = stderr || '';
+		if(c_stderr.length != 0 && code == 0) {
+			c_stdout += "\n" + c_stderr;
+			c_stderr = '';
+		}
+		callback(code, c_stdout, c_stderr);
 	});
 }
 function install_core(compile_dir, callback) {
