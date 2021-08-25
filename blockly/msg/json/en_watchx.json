@@ -1,7 +1,7 @@
 {
 	"@metadata": {
 		"author": "carlosperate",
-		"lastupdated": "2021-08-17 09:37:44.268456",
+		"lastupdated": "2021-08-25 11:50:59.734784",
 		"locale": "en",
 		"messagedocumentation" : "qqq_watchx"
 	},
@@ -143,10 +143,10 @@
 	"WX_PERCENT": "percent",
 	"WX_OLED_BRIGHTNESS": "Display brightness",
 	"WX_OLED_BRIGHTNESS_TIP": "Sets the display brightness high or low. High setting is for better visibility, low setting is for low power consumption.",
-	"WX_DRAW_USB_ICON": "Display USB icon",
-	"WX_DRAW_USB_ICON_TIP": "Displays the USB icon at the given X - Y position. X lateral position within range 0 - 127, Y vertical position within range 0 - 63.",
-	"WX_DRAW_CHARGE_ICON": "Display charge icon",
-	"WX_DRAW_CHARGE_ICON_TIP": "Displays the charge icon at the given X - Y position. X lateral position within range 0 - 127, Y vertical position within range 0 - 63.",
+	"WX_DRAW_USB_ICON": "Draw USB icon",
+	"WX_DRAW_USB_ICON_TIP": "Draw the USB icon at the given X - Y position. X lateral position within range 0 - 127, Y vertical position within range 0 - 63.",
+	"WX_DRAW_CHARGE_ICON": "Draw charge icon",
+	"WX_DRAW_CHARGE_ICON_TIP": "Draw the charge icon at the given X - Y position. X lateral position within range 0 - 127, Y vertical position within range 0 - 63.",
 	"WX_OLED_CLEAR_ALL": "Display clear display",
 	"WX_OLED_CLEAR_ALL_TIP": "Clears any data on the display.",
 	"WX_OLED_POWER": "Display power",
