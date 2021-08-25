@@ -276,7 +276,7 @@ function main() {
 		pack_win32();
 	} else if(platform == 'windows' && arch == 'x64') {
 		pack_win64();
-	} else if(platform == 'linux' && arch == 'x64') {
+	} else if(platform == 'linux') {
 		pack_linux64();
 	} else {
 		console.error("Undefined platform ...");
@@ -284,8 +284,3 @@ function main() {
 }
 
 main();
-
-/*
-
-
-*/
