@@ -412,7 +412,12 @@ watchXBlocks.XmlTextareaToBlocks = function () {
  * @type {!String}
  * @private
  */
-watchXBlocks.PREV_ARDUINO_CODE_ = 'void setup() {\n\n}\n\n\nvoid loop() {\n\n}';
+watchXBlocks.PREV_ARDUINO_CODE_ =
+'// watchX Arduino Code\n' +
+'void update_env() {\n}\n\n' +
+'void setup() {\n}\n\n' +
+'void loop() {\n\tupdate_env();\n}';
+
 
 /**
  * Populate the Arduino Code and Blocks XML panels with content generated from

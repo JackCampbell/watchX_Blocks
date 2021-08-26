@@ -202,15 +202,22 @@ watchXBlocks.loadSessionStorageBlocks = function () {
     }
 };
 
+watchXBlocks.clearWorkspace = function() {
+    // deprecated ...
+    watchXBlocks.workspace.clear();
+    var xml = Blockly.Xml.textToDom('<xml xmlns="http://www.w3.org/1999/xhtml"></xml>');
+    Blockly.Xml.domToWorkspace(xml, watchXBlocks.workspace);
+}
+
 /** Discard all blocks from the workspace. */
 watchXBlocks.discardAllBlocks = function () {
     var blockCount = watchXBlocks.workspace.getAllBlocks().length;
     if (blockCount == 1) {
-        watchXBlocks.workspace.clear();
+        watchXBlocks.clearWorkspace();
         watchXBlocks.renderContent();
     } else if (blockCount > 1) {
         watchXBlocks.alertMessage(watchXBlocks.getLocalStr('discardBlocksTitle'), watchXBlocks.getLocalStr('discardBlocksBody').replace('%1', blockCount), true, function () {
-            watchXBlocks.workspace.clear();
+            watchXBlocks.clearWorkspace();
             watchXBlocks.renderContent();
         });
     }

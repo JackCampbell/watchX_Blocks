@@ -68,7 +68,7 @@ Blockly.Generator.prototype.STATEMENT_PREFIX = null;
  * may override this to increase indent or change to tabs.
  * @type {string}
  */
-Blockly.Generator.prototype.INDENT = '  ';
+Blockly.Generator.prototype.INDENT = '\t'; //'  ';
 
 /**
  * Generate code for all blocks in the workspace to the specified language.

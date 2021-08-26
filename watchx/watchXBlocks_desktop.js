@@ -60,8 +60,7 @@ function loadJsInElectron() { // no call
  * Electron file/folder browsers.
  */
 watchXBlocks.bindSettingsPathInputs = function() {
-	var dialog = require('electron').remote.dialog;
-
+	var dialog = electron.remote.dialog;
 	// Compiler path
 	var compilerEl = document.getElementById('settings_compiler_location');
 	compilerEl.readOnly = true;
@@ -170,7 +169,7 @@ watchXBlocks.setVersionAndBuilder = function() {
 }
 
 /** Initialize watchXBlocks code required for Electron on page load. */
-window.addEventListener('load', function load(event) {
+window.addEventListener('DOMContentLoaded', function load(event) {
 	// window.removeEventListener('load', load, false);
 	// if(watchXBlocks.isRunningElectron())
 	{

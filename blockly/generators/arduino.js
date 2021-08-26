@@ -128,6 +128,9 @@ Blockly.Arduino.init = function(workspace) {
   }
 };
 
+function replace_begin_tab(code) {
+  code.replace("")
+}
 /**
  * Prepare all generated code to be placed in the sketch specific locations.
  * @param {string} code Generated main program (loop function) code.
@@ -137,49 +140,35 @@ Blockly.Arduino.finish = function(code) {
   // Convert the includes, definitions, and functions dictionaries into lists
   var includes = [], definitions = [], variables = [], functions = [];
   for (var name in Blockly.Arduino.includes_) {
-    includes.push(Blockly.Arduino.includes_[name]);
-  }
-  if (includes.length) {
-    includes.push('\n');
+    includes.push( Blockly.Arduino.includes_[name].trim() );
   }
   for (var name in Blockly.Arduino.variables_) {
-    variables.push(Blockly.Arduino.variables_[name]);
-  }
-  if (variables.length) {
-    variables.push('\n');
+    variables.push( Blockly.Arduino.variables_[name].trim() );
   }
   for (var name in Blockly.Arduino.definitions_) {
-    definitions.push(Blockly.Arduino.definitions_[name]);
-  }
-  if (definitions.length) {
-    definitions.push('\n');
+    definitions.push( Blockly.Arduino.definitions_[name].trim() );
   }
   for (var name in Blockly.Arduino.codeFunctions_) {
-    functions.push(Blockly.Arduino.codeFunctions_[name]);
+    functions.push( Blockly.Arduino.codeFunctions_[name].trim() );
   }
   for (var name in Blockly.Arduino.userFunctions_) {
-    functions.push(Blockly.Arduino.userFunctions_[name]);
-  }
-  if (functions.length) {
-    functions.push('\n');
+    functions.push( Blockly.Arduino.userFunctions_[name].trim() );
   }
 
   // userSetupCode added at the end of the setup function without leading spaces
-  var setups = [''], userSetupCode= '';
+  var setups = [];
   if (Blockly.Arduino.setups_['userSetupCode'] !== undefined) {
-    userSetupCode = '\n' + Blockly.Arduino.setups_['userSetupCode'];
+    var userSetupCode = '\t' + Blockly.Arduino.setups_['userSetupCode'].trim() + "\n";
     delete Blockly.Arduino.setups_['userSetupCode'];
+    setups.push(userSetupCode);
   }
   for (var name in Blockly.Arduino.setups_) {
-    setups.push(Blockly.Arduino.setups_[name]);
-  }
-  if (userSetupCode) {
-    setups.push(userSetupCode);
+    setups.push( "\t" + Blockly.Arduino.setups_[name].trim() + "\n" );
   }
   // fihished
   var update_list = [];
   for (var name in Blockly.Arduino.finish_) {
-    update_list.push('\t' + Blockly.Arduino.finish_[name].trim());
+    update_list.push( "\t" + Blockly.Arduino.finish_[name].trim() + "\n" );
   }
 
   // Clean up temporary data
@@ -193,12 +182,34 @@ Blockly.Arduino.finish = function(code) {
   delete Blockly.Arduino.finish_;
   Blockly.Arduino.variableDB_.reset();
 
-  var allDefs = includes.join('\n') + variables.join('\n') +
-      definitions.join('\n') + functions.join('\n\n');
-  var update = 'void update_env() {\n' + update_list.join('\n') + '\n}\n';
+  var content = "// watchX Arduino Code\n";
+  if(includes.length != 0) {
+    content += includes.join("\n").trim() + "\n\n";
+  }
+  if(variables.length != 0) {
+    content += variables.join("\n").trim() + "\n\n";
+  }
+  if(definitions.length != 0) {
+    content += definitions.join("\n").trim() + "\n\n";
+  }
+  if(functions.length != 0) {
+    content += functions.join("\n\n").trim() + "\n\n";
+  }
+  var sand = code.replace(/\n/g, '\n\t').trim();
+  if(sand.length != 0) {
+    sand = "\t" + sand + "\n";
+  }
+  content += "void update_env() {\n" + update_list.join("") + "}\n\n";
+  content += "void setup() {\n" + setups.join("") + "}\n\n";
+  content += "void loop() {\n" + sand + "\tupdate_env();\n}\n\n";
+  return content;
+  /*
+  var allDefs = includes.join('\n') + variables.join('\n') + definitions.join('\n') + functions.join('\n\n');
+  var update = 'void update_env() {\n' + update_list.join('\n').trim() + '\n}\n\n';
   var setup = 'void setup() {' + setups.join('\n  ') + '\n}\n\n';
   var loop = 'void loop() {\n  ' + code.replace(/\n/g, '\n  ') + '\n\tupdate_env();\n}';
   return allDefs + update + setup + loop;
+  */
 };
 
 /**
@@ -280,10 +291,8 @@ Blockly.Arduino.addSetup = function(setupTag, code, overwrite) {
  */
 Blockly.Arduino.addFunction = function(preferedName, code) {
   if (Blockly.Arduino.codeFunctions_[preferedName] === undefined) {
-    var uniqueName = Blockly.Arduino.variableDB_.getDistinctName(
-        preferedName, Blockly.Generator.NAME_TYPE);
-    Blockly.Arduino.codeFunctions_[preferedName] =
-        code.replace(Blockly.Arduino.DEF_FUNC_NAME, uniqueName);
+    var uniqueName = Blockly.Arduino.variableDB_.getDistinctName(preferedName, Blockly.Generator.NAME_TYPE);
+    Blockly.Arduino.codeFunctions_[preferedName] = code.replace(Blockly.Arduino.DEF_FUNC_NAME, uniqueName);
     Blockly.Arduino.functionNames_[preferedName] = uniqueName;
   }
   return Blockly.Arduino.functionNames_[preferedName];
@@ -299,9 +308,11 @@ Blockly.Arduino.addFunction = function(preferedName, code) {
 Blockly.Arduino.reservePin = function(block, pin, pinType, warningTag) {
   if (Blockly.Arduino.pins_[pin] !== undefined) {
     if (Blockly.Arduino.pins_[pin] != pinType) {
-      block.setWarningText(Blockly.Msg.ARD_PIN_WARN1.replace('%1', pin)
-		.replace('%2', warningTag).replace('%3', pinType)
-		.replace('%4', Blockly.Arduino.pins_[pin]), warningTag);
+      block.setWarningText(Blockly.Msg.ARD_PIN_WARN1
+          .replace('%1', pin)
+          .replace('%2', warningTag)
+          .replace('%3', pinType)
+          .replace('%4', Blockly.Arduino.pins_[pin]), warningTag);
     } else {
       block.setWarningText(null, warningTag);
     }

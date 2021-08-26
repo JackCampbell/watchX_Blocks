@@ -18,7 +18,8 @@ const createWindow = require('./helpers/window');
 
 const winston = require('winston');
 // const packageData = require('fs-jetpack').cwd( app.getAppPath() ).read('package.json', 'json');
-const packageData = require("./package.json"); // TEST
+const packageData = require("./package.json");
+const path = require("path"); // TEST
 
 const tag = '[watchXElec] ';
 
@@ -117,7 +118,7 @@ app.on('ready', function() {
             'directWrite': true,
             'preload': preload,
             'contextIsolation': false,
-            "enableRemoteModule": true
+            "enableRemoteModule": true,
         }
     });
     if (process.env.NODE_ENV === "development") {
