@@ -107,7 +107,7 @@ Blockly.Arduino.Boards.profiles.watchX = {
   i2cPins: { Wire: [['SDA', '2'], ['SCL', '3']] },
   i2cSpeed: [['100kHz', '100000L'], ['400kHz', '400000L']],
   // builtinLed: [['BUILTIN_LED_L', '13'], ['BUILTIN_LED_R', '6']],
-  builtinLed: [['LEFT', '13'], ['RIGTH', '6']],
+  builtinLed: [['LEFT', '13'], ['RIGHT', '6']],
   interrupt: [['interrupt0', '3'], ['interrupt1', '2'], ['interrupt2', '0'], ['interrupt3', '1'], ['interrupt4', '17']]
 };
 

@@ -39,8 +39,7 @@
 
 import sys
 if sys.version_info[0] != 2:
-  raise Exception("Blockly build only compatible with Python 2.x.\n"
-                  "You are using: " + sys.version)
+  raise Exception("Blockly build only compatible with Python 2.x.\n You are using: " + sys.version)
 
 import errno, glob, fnmatch, httplib, json, os, re, subprocess, threading, urllib
 
@@ -113,8 +112,7 @@ window.BLOCKLY_BOOT = function() {
   } else {
     // Execute after Closure has loaded.
     if (!window.goog) {
-      alert('Error: Closure not found.  Read this:\\n' +
-            'developers.google.com/blockly/hacking/closure');
+      alert('Error: Closure not found.  Read this:\\ndevelopers.google.com/blockly/hacking/closure');
     }
     dir = window.BLOCKLY_DIR.match(/[^\\/]+$/)[0];
   }
@@ -365,18 +363,15 @@ class Gen_compressed(threading.Thread):
 
 class Gen_langfiles(threading.Thread):
   """Generate JavaScript file for each natural language supported.
-
   Runs in a separate thread.
   """
-
   def __init__(self):
     threading.Thread.__init__(self)
 
   def _rebuild(self, srcs, dests):
     # Determine whether any of the files in srcs is newer than any in dests.
     try:
-      return (max(os.path.getmtime(src) for src in srcs) >
-              min(os.path.getmtime(dest) for dest in dests))
+      return (max(os.path.getmtime(src) for src in srcs) > min(os.path.getmtime(dest) for dest in dests))
     except OSError as e:
       # Was a file not found?
       if e.errno == errno.ENOENT:
@@ -423,8 +418,7 @@ class Gen_langfiles(threading.Thread):
           "--quiet"]
       json_files = glob.glob(os.path.join("msg", "json", "*.json"))
       json_files = [file for file in json_files if not
-                    (file.endswith(("keys.json", "synonyms.json", "qqq.json",
-                                    "_watchx.json")))]
+                    (file.endswith(("keys.json", "synonyms.json", "qqq.json", "_watchx.json")))]
       cmd.extend(json_files)
       subprocess.check_call(cmd)
     except (subprocess.CalledProcessError, OSError) as e:
@@ -448,15 +442,12 @@ class Gen_langfiles(threading.Thread):
     """
     # The files msg/json/{en,qqq,synonyms}.json depend on msg/messages.js.
     if self._rebuild([os.path.join("msg", "messages_watchx.js")],
-                     [os.path.join("msg", "json", f) for f in
-                      ["en_watchx.json",
-                       "qqq_watchx.json",
-                       "synonyms_watchx.json"]]):
+                     [os.path.join("msg", "json", f) for f in ["en_watchx.json", "qqq_watchx.json", "synonyms_watchx.json"]]):
       try:
         subprocess.check_call([
             "python",
             os.path.join("i18n", "js_to_json.py"),
-            "--author", "carlosperate",
+            "--author", "jackcampbell",
             "--input_file", "msg/messages_watchx.js",
             "--output_dir", "msg/json/",
             "--watchx",
@@ -468,15 +459,11 @@ class Gen_langfiles(threading.Thread):
     try:
       # Use create_messages.py to attach _watchx.json strings to .js files
       cmd = [
-          "python",
-          os.path.join("i18n", "create_messages.py"),
-          "--source_lang_file", os.path.join("msg","json",
-                                             "en_watchx.json"),
-          "--source_synonym_file", os.path.join("msg", "json",
-                                                "synonyms_watchx.json"),
+          "python", os.path.join("i18n", "create_messages.py"),
+          "--source_lang_file", os.path.join("msg","json", "en_watchx.json"),
+          "--source_synonym_file", os.path.join("msg", "json", "synonyms_watchx.json"),
           "--output_dir", os.path.join("msg", "js"),
-          "--watchx",
-          "--quiet"]
+          "--watchx", "--quiet"]
       json_files = glob.glob(os.path.join("msg", "json", "*.json"))
       json_files = [file for file in json_files if not (file.endswith(("keys.json", "synonyms.json", "qqq.json", "_watchx.json")))]
       cmd.extend(json_files)
@@ -521,6 +508,5 @@ if __name__ == "__main__":
   # Compressed is limited by network and server speed.
   Gen_uncompressed(search_paths).start()
   Gen_compressed(search_paths).start()
-
   # This is run locally in a separate thread.
   Gen_langfiles().start()

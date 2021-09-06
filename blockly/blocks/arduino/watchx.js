@@ -104,7 +104,10 @@ Blockly.Blocks['watchx_oled_get_screen_y'] = {
 Blockly.Blocks['wx_write_text_line'] = {
 	init: function() {
 		var line = [ ['1', '0'], ['2', '1'], ['3', '2'], ['4', '3'], ['5', '4'], ['6', '5'], ['7', '6'], ['8', '7'] ];
-		var align = [ ['Left', '0'], ['Middle', '1'], ['Right', '2'] ];
+		var align = [
+			[Blockly.Msg.WX_ALIGN_LEFT, '0'],
+			[Blockly.Msg.WX_ALIGN_MIDDLE, '1'],
+			[Blockly.Msg.WX_ALIGN_RIGHT, '2'] ];
 		this.appendValueInput("CONTENT")
 			.setCheck(null)
 			.appendField(Blockly.Msg.WX_OLED_WRITE);
@@ -296,12 +299,15 @@ Blockly.Blocks['wx_rtc_get_value'] = {
 };
 Blockly.Blocks['wx_print_time_line'] = {
 	init: function() {
+		var list = [[ "1", "0"], [ "2", "1"], [ "3", "2"]];
+		/*
 		var list = [[Blockly.Msg.WX_LINE + ' 1', '0'],
 					[Blockly.Msg.WX_LINE + ' 2', '1'],
 					[Blockly.Msg.WX_LINE + ' 3', '2']];
+		*/
 		this.setColour(Blockly.Blocks.io.time_color);
 		this.appendDummyInput()
-			.appendField(Blockly.Msg.WX_PRINT_TIME)
+			.appendField(Blockly.Msg.WX_PRINT_TIME + " " + Blockly.Msg.WX_LINE)
 			.appendField(new Blockly.FieldDropdown(list), 'LINE');
 		this.setInputsInline(false);
 		this.setPreviousStatement(true, null);
@@ -361,7 +367,7 @@ Blockly.Blocks['wx_mag_get_value'] = {
 };
 Blockly.Blocks['wx_mlx_get_value'] = {
 	init: function() {
-		var filter = [["0", "0"], ["50", "50"], ["75", "75"], ["100", "100"]];
+		var filter = [["0", "0"], ["25", "25"], ["50", "50"], ["75", "75"], ["100", "100"]];
 		var list = [['X', 'WX_MLX_DX'], ['Y', 'WX_MLX_DY'], ['Z', 'WX_MLX_DZ']]
 		this.appendDummyInput()
 			.appendField(Blockly.Msg.WX_GET_MLX)
@@ -410,8 +416,7 @@ Blockly.Blocks['wx_mpu_get_accel_value'] = {
 Blockly.Blocks['wx_mpu_fall_detected'] = {
 	init: function() {
 		this.appendDummyInput()
-			.appendField(Blockly.Msg.WX_FREE_FALL_DETECTED)
-			.appendField(Blockly.Msg.WX_THRESHOLD)
+			.appendField(Blockly.Msg.WX_FREE_FALL_DETECTED + " " + Blockly.Msg.WX_THRESHOLD)
 			.appendField(new Blockly.FieldNumber('17', (value) => num_validator(value, 0, 1000)), "THRESHOLD")
 			.appendField(Blockly.Msg.WX_DURATION)
 			.appendField(new Blockly.FieldNumber('2', (value) => num_validator(value, 0, 60)), "DURATION")
@@ -428,8 +433,7 @@ Blockly.Blocks['wx_mpu_fall_detected'] = {
 Blockly.Blocks['wx_mpu_motion_detected'] = {
 	init: function() {
 		this.appendDummyInput()
-			.appendField(Blockly.Msg.WX_DETECT_MOTION)
-			.appendField(Blockly.Msg.WX_THRESHOLD)
+			.appendField(Blockly.Msg.WX_DETECT_MOTION + " " + Blockly.Msg.WX_THRESHOLD)
 			.appendField(new Blockly.FieldNumber('5', (value) => num_validator(value, 0, 1000)), "THRESHOLD")
 			.appendField(Blockly.Msg.WX_DURATION)
 			.appendField(new Blockly.FieldNumber('2', (value) => num_validator(value, 0, 60)), "DURATION")
@@ -454,8 +458,13 @@ Blockly.Blocks['wx_bzr_play_note'] = {
 			["D6", "1175"], ["E6", "1319"], ["F6", "1397"], ["G6", "1568"], ["A6", "1760"], ["B6", "1976"],
 			["C7", "2093"], ["D7", "2349"], ["E7", "2637"], ["F7", "2794"], ["G7", "3136"], ["A7", "3520"],
 			["B7", "3951"], ["C8", "4186"], ["D8", "4699"]];
-		var beat = [["Half", "500"], ["Quarter", "250"], ["Eighth", "125"],
-			["Whole", "1000"], ["Double", "2000"], ["Zero", "0"]];
+		var beat = [
+			[Blockly.Msg.WX_BUZZER_HALF, "500"],
+			[Blockly.Msg.WX_BUZZER_QUARTER, "250"],
+			[Blockly.Msg.WX_BUZZER_EIGHTH, "125"],
+			[Blockly.Msg.WX_BUZZER_WHOLE, "1000"],
+			[Blockly.Msg.WX_BUZZER_DOUBLE, "2000"],
+			[Blockly.Msg.WX_BUZZER_ZERO, "0"]];
 		this.appendDummyInput()
 			.appendField(Blockly.Msg.WX_BZR_PLAY_NOTE)
 			.appendField(new Blockly.FieldDropdown(tone), 'TONE')
@@ -517,7 +526,7 @@ Blockly.Blocks['wx_btn_read'] = {
 };
 Blockly.Blocks['wx_gpad_read'] = {
 	init: function() {
-		var btn = [["B_UP", "A0"], ["B_DOWN", "4"], ["LEFT", "11"], ["RIGHT", "10"], ["B_A", "8"], ["B_B", "1"]];
+		var btn = [["B_UP", "A0"], ["B_DOWN", "4"], ["B_LEFT", "11"], ["B_RIGHT", "10"], ["B_A", "8"], ["B_B", "1"]];
 		this.appendDummyInput()
 			.appendField(Blockly.Msg.WX_READ_GPAD)
 			.appendField(new Blockly.FieldDropdown(btn), 'BUTTON');
@@ -618,9 +627,9 @@ Blockly.Blocks['wx_sleep_and_weak_on_timer'] = {
 Blockly.Blocks['wx_init_ble'] = {
 	init: function() {
 		var types = [
-			["Transceiver", "wx_init_ble_transceiver"],
-			["BTKeyboard", "wx_init_ble_bt_keyboard"],
-			["HIDControl", "wx_init_ble_hid_control"]];
+			[Blockly.Msg.WX_BLUETOOTH_TRANSCEIVER, "wx_init_ble_transceiver"],
+			[Blockly.Msg.WX_BLUETOOTH_KEYBOARD, "wx_init_ble_bt_keyboard"],
+			[Blockly.Msg.WX_BLUETOOTH_HID_CONTROL, "wx_init_ble_hid_control"]];
 		this.appendDummyInput()
 			.appendField(Blockly.Msg.WX_BLUETOOTH)
 			.appendField(new Blockly.FieldDropdown(types), 'TYPE')

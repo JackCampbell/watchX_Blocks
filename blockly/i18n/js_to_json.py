@@ -50,6 +50,7 @@ from common import write_files, write_files_watchx
 # Original RegEx kept as a reminder that it'll conflict when upstreamed pulled
 #_INPUT_DEF_PATTERN = re.compile("""Blockly.Msg.(\w*)\s*=\s*'([^']*)';?$""")
 _INPUT_DEF_PATTERN = re.compile("""Blockly.Msg.(\w*)\s*=\s*'(.*)';?\r?$""")
+_INPUT_DEF2_PATTERN = re.compile("""Blockly.Msg.(\w*)\s*=\s*"(.*)";?\r?$""")
 _INPUT_SYN_PATTERN = re.compile("""Blockly.Msg.(\w*)\s*=\s*Blockly.Msg.(\w*);""")
 
 def main():
@@ -78,6 +79,8 @@ def main():
         description = line[3:].strip()
     else:
       match = _INPUT_DEF_PATTERN.match(line)
+      if match is None:
+        match = _INPUT_DEF2_PATTERN.match(line)
       if match:
         result = {}
         result['meaning'] = match.group(1)

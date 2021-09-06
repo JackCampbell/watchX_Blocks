@@ -33,8 +33,7 @@ window.BLOCKLY_BOOT = function() {
   } else {
     // Execute after Closure has loaded.
     if (!window.goog) {
-      alert('Error: Closure not found.  Read this:\n' +
-            'developers.google.com/blockly/hacking/closure');
+      alert('Error: Closure not found.  Read this:\ndevelopers.google.com/blockly/hacking/closure');
     }
     dir = window.BLOCKLY_DIR.match(/[^\/]+$/)[0];
   }

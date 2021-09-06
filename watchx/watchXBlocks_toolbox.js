@@ -239,8 +239,8 @@ watchXBlocks.TOOLBOX_XML =
 '    <block type="wx_write_text_line">' + Assume_Text('CONTENT', 'Hello') + '</block>' +
 '    <block type="wx_write_text_pos">' + Assume_Text('CONTENT', 'Hello') + Assume_Num("PX", 0) + Assume_Num("PY", 0) + '</block>' +
 '    <block type="wx_brightness">' + Assume_Pin("STATE") + '</block>' +
-'    <block type="wx_clear_all"></block>' +
 '    <block type="wx_oled_power">' + Assume_Pin("STATE") + '</block>' +
+'    <block type="wx_clear_all"></block>' +
 '  </category>' +
 '  <sep></sep>' +
 '  <category id="catDraw" name="Draw">' +
