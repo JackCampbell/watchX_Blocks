@@ -1,7 +1,7 @@
 {
 	"@metadata": {
 		"author": "jackcampbell",
-		"lastupdated": "2021-09-01 12:02:33.554883",
+		"lastupdated": "2021-09-17 15:23:41.062029",
 		"locale": "en",
 		"messagedocumentation" : "qqq_watchx"
 	},
@@ -159,7 +159,7 @@
 	"WX_MINUTE": "minute",
 	"WX_SECOND": "second",
 	"WX_SET_DATE_TIP": "Sets the given date and time to the watchX time unit.",
-	"WX_CURRENT_TIME": "current date & time",
+	"WX_CURRENT_TIME": "current time & date",
 	"WX_CURRENT_TIME_TIP": "Sets the computers date and time to the watchX time unit. ",
 	"WX_GET": "get",
 	"WX_GET_TIME_TIP": "Gets the current date/time unit from the watchX time unit.",
@@ -244,6 +244,10 @@
 	"WX_ALIGN_LEFT": "left",
 	"WX_ALIGN_MIDDLE": "middle",
 	"WX_ALIGN_RIGHT": "right",
-	"WX_INPUT_DOWN": "read button once",
-	"WX_INPUT_DOWN_TIP": "Gets the status of the button, single-shot pressed-on time duration. Delivers input value (state) after it has been stable."
+	"WX_BUTTON_INPUT": "read button once",
+	"WX_BUTTON_INPUT_TIP": "Gets the status of the button, single-shot pressed-on time duration. Delivers input value (state) after it has been stable.",
+	"WX_GPAD_INPUT": "read G-Pad button once",
+	"WX_GPAD_INPUT_TIP": "Gets the status of the button, single-shot pressed-on time duration. Delivers input value (state) after it has been stable.",
+	"WX_BPM": "set BPM",
+	"WX_BPM_TIP": ""
 }

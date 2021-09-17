@@ -24,9 +24,6 @@
 #include <avr/wdt.h>
 #pragma once
 
-#define BUILD_LED_R     6
-#define BUILD_LED_L     13
-
 #define WX_GPAD_G0 A0
 #define WX_GPAD_G1 4
 #define WX_GPAD_G2 11
@@ -72,6 +69,14 @@ void wx_draw_battery_icon(wx_oled_t *oled, int x, int y, int level);
 void wx_draw_usb_connect(wx_oled_t *oled, int x, int y);
 void wx_draw_charge_state(wx_oled_t *oled, int x, int y);
 void wx_clear_all(wx_oled_t *oled);
+
+
+#define BUILD_LED_R     6
+#define BUILD_LED_L     13
+
+void wx_led_init( int led );
+void wx_led_brightness( int led, int value );
+void wx_led_state( int led, int value );
 
 enum WX_RTC {
 	WX_RTC_YEAR,
@@ -187,7 +192,7 @@ bool wx_get_usb_connected(wx_usb_t *usb);
 void wx_sleep_and_weak_on_button(wx_usb_t *usb);
 void wx_sleep_and_weak_on_timer(wx_usb_t *usb, long time);
 
-
+// -JC- HACK BLE
 #define ADAFRUITBLE_REQ A2
 #define ADAFRUITBLE_RDY 0
 #define ADAFRUITBLE_RST A1
@@ -196,6 +201,7 @@ class Adafruit_BLE_SPI : public Adafruit_BluefruitLE_SPI {
 public:
 	Adafruit_BLE_SPI() : Adafruit_BluefruitLE_SPI(BLUEFRUIT_SPI_CS, BLUEFRUIT_SPI_IRQ, BLUEFRUIT_SPI_RST) {}
 };
+// -JC-
 
 struct wx_ble_t {
 	Adafruit_BLE_SPI 	ble;
@@ -212,26 +218,34 @@ void wx_ble_media_control(wx_ble_t *ble, int cmd);
 void wx_ble_mouse_control(wx_ble_t *ble, int button, int state);
 
 
-// key state
-#define WX_BTN_B1	8
-#define WX_BTN_B2	11
-#define WX_BTN_B3	10
-
-struct key_state_t {
-	int         pin;
-	int         down;
-	int         impulse;
-	int         count;
-	int         bit;
-};
 enum {
-	KEY_B1      = BIT(0),
-	KEY_B2      = BIT(1),
-	KEY_B3      = BIT(2)
+	KEY_B1		= BIT( 0 ),
+	KEY_B2		= BIT( 1 ),
+	KEY_B3		= BIT( 2 ), 
+	// GPAD
+	KEY_B_UP		= BIT( 3 ), 
+	KEY_B_DOWN	= BIT( 4 ), 
+	KEY_B_LEFT	= KEY_B2, 
+	KEY_B_RIGHT	= KEY_B3, 
+	KEY_B_A		= KEY_B1, 
+	KEY_B_B		= BIT( 5 ), 
 };
 struct wx_input_t {
-	key_state_t btn1, btn2, btn3;
-	int         state;
+	int			gpad;
+	int			count;
+	int			down;
+	int			impulse;
+	int			state;
 };
-void wx_init_input(wx_input_t *keys);
+void wx_init_input(wx_input_t *input, bool has_gpad );
 void wx_update_input(wx_input_t *input);
+bool wx_get_input(wx_input_t *input, int key);
+
+#define BUILD_BUZZER     9
+struct wx_tone_t {
+	int			bpm;
+	int			pin;
+};
+void wx_init_tone( wx_tone_t *tone, int bpm, int pin );
+void wx_play_tone( wx_tone_t *tone, int frequency, int beat );
+void wx_play_tone( wx_tone_t *tone, int frequency );

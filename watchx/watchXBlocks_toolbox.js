@@ -137,10 +137,12 @@ watchXBlocks.TOOLBOX_XML =
 '  <sep></sep>' +
 '  <category id="catInputOutput" name="Input/Output">' +
 '    <block type="wx_btn_read"></block>' +
-'    <block type="wx_input_down"></block>' +
+'    <block type="wx_button_input"></block>' +
 '    <block type="wx_gpad_read"></block>' +
+'    <block type="wx_gpad_input"></block>' +
 '    <block type="wx_led">' + Assume_Pin("STATE") + '</block>' +
 '    <block type="wx_led_brightness"></block>' +  // '    <block type="LED_PIN"></block>' +
+'    <block type="wx_led_brightness_2">' + Assume_Num("LEVEL", 100) + '</block>' +
 '    <block type="io_digitalwrite">' + Assume_Pin("STATE") + '</block>' +
 '    <block type="io_digitalread"></block>' +  //'    <block type="io_builtin_led">' + Assume_Pin("STATE") + '</block>' +
 '    <block type="io_analogwrite"></block>' +
@@ -176,6 +178,7 @@ watchXBlocks.TOOLBOX_XML =
 '  </category>' +
 '  <sep></sep>' +
 '  <category id="catAudio" name="Audio">' +
+'    <block type="wx_bzr_bpm">' + Assume_Num("BPM", 60) + '</block>' +
 '    <block type="wx_bzr_play_note"></block>' +
 '    <block type="wx_play_freq">' + Assume_Num("FREQUENCY", 220) + '</block>' +
 // '    <block type="io_tone">' +

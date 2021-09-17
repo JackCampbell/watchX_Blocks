@@ -362,6 +362,9 @@ watchXBlocks.htmlPrompt = function(message, defaultValue, callback) {
     $('#gen_prompt_message').text('');
     $('#gen_prompt_message').append(message);
     $('#gen_prompt_input').val(defaultValue);
+    // FIX
+    $('#gen_prompt_ok_link').unbind('click');
+    $('#gen_prompt_cancel_link').unbind('click');
     // Bind callback events to buttons
     $('#gen_prompt_ok_link').bind('click', function() {
         callback($('#gen_prompt_input').val());

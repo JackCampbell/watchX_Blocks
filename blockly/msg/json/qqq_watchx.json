@@ -238,6 +238,10 @@
 	"WX_ALIGN_LEFT": "",
 	"WX_ALIGN_MIDDLE": "",
 	"WX_ALIGN_RIGHT": "",
-	"WX_INPUT_DOWN": "",
-	"WX_INPUT_DOWN_TIP": ""
+	"WX_BUTTON_INPUT": "",
+	"WX_BUTTON_INPUT_TIP": "",
+	"WX_GPAD_INPUT": "",
+	"WX_GPAD_INPUT_TIP": "",
+	"WX_BPM": "",
+	"WX_BPM_TIP": ""
 }

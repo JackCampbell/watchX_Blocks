@@ -91,6 +91,24 @@ void wx_print_time(wx_oled_t *oled, wx_rtc_t *rtc, int type, int x, int y) {
 	oled->need_clear = true;
 }
 
+
+void wx_led_init( int led ) {
+	pinMode( led, OUTPUT );
+}
+
+void wx_led_brightness( int led, int value ) {
+	if( value > 255 ) {
+		value = 255;
+	} else if( value < 0 ) {
+		value = 0;
+	}
+	analogWrite( led, value );
+}
+
+void wx_led_state( int led, int value ) {
+	digitalWrite( led, value );
+}
+
 void wx_rtc_init(wx_rtc_t *rtc) {
 	rtc->rtc.begin();
 #if 1
@@ -514,58 +532,89 @@ void wx_delay_sec(float seconds) {
 
 
 
+// key state
+#define WX_BTN_B1		8
+#define WX_BTN_B2		11
+#define WX_BTN_B3		10
+#define WX_BTN_B_UP		A0
+#define WX_BTN_B_DOWN	4
+#define WX_BTN_B_LEFT	11
+#define WX_BTN_B_RIGHT	10
+#define WX_BTN_B_A		8
+#define WX_BTN_B_B		1
 
-void wx_key_init(key_state_t *key, int pin, int bit) {
-	key->pin = pin;
-	key->down = 0;
-	key->impulse = 0;
-	key->count = 0;
-	key->bit = bit;
-	pinMode(pin, INPUT_PULLUP);
-}
 
-void wx_key_state(key_state_t *key) {
-	int state = digitalRead(key->pin);
-	if(state == LOW && key->down == 0) {
-	    key->down = 1;
-	    key->impulse = 0;
-	    key->count = 0;
-	} else if(state == LOW && key->down == 0) {
-	    key->count++;
-	} else if(state == HIGH && key->down == 1) {
-	    key->down = 0;
-	    key->impulse = 1;
+
+void wx_init_input(wx_input_t *input, bool has_gpad ) {
+	input->gpad = 0;
+	input->count = 0;
+	input->down = 0;
+	input->impulse = 0;
+	input->state = 0;
+	
+	pinMode(WX_BTN_B1, INPUT_PULLUP);
+	pinMode(WX_BTN_B2, INPUT_PULLUP);
+	pinMode(WX_BTN_B3, INPUT_PULLUP);
+	if( has_gpad ) {
+		pinMode(WX_BTN_B_UP, INPUT_PULLUP);
+		pinMode(WX_BTN_B_DOWN, INPUT_PULLUP);
+		pinMode(WX_BTN_B_B, INPUT_PULLUP);
+		input->gpad = 1;
 	}
 }
 
-int wx_key_impulse(key_state_t *key) {
-	int state = 0;
-	if(key->impulse == 1) {
-	    state |= key->bit;
+void wx_update_input(wx_input_t *input) {
+	const int key_pins[] = {
+		WX_BTN_B1, WX_BTN_B2, WX_BTN_B3,
+		WX_BTN_B_UP, WX_BTN_B_DOWN, WX_BTN_B_B
+	};
+	int num_key = 3;
+	if( input->gpad ) {
+		num_key = 6;
 	}
-	key->impulse = 0;
-	// key->down = false;
-	key->count = 0;
+	for( int index = 0; index < num_key; index++ ) {
+		const int key = BIT( index );
+		const int pin = key_pins[ index ];
+		
+		int state = digitalRead( pin );
+		if( state == LOW && ( input->down & key ) == 0 ) {
+			input->down |= key;
+			input->impulse &= ~key;
+			input->count = 0;
+		} else if( state == LOW && ( input->down & key ) == 0 ) {
+			input->count++;
+		} else if( state == HIGH && ( input->down & key ) != 0 ) {
+			input->down &= ~key;
+			input->impulse |= key;
+		}
+	}
+}
+
+bool wx_get_input(wx_input_t *input, int key) {
+	bool state = false;
+	if( ( input->impulse & key ) != 0 ) {
+	    state = true;
+	}
+	input->impulse &= ~key;
+	// input->down = false;
+	input->count = 0;
 	return state;
 }
 
 
 
-void wx_init_input(wx_input_t *input) {
-	wx_key_init( &input->btn1, WX_BTN_B1, KEY_B1 );
-	wx_key_init( &input->btn2, WX_BTN_B2, KEY_B2 );
-	wx_key_init( &input->btn3, WX_BTN_B3, KEY_B3 );
-	input->state = 0;
+void wx_init_tone( wx_tone_t *btone, int bpm, int pin ) {
+	btone->pin = pin;
+	btone->bpm = bpm;
+	pinMode( pin, OUTPUT );
 }
 
-void wx_update_input(wx_input_t *input) {
-	wx_key_state( &input->btn1 );
-	wx_key_state( &input->btn2 );
-	wx_key_state( &input->btn3 );
-    // --------------
-    input->state = 0;
-    input->state |= wx_key_impulse( &input->btn1 );
-    input->state |= wx_key_impulse( &input->btn2 );
-    input->state |= wx_key_impulse( &input->btn3 );
+void wx_play_tone( wx_tone_t *btone, int frequency, int beat ) {
+	int msec = ( int )round( beat * (60.0f / btone->bpm) );
+	tone( btone->pin, frequency, msec );
+	delay( msec );
 }
 
+void wx_play_tone( wx_tone_t *btone, int frequency ) {
+	tone( btone->pin, frequency );
+}
