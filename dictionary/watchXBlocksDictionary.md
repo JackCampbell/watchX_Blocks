@@ -1009,9 +1009,9 @@ This section is dedicated to the sleep blocks. These blocks are used for sleepin
 #### **sleep & wake on button press**
 <img src="img/Blocks/Sleep_1.svg" width="100%"><br/>
 
-This block sleeps the control unit of the watchX. When the selected button is pressed, it will wake the control unit up again. Sleep function is useful for saving the battery
+This block sleeps the control unit of the watchX. When the selected button is pressed, it will wake the control unit up again. Sleep function is useful for saving the battery.
 
-<img src="img/Blocks/watchX_button_diagram.svg" width="100%"><br/>.
+<img src="img/Blocks/watchX_button_diagram.svg" width="100%"><br/>
 
 ---
 
