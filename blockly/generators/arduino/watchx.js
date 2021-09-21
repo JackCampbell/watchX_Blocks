@@ -330,6 +330,17 @@ Blockly.Arduino['wx_bzr_play_note'] = function(block) {
 	return `wx_play_tone(&btone, ${tone}, ${beat});\n`;
 };
 
+Blockly.Arduino['wx_bzr_stop'] = function(block) {
+	const pin = 9;
+	Blockly.Arduino.reservePin(block, pin, Blockly.Arduino.PinTypes.OUTPUT, 'Buzzer PIN');
+	Blockly.Arduino.addInclude("io_watch", `#include "${watchx_include}"`);
+	// Blockly.Arduino.addSetup('io_' + pin, `pinMode(${pin}, OUTPUT);`, false);
+	// var code = `tone(${pin}, ${tone}, ${beat});\ndelay(${beat});\n`;
+	Blockly.Arduino.addVariable("var_tone", 'wx_tone_t btone;', false);
+	Blockly.Arduino.addSetup('var_tone', `wx_init_tone(&btone, 60, BUILD_BUZZER);`, false);
+	return `wx_stop_tone(&btone);\n`;
+};
+
 Blockly.Arduino['wx_play_freq'] = function(block) {
 	var frequency = Blockly.Arduino.valueToCode(block, 'FREQUENCY', Blockly.Arduino.ORDER_ATOMIC) || "220";
 	const pin = 9;

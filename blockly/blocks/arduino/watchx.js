@@ -512,6 +512,17 @@ Blockly.Blocks['wx_bzr_bpm'] = {
 	}
 };
 
+Blockly.Blocks['wx_bzr_stop'] = {
+	init: function() {
+		this.appendDummyInput().appendField(Blockly.Msg.WX_BZR_STOP);
+		this.setInputsInline(false);
+		this.setPreviousStatement(true, null);
+		this.setNextStatement(true, null);
+		this.setColour(Blockly.Blocks.io.audio_color);
+		this.setTooltip(Blockly.Msg.WX_BZR_STOP_TIP);
+		this.setHelpUrl("http://watchx.io");
+	}
+};
 
 Blockly.Blocks['wx_play_freq'] = {
 	init: function() {

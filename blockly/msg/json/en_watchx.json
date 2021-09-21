@@ -1,7 +1,7 @@
 {
 	"@metadata": {
 		"author": "jackcampbell",
-		"lastupdated": "2021-09-17 15:23:41.062029",
+		"lastupdated": "2021-09-21 16:50:40.766420",
 		"locale": "en",
 		"messagedocumentation" : "qqq_watchx"
 	},
@@ -249,5 +249,7 @@
 	"WX_GPAD_INPUT": "read G-Pad button once",
 	"WX_GPAD_INPUT_TIP": "Gets the status of the button, single-shot pressed-on time duration. Delivers input value (state) after it has been stable.",
 	"WX_BPM": "set BPM",
-	"WX_BPM_TIP": ""
+	"WX_BPM_TIP": "",
+	"WX_BZR_STOP": "no tone",
+	"WX_BZR_STOP_TIP": ""
 }

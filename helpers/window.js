@@ -50,7 +50,7 @@ module.exports = function(name, options) {
     var resetToDefaults = function (windowState) {
         var bounds = electron.screen.getPrimaryDisplay().bounds;
         return Object.assign({}, defaultSize, {
-            x: (bounds.width - defaultSize.width) / 2,
+            x: (bounds.width  - defaultSize.width)  / 2,
             y: (bounds.height - defaultSize.height) / 2
         });
     };

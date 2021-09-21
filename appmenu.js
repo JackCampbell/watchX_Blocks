@@ -343,6 +343,11 @@ var getHelpMenuData = function() {
                 }
             }, {
                 type: 'separator'
+            }, {
+                label: 'Documents',
+                click: function() {
+                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.openDocumentDialog()');
+                }
             }
         ]
     };

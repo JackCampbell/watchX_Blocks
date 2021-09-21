@@ -103,22 +103,23 @@ app.on('ready', function() {
         frame: true,
         show: false,
         webPreferences: {
-            'nodeIntegration': true,
-            'webSecurity': true,
-            'allowDisplayingInsecureContent': false,
-            'allowRunningInsecureContent': false,
-            'java': false,
-            'webgl': false,
-            'webaudio': true,
-            'plugins': false,
-            'experimentalFeatures': false,
-            'experimentalCanvasFeatures': false,
-            'overlayScrollbars': true,
-            'textAreasAreResizable': false,
-            'directWrite': true,
-            'preload': preload,
-            'contextIsolation': false,
+            "nodeIntegration": true,
+            "webSecurity": true,
+            "allowDisplayingInsecureContent": false,
+            "allowRunningInsecureContent": false,
+            "java": false,
+            "webgl": false,
+            "webaudio": true,
+            "plugins": false,
+            "experimentalFeatures": false,
+            "experimentalCanvasFeatures": false,
+            "overlayScrollbars": true,
+            "textAreasAreResizable": false,
+            "directWrite": true,
+            "preload": preload,
+            "contextIsolation": false,
             "enableRemoteModule": true,
+            "nativeWindowOpen": true
         }
     });
     if (process.env.NODE_ENV === "development") {
@@ -127,14 +128,14 @@ app.on('ready', function() {
         appMenu.setWatchXBlocksMenu(false);
     }
 
-    mainWindow.webContents.on('did-fail-load', function(event, errorCode, errorDescription) {
+    mainWindow.webContents.on("did-fail-load", function(event, errorCode, errorDescription) {
         winston.warn(tag + 'Page failed to load (' + errorCode + '). The server is probably not yet running. Trying again in 200 ms.');
         setTimeout(function() {
             mainWindow.webContents.reload();
         }, 350);
     });
 
-    mainWindow.webContents.on('did-finish-load', function() {
+    mainWindow.webContents.on("did-finish-load", function() {
         server.initializeCore((code) => {
             if (splashWindow !== null) {
                 splashWindow.close();

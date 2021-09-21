@@ -250,6 +250,22 @@ watchXBlocks.openExampleDialog = function() {
 	$('#example_dialog').openModal({dismissible: true, opacity: .5, in_duration: 200, out_duration: 250});
 };
 
+
+watchXBlocks.openDocumentDialog = function(relative) {
+	if(relative == null) {
+		relative = '/docs/index.html';
+	} else if(relative.startsWith("/docs") == false) {
+		relative = '/docs/index.html#' + relative;
+	}
+	$('#doc_frame').attr('src', relative);
+	$('#doc_dialog').openModal({
+		dismissible: true,
+		opacity: .5,
+		in_duration: 200,
+		out_duration: 250
+	});
+};
+
 /**
  * Opens the modal that allows selection on additional toolbox categories.
  * @param {!element} html_content HTML to include in modal body.

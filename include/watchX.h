@@ -249,3 +249,4 @@ struct wx_tone_t {
 void wx_init_tone( wx_tone_t *tone, int bpm, int pin );
 void wx_play_tone( wx_tone_t *tone, int frequency, int beat );
 void wx_play_tone( wx_tone_t *tone, int frequency );
+void wx_stop_tone( wx_tone_t *tone );

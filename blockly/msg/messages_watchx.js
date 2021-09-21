@@ -307,3 +307,5 @@ Blockly.Msg.WX_GPAD_INPUT = 'read G-Pad button once';
 Blockly.Msg.WX_GPAD_INPUT_TIP = 'Gets the status of the button, single-shot pressed-on time duration. Delivers input value (state) after it has been stable.';
 Blockly.Msg.WX_BPM = 'set BPM';
 Blockly.Msg.WX_BPM_TIP = '';
+Blockly.Msg.WX_BZR_STOP = 'no tone';
+Blockly.Msg.WX_BZR_STOP_TIP = '';

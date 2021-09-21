@@ -243,5 +243,7 @@
 	"WX_GPAD_INPUT": "",
 	"WX_GPAD_INPUT_TIP": "",
 	"WX_BPM": "",
-	"WX_BPM_TIP": ""
+	"WX_BPM_TIP": "",
+	"WX_BZR_STOP": "",
+	"WX_BZR_STOP_TIP": ""
 }

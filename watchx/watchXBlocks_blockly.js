@@ -33,6 +33,7 @@ watchXBlocks.injectBlockly = function (blocklyEl, toolboxXml, blocklyPath) {
         blocklyPath = blocklyPath.slice(0, -1);
     }
     Blockly.prompt = watchXBlocks.htmlPrompt;
+    Blockly.watchXBlocks = watchXBlocks; // LINK
     watchXBlocks.xmlTree = Blockly.Xml.textToDom(toolboxXml);
     // The Toolbox menu language is edited directly from the XML nodes.
     watchXBlocks.updateToolboxLanguage();

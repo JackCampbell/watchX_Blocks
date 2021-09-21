@@ -35,7 +35,7 @@ app.use("/blockly", express.static(server_path + "/blockly"));
 app.use("/blocks", express.static(server_path + "/blocks"));
 app.use("/examples", express.static(server_path + "/examples"));
 app.use("/closure-library", express.static(server_path + "/closure-library"));
-app.use("/docs", express.static(server_path + "/docs"));
+app.use("/docs", express.static(server_path + "/dictionary"));
 app.get("/settings/:name", (req, res, next) => {
 	const name = req.params["name"];
 	if(name == 'ide') {
