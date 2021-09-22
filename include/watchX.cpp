@@ -619,6 +619,6 @@ void wx_play_tone( wx_tone_t *btone, int frequency ) {
 	tone( btone->pin, frequency );
 }
 
-void wx_stop_tone( wx_tone_t *tone ) {
+void wx_stop_tone( wx_tone_t *btone ) {
 	noTone( btone->pin );
 }

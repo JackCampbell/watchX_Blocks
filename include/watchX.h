@@ -24,19 +24,20 @@
 #include <avr/wdt.h>
 #pragma once
 
-#define WX_GPAD_G0 A0
-#define WX_GPAD_G1 4
-#define WX_GPAD_G2 11
-#define WX_GPAD_G3 10
-#define WX_GPAD_G4 8
-#define WX_GPAD_G5 1
+#define WX_GPAD_G0 	A0
+#define WX_GPAD_G1 	4
+#define WX_GPAD_G2 	11
+#define WX_GPAD_G3 	10
+#define WX_GPAD_G4 	8
+#define WX_GPAD_G5 	1
 
+#define BUILD_BUZZER     9
 
 #define WX_BAT_PIN 	A11
 #define WX_BAT_EN	4
 #define WX_BAT_DET	5
-// Voltage divider resistor values.
-#define WX_BAT_R1	10000
+
+#define WX_BAT_R1	10000	// Voltage divider resistor values.
 #define WX_BAT_R2	10000
 
 
@@ -241,7 +242,7 @@ void wx_init_input(wx_input_t *input, bool has_gpad );
 void wx_update_input(wx_input_t *input);
 bool wx_get_input(wx_input_t *input, int key);
 
-#define BUILD_BUZZER     9
+
 struct wx_tone_t {
 	int			bpm;
 	int			pin;
