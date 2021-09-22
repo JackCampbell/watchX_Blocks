@@ -1,7 +1,7 @@
 {
 	"@metadata": {
 		"author": "jackcampbell",
-		"lastupdated": "2021-09-21 16:50:40.766420",
+		"lastupdated": "2021-09-22 09:46:46.336872",
 		"locale": "en",
 		"messagedocumentation" : "qqq_watchx"
 	},
@@ -250,6 +250,6 @@
 	"WX_GPAD_INPUT_TIP": "Gets the status of the button, single-shot pressed-on time duration. Delivers input value (state) after it has been stable.",
 	"WX_BPM": "set BPM",
 	"WX_BPM_TIP": "",
-	"WX_BZR_STOP": "no tone",
+	"WX_BZR_STOP": "turn off tone",
 	"WX_BZR_STOP_TIP": ""
 }
