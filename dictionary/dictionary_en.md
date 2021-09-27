@@ -424,11 +424,20 @@ This block goes to the defined function and does the operation defined. This blo
 
 ---
 
+### **function with return**
+<img src="dictionary_images_en/Functions_6.svg" width="100%"><br/>
+
+This block does the operation in the defined function and returns the **return** value. This block will appear in the **functions toolbox** only when a function with return is defined.
+
+---
+
 <img src="dictionary_images_en/Input_Output.svg" width="100%"><br/>
 
 This section is dedicated to the input/output blocks. These blocks are used for gathering and sending information from different buttons and pins.
 
-#### **read button**
+---
+
+### **read button**
 <img src="dictionary_images_en/Input_Output_1.svg" width="100%"><br/>
 
 This block reads the button press of the watchX and returns true if the button is pressed. If the button continues to be pressed, it will **continue** to return the true value.
@@ -437,7 +446,7 @@ This block reads the button press of the watchX and returns true if the button i
 
 ---
 
-#### **read button once**
+### **read button once**
 <img src="dictionary_images_en/Input_Output_2.svg" width="100%"><br/>
 
 This block reads the button press of the watchX and returns true if the button is pressed. However; this block will return the true value for a **single instance** even if the button stays pressed.
@@ -446,7 +455,7 @@ This block reads the button press of the watchX and returns true if the button i
 
 ---
 
-#### **read G-Pad button**
+### **read G-Pad button**
 <img src="dictionary_images_en/Input_Output_3.svg" width="100%"><br/>
 
 This block reads the button press of the G-Pad and returns true if the button is pressed. If the button continues to be pressed, it will **continue** to return the true value.
@@ -455,7 +464,7 @@ This block reads the button press of the G-Pad and returns true if the button is
 
 ---
 
-#### **read G-Pad button once**
+### **read G-Pad button once**
 <img src="dictionary_images_en/Input_Output_13.svg" width="100%"><br/>
 
 This block reads the button press of the G-Pad and returns true if the button is pressed. However; this block will return the true value for a **single instance** even if the button stays pressed.
@@ -464,7 +473,7 @@ This block reads the button press of the G-Pad and returns true if the button is
 
 ---
 
-#### **LED control**
+### **LED control**
 <img src="dictionary_images_en/Input_Output_4.svg" width="100%"><br/>
 
 This block controls the LED's on the watchX. If you set a LED to HIGH it will turn on. If you set a LED to LOW it will turn off.
@@ -473,7 +482,7 @@ This block controls the LED's on the watchX. If you set a LED to HIGH it will tu
 
 ---
 
-#### **LED brightness level**
+### **LED brightness level**
 <img src="dictionary_images_en/Input_Output_5.svg" width="100%"><br/>
 
 This block controls the LED brightness level.
@@ -482,7 +491,7 @@ This block controls the LED brightness level.
 
 ---
 
-#### **LED brightness manual control**
+### **LED brightness manual control**
 <img src="dictionary_images_en/Input_Output_14.svg" width="100%"><br/>
 
 This block controls the LED brightness level. You can enter a value between 0 and 255.
@@ -491,49 +500,49 @@ This block controls the LED brightness level. You can enter a value between 0 an
 
 ---
 
-#### **digital pin control**
+### **digital pin control**
 <img src="dictionary_images_en/Input_Output_6.svg" width="100%"><br/>
 
 This block controls the digital pins. You can use this block with Arduino Adaptor and control other devices.
 
 ---
 
-#### **digital pin read**
+### **digital pin read**
 <img src="dictionary_images_en/Input_Output_7.svg" width="100%"><br/>
 
 This block reads the inputs from digital pins. You can use this block with Arduino Adaptor and receive information from other devices.
 
 ---
 
-#### **analog pin control**
+### **analog pin control**
 <img src="dictionary_images_en/Input_Output_8.svg" width="100%"><br/>
 
 This block controls the analog pins. You can use this block with Arduino Adaptor and control other devices. The connected value must be between 0 and 255.
 
 ---
 
-#### **analog pin read**
+### **analog pin read**
 <img src="dictionary_images_en/Input_Output_9.svg" width="100%"><br/>
 
 This block reads the inputs from analog pins. You can use this block with Arduino Adaptor and receive information from other devices.
 
 ---
 
-#### **pin state**
+### **pin state**
 <img src="dictionary_images_en/Input_Output_10.svg" width="100%"><br/>
 
 This block sets the pin state as HIGH or LOW.
 
 ---
 
-#### **measure pin**
+### **measure pin**
 <img src="dictionary_images_en/Input_Output_11.svg" width="100%"><br/>
 
 This block measures the duration of a HIGH or LOW pulse on the selected pin.
 
 ---
 
-#### **measure pin with timeout**
+### **measure pin with timeout**
 <img src="dictionary_images_en/Input_Output_12.svg" width="100%"><br/>
 
 This block measures the duration of a HIGH or LOW pulse on the selected pin if it's within the timeout limits.
@@ -543,6 +552,8 @@ This block measures the duration of a HIGH or LOW pulse on the selected pin if i
 <img src="dictionary_images_en/Time.svg" width="100%"><br/>
 
 This section is dedicated to the time blocks. These blocks are used for setting - reading time and date values and pausing or ending your code.
+
+---
 
 ### **get current time & date**
 <img src="dictionary_images_en/Time_1.svg" width="100%"><br/>
@@ -898,7 +909,7 @@ This section is dedicated to the sensor blocks. These blocks are used for gettin
 
 ---
 
-#### **get IMU angle**
+### **get IMU angle**
 <img src="dictionary_images_en/Sensors_1.svg" width="100%"><br/>
 
 This block returns the **angular position** data of the selected axis. IMU sensor (inertial measurement unit) consists of an accelerometer and a gyroscope. It can sense angular displacement and acceleration in 3 axes. Therefore, it can measure motion in 6 axes.
@@ -912,7 +923,7 @@ You can check the IMU axis with respect to the watchX below.
 
 ---
 
-#### **get IMU acceleration**
+### **get IMU acceleration**
 <img src="dictionary_images_en/Sensors_2.svg" width="100%"><br/>
 
 This block returns the **acceleration** data of the selected axis. IMU sensor (inertial measurement unit) consists of an accelerometer and a gyroscope. It can sense angular displacement and acceleration in 3 axes. Therefore, it can measure motion in 6 axes.
@@ -925,21 +936,21 @@ You can check the IMU axis with respect to the watchX below.
 
 ---
 
-#### **detect free fall**
+### **detect free fall**
 <img src="dictionary_images_en/Sensors_3.svg" width="100%"><br/>
 
 This block returns true if the watchX is free falling. You can adjust the free fall threshold and duration. This block can be used for counting steps or jumps and more...
 
 ---
 
-#### **detect motion**
+### **detect motion**
 <img src="dictionary_images_en/Sensors_4.svg" width="100%"><br/>
 
 This block returns true if any motion is detected. You can adjust the motion detection threshold and duration. This block can be used for motion alarms and more...
 
 ---
 
-#### **get temperature & pressure**
+### **get temperature & pressure**
 <img src="dictionary_images_en/Sensors_5.svg" width="100%"><br/>
 
 This block returns the sensor value selected. The BMP280 sensor can measure temperature and pressure at the same time. Therefore it can calculate estimated barometric altitude as well.
@@ -952,7 +963,7 @@ This block returns the sensor value selected. The BMP280 sensor can measure temp
 
 ---
 
-#### **get magnetometer**
+### **get magnetometer**
 <img src="dictionary_images_en/Sensors_6.svg" width="100%"><br/>
 
 This block returns the magnetic field data from the MLX90393 sensor. You can select the magnetic field measurement axis and filter it for ease of use.
@@ -965,7 +976,7 @@ You can check the magnetometer axis with respect to the watchX below.
 
 ---
 
-#### **get MAG3110**
+### **get MAG3110**
 <img src="dictionary_images_en/Sensors_7.svg" width="100%"><br/>
 
 This block returns the magnetic field data from the MAG3110 sensor. This sensor has been replaced with the MLX90393 for the watchX V1.3 and later.
@@ -977,6 +988,8 @@ This block returns the magnetic field data from the MAG3110 sensor. This sensor 
 <img src="dictionary_images_en/Battery.svg" width="100%"><br/>
 
 This section is dedicated to the battery blocks. These blocks are used for getting information from the battery.
+
+---
 
 ### **get battery level (V)**
 <img src="dictionary_images_en/Battery_1.svg" width="100%"><br/>
@@ -1030,7 +1043,7 @@ This section is dedicated to the sleep blocks. These blocks are used for sleepin
 
 ---
 
-#### **sleep & wake on button press**
+### **sleep & wake on button press**
 <img src="dictionary_images_en/Sleep_1.svg" width="100%"><br/>
 
 This block sleeps the control unit of the watchX. When the selected button is pressed, it will wake the control unit up again. Sleep function is useful for saving the battery.
@@ -1039,7 +1052,7 @@ This block sleeps the control unit of the watchX. When the selected button is pr
 
 ---
 
-#### **sleep & wake on time**
+### **sleep & wake on time**
 <img src="dictionary_images_en/Sleep_2.svg" width="100%"><br/>
 
 This block sleeps and wakes up the control unit of the watchX by the selected intervals. Sleep function is useful for saving the battery.
