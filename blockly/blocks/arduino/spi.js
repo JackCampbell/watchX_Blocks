@@ -25,7 +25,7 @@ Blockly.Blocks['spi_setup'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl('http://arduino.cc/en/Reference/SPI');
+    this.setHelpUrl('spi_setup');
     this.setColour(Blockly.Blocks.spi.HUE);
     this.appendDummyInput()
         .appendField(Blockly.Msg.ARD_SPI_SETUP)
@@ -87,7 +87,7 @@ Blockly.Blocks['spi_transfer'] = {
     var digitalPinsExtended = slaveNone.concat(
         Blockly.Arduino.Boards.selected.digitalPins);
 
-    this.setHelpUrl('http://arduino.cc/en/Reference/SPITransfer');
+    this.setHelpUrl('spi_transfer');
     this.setColour(Blockly.Blocks.spi.HUE);
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown(
@@ -187,7 +187,7 @@ Blockly.Blocks['spi_transfer_return'] = {
     var digitalPinsExtended = slaveNone.concat(
         Blockly.Arduino.Boards.selected.digitalPins);
 
-    this.setHelpUrl('http://arduino.cc/en/Reference/SPITransfer');
+    this.setHelpUrl('spi_transfer_return');
     this.setColour(Blockly.Blocks.spi.HUE);
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown(

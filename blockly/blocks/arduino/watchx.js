@@ -34,16 +34,17 @@ function num_validator(value, min, max) {
 
 Blockly.Blocks['wx_led'] = {
 	init: function() {
+		var leds = [ [ Blockly.Msg.WX_LEFT,  '13'], [Blockly.Msg.WX_RIGHT, '6'] ];
 		this.setColour(Blockly.Blocks.io.inout_color);
 		this.appendValueInput('STATE')
 			.appendField(Blockly.Msg.WX_TURN_LED)
-			.appendField(new Blockly.FieldDropdown(Blockly.Arduino.Boards.selected.builtinLed), 'PIN')
+			.appendField(new Blockly.FieldDropdown(leds), 'PIN')
 			.appendField(Blockly.Msg.WX_TO)
 			.setCheck(Blockly.Types.BOOLEAN.checkList);
 		this.setInputsInline(false);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_led");
 		this.setTooltip(Blockly.Msg.WX_TURN_LED_TIPS);
 	},
 	updateFields: function() {
@@ -53,17 +54,17 @@ Blockly.Blocks['wx_led'] = {
 Blockly.Blocks['wx_led_brightness'] = {
 	init: function() {
 		var level = [ ['%0', '0'], ['%25', '63'], ['%50', '127'], ["%75", '191'], ['%100', '255'] ];
-		var leds = new Blockly.FieldDropdown(Blockly.Arduino.Boards.selected.builtinLed);
+		var leds = [ [ Blockly.Msg.WX_LEFT,  '13'], [Blockly.Msg.WX_RIGHT, '6'] ];
 		this.appendDummyInput()
 			.appendField(Blockly.Msg.WX_LED_BRIGHTNESS)
-			.appendField(leds, 'PIN')
+			.appendField(new Blockly.FieldDropdown(leds), 'PIN')
 			.appendField(Blockly.Msg.WX_LED_LEVEL)
 			.appendField(new Blockly.FieldDropdown(level), 'LEVEL')
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.inout_color);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_led_brightness");
 		this.setTooltip(Blockly.Msg.WX_LED_BRIGHTNESS_TIP);
 	},
 	updateFields: function() {
@@ -74,10 +75,10 @@ Blockly.Blocks['wx_led_brightness'] = {
 
 Blockly.Blocks['wx_led_brightness_2'] = {
 	init: function() {
-		var leds = new Blockly.FieldDropdown(Blockly.Arduino.Boards.selected.builtinLed);
+		var leds = [ [ Blockly.Msg.WX_LEFT,  '13'], [Blockly.Msg.WX_RIGHT, '6'] ];
 		this.appendDummyInput()
 			.appendField(Blockly.Msg.WX_LED_BRIGHTNESS)
-			.appendField(leds, 'PIN')
+			.appendField(new Blockly.FieldDropdown(leds), 'PIN')
 			.appendField(Blockly.Msg.WX_LED_LEVEL);
 		this.appendValueInput("LEVEL").setCheck("Number");
 		this.setInputsInline(true);
@@ -85,7 +86,7 @@ Blockly.Blocks['wx_led_brightness_2'] = {
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.inout_color);
 		this.setTooltip(Blockly.Msg.WX_LED_BRIGHTNESS_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_led_brightness_2");
 	}
 };
 
@@ -140,7 +141,7 @@ Blockly.Blocks['wx_write_text_line'] = {
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.display_color);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_write_text_line");
 		this.setTooltip(Blockly.Msg.WX_OLED_WRITE_LINE_TIP);
 	}
 };
@@ -153,7 +154,7 @@ Blockly.Blocks['wx_write_text_pos'] = {
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.display_color);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_write_text_pos");
 		this.setTooltip(Blockly.Msg.WX_OLED_WRITE_POS_TIP);
 	}
 };
@@ -166,7 +167,7 @@ Blockly.Blocks['wx_draw_pixel'] = {
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.draw_color);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_draw_pixel");
 		this.setTooltip(Blockly.Msg.WX_DRAW_PIXEL_TIP);
 	}
 };
@@ -181,7 +182,7 @@ Blockly.Blocks['wx_draw_line'] = {
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.draw_color);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_draw_line");
 		this.setTooltip(Blockly.Msg.WX_DRAW_LINE_TIP);
 	}
 };
@@ -196,13 +197,13 @@ Blockly.Blocks['wx_draw_battery_icon'] = {
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.draw_color);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_draw_battery_icon");
 		this.setTooltip(Blockly.Msg.WX_DRAW_BATTERY_LEVEL_TIP);
 	}
 };
 Blockly.Blocks['wx_brightness'] = {
 	init: function() {
-		this.setHelpUrl('http://arduino.cc/en/Reference/DigitalWrite');
+		this.setHelpUrl('wx_brightness');
 		this.setColour(Blockly.Blocks.io.display_color);
 		this.appendValueInput('STATE').appendField(Blockly.Msg.WX_OLED_BRIGHTNESS).setCheck(Blockly.Types.BOOLEAN.checkList);
 		this.setInputsInline(false);
@@ -222,7 +223,7 @@ Blockly.Blocks['wx_draw_usb_connect'] = {
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.draw_color);
 		this.setTooltip(Blockly.Msg.WX_DRAW_USB_ICON_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_draw_usb_connect");
 	}
 };
 Blockly.Blocks['wx_draw_charge_state'] = {
@@ -235,7 +236,7 @@ Blockly.Blocks['wx_draw_charge_state'] = {
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.draw_color);
 		this.setTooltip(Blockly.Msg.WX_DRAW_CHARGE_ICON_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_draw_charge_state");
 	}
 };
 Blockly.Blocks['wx_clear_all'] = {
@@ -246,7 +247,7 @@ Blockly.Blocks['wx_clear_all'] = {
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.display_color);
 		this.setTooltip(Blockly.Msg.WX_OLED_CLEAR_ALL_TIP );
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_clear_all");
 	}
 };
 Blockly.Blocks['wx_oled_power'] = {
@@ -257,7 +258,7 @@ Blockly.Blocks['wx_oled_power'] = {
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
 		this.setTooltip(Blockly.Msg.WX_OLED_POWER_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_oled_power");
 	}
 };
 Blockly.Blocks['wx_rtc_init_param'] = {
@@ -281,7 +282,7 @@ Blockly.Blocks['wx_rtc_init_param'] = {
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.time_color);
 		this.setTooltip(Blockly.Msg.WX_SET_DATE_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_rtc_init_param");
 	}
 };
 Blockly.Blocks['wx_rtc_init_current'] = {
@@ -292,7 +293,7 @@ Blockly.Blocks['wx_rtc_init_current'] = {
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
 		this.setTooltip(Blockly.Msg.WX_CURRENT_TIME_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_rtc_init_current");
 	}
 }
 Blockly.Blocks['wx_rtc_get_value'] = {
@@ -310,7 +311,7 @@ Blockly.Blocks['wx_rtc_get_value'] = {
 		this.setColour(Blockly.Blocks.io.time_color);
 		this.setInputsInline(true);
 		this.setTooltip(Blockly.Msg.WX_GET_TIME_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_rtc_get_value");
 	},
 	getBlockType: function() {
 		return Blockly.Types.DECIMAL;
@@ -332,7 +333,7 @@ Blockly.Blocks['wx_print_time_line'] = {
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
 		this.setTooltip(Blockly.Msg.WX_PRINT_TIME_LINE_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_print_time_line");
 	}
 };
 Blockly.Blocks['wx_print_time_pos'] = {
@@ -350,7 +351,7 @@ Blockly.Blocks['wx_print_time_pos'] = {
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
 		this.setTooltip(Blockly.Msg.WX_PRINT_TIME_POS_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_print_time_pos");
 	}
 };
 Blockly.Blocks['wx_bmp_get_value'] = {
@@ -365,7 +366,7 @@ Blockly.Blocks['wx_bmp_get_value'] = {
 		this.setColour(Blockly.Blocks.io.sensor_color);
 		this.setInputsInline(true);
 		this.setTooltip(Blockly.Msg.WX_GET_BMP_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_bmp_get_value");
 	},
 	getBlockType: function() {
 		return Blockly.Types.NUMBER;
@@ -377,7 +378,7 @@ Blockly.Blocks['wx_mag_get_value'] = {
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.sensor_color);
 		this.setTooltip(Blockly.Msg.WX_GET_MAG_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_mag_get_value");
 		this.setInputsInline(true);
 	},
 	getBlockType: function() {
@@ -397,7 +398,7 @@ Blockly.Blocks['wx_mlx_get_value'] = {
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.sensor_color);
 		this.setTooltip(Blockly.Msg.WX_GET_MLX_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_mlx_get_value");
 		this.setInputsInline(true);
 	},
 	getBlockType: function() {
@@ -411,7 +412,7 @@ Blockly.Blocks['wx_mpu_get_angle_value'] = {
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.sensor_color);
 		this.setTooltip(Blockly.Msg.WX_GET_MPU_ANGLE_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_mpu_get_angle_value");
 		this.setInputsInline(true);
 	},
 	getBlockType: function() {
@@ -425,7 +426,7 @@ Blockly.Blocks['wx_mpu_get_accel_value'] = {
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.sensor_color);
 		this.setTooltip(Blockly.Msg.WX_GET_MPU_ACCEL_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_mpu_get_accel_value");
 		this.setInputsInline(true);
 	},
 	getBlockType: function() {
@@ -442,7 +443,7 @@ Blockly.Blocks['wx_mpu_fall_detected'] = {
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.sensor_color);
 		this.setTooltip(Blockly.Msg.WX_FREE_FALL_DETECTED_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_mpu_fall_detected");
 		this.setInputsInline(true);
 	},
 	getBlockType: function() {
@@ -459,7 +460,7 @@ Blockly.Blocks['wx_mpu_motion_detected'] = {
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.sensor_color);
 		this.setTooltip(Blockly.Msg.WX_DETECT_MOTION_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_mpu_motion_detected");
 		this.setInputsInline(true);
 	},
 	getBlockType: function() {
@@ -494,7 +495,7 @@ Blockly.Blocks['wx_bzr_play_note'] = {
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.audio_color);
 		this.setTooltip(Blockly.Msg.WX_BZR_PLAY_NOTE_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_bzr_play_note");
 		this.setTooltip("");
 	}
 };
@@ -508,7 +509,7 @@ Blockly.Blocks['wx_bzr_bpm'] = {
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.audio_color);
 		this.setTooltip(Blockly.Msg.WX_BPM_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_bzr_bpm");
 	}
 };
 
@@ -520,7 +521,7 @@ Blockly.Blocks['wx_bzr_stop'] = {
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.audio_color);
 		this.setTooltip(Blockly.Msg.WX_BZR_STOP_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_bzr_stop");
 	}
 };
 
@@ -532,7 +533,7 @@ Blockly.Blocks['wx_play_freq'] = {
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.audio_color);
 		this.setTooltip(Blockly.Msg.WX_PLAY_FREQ_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_play_freq");
 	}
 };
 
@@ -546,7 +547,7 @@ Blockly.Blocks['wx_button_input'] = {
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.inout_color);
 		this.setTooltip(Blockly.Msg.WX_BUTTON_INPUT_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_button_input");
 	},
 	getBlockType: function() {
 		return Blockly.Types.BOOLEAN;
@@ -567,7 +568,7 @@ Blockly.Blocks['wx_gpad_input'] = {
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.inout_color);
 		this.setTooltip(Blockly.Msg.WX_GPAD_INPUT_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_gpad_input");
 	},
 	getBlockType: function() {
 		return Blockly.Types.BOOLEAN;
@@ -584,7 +585,7 @@ Blockly.Blocks['wx_btn_read'] = {
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.inout_color);
 		this.setTooltip(Blockly.Msg.WX_READ_BUTTON_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_btn_read");
 	},
 	getBlockType: function() {
 		return Blockly.Types.BOOLEAN;
@@ -600,7 +601,7 @@ Blockly.Blocks['wx_gpad_read'] = {
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.inout_color);
 		this.setTooltip(Blockly.Msg.WX_READ_GPAD_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_gpad_read");
 	},
 	getBlockType: function() {
 		return Blockly.Types.BOOLEAN;
@@ -613,7 +614,7 @@ Blockly.Blocks['wx_get_bat_voltage'] = {
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.battery_color);
 		this.setTooltip(Blockly.Msg.WX_GET_BATTERY_VOLTAGE_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_get_bat_voltage");
 	},
 	getBlockType: function() {
 		return Blockly.Types.NUMBER;
@@ -626,7 +627,7 @@ Blockly.Blocks['wx_get_bat_percent'] = {
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.battery_color);
 		this.setTooltip(Blockly.Msg.WX_GET_BATTERY_PERCENT_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_get_bat_percent");
 	},
 	getBlockType: function() {
 		return Blockly.Types.NUMBER;
@@ -639,7 +640,7 @@ Blockly.Blocks['wx_get_charge_status'] = {
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.battery_color);
 		this.setTooltip(Blockly.Msg.WX_CHARGE_COMPLETE_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_get_charge_status");
 	},
 	getBlockType: function() {
 		return Blockly.Types.BOOLEAN;
@@ -652,7 +653,7 @@ Blockly.Blocks['wx_get_usb_connected'] = {
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.usb_color);
 		this.setTooltip(Blockly.Msg.WX_CHECK_USB_CONNECTION_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_get_usb_connected");
 	},
 	getBlockType: function() {
 		return Blockly.Types.BOOLEAN;
@@ -669,7 +670,7 @@ Blockly.Blocks['wx_sleep_and_weak_on_button'] = {
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.sleep_color);
 		this.setTooltip(Blockly.Msg.WX_SLEEP_AND_WAKE_BUTTON_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_sleep_and_weak_on_button");
 	}
 };
 Blockly.Blocks['wx_sleep_and_weak_on_timer'] = {
@@ -707,7 +708,7 @@ Blockly.Blocks['wx_init_ble'] = {
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.bluetooth_color);
 		this.setTooltip(Blockly.Msg.WX_BLUETOOTH_INIT_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_init_ble");
 	}
 };
 Blockly.Blocks['wx_ble_write_text'] = {
@@ -718,7 +719,7 @@ Blockly.Blocks['wx_ble_write_text'] = {
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.bluetooth_color);
 		this.setTooltip(Blockly.Msg.WX_BLUETOOTH_SEND_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_ble_write_text");
 	}
 };
 Blockly.Blocks['wx_ble_read_text'] = {
@@ -729,7 +730,7 @@ Blockly.Blocks['wx_ble_read_text'] = {
 		this.setOutput(true, null);
 		this.setColour(Blockly.Blocks.io.bluetooth_color);
 		this.setTooltip(Blockly.Msg.WX_BLUETOOTH_RECV_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_ble_read_text");
 	},
 	getBlockType: function() {
 		return Blockly.Types.String;
@@ -743,7 +744,7 @@ Blockly.Blocks['wx_ble_send_keys'] = {
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.bluetooth_color);
 		this.setTooltip(Blockly.Msg.WX_BLE_KEY_PRESS_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_ble_send_keys");
 	}
 };
 Blockly.Blocks['wx_ble_media_control'] = {
@@ -761,7 +762,7 @@ Blockly.Blocks['wx_ble_media_control'] = {
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.bluetooth_color);
 		this.setTooltip(Blockly.Msg.WX_BLE_MEDIA_CONTROL_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_ble_media_control");
 	}
 };
 Blockly.Blocks['wx_ble_mouse_control'] = {
@@ -778,6 +779,6 @@ Blockly.Blocks['wx_ble_mouse_control'] = {
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.bluetooth_color);
 		this.setTooltip(Blockly.Msg.WX_BLE_MOUSE_CONTROL_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_ble_mouse_control");
 	}
 };

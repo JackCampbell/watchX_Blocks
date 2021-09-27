@@ -28,7 +28,7 @@ Blockly.Blocks['serial_setup'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl('http://arduino.cc/en/Serial/Begin');
+    this.setHelpUrl('serial_setup');
     this.setColour(Blockly.Blocks.serial.HUE);
     this.appendDummyInput()
         .appendField(Blockly.Msg.ARD_SERIAL_SETUP)
@@ -69,7 +69,7 @@ Blockly.Blocks['serial_print'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl('http://www.arduino.cc/en/Serial/Print');
+    this.setHelpUrl('serial_print');
     this.setColour(Blockly.Blocks.serial.HUE);
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown(
@@ -124,7 +124,6 @@ Blockly.Blocks['serial_print'] = {
    * @this Blockly.Block
    */
   updateFields: function() {
-    Blockly.Arduino.Boards.refreshBlockFieldDropdown(
-        this, 'SERIAL_ID', 'serial');
+    Blockly.Arduino.Boards.refreshBlockFieldDropdown(this, 'SERIAL_ID', 'serial');
   }
 };

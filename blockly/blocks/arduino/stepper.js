@@ -36,7 +36,7 @@ Blockly.Blocks['stepper_config'] = {
       this.sourceBlock_.updateShape_(input);
     });
 
-    this.setHelpUrl('http://arduino.cc/en/Reference/StepperConstructor');
+    this.setHelpUrl('stepper_config');
     this.setColour(Blockly.Blocks.stepper.HUE);
     this.appendDummyInput()
         .appendField(Blockly.Msg.ARD_STEPPER_SETUP)
@@ -139,7 +139,7 @@ Blockly.Blocks['stepper_step'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl('http://arduino.cc/en/Reference/StepperStep');
+    this.setHelpUrl('stepper_step');
     this.setColour(Blockly.Blocks.stepper.HUE);
     this.appendDummyInput()
         .appendField(Blockly.Msg.ARD_STEPPER_STEP)

@@ -344,7 +344,7 @@ var getHelpMenuData = function() {
             }, {
                 type: 'separator'
             }, {
-                label: 'Documents',
+                label: 'Dictionary',
                 click: function() {
                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.openDocumentDialog()');
                 }

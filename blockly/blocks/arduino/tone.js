@@ -67,7 +67,7 @@ Blockly.Blocks['io_notone'] = {
     this.setNextStatement(true);
     this.setColour(Blockly.Blocks.tone.HUE);
     this.setTooltip(Blockly.Msg.ARD_NOTONE_TIP);
-    this.setHelpUrl('https://www.arduino.cc/en/Reference/noTone');
+    this.setHelpUrl('io_notone');
   },
     /** @return {!string} The type of input value for the block, an integer. */
   getBlockType: function() {

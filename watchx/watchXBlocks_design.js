@@ -252,10 +252,11 @@ watchXBlocks.openExampleDialog = function() {
 
 
 watchXBlocks.openDocumentDialog = function(relative) {
+	var lang = 'en';
 	if(relative == null) {
-		relative = '/docs/index.html';
+		relative = `/docs/dictionary_${lang}.html`
 	} else if(relative.startsWith("/docs") == false) {
-		relative = '/docs/index.html#' + relative;
+		relative = `/docs/dictionary_${lang}.html#${relative}`
 	}
 	$('#doc_frame').attr('src', relative);
 	$('#doc_dialog').openModal({

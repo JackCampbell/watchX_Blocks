@@ -181,7 +181,6 @@ watchXBlocks.TOOLBOX_XML =
 '    <block type="wx_bzr_bpm">' + Assume_Num("BPM", 60) + '</block>' +
 '    <block type="wx_bzr_play_note"></block>' +
 '    <block type="wx_play_freq">' + Assume_Num("FREQUENCY", 220) + '</block>' +
-'    <block type="wx_bzr_stop"></block>' +
 // '    <block type="io_tone">' +
 // '      <field name="TONEPIN">0</field>' +
 // '      <value name="FREQUENCY">' +
@@ -191,6 +190,7 @@ watchXBlocks.TOOLBOX_XML =
 // '      </value>' +
 // '    </block>' +
 '    <block type="io_notone"></block>' +
+'    <block type="wx_bzr_stop"></block>' +
 '  </category>' +
 '  <sep></sep>' +
 '  <category id="catMotors" name="Motors">' +

@@ -41,7 +41,7 @@ Blockly.Blocks['text'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
+    this.setHelpUrl('text');
     this.setColour(Blockly.Blocks.texts.HUE);
     this.appendDummyInput()
         .appendField(this.newQuote_(true))
@@ -53,8 +53,7 @@ Blockly.Blocks['text'] = {
     // Text block is trivial.  Use tooltip of parent block if it exists.
     this.setTooltip(function() {
       var parent = thisBlock.getParent();
-      return (parent && parent.getInputsInline() && parent.tooltip) ||
-          Blockly.Msg.TEXT_TEXT_TOOLTIP;
+      return (parent && parent.getInputsInline() && parent.tooltip) || Blockly.Msg.TEXT_TEXT_TOOLTIP;
     });
   },
   /**
@@ -84,7 +83,7 @@ Blockly.Blocks['text_join'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
+    this.setHelpUrl('text_join');
     this.setColour(Blockly.Blocks.texts.HUE);
     this.itemCount_ = 2;
     this.updateShape_();
@@ -245,7 +244,7 @@ Blockly.Blocks['text_append'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.TEXT_APPEND_HELPURL);
+    this.setHelpUrl('text_append');
     this.setColour(Blockly.Blocks.texts.HUE);
     this.appendValueInput('TEXT')
         .appendField(Blockly.Msg.TEXT_APPEND_TO)
@@ -290,7 +289,7 @@ Blockly.Blocks['text_length'] = {
       "output": Blockly.Types.NUMBER.output,
       "colour": Blockly.Blocks.texts.HUE,
       "tooltip": Blockly.Msg.TEXT_LENGTH_TOOLTIP,
-      "helpUrl": Blockly.Msg.TEXT_LENGTH_HELPURL
+      "helpUrl": 'text_length'
     });
   },
   /** @return {!string} Type of the block, text length always an integer. */
@@ -619,7 +618,7 @@ Blockly.Blocks['text_prompt_ext'] = {
     var TYPES =
         [[Blockly.Msg.TEXT_PROMPT_TYPE_TEXT, Blockly.Types.TEXT.output],
          [Blockly.Msg.TEXT_PROMPT_TYPE_NUMBER, Blockly.Types.NUMBER.output]];
-    this.setHelpUrl(Blockly.Msg.TEXT_PROMPT_HELPURL);
+    this.setHelpUrl('text_prompt_ext');
     this.setColour(Blockly.Blocks.texts.HUE);
     // Assign 'this' to a variable for use in the closures below.
     var thisBlock = this;

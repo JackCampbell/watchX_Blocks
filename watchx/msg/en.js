@@ -147,5 +147,6 @@ watchXBlocks.LOCALISED_TEXT = {
   example_watch_face: 'Watch Face',
   example_watch_face_desc: 'by argeX',
   example_bounce: 'Bounce',
-  example_bounce_desc: 'by argeX'
+  example_bounce_desc: 'by argeX',
+  dictionary: 'Dictionary'
 };

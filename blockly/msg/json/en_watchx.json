@@ -1,7 +1,7 @@
 {
 	"@metadata": {
 		"author": "jackcampbell",
-		"lastupdated": "2021-09-22 09:46:46.336872",
+		"lastupdated": "2021-09-27 15:42:11.804795",
 		"locale": "en",
 		"messagedocumentation" : "qqq_watchx"
 	},
@@ -196,9 +196,9 @@
 	"WX_READ_BUTTON_TIP": "Gets the status of the button weather it is pressed or not. Returns true if pressed.",
 	"WX_READ_GPAD": "read G-Pad button",
 	"WX_READ_GPAD_TIP": "Gets the status of the Game pad button weather it is pressed or not. Returns true if pressed.",
-	"WX_GET_BATTERY_VOLTAGE": "get battery voltage (V)",
+	"WX_GET_BATTERY_VOLTAGE": "get battery level (V)",
 	"WX_GET_BATTERY_VOLTAGE_TIP": "Measures the battery voltage in Volts.",
-	"WX_GET_BATTERY_PERCENT": "get battery voltage (%)",
+	"WX_GET_BATTERY_PERCENT": "get battery level (%)",
 	"WX_GET_BATTERY_PERCENT_TIP": "Measures the battery voltage and returns a value between 0 - 100.",
 	"WX_CHARGE_COMPLETE": "detect charge complete",
 	"WX_CHARGE_COMPLETE_TIP": "Checks the charge complete status of the watchX battery while charging. Returns true if the battery is fully charged.",
@@ -250,6 +250,6 @@
 	"WX_GPAD_INPUT_TIP": "Gets the status of the button, single-shot pressed-on time duration. Delivers input value (state) after it has been stable.",
 	"WX_BPM": "set BPM",
 	"WX_BPM_TIP": "",
-	"WX_BZR_STOP": "turn off tone",
+	"WX_BZR_STOP": "no tone",
 	"WX_BZR_STOP_TIP": ""
 }

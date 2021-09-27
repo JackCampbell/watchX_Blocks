@@ -74,6 +74,10 @@ watchXBlocks.bindActionFunctions = function () {
         watchXBlocks.openAboutUs();
         $('.button-collapse').sideNav('hide');
     });
+    watchXBlocks.bindClick_('menu_doc', function () {
+        watchXBlocks.openDocumentDialog();
+        $('.button-collapse').sideNav('hide');
+    });
     // Floating buttons
     watchXBlocks.bindClick_('button_upload', function () {
         watchXBlocks.ideSendUpload();

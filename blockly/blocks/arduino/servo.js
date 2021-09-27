@@ -27,7 +27,7 @@ Blockly.Blocks['servo_write'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl('http://arduino.cc/en/Reference/ServoWrite');
+    this.setHelpUrl('servo_write');
     this.setColour(Blockly.Blocks.servo.HUE);
     this.appendDummyInput()
         .appendField(Blockly.Msg.ARD_SERVO_WRITE)
@@ -49,8 +49,7 @@ Blockly.Blocks['servo_write'] = {
    * @this Blockly.Block
    */
   updateFields: function() {
-    Blockly.Arduino.Boards.refreshBlockFieldDropdown(
-        this, 'SERVO_PIN', 'digitalPins');
+    Blockly.Arduino.Boards.refreshBlockFieldDropdown(this, 'SERVO_PIN', 'digitalPins');
   }
 };
 
@@ -60,7 +59,7 @@ Blockly.Blocks['servo_read'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl('http://arduino.cc/en/Reference/ServoRead');
+    this.setHelpUrl('servo_read');
     this.setColour(Blockly.Blocks.servo.HUE);
     this.appendDummyInput()
         .appendField(Blockly.Msg.ARD_SERVO_READ)
@@ -78,7 +77,6 @@ Blockly.Blocks['servo_read'] = {
    * @this Blockly.Block
    */
   updateFields: function() {
-    Blockly.Arduino.Boards.refreshBlockFieldDropdown(
-        this, 'SERVO_PIN', 'digitalPins');
+    Blockly.Arduino.Boards.refreshBlockFieldDropdown(this, 'SERVO_PIN', 'digitalPins');
   }
 };

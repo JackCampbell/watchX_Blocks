@@ -54,7 +54,7 @@ Blockly.Blocks['controls_repeat_ext'] = {
       "nextStatement": null,
       "colour": Blockly.Blocks.loops.HUE,
       "tooltip": Blockly.Msg.CONTROLS_REPEAT_TOOLTIP,
-      "helpUrl": Blockly.Msg.CONTROLS_REPEAT_HELPURL
+      "helpUrl": 'controls_repeat_ext'
     });
     this.appendStatementInput('DO')
         .appendField(Blockly.Msg.CONTROLS_REPEAT_INPUT_DO);
@@ -100,7 +100,7 @@ Blockly.Blocks['controls_whileUntil'] = {
     var OPERATORS =
         [[Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_WHILE, 'WHILE'],
          [Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_UNTIL, 'UNTIL']];
-    this.setHelpUrl(Blockly.Msg.CONTROLS_WHILEUNTIL_HELPURL);
+    this.setHelpUrl('controls_whileUntil');
     this.setColour(Blockly.Blocks.loops.HUE);
     this.appendValueInput('BOOL')
         .setCheck(Blockly.Types.BOOLEAN.checkList)
@@ -159,7 +159,7 @@ Blockly.Blocks['controls_for'] = {
       "previousStatement": null,
       "nextStatement": null,
       "colour": Blockly.Blocks.loops.HUE,
-      "helpUrl": Blockly.Msg.CONTROLS_FOR_HELPURL
+      "helpUrl": 'controls_for'
     });
     this.appendStatementInput('DO')
         .appendField(Blockly.Msg.CONTROLS_FOR_INPUT_DO);
@@ -248,7 +248,7 @@ Blockly.Blocks['controls_flow_statements'] = {
     var OPERATORS =
         [[Blockly.Msg.CONTROLS_FLOW_STATEMENTS_OPERATOR_BREAK, 'BREAK'],
          [Blockly.Msg.CONTROLS_FLOW_STATEMENTS_OPERATOR_CONTINUE, 'CONTINUE']];
-    this.setHelpUrl(Blockly.Msg.CONTROLS_FLOW_STATEMENTS_HELPURL);
+    this.setHelpUrl('controls_flow_statements');
     this.setColour(Blockly.Blocks.loops.HUE);
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown(OPERATORS), 'FLOW');

@@ -27,7 +27,7 @@ Blockly.Blocks['base_map'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl('http://arduino.cc/en/Reference/map');
+    this.setHelpUrl('base_map');
     this.setColour(Blockly.Blocks.map.HUE);
     this.appendValueInput('NUM')
         .appendField(Blockly.Msg.ARD_MAP)

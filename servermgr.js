@@ -27,6 +27,7 @@ var cprocess = null;
 const app = express();
 app.use((req, res, next) => {
 	res.set('Cache-Control', 'no-cache');
+	//- res.set("X-Frame-Options", "Allow-From http://localhost:8000")
 	winston.info(tagSrv + 'Request.:[' + req.method + '] ' + req.url);
 	return next();
 });

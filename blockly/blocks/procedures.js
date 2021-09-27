@@ -55,7 +55,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
     }
     this.setColour(Blockly.Blocks.procedures.HUE);
     this.setTooltip(Blockly.Msg.PROCEDURES_DEFNORETURN_TOOLTIP);
-    this.setHelpUrl(Blockly.Msg.PROCEDURES_DEFNORETURN_HELPURL);
+    this.setHelpUrl('procedures_defnoreturn');
     this.arguments_ = [];
     this.setStatements_(true);
     this.statementConnection_ = null;
@@ -517,7 +517,7 @@ Blockly.Blocks['procedures_callnoreturn'] = {
     this.setNextStatement(true);
     this.setColour(Blockly.Blocks.procedures.HUE);
     // Tooltip is set in renameProcedure.
-    this.setHelpUrl(Blockly.Msg.PROCEDURES_CALLNORETURN_HELPURL);
+    this.setHelpUrl('procedures_callnoreturn');
     this.arguments_ = [];
     this.quarkConnections_ = {};
     this.quarkIds_ = null;
@@ -759,7 +759,7 @@ Blockly.Blocks['procedures_callreturn'] = {
     this.setOutput(true);
     this.setColour(Blockly.Blocks.procedures.HUE);
     // Tooltip is set in domToMutation.
-    this.setHelpUrl(Blockly.Msg.PROCEDURES_CALLRETURN_HELPURL);
+    this.setHelpUrl('procedures_callreturn');
     this.arguments_ = [];
     this.quarkConnections_ = {};
     this.quarkIds_ = null;
@@ -798,7 +798,7 @@ Blockly.Blocks['procedures_ifreturn'] = {
     this.setNextStatement(true);
     this.setColour(Blockly.Blocks.procedures.HUE);
     this.setTooltip(Blockly.Msg.PROCEDURES_IFRETURN_TOOLTIP);
-    this.setHelpUrl(Blockly.Msg.PROCEDURES_IFRETURN_HELPURL);
+    this.setHelpUrl('procedures_ifreturn');
     this.hasReturnValue_ = true;
   },
   /**
