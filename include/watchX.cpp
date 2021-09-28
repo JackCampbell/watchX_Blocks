@@ -211,7 +211,6 @@ int  wx_mlx_get_value(wx_mlx_t *mlx, int key) {
 }
 
 // module
-
 bool wx_mpu_t::fall_detected = false;
 bool wx_mpu_t::motion_detected = false;
 
@@ -242,6 +241,8 @@ int  wx_mpu_get_value(wx_mpu_t *mpu, int key) {
     }
     return 0;
 }
+
+
 
 void fall_detected_int() {
 	wx_mpu_t::fall_detected = true;
@@ -621,4 +622,24 @@ void wx_play_tone( wx_tone_t *btone, int frequency ) {
 
 void wx_stop_tone( wx_tone_t *btone ) {
 	noTone( btone->pin );
+}
+
+
+bool wx_math_is_prime(int n) {
+	// https://en.wikipedia.org/wiki/Primality_test#Naive_methods
+	if (n == 2 || n == 3) {
+		return true;
+	}
+	// False if n is NaN, negative, is 1.
+	// And false if n is divisible by 2 or 3.
+	if (isnan(n) || (n <= 1) || (n == 1) || (n % 2 == 0) || (n % 3 == 0)) {
+		return false;
+	}
+	// Check all the numbers of form 6k +/- 1, up to sqrt(n).
+	for (int x = 6; x <= sqrt(n) + 1; x += 6) {
+		if (n % (x - 1) == 0 || n % (x + 1) == 0) {
+			return false;
+		}
+	}
+	return true;
 }

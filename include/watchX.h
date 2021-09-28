@@ -22,6 +22,7 @@
 #include <avr/sleep.h>
 #include <avr/power.h>
 #include <avr/wdt.h>
+#include <math.h>
 #pragma once
 
 #define WX_GPAD_G0 	A0
@@ -251,3 +252,5 @@ void wx_init_tone( wx_tone_t *tone, int bpm, int pin );
 void wx_play_tone( wx_tone_t *tone, int frequency, int beat );
 void wx_play_tone( wx_tone_t *tone, int frequency );
 void wx_stop_tone( wx_tone_t *tone );
+
+bool wx_math_is_prime(int n);

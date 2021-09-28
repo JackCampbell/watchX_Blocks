@@ -42,11 +42,11 @@ Blockly.Arduino['math_number'] = function(block) {
  */
 Blockly.Arduino['math_arithmetic'] = function(block) {
   var OPERATORS = {
-    ADD: [' + ', Blockly.Arduino.ORDER_ADDITIVE],
-    MINUS: [' - ', Blockly.Arduino.ORDER_ADDITIVE],
-    MULTIPLY: [' * ', Blockly.Arduino.ORDER_MULTIPLICATIVE],
-    DIVIDE: [' / ', Blockly.Arduino.ORDER_MULTIPLICATIVE],
-    POWER: [null, Blockly.Arduino.ORDER_NONE]  // Handle power separately.
+    ADD: ['+', Blockly.Arduino.ORDER_ADDITIVE],
+    MINUS: ['-', Blockly.Arduino.ORDER_ADDITIVE],
+    MULTIPLY: ['*', Blockly.Arduino.ORDER_MULTIPLICATIVE],
+    DIVIDE: ['/', Blockly.Arduino.ORDER_MULTIPLICATIVE],
+    POWER: ['^', Blockly.Arduino.ORDER_NONE]  // Handle power separately.
   };
   var tuple = OPERATORS[block.getFieldValue('OP')];
   var operator = tuple[0];
@@ -55,11 +55,14 @@ Blockly.Arduino['math_arithmetic'] = function(block) {
   var argument1 = Blockly.Arduino.valueToCode(block, 'B', order) || '0';
   var code;
   // Power in C++ requires a special case since it has no operator.
-  if (!operator) {
-    code = 'Math.pow(' + argument0 + ', ' + argument1 + ')';
+  if (operator == '^') {
+    code = `pow( ${argument0}, ${argument1} )`;
     return [code, Blockly.Arduino.ORDER_UNARY_POSTFIX];
+  } else if(operator == '/') {
+    code = `float(${argument0}) ${operator} ${argument1}`;
+    return [code, order];
   }
-  code = argument0 + operator + argument1;
+  code = `${argument0} ${operator} ${argument1}`;
   return [code, order];
 };
 
@@ -187,6 +190,7 @@ Blockly.Arduino['math_number_property'] = function(block) {
   var dropdown_property = block.getFieldValue('PROPERTY');
   var code;
   if (dropdown_property == 'PRIME') {
+    /*
     var func = [
         'boolean ' + Blockly.Arduino.DEF_FUNC_NAME + '(int n) {',
         '  // https://en.wikipedia.org/wiki/Primality_test#Naive_methods',
@@ -209,7 +213,10 @@ Blockly.Arduino['math_number_property'] = function(block) {
         '}'];
     var funcName = Blockly.Arduino.addFunction('mathIsPrime', func.join('\n'));
     Blockly.Arduino.addInclude('math', '#include <math.h>');
-    code = funcName + '(' + number_to_check + ')';
+    */
+    const watchx_include = "watchX.h"
+    Blockly.Arduino.addInclude("io_watch", `#include "${watchx_include}"`);
+    code = `wx_math_is_prime(${number_to_check});\n`;
     return [code, Blockly.Arduino.ORDER_UNARY_POSTFIX];
   }
   switch (dropdown_property) {
@@ -220,7 +227,7 @@ Blockly.Arduino['math_number_property'] = function(block) {
       code = number_to_check + ' % 2 == 1';
       break;
     case 'WHOLE':
-      Blockly.Arduino.addInclude('math', '#include <math.h>');
+      // Blockly.Arduino.addInclude('math', '#include <math.h>');
       code = '(floor(' + number_to_check + ') == ' + number_to_check + ')';
       break;
     case 'POSITIVE':
@@ -244,7 +251,7 @@ Blockly.Arduino['math_number_property'] = function(block) {
  * a (not initialised) global int, however globals are 0 initialised in C/C++.
  * Arduino code: loop { X += Y; }
  * @param {!Blockly.Block} block Block to generate the code from.
- * @return {array} Completed code with order of operation.
+ * @return {string} Completed code with order of operation.
  */
 Blockly.Arduino['math_change'] = function(block) {
   var argument0 = Blockly.Arduino.valueToCode(block, 'DELTA',

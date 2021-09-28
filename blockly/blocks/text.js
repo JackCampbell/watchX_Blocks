@@ -316,7 +316,7 @@ Blockly.Blocks['text_isEmpty'] = {
       "output": Blockly.Types.BOOLEAN.output,
       "colour": Blockly.Blocks.texts.HUE,
       "tooltip": Blockly.Msg.TEXT_ISEMPTY_TOOLTIP,
-      "helpUrl": Blockly.Msg.TEXT_ISEMPTY_HELPURL
+      "helpUrl": 'text_isEmpty'
     });
   },
   /** @return {!string} Type of the block, check always returns a boolean. */

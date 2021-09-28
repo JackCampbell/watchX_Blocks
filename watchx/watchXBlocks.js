@@ -174,7 +174,8 @@ watchXBlocks.newSketchFile = function () {
  * Blockly workspace.
  */
 watchXBlocks.openSketchFile = function () {
-    watchXBlocksServer.sendRequest("/editor/open", "GET", "application/json", null, (json) => {
+    var title = watchXBlocks.getLocalStr('open');
+    watchXBlocksServer.sendRequest("/editor/open", "POST", "application/json", { title }, (json) => {
         if(json.filename == null) {
             return;
         }
@@ -197,7 +198,8 @@ watchXBlocks.saveSketchFile = function () {
     var filename = watchXBlocks.getSketchFileName();
     var basename = watchXBlocks.defaultBaseName;
     var content = watchXBlocks.generateXml();
-    watchXBlocksServer.sendRequest("/editor/save", "POST", "application/json", { filename, content, basename }, (json) => {
+    var title = watchXBlocks.getLocalStr('save');
+    watchXBlocksServer.sendRequest("/editor/save", "POST", "application/json", { filename, content, basename, title }, (json) => {
         if(json.filename == null) {
             return;
         }
@@ -208,7 +210,8 @@ watchXBlocks.saveAsSketchFile = function () {
     var content = watchXBlocks.generateXml();
     var filename = null;
     var basename = watchXBlocks.defaultBaseName;
-    watchXBlocksServer.sendRequest("/editor/save", "POST", "application/json", { filename, content, basename }, (json) => {
+    var title = watchXBlocks.getLocalStr('saveAs');
+    watchXBlocksServer.sendRequest("/editor/save", "POST", "application/json", { filename, content, basename, title }, (json) => {
         if(json.filename == null) {
             return;
         }
@@ -217,7 +220,8 @@ watchXBlocks.saveAsSketchFile = function () {
 };
 watchXBlocks.exportArduinoFile = function() {
     var content = watchXBlocks.generateArduino();
-    watchXBlocksServer.sendRequest("/editor/export", "POST", "application/json", { content }, (json) => {
+    var title = watchXBlocks.getLocalStr('exportArduinoSketch');
+    watchXBlocksServer.sendRequest("/editor/export", "POST", "application/json", { content, title }, (json) => {
         if(json.filename == null) {
             return;
         }

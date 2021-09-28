@@ -7,6 +7,8 @@ watchXBlocks.LOCALISED_TEXT = {
   new: 'New',
   open: "Open",
   save: "Save",
+  saveAs: "Save As",
+  exportArduinoSketch: "Export as Arduino Sketch",
   deleteAll: "Delete All",
   settings: "Settings",
   documentation: "Documentation",

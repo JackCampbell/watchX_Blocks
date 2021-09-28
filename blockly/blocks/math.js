@@ -251,7 +251,7 @@ Blockly.Blocks['math_constant'] = {
       "output": Blockly.Types.DECIMAL.output,
       "colour": Blockly.Blocks.math.HUE,
       "tooltip": Blockly.Msg.MATH_CONSTANT_TOOLTIP,
-      "helpUrl": Blockly.Msg.MATH_CONSTANT_HELPURL
+      "helpUrl": 'math_constant'
     });
   }
 };
@@ -283,6 +283,7 @@ Blockly.Blocks['math_number_property'] = {
     this.setInputsInline(true);
     this.setOutput(true, Blockly.Types.BOOLEAN.output);
     this.setTooltip(Blockly.Msg.MATH_IS_TOOLTIP);
+    this.setHelpUrl("math_number_property");
   },
   /**
    * Create XML to represent whether the 'divisorInput' should be present.

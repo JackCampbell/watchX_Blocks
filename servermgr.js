@@ -289,9 +289,10 @@ app.post("/upload-hex", express.json(), (req, res, next) => {
 
 const wxb_filter_name = "watchX Blocks File";
 
-app.get("/editor/open", (req, res, next) => {
+app.post("/editor/open", express.json(), (req, res, next) => {
+	var { title } = req.body;
 	var files = dialog.showOpenDialogSync(null, {
-		title: "Open Dialog",
+		title: title,
 		properties: ['openFile'],
 		filters: [
 			{ name: wxb_filter_name, extensions: ['wxb'] }
@@ -305,10 +306,10 @@ app.get("/editor/open", (req, res, next) => {
 	return res.json({ "filename": files[0], "content": content });
 });
 app.post("/editor/save", express.json(), (req, res, next) => {
-	var { filename, content, basename } = req.body;
+	var { filename, content, basename, title } = req.body;
 	if(filename == null) {
 		filename = dialog.showSaveDialogSync(null, {
-			title: "Save Dialog",
+			title: title,
 			defaultPath: basename || "New Code",
 			properties: ['createDirectory'],
 			filters: [
@@ -324,9 +325,9 @@ app.post("/editor/save", express.json(), (req, res, next) => {
 	return res.json({ "filename": filename });
 });
 app.post("/editor/export", express.json(), (req, res, next) => {
-	var { content } = req.body;
+	var { content, title } = req.body;
 	var filename = dialog.showSaveDialogSync(null, {
-		title: "Save Dialog",
+		title: title,
 		properties: ['createDirectory'],
 		filters: [
 			{ name: 'Arduino Source Code', extensions: ['ino'] }

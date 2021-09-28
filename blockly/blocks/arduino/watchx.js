@@ -209,7 +209,6 @@ Blockly.Blocks['wx_brightness'] = {
 		this.setInputsInline(false);
 		this.setPreviousStatement(true, null);
 		this.setNextStatement(true, null);
-		this.setHelpUrl("http://watchx.io");
 		this.setTooltip(Blockly.Msg.WX_OLED_BRIGHTNESS_TIP);
 	}
 };
@@ -688,7 +687,7 @@ Blockly.Blocks['wx_sleep_and_weak_on_timer'] = {
 		this.setNextStatement(true, null);
 		this.setColour(Blockly.Blocks.io.sleep_color);
 		this.setTooltip(Blockly.Msg.WX_SLEEP_AND_WAKE_TIMER_TIP);
-		this.setHelpUrl("http://watchx.io");
+		this.setHelpUrl("wx_sleep_and_weak_on_timer");
 	}
 };
 Blockly.Blocks['wx_init_ble'] = {
