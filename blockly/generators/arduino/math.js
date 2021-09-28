@@ -216,7 +216,7 @@ Blockly.Arduino['math_number_property'] = function(block) {
     */
     const watchx_include = "watchX.h"
     Blockly.Arduino.addInclude("io_watch", `#include "${watchx_include}"`);
-    code = `wx_math_is_prime(${number_to_check});\n`;
+    code = `wx_math_is_prime(${number_to_check})`;
     return [code, Blockly.Arduino.ORDER_UNARY_POSTFIX];
   }
   switch (dropdown_property) {
