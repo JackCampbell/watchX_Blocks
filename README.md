@@ -1,6 +1,6 @@
 <img src="media/watchXBlocks_Banner.svg" width="100%"><br/>
 
-watchX Blocks is a visual coding editor for watchX. It is based on the Google's [Blockly][1] and Carlos Pereira Atencio's [Ardulockly][18]. This project is forked directly from Ardublockly.
+watchX Blocks is a visual coding editor for watchX. It is based on the Google's [Blockly][1] and Carlos Pereira Atencio's [Ardublockly][18]. This project is forked directly from Ardublockly.
 
 The project is relatively new and still a "work in progress", this readme and other files and filenames will be edited in the upcoming days and weeks.
 
@@ -27,8 +27,8 @@ Blockly original source is Copyright of Google Inc. [https://developers.google.c
 ## **License**
 Copyright (c) 2021 argeX
 
-Unless stated otherwise, the source code of this projects is
-licensed under the Apache License, Version 2.0 (the "License");
+Unless stated otherwise, the source code of this project is
+licensed under the GNU General Public License v3.0 (the "License");
 you may not use any of the licensed files within this project
 except in compliance with the License.
 
@@ -49,7 +49,7 @@ limitations under the License.
 [6]: https://github.com/carlosperate/ardublockly/wiki/Configure-Ardublockly
 [7]: https://github.com/carlosperate/ardublockly/wiki
 [8]: https://github.com/carlosperate/ardublockly/compare/blockly-original...master
-[9]: https://github.com/carlosperate/ardublockly/blob/master/LICENSE
+[9]: https://github.com/JackCampbell/watchX_Blocks/blob/master/LICENSE.txt
 [10]: http://ardublockly.embeddedlog.com/demo/index.html
 [11]: http://ardublockly.embeddedlog.com/demo/classic/index.html
 [12]: http://ardublockly-builds.s3-website-us-west-2.amazonaws.com/index.html?prefix=linux/
