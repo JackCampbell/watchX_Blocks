@@ -1,31 +1,30 @@
-# watchX Blocks
-watchX Blocks is a visual programming editor for watchX. It is based on the Google's [Blockly][1] and Carlos Pereira Atencio's [Ardulockly][18]. This project is forked directly from Ardublockly.
+<img src="media/watchXBlocks_Banner.svg" width="100%"><br/>
+
+watchX Blocks is a visual coding editor for watchX. It is based on the Google's [Blockly][1] and Carlos Pereira Atencio's [Ardulockly][18]. This project is forked directly from Ardublockly.
 
 The project is relatively new and still a "work in progress", this readme and other files and filenames will be edited in the upcoming days and weeks.
 
+You can find more information about the watchX from [here][18].
 
-## Features
-* Generates Arduino code with visual drag-and-drop blocks
+## **Features**
+* Generates Arduino code for watchX with visual drag-and-drop blocks
 * Uploads the code to watchX
-* Uploads hex files to watchX
+* Includes different example codes
+* Includes different watch firmware
+* Useful "dictionary of watchX Blocks"
 * Useful "code block warnings"
 * Works on Windows / Linux / Mac OS X
 
-watchX Blocks is still under development. A to-do list will be released soon.
-
-
-## Documentation
+## **Documentation**
 The documentation, including installation instructions, configuration instructions, and developer information will be released soon.
 
-
-## Credit
+## **Credits**
 This project has been inspired by [BlocklyDuino][16].
 This project is forked directly from Ardublockly.
 
 Blockly original source is Copyright of Google Inc. [https://developers.google.com/blockly/][1]. A list of changes to the Blockly fork can be found in the [Blockly subdirectory README][17] file.
 
-
-## License
+## **License**
 Copyright (c) 2021 argeX
 
 Unless stated otherwise, the source code of this projects is
