@@ -1,6 +1,6 @@
 <img src="media/watchXBlocks_Banner.svg" width="100%"><br/>
 
-watchX Blocks is a visual coding editor for watchX. It is based on the Google's [Blockly][1] and Carlos Pereira Atencio's [Ardublockly][18]. This project is forked directly from Ardublockly.
+watchX Blocks is a visual coding editor for watchX. It is based on the Google's [Blockly][1] and Carlos Pereira Atencio's [Ardublockly][18]. This project is forked directly from Ardublockly and developed by the argeX team.
 
 The project is relatively new and still a "work in progress", this readme and other files and filenames will be edited in the upcoming days and weeks.
 
