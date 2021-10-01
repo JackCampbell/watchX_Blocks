@@ -1,8 +1,14 @@
 <img src="media/watchXBlocks_Banner.svg" width="100%"><br/>
 
-watchX Blocks is a visual coding editor for watchX. It is based on the Google's [Blockly][24] and Carlos Pereira Atencio's [Ardublockly][33]. This project has been forked directly from Ardublockly and developed further on by the argeX team.
+watchX Blocks is a visual coding editor for watchX. It is based on Google's [Blockly][24] and Carlos Pereira Atencio's [Ardublockly][33]. This project has been forked directly from Ardublockly and developed further on by the argeX team.
 
-The project is relatively new and still a "work in progress", this readme and other files and filenames will be edited in the upcoming days and weeks.
+watchX is a smartwatch that users build and code. It comes unassembled out of the box. Users assemble the watchX first and get a basic understanding of, what kind of electronic components makes a smartwatch to work. Later on, they code the watch with visual programming blocks. watchX Blocks handles the coding part.
+
+<img src="media/watchXBlocks_UI.png" width="100%"><br/>
+
+watchX Blocks simply offers an easy-to-use interface. Connect the code blocks together and construct your code. You can also see your code being build in the Arduino format on the right side. After finishing your code, all you have to do is press the upload button and run your code on your watchX.
+
+You can check the side-scrolling menu for examples, pre-made watch firmware and more. If you want to know more about a code block, left click on it and go to the help section.
 
 You can find more information about the watchX from [here][2].
 
@@ -14,6 +20,7 @@ You can find more information about the watchX from [here][2].
 * Useful "dictionary of watchX Blocks"
 * Useful "code block warnings"
 * Saves and opens code in [.wxb][4] file format
+* Finds the USB port automatically
 * Works on Windows / Linux / Mac OS X
 
 ## **Download**
@@ -24,7 +31,7 @@ You can download an **Open Beta** version of wathcX Blocks from [here][5]. A ful
 The documentation, including installation instructions, configuration instructions, and developer information will be released soon.
 
 ## **Credits**
-This project has been forked directly from [Ardublockly][33] and developed further on by the argeX team.
+This project has been forked directly from Carlos Pereira Atencio's [Ardublockly][33] and developed further on by the argeX team.
 
 argeX team is;
 * Battal Fırat ÖZDEMİR - *full stack developer*
