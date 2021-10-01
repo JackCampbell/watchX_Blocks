@@ -14,6 +14,7 @@ You can find more information about the watchX from [here][2].
 
 ## **Features**
 * Generates Arduino code for watchX with visual drag-and-drop blocks
+* Finds the USB port automatically
 * Uploads the code to watchX
 * Includes different example codes
 * Includes different watch firmware
@@ -21,7 +22,6 @@ You can find more information about the watchX from [here][2].
 * Useful "code block warnings"
 * Saves and opens code in [.wxb][4] file format
 * Exports the code as Arduino Sketch
-* Finds the USB port automatically
 * Works on Windows / Linux / Mac OS X
 
 ## **Download**
