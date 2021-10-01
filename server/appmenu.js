@@ -348,6 +348,16 @@ var getHelpMenuData = function() {
                 click: function() {
                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.openDocumentDialog()');
                 }
+            }, {
+                label: 'Learning Center',
+                click: function() {
+                    shell.openExternal("http://lms.watchx.io");
+                }
+            }, {
+                label: 'Community',
+                click: function() {
+                    shell.openExternal("http://community.watchx.io");
+                }
             }
         ]
     };

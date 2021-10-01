@@ -59,7 +59,7 @@ watchXBlocks.LOCALISED_TEXT = {
   arduinoOpErrorIdContext_56: "Unknown Arduino Board<br>" +
                               "The Arduino Board has not been set.<br>" +
                               "Please select the appropriate Arduino Board from the settings.",
-  arduinoOpErrorIdContext_52: "Unexpected server error.",
+  arduinoOpErrorIdContext_57: "Unexpected server error.",
   arduinoOpErrorIdContext_64: "Unable to parse sent JSON.",
   arduinoOpErrorUnknown: "Unexpected error",
   /* Modals */
@@ -71,16 +71,37 @@ watchXBlocks.LOCALISED_TEXT = {
   noServerNoLangBody: "If the watchX Blocks application is not running the language cannot be fully changed.",
   addBlocksTitle: "Additional Blocks",
   aboutTitle: 'About',
-  aboutBody:  '<h5>watchX Blocks is a visual coding editor<br/>for watchX</h5>\n' +
-              '<p><i>Copyright (c) 2021 argeX</i></p>\n' +
-              '<p>Unless stated otherwise, the source code of this projects is licensed under the Apache License, Version 2.0 (the "License");<br/>you may not use any of the licensed files within this project except in compliance with the License.</p>\n' +
-              '<p>The full document can be found in the <a target="_blank" href="https://github.com/argeX-official/watchX_blocks/blob/master/LICENSE">LICENSE</a> file.</p>\n' +
-              '<h5>Credits</h5>\n' +
-              '<p>This project has been inspired by <a href="https://github.com/BlocklyDuino/BlocklyDuino">BlocklyDuino</a> and forked directly from <a target="_blank" href="https://github.com/carlosperate/ardublockly">Ardublockly</a> by <a target="_blank" href="https://www.watchx.io/">argeX</a>.<br/>' +
-              '<a target="_blank" href="https://developers.google.com/blockly/">Blockly</a> original source is Copyright of Google Inc.<br/>' +
-              '<a target="_blank" href="https://github.com/electron/electron">Electron</a> is used under <a target="_blank" href="https://github.com/electron/electron/blob/main/LICENSE">MIT License</a>.<br/>\n' +
-              '<a target="_blank" href="https://github.com/arduino/arduino-cli">Arduino-CLI</a> is used under <a target="_blank" href="https://github.com/arduino/arduino-cli/blob/master/LICENSE.txt">GNU GPL v3.0</a>.</p>',
-  close: 'Close',
+  aboutHeader: '<h4 id="watchx-blocks-is-a-visual-coding-editor-for-watchx"><strong>watchX Blocks is a visual coding editor<br/>for watchX</strong></h4>',
+  aboutBody:
+    '<span>Contact: <a target="_blank" href="mainto:info@argex.io">info@argex.io</a></span>\n' +
+    '<p>watchX® and argeX® names and logos are trademarks of argeX Inc.<br/>' +
+      '<span><a target="_blank" href="http://argex.io">www.argex.io</a></span></p>\n' +
+    '<h4 id="credits"><strong>Credits</strong></h4>\n' +
+    '<p>This project has been forked directly from Carlos Pereira Atencio\'s <a target="_blank" href="https://github.com/carlosperate/ardublockly">Ardublockly</a><br/>and developed further on by the argeX team.</p>\n' +
+    '<h5>argeX team is;</h5>\n' +
+      '<p>Battal Fırat ÖZDEMİR<br/> <em>full stack developer</em></p>' +
+      '<p>Enes ÇALDIR<br/> <em>logo, branding, UI, blocks dictionary, documentation</em></p>' +
+      '<p>Mustafa TÜLÜ<br/> <em>integration of new blocks for watchX</em></p>' +
+      '<p>Hande KOÇHAN<br/> <em>AstroBoy drawings</em></p>' +
+      '<p>Gökhan SELAMET<br/> <em>test and bug reporting</em></p>' +
+    '<h5>List of open-source software used for watchX Blocks;</h5>' +
+      '<p>' +
+      '<a target="_blank" href="https://github.com/arduino/arduino-cli">Arduino CLI</a> by <a target="_blank" href="https://www.arduino.cc/">Arduino</a> is used under <a target="_blank" href="https://github.com/arduino/arduino-cli/blob/master/LICENSE.txt">GPL V3.0 License</a><br/>' +
+      '<a target="_blank" href="https://github.com/google/blockly">Blockly</a> by <a target="_blank" href="https://opensource.google/">Google</a> is used under <a target="_blank" href="https://github.com/google/blockly/blob/master/LICENSE">Apache V2.0 License</a><br/>' +
+      '<a target="_blank" href="https://github.com/google/closure-library">Closure Library</a> by <a target="_blank" href="https://opensource.google/">Google</a> is used under <a target="_blank" href="https://github.com/google/closure-library/blob/master/LICENSE">Apache V2.0 License</a><br/>' +
+      '<a target="_blank" href="https://github.com/BlocklyDuino/BlocklyDuino">BlocklyDuino</a> by <a target="_blank" href="https://github.com/gasolin">Fred LIN</a> is used under <a target="_blank" href="http://www.apache.org/licenses/LICENSE-2.0">Apache V2.0 License</a><br/>' +
+      '<a target="_blank" href="https://github.com/carlosperate/ardublockly">Ardublockly</a> by <a target="_blank" href="https://github.com/carlosperate">Carlos Pereira ATENCIO</a> is used under <a target="_blank" href="https://github.com/carlosperate/ardublockly/blob/master/LICENSE">Apache V2.0 License</a><br/>' +
+      '<a target="_blank" href="https://github.com/electron/electron">Electron</a> is used under <a target="_blank" href="https://github.com/electron/electron/blob/main/LICENSE">MIT License</a><br/>' +
+      '<a target="_blank" href="https://github.com/expressjs/express">Express JS</a> is used under <a target="_blank" href="https://github.com/expressjs/express/blob/master/LICENSE">MIT License</a><br/>' +
+      '</p>' +
+    '<h4 id="license"><strong>License</strong></h4>\n' +
+    '<p>Copyright (C) 2021 <a target="_blank" href="http://argex.io/">argeX Inc.</a></p>\n' +
+    '<p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>\n' +
+    '<p>The full document can be found in the <a target="_blank" href="https://github.com/argeX-official/watchX_Blocks/blob/master/LICENSE.txt">LICENSE</a> file.</p>\n' +
+    '<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>\n',
+
+
+close: 'Close',
   /* Alerts */
   loadNewBlocksTitle: "Load new blocks?",
   loadNewBlocksBody: "Loading a new XML file will replace the current blocks from the workspace.<br>" +
@@ -126,7 +147,7 @@ watchXBlocks.LOCALISED_TEXT = {
   catSleep: "Sleep",
   catBluetooth: "Bluetooth",
   version: 'Version',
-  source_code: '<a target="_blank" href="https://github.com/argeX-official/watchX_Blocks">source code</a><br/>Contact: <a target="_blank" href="mailto:info@argex.io">info@argex.io</a>',
+  source_code: '<a target="_blank" href="https://github.com/argeX-official/watchX_Blocks">source code</a>',
   argex_team: '<h5>argeX Team</h5>',
   watch_faces: 'Watch Faces',
   learning_center: 'Learning Center',

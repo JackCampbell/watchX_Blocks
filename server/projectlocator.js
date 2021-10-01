@@ -125,6 +125,10 @@ module.exports = {
             if(jetpack.exists( build_path )) {
                 return build_path;
             }
+            build_path = absolute_path.path("firmware", filename);
+            if(jetpack.exists( build_path )) {
+                return build_path;
+            }
         }
         if(temp_dir != null) {
             var build_path = jetpack.dir(temp_dir, filename);

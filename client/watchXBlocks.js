@@ -607,6 +607,10 @@ watchXBlocks.shortMessage = function (message) {
     watchXBlocks.MaterialToast(message);
 };
 
+watchXBlocks.openLearningCenter = function() {
+    window.open("http://lms.watchx.io", "blank");
+};
+
 /**
  * Bind a function to a button's click event.
  * On touch enabled browsers, ontouchend is treated as equivalent to onclick.
@@ -687,7 +691,6 @@ watchXBlocks.initExampleList = function() {
         container.appendChild(clone);
     }
 };
-
 
 watchXBlocks.watchFaceList = [
     { title: 'Tap Clock', cover: 'img/TapClock.svg', path: 'TapClock.hex', desc: 'by <a target="_blank" href="https://github.com/venice1200/TapClock/tree/master/TapClock">venice1200</a>' },
