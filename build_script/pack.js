@@ -41,7 +41,7 @@ function ignore_package(filepath) {
 		filepath.indexOf(".gitignore") != -1 ||
 		filepath.indexOf(".DS_Store") != -1 ||
 		filepath == "/watchxblocks.log" ||
-		filepath == '/watchxblocks.vac') {
+		filepath == '/watchX_Blocks.wpd') {
 		console.log("[Pass]", filepath);
 		return true;
 	}
@@ -63,7 +63,7 @@ const package_opts = {
 	},
 	'darwinDarkModeSupport': false,
 	'appCategoryType': 'public.app-category.education',
-	'extraResource': [ 'include/', 'watchxblocks.vac', 'hex-data/' ],
+	'extraResource': [ 'include/', 'watchX_Blocks.wpd', 'resources/firware/' ],
 	'extraFiles': [
 		'LICENSE'
 	],
@@ -110,18 +110,18 @@ function pack_osx() {
 		'out': path.join(dist_path, "osx"),
 		'platform': 'darwin',
 		'arch': 'x64',
-		'icon': 'resources/osx/icon.icns',
+		'icon': 'resources/builder/osx/icon.icns',
 		'extraResource': package_opts.extraResource.concat('arduino-cli/darwin-x64/')
 	}).then( result => {
 		const { 0: app_path } = result;
 		console.log("OSX success: ", app_path);
 		return createDMG({
 			'appPath': path.join(app_path, 'watchX Blocks.app'),
-			'icon': 'resources/osx/dmg-icon.icns',
+			'icon': 'resources/builder/osx/dmg-icon.icns',
 			'name': 'watchX Blocks',
 			'overwrite': true,
 			'debug': false,
-			'background': 'resources/osx/dmg-background.png',
+			'background': 'resources/builder/osx/dmg-background.png',
 			'out': path.join(dist_path, 'osx'),
 			'contents': function (opts) {
 				return [
@@ -140,7 +140,7 @@ function pack_win32() {
 		'out': path.join(dist_path, "win32"),
 		'platform': 'win32',
 		'arch': 'ia32',
-		'icon': 'resources/windows/icon.ico',
+		'icon': 'resources/builder/windows/icon.ico',
 		'extraResource': package_opts.extraResource.concat('arduino-cli/windows-x32/')
 	}).then(result => {
 		const { 0: app_path } = result;
@@ -154,14 +154,14 @@ function pack_win64() {
 		'out': path.join(dist_path, "win64"),
 		'platform': 'win32',
 		'arch': 'x64',
-		'icon': 'resources/windows/icon.ico',
+		'icon': 'resources/builder/windows/icon.ico',
 		'extraResource': package_opts.extraResource.concat('arduino-cli/windows-x64/')
 	}).then(result => {
 		const { 0: app_path } = result;
 		const win_install = installerWin({
 			'src': app_path, // //path.join(dist_path, "win64", "watchXBlocks-win32-x64"),
 			'dest': path.join(dist_path, 'wstore'),
-			'icon': 'resources/windows/setup-icon.ico',
+			'icon': 'resources/builder/windows/setup-icon.ico',
 			'name': config.name,
 			'exe': config.productName + ".exe",
 			'authors': [config.author],
@@ -177,12 +177,12 @@ function pack_win64() {
 			'name': config.name,
 			'manufacturer': config.author,
 			'version': config.version,
-			'appIconPath': 'resources/windows/icon.ico',
+			'appIconPath': 'resources/builder/windows/icon.ico',
 			'ui': {
 				'chooseDirectory': true,
 				'images': {
 					// 'background': path.join(project_path, "resources", "windows", "setup-banner.bmp"),
-					'infoIcon': path.join(project_path, "resources", "windows", "icon.ico")
+					'infoIcon': path.join(project_path, "resources", "builder", "windows", "icon.ico")
 				}
 			}
 		});
@@ -201,7 +201,7 @@ function pack_linux64() {
 		'out': path.join(dist_path, "linux64"),
 		'platform': 'linux',
 		'arch': 'x64',
-		'icon': 'resources/windows/icon.ico',
+		'icon': 'resources/builder/windows/icon.ico',
 		'extraResource': package_opts.extraResource.concat('arduino-cli/linux-x64/')
 	}).then( result => {
 		const { 0: app_path } = result;
@@ -215,7 +215,7 @@ function pack_linux64() {
 			'dest': path.join(dist_path, 'linux64'),
 			'bin': 'watchX Blocks',
 			'arch': 'amd64',
-			'icon': "resources/icon.png",
+			'icon': "resources/builder/icon.png",
 			"categories": [ "Utility" ],
 			"lintianOverrides": [ "changelog-file-missing-in-native-package" ]
 		});
@@ -225,7 +225,7 @@ function pack_linux64() {
 			'bin': 'watchX Blocks',
 			'arch': 'amd64',
 			'license': 'Apache License',
-			'icon': "resources/icon.png",
+			'icon': "resources/builder/icon.png",
 			"categories": [ "Utility" ],
 			"lintianOverrides": [ "changelog-file-missing-in-native-package" ]
 		});

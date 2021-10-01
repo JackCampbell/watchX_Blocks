@@ -49,9 +49,9 @@ function loadJsInElectron() { // no call
 	{
 		var projectLocator = require('electron').remote.require('./projectlocator.js');
 		var projectRoot = projectLocator.getServerPath();
-		window.$ = window.jQuery = require(projectRoot + '/watchx/js_libs/jquery-2.1.3.min.js');
-		window.Hammer = require(projectRoot + '/watchx/js_libs/hammer.min.js');
-		window.JsDiff = require(projectRoot + '/watchx/js_libs/diff.js');
+		window.$ = window.jQuery = require(projectRoot + '/client/js_libs/jquery-2.1.3.min.js');
+		window.Hammer = require(projectRoot + '/client/js_libs/hammer.min.js');
+		window.JsDiff = require(projectRoot + '/client/js_libs/diff.js');
 	}
 }
 

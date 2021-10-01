@@ -8,13 +8,13 @@
  *               handles system events.
  */
 const { app, BrowserWindow, shell } = require('electron');
-const appMenu = require('./appmenu.js');
-const server = require('./servermgr.js');
+const appMenu = require('./server/appmenu.js');
+const server = require('./server/servermgr.js');
 const jetpack = require("fs-jetpack");
 const nconf = require('nconf');
 
-const projectLocator = require('./projectlocator.js');
-const createWindow = require('./helpers/window');
+const projectLocator = require('./server/projectlocator.js');
+const createWindow = require('./server/window.js');
 
 const winston = require('winston');
 // const packageData = require('fs-jetpack').cwd( app.getAppPath() ).read('package.json', 'json');
@@ -93,7 +93,7 @@ app.on('ready', function() {
 
     var projectJetPath = projectLocator.getServerJetpack();
     // var imagePath = 'file://' + projectJetPath.path('watchx', 'img', 'watchxblocks_splash.png');
-    var preload = projectJetPath.path('watchx', 'watchXBlocks_desktop.js');
+    var preload = projectJetPath.path('client', 'watchXBlocks_desktop.js');
     mainWindow = createWindow('main', {
         width: 1200,
         height: 765,
@@ -163,7 +163,7 @@ function createSplashWindow() {
     if (splashWindow === null) {
         var projectJetPath = projectLocator.getServerJetpack();
         // var imagePath = 'file://' + projectJetPath.path('watchx', 'img', 'watchxblocks_splash.png');
-        var imagePath = 'file://' + projectJetPath.path('watchx', 'splash.html');
+        var imagePath = 'file://' + projectJetPath.path('client', 'splash.html');
 
         splashWindow = new BrowserWindow({
             width: 450,

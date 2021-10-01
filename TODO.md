@@ -4,3 +4,4 @@
 * Localization for different languages
 * Image and bitmap editor block
 * New examples for better understanding of blocks
+* Serial monitor

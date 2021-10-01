@@ -96,19 +96,19 @@ function getHostPlatform() {
 
 module.exports = {
     getServerJetpack: function() {
-        return  find_criteria("watchx/index.html", ProjectNotFound);
+        return  find_criteria("client/index.html", ProjectNotFound);
     },
     getServerPath: function() {
-        return find_criteria("watchx/index.html", ProjectNotFound).path();
+        return find_criteria("client/index.html", ProjectNotFound).path();
     },
     getVacJetPack: function() {
-        return find_criteria("watchxblocks.vac", ProjectNotFound);
+        return find_criteria("watchX_Blocks.wpd", ProjectNotFound);
     },
     getVacPath: function() {
-        return find_criteria("watchxblocks.vac", ProjectNotFound).path();
+        return find_criteria("watchX_Blocks.wpd", ProjectNotFound).path();
     },
     getIncludeDir: function() {
-        var absolute_path = find_criteria_nullable("watchxblocks.vac");
+        var absolute_path = find_criteria_nullable("watchX_Blocks.wpd");
         if(absolute_path == null) {
             return null;
         }
@@ -119,9 +119,9 @@ module.exports = {
         return null;
     },
     getBuildHexPath: function(filename, temp_dir = null) {
-        var absolute_path = find_criteria_nullable("watchxblocks.vac");
+        var absolute_path = find_criteria_nullable("watchX_Blocks.wpd");
         if(absolute_path != null) {
-            var build_path = absolute_path.path("hex-data", filename);
+            var build_path = absolute_path.path("resources", "firmware", filename);
             if(jetpack.exists( build_path )) {
                 return build_path;
             }
@@ -135,7 +135,7 @@ module.exports = {
         return null;
     },
     getArduinoDir: function() {
-        var base_path = find_criteria_nullable("watchxblocks.vac");
+        var base_path = find_criteria_nullable("watchX_Blocks.wpd");
         if(base_path == null) {
             return null;
         }

@@ -546,7 +546,7 @@ watchXBlocks.importExtraBlocks = function () {
     };
     // Reads the JSON data containing all block categories from ./blocks directory
     // TODO: Now reading a local file, to be replaced by server generated JSON
-    watchXBlocksServer.getJson('../blocks/blocks_data.json', jsonDataCb);
+    watchXBlocksServer.getJson('/watchx/blocks_data.json', jsonDataCb);
 };
 
 /** Opens a modal with a list of categories to add or remove to the toolbox */
@@ -580,7 +580,7 @@ watchXBlocks.openExtraCategoriesSelect = function () {
     };
     // Reads the JSON data containing all block categories from ./blocks directory
     // TODO: Now reading a local file, to be replaced by server generated JSON
-    watchXBlocksServer.getJson('../blocks/blocks_data.json', jsonDataCb);
+    watchXBlocksServer.getJson('/watchx/blocks_data.json', jsonDataCb);
 };
 
 /** Informs the user that the selected function is not yet implemented. */

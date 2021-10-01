@@ -31,12 +31,12 @@ app.use((req, res, next) => {
 	winston.info(tagSrv + 'Request.:[' + req.method + '] ' + req.url);
 	return next();
 });
-app.use("/watchx", express.static(server_path + "/watchx"));
+app.use("/watchx", express.static(server_path + "/client"));
 app.use("/blockly", express.static(server_path + "/blockly"));
 app.use("/blocks", express.static(server_path + "/blocks"));
-app.use("/examples", express.static(server_path + "/examples"));
+app.use("/examples", express.static(server_path + "/resources/examples"));
 app.use("/closure-library", express.static(server_path + "/closure-library"));
-app.use("/docs", express.static(server_path + "/dictionary"));
+app.use("/docs", express.static(server_path + "/resources/dictionary"));
 app.get("/settings/:name", (req, res, next) => {
 	const name = req.params["name"];
 	if(name == 'ide') {

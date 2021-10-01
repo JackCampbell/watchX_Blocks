@@ -1,10 +1,10 @@
-<img src="media/watchXBlocks_Banner.svg" width="100%"><br/>
+<img src="resources/media/watchXBlocks_Banner.svg" width="100%"><br/>
 
 watchX Blocks is a visual coding editor for watchX. It is based on Google's [Blockly][24] and Carlos Pereira Atencio's [Ardublockly][33]. This project has been forked directly from Ardublockly and developed further on by the argeX team.
 
 watchX is a smartwatch that users build and code. It comes unassembled out of the box. Users assemble the watchX first and get a basic understanding of, what kind of electronic components makes a smartwatch to work. Later on, they code the watchX with visual programming blocks. watchX Blocks handles the coding part.
 
-<img src="media/watchXBlocks_UI.png" width="100%"><br/>
+<img src="resources/media/watchXBlocks_UI.png" width="100%"><br/>
 
 watchX Blocks simply offers an easy-to-use interface. Connect the code blocks together and construct your code. You can also see your code being build in the Arduino format on the right side. After finishing your code, all you have to do is press the upload button and run your code on your watchX.
 

@@ -94,7 +94,7 @@ TestTemp_*
 
 # Packaged python build folders and files
 /build
-/build_pack
+/build_script/installs
 /upload
 /releases
 /arduexec
