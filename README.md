@@ -68,7 +68,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 [1]: https://argex.io/
 [2]: https://www.watchx.io/
-[3]: https://github.com/JackCampbell/watchX_Blocks/blob/master/LICENSE.txt
+[3]: https://github.com/argeX-official/watchX_Blocks/blob/master/LICENSE.txt
 [4]: https://fileinfo.com/extension/wxb
 [5]: https://www.watchx.io/downloads
 
