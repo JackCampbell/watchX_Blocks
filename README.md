@@ -45,6 +45,7 @@ List of open-source software used for watchX Blocks;
 * [Arduino CLI][21] by [Arduino][22] is used under [GPL V3.0 License][23]
 * [Blockly][24] by [Google][25] is used under [Apache V2.0 License][26]
 * [Closure Library][27] by [Google][28] is used under [Apache V2.0 License][29]
+* [Mulish][40] font by [Google][41] is used under [Open Font License][42]
 * [BlocklyDuino][30] by [Fred LIN][31] is used under [Apache V2.0 License][32]
 * [Ardublockly][33] by [Carlos Pereira ATENCIO][34] is used under [Apache V2.0 License][35]
 * [Electron][36] is used under [MIT License][37]
@@ -97,3 +98,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 [38]: https://github.com/expressjs/express
 [39]: https://github.com/expressjs/express/blob/master/LICENSE
+
+[40]: https://github.com/googlefonts/mulish
+[41]: https://github.com/googlefonts
+[42]: https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL
