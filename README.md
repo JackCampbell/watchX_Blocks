@@ -22,7 +22,7 @@ You can find more information about the watchX from [here][2].
 * Useful "code block warnings"
 * Saves and opens code in [.wxb][4] file format
 * Exports the code as Arduino Sketch
-* Works on Windows / Linux / Mac OS X
+* Works on Windows 8.1 or newer / Linux / Mac OS X
 
 ## **Download**
 
