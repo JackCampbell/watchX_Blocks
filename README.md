@@ -41,7 +41,7 @@ argeX team is;
 * Hande KOÇHAN - *AstroBoy drawings*
 * Gökhan SELAMET - *test and bug reporting*
 
-List of open-source software used for watchX Blocks;
+List of open-source software and resources used for watchX Blocks;
 * [Arduino CLI][21] by [Arduino][22] is used under [GPL V3.0 License][23]
 * [Blockly][24] by [Google][25] is used under [Apache V2.0 License][26]
 * [Closure Library][27] by [Google][28] is used under [Apache V2.0 License][29]
