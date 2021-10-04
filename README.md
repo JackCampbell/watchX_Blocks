@@ -51,6 +51,8 @@ List of open-source software and resources used for watchX Blocks;
 * [Electron][36] is used under [MIT License][37]
 * [Express JS][38] is used under [MIT License][39]
 
+List of open-source libraries used can be found [here][6].
+
 ## **License**
 
 Copyright (C) 2021 [argeX Inc.][1]
@@ -72,6 +74,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 [3]: https://github.com/argeX-official/watchX_Blocks/blob/master/LICENSE.txt
 [4]: https://fileinfo.com/extension/wxb
 [5]: https://www.watchx.io/downloads
+[6]: https://github.com/argeX-official/watchX_Blocks/blob/master/include/README.md
 
 [21]: https://github.com/arduino/arduino-cli
 [22]: https://www.arduino.cc/
