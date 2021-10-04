@@ -1,4 +1,4 @@
-# **List of libraries used in the watchX Blocks**
+# **List of open-source libraries used in the watchX Blocks**
 
 
 * [Adafruit BluefruitLE nRF51][2] library by [Adafruit][1] is used under BSD License
