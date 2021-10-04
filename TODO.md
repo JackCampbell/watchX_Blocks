@@ -7,3 +7,4 @@
 * Serial monitor
 * Bluetooth connection
 * Human Interface Devices USB
+* New games for watchX G-Pad
