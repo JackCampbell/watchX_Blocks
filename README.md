@@ -31,6 +31,10 @@ You can download an **Open Beta** version of wathcX Blocks from [here][5]. A ful
 ## **Documentation**
 The documentation, including installation instructions, configuration instructions, and developer information will be released soon.
 
+Changes made in every release can be found in the [CHANGELOG][7].
+
+New tasks and features that we are planning or working on can be found in the [TODO][8]. 
+
 ## **Credits**
 This project has been forked directly from Carlos Pereira Atencio's [Ardublockly][33] and developed further on by the argeX team.
 
@@ -75,6 +79,8 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 [4]: https://fileinfo.com/extension/wxb
 [5]: https://www.watchx.io/downloads
 [6]: https://github.com/argeX-official/watchX_Blocks/blob/master/include/README.md
+[7]: https://github.com/argeX-official/watchX_Blocks/blob/master/CHANGELOG.md
+[8]: https://github.com/argeX-official/watchX_Blocks/blob/master/TODO.md
 
 [21]: https://github.com/arduino/arduino-cli
 [22]: https://www.arduino.cc/
