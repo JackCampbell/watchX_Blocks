@@ -58,7 +58,7 @@ All notable changes to this project will be documented in this file.
   * Dictionary of watchX Blocks has been added
   * Direct link to watchX Learning Management System has been added
   * Direct link to watchX Community has been added
-  * New about menu has been added
+  * New "about" dialog has been added
 
 ### Changed
 
