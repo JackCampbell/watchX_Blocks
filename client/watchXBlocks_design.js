@@ -246,6 +246,10 @@ watchXBlocks.openWatchFaceDialog = function() {
 	$('#face_dialog').openModal({dismissible: true, opacity: .5, in_duration: 200, out_duration: 250});
 };
 
+watchXBlocks.openGamesDialog = function() {
+	$('#game_dialog').openModal({dismissible: true, opacity: .5, in_duration: 200, out_duration: 250});
+};
+
 watchXBlocks.openExampleDialog = function() {
 	$('#example_dialog').openModal({dismissible: true, opacity: .5, in_duration: 200, out_duration: 250});
 };
