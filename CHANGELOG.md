@@ -11,8 +11,6 @@ All notable changes to this project will be documented in this file.
 * **Fixed** for any bug fixes.
 * **Security** in case of vulnerabilities.
 
-## [Unreleased]
-
 ## [0.9.0.955] - Unreleased - 06.10.2021
 
 ### Added
