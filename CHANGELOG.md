@@ -13,8 +13,34 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-## [0.9.0.Unreleased] - 04.10.2021
+## [0.9.0.955] - Unreleased - 06.10.2021
+
 ### Added
+
+  * New game upload menu has been added
+  * New games has been added (*more info about the games can be found in the resources/games folder*)
+    * Arduboy3D
+    * ArduBreakout
+    * ArduMan
+    * ArduSnake
+    * Chie Magari Ita
+    * Flappy Ball
+    * Hollow Seeker
+    * Hopper
+    * Knight Move
+    * Lasers
+    * Mirco Tank
+    * MicroCity
+    * Mystic Balloon
+    * Picovaders
+    * Shadow Runner
+    * Squario
+    * Stellar Impact
+
+## [0.9.0.867] - Unreleased - 04.10.2021
+
+### Added
+
   * New logo has been designed for watchX Blocks
   * New splash screen has been added
   * New coding blocks has been added for watchX support
