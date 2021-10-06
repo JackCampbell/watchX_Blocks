@@ -255,7 +255,7 @@ app.post("/upload-hex", express.json(), (req, res, next) => {
 		return send_error(res, 55, 'Serial Port configured in Settings not accessible.', 'ide_output');
 	}
 	var user_data_path = capp.getPath('userData');
-	var filename = projectLocator.getBuildHexPath(hex_path, user_data_path);
+	var filename = projectLocator.getResourcePath(hex_path, user_data_path);
 	if(filename == null) {
 		// TODO sunuc kontrolu ...
 		return send_error(res, 74, 'file is not found: ' + filename, 'ide_output');

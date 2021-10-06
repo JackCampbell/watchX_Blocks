@@ -118,20 +118,21 @@ module.exports = {
         }
         return null;
     },
-    getBuildHexPath: function(filename, temp_dir = null) {
+    getResourcePath: function(filename, temp_dir = null) {
         var absolute_path = find_criteria_nullable("watchX_Blocks.wpd");
+        var build_path;
         if(absolute_path != null) {
-            var build_path = absolute_path.path("resources", "firmware", filename);
+            build_path = absolute_path.path("resources", filename);
             if(jetpack.exists( build_path )) {
                 return build_path;
             }
-            build_path = absolute_path.path("firmware", filename);
+            build_path = absolute_path.path(filename);
             if(jetpack.exists( build_path )) {
                 return build_path;
             }
         }
-        if(temp_dir != null) {
-            var build_path = jetpack.dir(temp_dir, filename);
+        if( temp_dir != null ) {
+            build_path = absolute_path.path(filename);
             if(jetpack.exists( build_path )) {
                 return build_path;
             }

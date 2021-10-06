@@ -13,6 +13,7 @@ var watchXBlocks = watchXBlocks || {};
 watchXBlocks.init = function () {
     watchXBlocks.initExampleList();
     watchXBlocks.initWatchFaceList();
+    watchXBlocks.initGameList();
     watchXBlocks.initLanguage();
 
     // Inject Blockly into content_blocks and fetch additional blocks
@@ -66,8 +67,12 @@ watchXBlocks.bindActionFunctions = function () {
         watchXBlocks.openExampleDialog();
         $('.button-collapse').sideNav('hide');
     });
-    watchXBlocks.bindClick_('menu_face', function() {
+    watchXBlocks.bindClick_('menu_faces', function() {
         watchXBlocks.openWatchFaceDialog();
+        $('.button-collapse').sideNav('hide');
+    });
+    watchXBlocks.bindClick_('menu_games', function() {
+        watchXBlocks.openGamesDialog();
         $('.button-collapse').sideNav('hide');
     });
     watchXBlocks.bindClick_('menu_about', function () {
@@ -693,12 +698,12 @@ watchXBlocks.initExampleList = function() {
 };
 
 watchXBlocks.watchFaceList = [
-    { title: 'Tap Clock', cover: 'img/TapClock.svg', path: 'TapClock.hex', desc: 'by <a target="_blank" href="https://github.com/venice1200/TapClock/tree/master/TapClock">venice1200</a>' },
-    { title: 'Word Clock', cover: 'img/WordClock.svg', path: 'WordClock.hex', desc: 'by <a target="_blank" href="https://github.com/venice1200/TapClock/tree/master/WordClock">venice1200</a>' },
-    { title: 'Pacman', cover: 'img/Pacman.svg', path: 'Pacman.hex', desc: 'by <a target="_blank" href="https://github.com/mic159/Pong_Clock">0miker0 & mic159</a>' },
-    { title: 'Pong', cover: 'img/Pong.svg', path: 'Pong.hex', desc: 'by <a target="_blank" href="https://github.com/mic159/Pong_Clock">0miker0 & mic159</a>' },
-    { title: 'Tetris', cover: 'img/Tetris.svg', path: 'Tetris.hex', desc: 'by <a target="_blank" href="https://github.com/mic159/Pong_Clock">0miker0 & mic159</a>' },
-    { title: 'Nwatch', cover: 'img/Nwatch.svg', path: 'Nwatch.hex', desc: 'by <a target="_blank" href="https://github.com/zkemble/NWatch">Zak Kemble</a> & <a target="_blank" href="https://www.reddit.com/r/watchX/comments/8wjh6j/porting_nwatch_source_code">sasapea3</a>' }
+    { title: 'Tap Clock', cover: 'img/TapClock.svg', path: 'firmware/TapClock.hex', desc: 'by <a target="_blank" href="https://github.com/venice1200/TapClock/tree/master/TapClock">venice1200</a>' },
+    { title: 'Word Clock', cover: 'img/WordClock.svg', path: 'firmware/WordClock.hex', desc: 'by <a target="_blank" href="https://github.com/venice1200/TapClock/tree/master/WordClock">venice1200</a>' },
+    { title: 'Pacman', cover: 'img/Pacman.svg', path: 'firmware/Pacman.hex', desc: 'by <a target="_blank" href="https://github.com/mic159/Pong_Clock">0miker0 & mic159</a>' },
+    { title: 'Pong', cover: 'img/Pong.svg', path: 'firmware/Pong.hex', desc: 'by <a target="_blank" href="https://github.com/mic159/Pong_Clock">0miker0 & mic159</a>' },
+    { title: 'Tetris', cover: 'img/Tetris.svg', path: 'firmware/Tetris.hex', desc: 'by <a target="_blank" href="https://github.com/mic159/Pong_Clock">0miker0 & mic159</a>' },
+    { title: 'Nwatch', cover: 'img/Nwatch.svg', path: 'firmware/Nwatch.hex', desc: 'by <a target="_blank" href="https://github.com/zkemble/NWatch">Zak Kemble</a> & <a target="_blank" href="https://www.reddit.com/r/watchX/comments/8wjh6j/porting_nwatch_source_code">sasapea3</a>' },
 ];
 watchXBlocks.initWatchFaceList = function() {
     var container = document.getElementById('watch-face-container');
@@ -719,27 +724,75 @@ watchXBlocks.initWatchFaceList = function() {
         watchXBlocks.setTextEx(clone, ".media-desc", item.desc);
         var node = watchXBlocks.setupDataPathEx(clone, ".upload-hex", item.path);
         if(node) {
-            watchXBlocks.bindClick_(node, function(e) {
-                var footer = e.target.closest(".media-footer");
-                var anchor = footer.querySelector("a.upload-hex");
-                var data = anchor.getAttribute('data-wxb');
-                if(!data) {
-                    return;
-                }
-                footer.classList.add('media-active');
-                watchXBlocks.resetIdeOutputContent();
-                watchXBlocksServer.sendRequest('/upload-hex', 'POST', 'application/json', {"hex_path": data }, jsonObj => {
-                    footer.classList.remove('media-active');
-                    if (jsonObj === null) {
-                        return watchXBlocks.openNotConnectedModal();
-                    }
-                    var dataBack = watchXBlocksServer.jsonToIdeModal(jsonObj);
-                    watchXBlocks.arduinoIdeOutput(dataBack);
-                });
-            });
+            watchXBlocks.bindClick_(node, watchXBlocks.firmwareUpload);
         }
         container.appendChild(clone);
     }
+};
+
+watchXBlocks.gameList = [
+    { title: 'ArduBreakout', cover: 'img/watchx_face.svg', path: 'games/ArduBreakout for watchX.hex', desc: 'By argeX' },
+    { title: 'ArduMan', cover: 'img/watchx_face.svg', path: 'games/ArduMan for watchX.hex', desc: 'By argeX' },
+    { title: 'ArduSnake', cover: 'img/watchx_face.svg', path: 'games/ArduSnake for watchX.hex', desc: 'By argeX' },
+    { title: 'Arduboy3D', cover: 'img/watchx_face.svg', path: 'games/Arduboy3D for watchX.hex', desc: 'By argeX' },
+    { title: 'Chie Magari Ita', cover: 'img/watchx_face.svg', path: 'games/Chie Magari Ita for watchX.hex', desc: 'By argeX' },
+    { title: 'Flappy Ball', cover: 'img/watchx_face.svg', path: 'games/Flappy Ball for watchX.hex', desc: 'By argeX' },
+    { title: 'Hollow Seeker', cover: 'img/watchx_face.svg', path: 'games/Hollow Seeker for watchX.hex', desc: 'By argeX' },
+    { title: 'Hopper', cover: 'img/watchx_face.svg', path: 'games/Hopper for watchX.hex', desc: 'By argeX' },
+    { title: 'Knight Move', cover: 'img/watchx_face.svg', path: 'games/Knight Move for watchX.hex', desc: 'By argeX' },
+    { title: 'Lasers', cover: 'img/watchx_face.svg', path: 'games/Lasers for watchX.hex', desc: 'By argeX' },
+    { title: 'Micro Tank', cover: 'img/watchx_face.svg', path: 'games/Micro Tank for watchX.hex', desc: 'By argeX' },
+    { title: 'MicroCity', cover: 'img/watchx_face.svg', path: 'games/MicroCity for watchX.hex', desc: 'By argeX' },
+    { title: 'Mystic Balloon', cover: 'img/watchx_face.svg', path: 'games/Mystic Balloon for watchX.hex', desc: 'By argeX' },
+    { title: 'Picovaders', cover: 'img/watchx_face.svg', path: 'games/Picovaders for watchX.hex', desc: 'By argeX' },
+    { title: 'Shadow Runner', cover: 'img/watchx_face.svg', path: 'games/Shadow Runner for watchX.hex', desc: 'By argeX' },
+    { title: 'Squario', cover: 'img/watchx_face.svg', path: 'games/Squario for watchX.hex', desc: 'By argeX' },
+    { title: 'Stellar Impact', cover: 'img/watchx_face.svg', path: 'games/Stellar Impact for watchX.hex', desc: 'By argeX' }
+];
+
+
+watchXBlocks.initGameList = function() {
+    var container = document.getElementById('games-container');
+    if(container == null) {
+        return;
+    }
+    while (container.lastElementChild) {
+        container.removeChild(container.lastElementChild);
+    }
+    for(var item of watchXBlocks.gameList) {
+        var template = document.getElementById("watch_face_item");
+        var clone = template.content.cloneNode(true);
+        if(item.desc == null) {
+            item.desc = "By argeX";
+        }
+        watchXBlocks.setupImageEx(clone, ".media-cover", item.title, item.cover);
+        watchXBlocks.setTextEx(clone, ".media-title", item.title);
+        watchXBlocks.setTextEx(clone, ".media-desc", item.desc);
+        var node = watchXBlocks.setupDataPathEx(clone, ".upload-hex", item.path);
+        if(node) {
+            watchXBlocks.bindClick_(node, watchXBlocks.firmwareUpload);
+        }
+        container.appendChild(clone);
+    }
+};
+
+watchXBlocks.firmwareUpload = function(e) {
+    var footer = e.target.closest(".media-footer");
+    var anchor = footer.querySelector("a.upload-hex");
+    var data = anchor.getAttribute('data-wxb');
+    if(!data) {
+        return;
+    }
+    footer.classList.add('media-active');
+    watchXBlocks.resetIdeOutputContent();
+    watchXBlocksServer.sendRequest('/upload-hex', 'POST', 'application/json', {"hex_path": data }, jsonObj => {
+        footer.classList.remove('media-active');
+        if (jsonObj === null) {
+            return watchXBlocks.openNotConnectedModal();
+        }
+        var dataBack = watchXBlocksServer.jsonToIdeModal(jsonObj);
+        watchXBlocks.arduinoIdeOutput(dataBack);
+    });
 };
 
 watchXBlocks.setupImageEx = function(wrapper, selector, alt, src) {
