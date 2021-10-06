@@ -18,8 +18,6 @@
 * [Squario][12] game by **arduboychris** is used under **MIT License**
 * [Stellar Impact][12] game by  **Athene Allen** is used under **MIT License**
 
-[argeX Inc.][1]
-
 [1]: https://github.com/argeX-official/Game-Arduboy3D
 [2]: https://github.com/argeX-official/Game-ArduBreakout
 [3]: https://github.com/argeX-official/Game-ArduMan
