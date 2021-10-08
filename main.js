@@ -149,6 +149,7 @@ app.on('ready', function() {
         shell.openExternal(url);
     });
 
+    mainWindow.maximize();
     mainWindow.on('close', function() {
         mainWindow = null;
     });

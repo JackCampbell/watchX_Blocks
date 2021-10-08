@@ -1139,3 +1139,7 @@ ul.side-nav li ul li ul li {
 .load-wxb:hover {
   color: #fe5000;
 }
+
+#game_dialog img.media-cover {
+  object-fit: contain;
+}

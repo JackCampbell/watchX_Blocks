@@ -101,7 +101,7 @@ watchXBlocks.LOCALISED_TEXT = {
     '<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>\n',
 
 
-close: 'Close',
+  close: 'Close',
   /* Alerts */
   loadNewBlocksTitle: "Load new blocks?",
   loadNewBlocksBody: "Loading a new XML file will replace the current blocks from the workspace.<br>" +
@@ -147,7 +147,7 @@ close: 'Close',
   catSleep: "Sleep",
   catBluetooth: "Bluetooth",
   version: 'Version',
-  source_code: '<a target="_blank" href="https://github.com/argeX-official/watchX_Blocks">source code</a>',
+  watchx_source_code: '<a target="_blank" href="https://github.com/argeX-official/watchX_Blocks">source code</a>',
   argex_team: '<h5>argeX Team</h5>',
   watch_faces: 'Watch Faces',
   games: 'Games',
@@ -172,5 +172,6 @@ close: 'Close',
   example_watch_face_desc: 'by argeX',
   example_bounce: 'Bounce',
   example_bounce_desc: 'by argeX',
-  dictionary: 'Dictionary'
+  dictionary: 'Dictionary',
+  game_source_code: 'source code'
 };

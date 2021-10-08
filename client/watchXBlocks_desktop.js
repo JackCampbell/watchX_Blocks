@@ -7,7 +7,10 @@
  */
 //'use strict';
 var electron = require('electron');
-const {BrowserWindow} = require("electron");
+var fs = require("fs");
+var path = require("path");
+
+const { BrowserWindow } = require("electron");
 window.Hammer = require("./js_libs/hammer.min.js");
 window.JsDiff = require('./js_libs/diff.js');
 // window.$ = window.jQuery = require('./js_libs/jquery-2.1.3.min.js');
@@ -142,20 +145,17 @@ watchXBlocks.redirectConsoleLogging = function() {
 	// Wrapping console logging
 	console.log = function(logMessage) {
 		consoleLog.apply(console, arguments);
-		var tagRenderer = '[Renderer "' + __stackfilename + ':' + __function +
-			'():L' + __line + '"] ';
+		var tagRenderer = '[Renderer "' + __stackfilename + ':' + __function + '():L' + __line + '"] ';
 		winston.info(tagRenderer + logMessage);
 	};
 	console.warning = function(warnMessage) {
 		consoleWarning.apply(console, arguments);
-		var tagRenderer = '[Renderer "' + __stackfilename + ':' + __function +
-			'():L' + __line + '"] ';
+		var tagRenderer = '[Renderer "' + __stackfilename + ':' + __function + '():L' + __line + '"] ';
 		winston.warn(tagRenderer + warnMessage);
 	};
 	console.error = function(errMessage) {
 		consoleError.apply(console, arguments);
-		var tagRenderer = '[Renderer "' + __stackfilename + ':' + __function +
-			'():L' + __line + '"] ';
+		var tagRenderer = '[Renderer "' + __stackfilename + ':' + __function + '():L' + __line + '"] ';
 		winston.error(tagRenderer + errMessage);
 	};
 };
@@ -187,5 +187,6 @@ window.addEventListener('DOMContentLoaded', function load(event) {
 		// Electron does not offer a prompt, so replace Blocks version with modal
 		// Original signature: function(message, opt_defaultInput, opt_callback)
 		//Blockly.prompt = watchXBlocks.htmlPrompt;
+		console.log(electron, fs, path);
 	}
 });

@@ -59,37 +59,16 @@ watchXBlocks.bindActionFunctions = function () {
         watchXBlocks.discardAllBlocks();
         $('.button-collapse').sideNav('hide');
     });
-    watchXBlocks.bindClick_('menu_settings', function () {
-        watchXBlocks.openSettings();
-        $('.button-collapse').sideNav('hide');
-    });
-    watchXBlocks.bindClick_('menu_example', function() {
-        watchXBlocks.openExampleDialog();
-        $('.button-collapse').sideNav('hide');
-    });
-    watchXBlocks.bindClick_('menu_faces', function() {
-        watchXBlocks.openWatchFaceDialog();
-        $('.button-collapse').sideNav('hide');
-    });
-    watchXBlocks.bindClick_('menu_games', function() {
-        watchXBlocks.openGamesDialog();
-        $('.button-collapse').sideNav('hide');
-    });
-    watchXBlocks.bindClick_('menu_about', function () {
-        watchXBlocks.openAboutUs();
-        $('.button-collapse').sideNav('hide');
-    });
-    watchXBlocks.bindClick_('menu_doc', function () {
-        watchXBlocks.openDocumentDialog();
-        $('.button-collapse').sideNav('hide');
-    });
+    watchXBlocks.bindClick_('menu_settings', watchXBlocks.openSettings );
+    watchXBlocks.bindClick_('menu_example', watchXBlocks.openExampleDialog );
+    watchXBlocks.bindClick_('menu_faces', watchXBlocks.openWatchFaceDialog );
+    watchXBlocks.bindClick_('menu_games', watchXBlocks.openGamesDialog );
+    watchXBlocks.bindClick_('menu_about', watchXBlocks.openAboutUs );
+    watchXBlocks.bindClick_('menu_doc', watchXBlocks.openDocumentDialog );
     // Floating buttons
-    watchXBlocks.bindClick_('button_upload', function () {
-        watchXBlocks.ideSendUpload();
-    });
-    watchXBlocks.bindClick_('button_verify', function () {
-        watchXBlocks.ideSendVerify();
-    });
+    watchXBlocks.bindClick_('button_upload', watchXBlocks.ideSendUpload );
+    watchXBlocks.bindClick_('button_verify', watchXBlocks.ideSendVerify );
+    // -
     watchXBlocks.bindClick_('button_load_xml', watchXBlocks.XmlTextareaToBlocks);
     watchXBlocks.bindClick_('button_toggle_toolbox', watchXBlocks.toogleToolbox);
 
@@ -731,25 +710,24 @@ watchXBlocks.initWatchFaceList = function() {
 };
 
 watchXBlocks.gameList = [
-    { title: 'ArduBreakout', cover: 'img/watchx_face.svg', path: 'games/ArduBreakout for watchX.hex', desc: 'By argeX' },
-    { title: 'ArduMan', cover: 'img/watchx_face.svg', path: 'games/ArduMan for watchX.hex', desc: 'By argeX' },
-    { title: 'ArduSnake', cover: 'img/watchx_face.svg', path: 'games/ArduSnake for watchX.hex', desc: 'By argeX' },
-    { title: 'Arduboy3D', cover: 'img/watchx_face.svg', path: 'games/Arduboy3D for watchX.hex', desc: 'By argeX' },
-    { title: 'Chie Magari Ita', cover: 'img/watchx_face.svg', path: 'games/Chie Magari Ita for watchX.hex', desc: 'By argeX' },
-    { title: 'Flappy Ball', cover: 'img/watchx_face.svg', path: 'games/Flappy Ball for watchX.hex', desc: 'By argeX' },
-    { title: 'Hollow Seeker', cover: 'img/watchx_face.svg', path: 'games/Hollow Seeker for watchX.hex', desc: 'By argeX' },
-    { title: 'Hopper', cover: 'img/watchx_face.svg', path: 'games/Hopper for watchX.hex', desc: 'By argeX' },
-    { title: 'Knight Move', cover: 'img/watchx_face.svg', path: 'games/Knight Move for watchX.hex', desc: 'By argeX' },
-    { title: 'Lasers', cover: 'img/watchx_face.svg', path: 'games/Lasers for watchX.hex', desc: 'By argeX' },
-    { title: 'Micro Tank', cover: 'img/watchx_face.svg', path: 'games/Micro Tank for watchX.hex', desc: 'By argeX' },
-    { title: 'MicroCity', cover: 'img/watchx_face.svg', path: 'games/MicroCity for watchX.hex', desc: 'By argeX' },
-    { title: 'Mystic Balloon', cover: 'img/watchx_face.svg', path: 'games/Mystic Balloon for watchX.hex', desc: 'By argeX' },
-    { title: 'Picovaders', cover: 'img/watchx_face.svg', path: 'games/Picovaders for watchX.hex', desc: 'By argeX' },
-    { title: 'Shadow Runner', cover: 'img/watchx_face.svg', path: 'games/Shadow Runner for watchX.hex', desc: 'By argeX' },
-    { title: 'Squario', cover: 'img/watchx_face.svg', path: 'games/Squario for watchX.hex', desc: 'By argeX' },
-    { title: 'Stellar Impact', cover: 'img/watchx_face.svg', path: 'games/Stellar Impact for watchX.hex', desc: 'By argeX' }
+    { title: 'ArduBreakout', cover: 'img/ArduBreakout.png', path: 'games/ArduBreakout for watchX.hex', desc: 'a classic brick breaking game<br/>developed by Arduboy', source: 'https://github.com/argeX-official/Game-ArduBreakout' },
+    { title: 'ArduMan', cover: 'img/ArduMan.png', path: 'games/ArduMan for watchX.hex', desc: 're-imagination of a nostalgic game<br/>developed by Seth Robinson', source: 'https://github.com/argeX-official/Game-ArduMan' },
+    { title: 'ArduSnake', cover: 'img/ArduSnake.png', path: 'games/ArduSnake for watchX.hex', desc: 're-imagination of the classic snake game<br/>developed by Initgraph', source: 'https://github.com/argeX-official/Game-ArduSnake' },
+    { title: 'Arduboy3D', cover: 'img/Arduboy3D.png', path: 'games/Arduboy3D for watchX.hex', desc: 'explore mazes and fight with enemies<br/>developed by jhhoward', source: 'https://github.com/argeX-official/Game-Arduboy3D' },
+    { title: 'Chie Magari Ita', cover: 'img/Chie_Magari_Ita.png', path: 'games/Chie Magari Ita for watchX.hex', desc: 'a placing puzzle game<br/>developed by OBONO', source: 'https://github.com/argeX-official/Game-ArduboyWorks' },
+    { title: 'Flappy Ball', cover: 'img/Flappy_Ball.png', path: 'games/Flappy Ball for watchX.hex', desc: 'a bird bouncing game<br/>developed by Scott Allen', source: 'https://github.com/argeX-official/Game-Flappy_Ball' },
+    { title: 'Hollow Seeker', cover: 'img/Hollow_Seeker.png', path: 'games/Hollow Seeker for watchX.hex', desc: 'search for a hollow spot to survive<br/>developed by OBONO', source: 'https://github.com/argeX-official/Game-ArduboyWorks' },
+    { title: 'Hopper', cover: 'img/Hopper.png', path: 'games/Hopper for watchX.hex', desc: 'jump on hingher platforms to get more points<br/>developed by OBONO', source: 'https://github.com/argeX-official/Game-ArduboyWorks' },
+    { title: 'Knight Move', cover: 'img/Knight_Move.png', path: 'games/Knight Move for watchX.hex', desc: 'play chess by only using the knight<br/>developed by OBONO', source: 'https://github.com/argeX-official/Game-ArduboyWorks' },
+    { title: 'Lasers', cover: 'img/Lasers.png', path: 'games/Lasers for watchX.hex', desc: 'try to escape from the lasers<br/>developed by OBONO', source: 'https://github.com/argeX-official/Game-ArduboyWorks' },
+    { title: 'Micro Tank', cover: 'img/Micro_Tank.png', path: 'games/Micro Tank for watchX.hex', desc: 'use different types of tanks<br/>developed by hartmann1301', source: 'https://github.com/argeX-official/Game-Mirco_Tank' },
+    { title: 'MicroCity', cover: 'img/MicroCity.png', path: 'games/MicroCity for watchX.hex', desc: 'build cities with roads and infrastructure<br/>developed by jhhoward', source: 'https://github.com/argeX-official/Game-MicroCity' },
+    { title: 'Mystic Balloon', cover: 'img/Mystic_Balloon.png', path: 'games/Mystic Balloon for watchX.hex', desc: 'a platformer with balloon surfing dynamics<br/>developed by TEAM a.r.g.', source: 'https://github.com/argeX-official/Game-Mystic_Balloon' },
+    { title: 'Picovaders', cover: 'img/Picovaders.png', path: 'games/Picovaders for watchX.hex', desc: 're-imagination of a nostalgic game<br/>developed by boochow', source: 'https://github.com/argeX-official/Game-Picovaders' },
+    { title: 'Shadow Runner', cover: 'img/Shadow_Runner.png', path: 'games/Shadow Runner for watchX.hex', desc: 'evade enemies while running<br/>developed by TEAM a.r.g.', source: 'https://github.com/argeX-official/Game-Shadow_Runner' },
+    { title: 'Squario', cover: 'img/Squario.png', path: 'games/Squario for watchX.hex', desc: 'a platformer with simple gameplay<br/>developed by arduboychris', source: 'https://github.com/argeX-official/Game-Squario' },
+    { title: 'Stellar Impact', cover: 'img/Stellar_Impact.png', path: 'games/Stellar Impact for watchX.hex', desc: 'side scrolling space action game<br/>developed by Athene Allen', source: 'https://github.com/argeX-official/Game-Stellar_Impact' }
 ];
-
 
 watchXBlocks.initGameList = function() {
     var container = document.getElementById('games-container');
@@ -760,7 +738,7 @@ watchXBlocks.initGameList = function() {
         container.removeChild(container.lastElementChild);
     }
     for(var item of watchXBlocks.gameList) {
-        var template = document.getElementById("watch_face_item");
+        var template = document.getElementById("game_item"); // duplicated
         var clone = template.content.cloneNode(true);
         if(item.desc == null) {
             item.desc = "By argeX";
@@ -768,6 +746,7 @@ watchXBlocks.initGameList = function() {
         watchXBlocks.setupImageEx(clone, ".media-cover", item.title, item.cover);
         watchXBlocks.setTextEx(clone, ".media-title", item.title);
         watchXBlocks.setTextEx(clone, ".media-desc", item.desc);
+        watchXBlocks.setupAnchorEx(clone, ".media-link", item.source);
         var node = watchXBlocks.setupDataPathEx(clone, ".upload-hex", item.path);
         if(node) {
             watchXBlocks.bindClick_(node, watchXBlocks.firmwareUpload);
@@ -802,25 +781,32 @@ watchXBlocks.setupImageEx = function(wrapper, selector, alt, src) {
         e.setAttribute("src", src);
     }
     return e;
-}
+};
+watchXBlocks.setupAnchorEx = function(wrapper, selector, src) {
+    var e = wrapper.querySelector(selector);
+    if(e) {
+        e.setAttribute("href", src);
+    }
+    return e;
+};
 watchXBlocks.setupTranslateEx = function(wrapper, selector, string_id) {
     var e = wrapper.querySelector(selector);
     if(e) {
         e.classList.add("translatable_" + string_id);
     }
     return e;
-}
+};
 watchXBlocks.setTextEx = function(wrapper, selector, string_id) {
     var e = wrapper.querySelector(selector);
     if(e) {
         e.innerHTML = string_id;
     }
     return e;
-}
+};
 watchXBlocks.setupDataPathEx = function(wrapper, selector, data) {
     var e = wrapper.querySelector(selector);
     if(e) {
         e.setAttribute("data-wxb", data);
     }
     return e;
-}
+};

@@ -73,7 +73,7 @@
       <a class="show-on-large button-collapse" href="#" data-activates="slide-out" id="button-collapse"><i class="mdi-navigation-menu"></i></a>
       
       <a id="logo-container" class="brand-logo aligned-vertical-parent">
-        <img class="watchXB_logo watchXB_dark_gray border-orange" src="img/watchX_Blocks_Logo_2.svg"/>
+        <img class="watchXB_logo watchXB_dark_gray border-orange" src="img/watchX_Blocks_Logo_2.svg" alt=""/>
         <!-- Sketch name editable text field -->
         <span class="sketch_name_wrapper aligned-vertical-top" id="sketch_name" style="min-width: 150px;">
           <!--
@@ -110,7 +110,7 @@
         <li id="menu_example"><a href="#"><span class="translatable_examples">Examples</span><i class="mdi-device-now-widgets left"></i></a></li>
         <li id="menu_faces"><a href="#"><span class="translatable_watch_faces">Watch Faces</span><i class="mdi-hardware-watch left"></i></a></li>
         <li id="menu_games"><a href="#"><span class="translatable_games">Games</span><i class="mdi-hardware-gamepad left"></i></a></li>
-        <li>
+        <li id="menu_lms">
           <a href="http://lms.watchx.io" target="_blank"><span class="translatable_learning_center">Learning</span><i class="mdi-social-school left"></i></a>
         </li>
         <li id="menu_doc">
@@ -261,7 +261,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <a href="#" class="waves-effect btn-flat modal-close"><span class="translatable_return">Return</span></a>
+      <a href="#" class="waves-effect btn-flat modal-close"><span class="translatable_close">Close</span></a>
     </div>
   </div>
 
@@ -323,7 +323,7 @@
         </div>
         <div style="text-align: center">
           <div class="translatable_aboutHeader"></div>
-          <span class="translatable_version">Version</span> <span id="watchx_version">Undefined</span> <span class="translatable_source_code"></span><br/>
+          <span class="translatable_version">Version</span> <span id="watchx_version">Undefined</span> <span class="translatable_watchx_source_code"></span><br/>
           <span class="translatable_aboutBody"></span>
         </div>
       </div>
@@ -402,6 +402,68 @@
     </div>
   </div>
   
+  
+  <template id="game_item">
+    <div class="cgrid-box">
+      <div class="media">
+        <img class="media-cover" src="img/watchx_face.svg" alt="cover"/>
+        <h5 class="media-title">Title</h5>
+        <p class="media-desc">Desc</p>
+        <a class="media-link translatable_game_source_code" href="#" target="_blank">source code</a>
+      </div>
+      <div class="media-footer">
+        <div class="loader-wave">
+          <a data-wxb="#" class="upload-hex btn-large btn-floating waves-effect waves-light z-depth-1-half"><i class="mdi-av-play-arrow"></i></a>
+          <div class="preloader-wrapper active">
+            <div class="spinner-layer spinner-orange">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div>
+              <div class="gap-patch">
+                <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+            <div class="spinner-layer spinner-dark-teal">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div>
+              <div class="gap-patch">
+                <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+            <div class="spinner-layer spinner-yellow">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div>
+              <div class="gap-patch">
+                <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+            <div class="spinner-layer spinner-light-teal">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div>
+              <div class="gap-patch">
+                <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
   <div id="game_dialog" class="modal modal-fixed-footer">
     <div class="modal-content">
       <div class="cgrid-wrapper" id="games-container"></div>

@@ -234,23 +234,28 @@ watchXBlocks.openNotConnectedModal = function() {
 
 /** Opens the modal that displays the Settings. */
 watchXBlocks.openSettingsModal = function() {
+	$('.button-collapse').sideNav('hide');
 	$('#settings_dialog').openModal({dismissible: true, opacity: .5, in_duration: 200, out_duration: 250});
 };
 
 
 watchXBlocks.openAboutDialog = function() {
+	$('.button-collapse').sideNav('hide');
 	$('#about_us').openModal({dismissible: true, opacity: .5, in_duration: 200, out_duration: 250});
 };
 
 watchXBlocks.openWatchFaceDialog = function() {
+	$('.button-collapse').sideNav('hide');
 	$('#face_dialog').openModal({dismissible: true, opacity: .5, in_duration: 200, out_duration: 250});
 };
 
 watchXBlocks.openGamesDialog = function() {
+	$('.button-collapse').sideNav('hide');
 	$('#game_dialog').openModal({dismissible: true, opacity: .5, in_duration: 200, out_duration: 250});
 };
 
 watchXBlocks.openExampleDialog = function() {
+	$('.button-collapse').sideNav('hide');
 	$('#example_dialog').openModal({dismissible: true, opacity: .5, in_duration: 200, out_duration: 250});
 };
 
@@ -259,9 +264,12 @@ watchXBlocks.openDocumentDialog = function(relative) {
 	var lang = 'en';
 	if(relative == null) {
 		relative = `/docs/dictionary_${lang}.html`
+	} else if(relative.target != null) {
+		relative = `/docs/dictionary_${lang}.html`
 	} else if(relative.startsWith("/docs") == false) {
 		relative = `/docs/dictionary_${lang}.html#${relative}`
 	}
+	$('.button-collapse').sideNav('hide');
 	$('#doc_frame').attr('src', relative);
 	$('#doc_dialog').openModal({
 		dismissible: true,
