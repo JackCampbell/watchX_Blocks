@@ -63,7 +63,12 @@ const package_opts = {
 	},
 	'darwinDarkModeSupport': false,
 	'appCategoryType': 'public.app-category.education',
-	'extraResource': [ 'include/', 'watchX_Blocks.wpd', 'resources/firmware/' ],
+	'extraResource': [
+		'include/',
+		'watchX_Blocks.wpd',
+		'resources/firmware/',
+		'resources/games/'
+	],
 	'extraFiles': [
 		'LICENSE'
 	],
