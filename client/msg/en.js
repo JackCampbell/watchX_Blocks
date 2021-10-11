@@ -173,5 +173,6 @@ watchXBlocks.LOCALISED_TEXT = {
   example_bounce: 'Bounce',
   example_bounce_desc: 'by argeX',
   dictionary: 'Dictionary',
-  game_source_code: 'source code'
+  game_source_code: 'source code',
+  playable_without_gpad: 'playable without<br/>G-Pad Accessory'
 };

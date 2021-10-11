@@ -710,23 +710,23 @@ watchXBlocks.initWatchFaceList = function() {
 };
 
 watchXBlocks.gameList = [
-    { title: 'ArduBreakout', cover: 'img/ArduBreakout.png', path: 'games/ArduBreakout for watchX.hex', desc: 'a classic brick breaking game<br/>developed by Arduboy', source: 'https://github.com/argeX-official/Game-ArduBreakout' },
-    { title: 'ArduMan', cover: 'img/ArduMan.png', path: 'games/ArduMan for watchX.hex', desc: 're-imagination of a nostalgic game<br/>developed by Seth Robinson', source: 'https://github.com/argeX-official/Game-ArduMan' },
-    { title: 'ArduSnake', cover: 'img/ArduSnake.png', path: 'games/ArduSnake for watchX.hex', desc: 're-imagination of the classic snake game<br/>developed by Initgraph', source: 'https://github.com/argeX-official/Game-ArduSnake' },
-    { title: 'Arduboy3D', cover: 'img/Arduboy3D.png', path: 'games/Arduboy3D for watchX.hex', desc: 'explore mazes and fight with enemies<br/>developed by jhhoward', source: 'https://github.com/argeX-official/Game-Arduboy3D' },
-    { title: 'Chie Magari Ita', cover: 'img/Chie_Magari_Ita.png', path: 'games/Chie Magari Ita for watchX.hex', desc: 'a placing puzzle game<br/>developed by OBONO', source: 'https://github.com/argeX-official/Game-ArduboyWorks' },
-    { title: 'Flappy Ball', cover: 'img/Flappy_Ball.png', path: 'games/Flappy Ball for watchX.hex', desc: 'a bird bouncing game<br/>developed by Scott Allen', source: 'https://github.com/argeX-official/Game-Flappy_Ball' },
-    { title: 'Hollow Seeker', cover: 'img/Hollow_Seeker.png', path: 'games/Hollow Seeker for watchX.hex', desc: 'search for a hollow spot to survive<br/>developed by OBONO', source: 'https://github.com/argeX-official/Game-ArduboyWorks' },
-    { title: 'Hopper', cover: 'img/Hopper.png', path: 'games/Hopper for watchX.hex', desc: 'jump on hingher platforms to get more points<br/>developed by OBONO', source: 'https://github.com/argeX-official/Game-ArduboyWorks' },
-    { title: 'Knight Move', cover: 'img/Knight_Move.png', path: 'games/Knight Move for watchX.hex', desc: 'play chess by only using the knight<br/>developed by OBONO', source: 'https://github.com/argeX-official/Game-ArduboyWorks' },
-    { title: 'Lasers', cover: 'img/Lasers.png', path: 'games/Lasers for watchX.hex', desc: 'try to escape from the lasers<br/>developed by OBONO', source: 'https://github.com/argeX-official/Game-ArduboyWorks' },
-    { title: 'Micro Tank', cover: 'img/Micro_Tank.png', path: 'games/Micro Tank for watchX.hex', desc: 'use different types of tanks<br/>developed by hartmann1301', source: 'https://github.com/argeX-official/Game-Mirco_Tank' },
-    { title: 'MicroCity', cover: 'img/MicroCity.png', path: 'games/MicroCity for watchX.hex', desc: 'build cities with roads and infrastructure<br/>developed by jhhoward', source: 'https://github.com/argeX-official/Game-MicroCity' },
-    { title: 'Mystic Balloon', cover: 'img/Mystic_Balloon.png', path: 'games/Mystic Balloon for watchX.hex', desc: 'a platformer with balloon surfing dynamics<br/>developed by TEAM a.r.g.', source: 'https://github.com/argeX-official/Game-Mystic_Balloon' },
-    { title: 'Picovaders', cover: 'img/Picovaders.png', path: 'games/Picovaders for watchX.hex', desc: 're-imagination of a nostalgic game<br/>developed by boochow', source: 'https://github.com/argeX-official/Game-Picovaders' },
-    { title: 'Shadow Runner', cover: 'img/Shadow_Runner.png', path: 'games/Shadow Runner for watchX.hex', desc: 'evade enemies while running<br/>developed by TEAM a.r.g.', source: 'https://github.com/argeX-official/Game-Shadow_Runner' },
-    { title: 'Squario', cover: 'img/Squario.png', path: 'games/Squario for watchX.hex', desc: 'a platformer with simple gameplay<br/>developed by arduboychris', source: 'https://github.com/argeX-official/Game-Squario' },
-    { title: 'Stellar Impact', cover: 'img/Stellar_Impact.png', path: 'games/Stellar Impact for watchX.hex', desc: 'side scrolling space action game<br/>developed by Athene Allen', source: 'https://github.com/argeX-official/Game-Stellar_Impact' }
+    { without_gpad: true, title: 'ArduBreakout', cover: 'img/ArduBreakout.png', path: 'games/ArduBreakout for watchX.hex', desc: 'a classic brick breaking game<br/>developed by Arduboy', source: 'https://github.com/argeX-official/Game-ArduBreakout' },
+    { without_gpad: true, title: 'Flappy Ball', cover: 'img/Flappy_Ball.png', path: 'games/Flappy Ball for watchX.hex', desc: 'a bird bouncing game<br/>developed by Scott Allen', source: 'https://github.com/argeX-official/Game-Flappy_Ball' },
+    { without_gpad: true, title: 'Hollow Seeker', cover: 'img/Hollow_Seeker.png', path: 'games/Hollow Seeker for watchX.hex', desc: 'search for a hollow spot to survive<br/>developed by OBONO', source: 'https://github.com/argeX-official/Game-ArduboyWorks' },
+    { without_gpad: true, title: 'Picovaders', cover: 'img/Picovaders.png', path: 'games/Picovaders for watchX.hex', desc: 're-imagination of a nostalgic game<br/>developed by boochow', source: 'https://github.com/argeX-official/Game-Picovaders' },
+    { without_gpad: false, title: 'ArduMan', cover: 'img/ArduMan.png', path: 'games/ArduMan for watchX.hex', desc: 're-imagination of a nostalgic game<br/>developed by Seth Robinson', source: 'https://github.com/argeX-official/Game-ArduMan' },
+    { without_gpad: false, title: 'ArduSnake', cover: 'img/ArduSnake.png', path: 'games/ArduSnake for watchX.hex', desc: 're-imagination of the classic snake game<br/>developed by Initgraph', source: 'https://github.com/argeX-official/Game-ArduSnake' },
+    { without_gpad: false, title: 'Arduboy3D', cover: 'img/Arduboy3D.png', path: 'games/Arduboy3D for watchX.hex', desc: 'explore mazes and fight with enemies<br/>developed by jhhoward', source: 'https://github.com/argeX-official/Game-Arduboy3D' },
+    { without_gpad: false, title: 'Chie Magari Ita', cover: 'img/Chie_Magari_Ita.png', path: 'games/Chie Magari Ita for watchX.hex', desc: 'a placing puzzle game<br/>developed by OBONO', source: 'https://github.com/argeX-official/Game-ArduboyWorks' },
+    { without_gpad: false, title: 'Hopper', cover: 'img/Hopper.png', path: 'games/Hopper for watchX.hex', desc: 'jump on hingher platforms to get more points<br/>developed by OBONO', source: 'https://github.com/argeX-official/Game-ArduboyWorks' },
+    { without_gpad: false, title: 'Knight Move', cover: 'img/Knight_Move.png', path: 'games/Knight Move for watchX.hex', desc: 'play chess by only using the knight<br/>developed by OBONO', source: 'https://github.com/argeX-official/Game-ArduboyWorks' },
+    { without_gpad: false, title: 'Lasers', cover: 'img/Lasers.png', path: 'games/Lasers for watchX.hex', desc: 'try to escape from the lasers<br/>developed by OBONO', source: 'https://github.com/argeX-official/Game-ArduboyWorks' },
+    { without_gpad: false, title: 'Micro Tank', cover: 'img/Micro_Tank.png', path: 'games/Micro Tank for watchX.hex', desc: 'use different types of tanks<br/>developed by hartmann1301', source: 'https://github.com/argeX-official/Game-Mirco_Tank' },
+    { without_gpad: false, title: 'MicroCity', cover: 'img/MicroCity.png', path: 'games/MicroCity for watchX.hex', desc: 'build cities with roads and infrastructure<br/>developed by jhhoward', source: 'https://github.com/argeX-official/Game-MicroCity' },
+    { without_gpad: false, title: 'Mystic Balloon', cover: 'img/Mystic_Balloon.png', path: 'games/Mystic Balloon for watchX.hex', desc: 'a platformer with balloon surfing dynamics<br/>developed by TEAM a.r.g.', source: 'https://github.com/argeX-official/Game-Mystic_Balloon' },
+    { without_gpad: false, title: 'Shadow Runner', cover: 'img/Shadow_Runner.png', path: 'games/Shadow Runner for watchX.hex', desc: 'evade enemies while running<br/>developed by TEAM a.r.g.', source: 'https://github.com/argeX-official/Game-Shadow_Runner' },
+    { without_gpad: false, title: 'Squario', cover: 'img/Squario.png', path: 'games/Squario for watchX.hex', desc: 'a platformer with simple gameplay<br/>developed by arduboychris', source: 'https://github.com/argeX-official/Game-Squario' },
+    { without_gpad: false, title: 'Stellar Impact', cover: 'img/Stellar_Impact.png', path: 'games/Stellar Impact for watchX.hex', desc: 'side scrolling space action game<br/>developed by Athene Allen', source: 'https://github.com/argeX-official/Game-Stellar_Impact' }
 ];
 
 watchXBlocks.initGameList = function() {
@@ -747,6 +747,7 @@ watchXBlocks.initGameList = function() {
         watchXBlocks.setTextEx(clone, ".media-title", item.title);
         watchXBlocks.setTextEx(clone, ".media-desc", item.desc);
         watchXBlocks.setupAnchorEx(clone, ".media-link", item.source);
+        watchXBlocks.setupVisibleEx(clone, '.media-play', item.without_gpad)
         var node = watchXBlocks.setupDataPathEx(clone, ".upload-hex", item.path);
         if(node) {
             watchXBlocks.bindClick_(node, watchXBlocks.firmwareUpload);
@@ -807,6 +808,15 @@ watchXBlocks.setupDataPathEx = function(wrapper, selector, data) {
     var e = wrapper.querySelector(selector);
     if(e) {
         e.setAttribute("data-wxb", data);
+    }
+    return e;
+};
+
+
+watchXBlocks.setupVisibleEx = function(wrapper, selector, state = false) {
+    var e = wrapper.querySelector(selector);
+    if(e) {
+        e.style.display = state ? 'auto': 'none';
     }
     return e;
 };

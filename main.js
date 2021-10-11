@@ -141,6 +141,7 @@ app.on('ready', function() {
                 splashWindow.close();
                 splashWindow = null;
             }
+            mainWindow.maximize();
             mainWindow.show();
         });
     });
@@ -149,7 +150,6 @@ app.on('ready', function() {
         shell.openExternal(url);
     });
 
-    mainWindow.maximize();
     mainWindow.on('close', function() {
         mainWindow = null;
     });

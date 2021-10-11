@@ -1143,3 +1143,27 @@ ul.side-nav li ul li ul li {
 #game_dialog img.media-cover {
   object-fit: contain;
 }
+
+
+.gpad-desc,
+.gpad-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.gpad-logo > img {
+  height: 180px;
+  /*width: 280px;*/
+}
+
+.gpad-info {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.media-play {
+  color: #fe5000;
+}
