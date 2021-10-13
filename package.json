@@ -2,28 +2,22 @@
 	"name": "watchXBlocks",
 	"productName": "watchX Blocks",
 	"description": "Visual coding for watchX",
-	"version": "1.0.0.1010",
-	"author": "Jack Campbell",
-	"license": "Apache-2.0",
+	"version": "1.0.1017",
+	"author": "argeX R&D Inc Team",
+	"license": "GPL-3.0",
 	"copyright": "© 2021 argeX Inc.",
 	"homepage": "https://watchx.io",
 	"main": "main.js",
 	"dependencies": {
 		"electron-squirrel-startup": "^1.0.0",
 		"express": "^4.17.1",
-		"electron": "^13.1.8",
 		"fs-jetpack": "^0.9.0",
 		"nconf": "^0.11.3",
 		"winston": "^1.0.1"
 	},
 	"devDependencies": {
-		"electron-installer-dmg": "^3.0.0",
-		"electron-installer-windows": "^3.0.0",
-		"electron-installer-zip": "^0.1.2",
-		"electron-installer-redhat": "^3.3.0",
-		"electron-installer-debian": "^3.1.0",
-		"electron-packager": "^15.3.0",
-		"electron-wix-msi": "^3.2.0"
+		"electron-builder": "^22.13.1",
+		"electron": "^13.1.8"
 	},
 	"packageNameTemplate": "{{name}}-v{{version}}-{{platform}}-{{arch}}",
 	"repository": {
@@ -34,18 +28,96 @@
 		"url": "https://github.com/argeX-official/watchX_Blocks/issues"
 	},
 	"scripts": {
-		"pack": "node ./build_script/pack.js",
+		"pack": "electron-builder --dir",
+		"dist": "electron-builder",
 		"start_osx": "npm run prebuild && NODE_ENV=development electron . --enable-logging",
 		"start_win": "set NODE_ENV=development && electron . --enable-logging",
-		"prebuild": "node ./build_script/builder.js ./package.json"
+		"prebuild": "node ./build_script/builder.js ./package.json",
+		"postinstall": "electron-builder install-app-deps"
 	},
-	"build": {
-		"count": 1010,
-		"timestamp": "Tue Oct 12 2021 10:40:11 GMT+0300 (GMT+03:00)",
+	"argex": {
+		"appId": "argex.io.watchxblocks",
+		"count": 1017,
+		"timestamp": "Wed Oct 13 2021 09:23:32 GMT+0300 (GMT+03:00)",
 		"platform": "darwin",
 		"arch": "x64",
 		"username": "jack",
 		"version": "Darwin Kernel Version 20.6.0: Mon Aug 30 06:12:21 PDT 2021; root:xnu-7195.141.6~3/RELEASE_X86_64",
 		"hostname": "Firats-MacBook-Pro.local"
+	},
+	"build": {
+		"appId": "argex.io.watchxblocks",
+		"asar": true,
+		"directories": {
+			"buildResources": "resources"
+		},
+		"files": [
+			"blockly/",
+			"client",
+			"closure-library/",
+			"server/",
+			"arduino-cli/${os}-${arch}/",
+			"resources/builder/",
+			"resources/dictionary/",
+			"resources/examples/",
+			"resources/media/",
+			"main.js",
+			"!**/blockly/tests",
+			"!**/blockly/demos",
+			"!**/build_pack",
+			"!**/build_script",
+			"!**/dist",
+			"!**/build",
+			"!**/cache",
+			"!**/.bin",
+			"!**/watchxsketch",
+			"!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+			"!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+			"!**/node_modules/*.d.ts",
+			"!**/node_modules/.bin",
+			"!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
+			"!.editorconfig",
+			"!**/._*",
+			"!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}",
+			"!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
+			"!**/{appveyor.yml,.travis.yml,circle.yml}",
+			"!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}",
+			"!**/{CHANGELOG.md,README.md,TODO.md}"
+		],
+		"extraResources": [
+			"arduino-cli/${platform}-${arch}/",
+			"include/",
+			"resources/firmware/",
+			"resources/games/",
+			"watchX_Blocks.wpd",
+			"LICENSE.txt"
+		],
+		"mac": {
+			"category": "public.app-category.education",
+			"icon": "resources/builder/osx/icon.icns"
+		},
+		"dmg": {
+			"background": "resources/builder/osx/dmg-background.png",
+			"contents": [
+				{
+					"x": 110,
+					"y": 150
+				},
+				{
+					"x": 240,
+					"y": 150,
+					"type": "link",
+					"path": "/Applications"
+				}
+			]
+		},
+		"mas": {
+			"entitlements": "resources/builder/osx/entitlements.plist"
+		},
+		"win": {
+			"target": "appX",
+			"backgroundColor": "#fe5000",
+			"icon": "build/windows/icon.ico"
+		}
 	}
 }

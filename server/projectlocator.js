@@ -13,13 +13,13 @@ const os = require('os');
 const execFolderName = 'cache';
 const serverExecFolderName = 'server';
 const serverExecName = 'start';
+const { dialog } = require('electron');
 
 const tag = '[ProjectLocator] ';
 
 var projectWatchXRootDir = null;
 
 function ProjectNotFound(working_dir) {
-    const dialog = require('dialog');
     dialog.showMessageBox({
         type: 'warning',
         title: 'Unable to locate watchXBlockly folder',
@@ -77,8 +77,8 @@ function getArduinoCliName() {
 function getHostArch() {
     // 'arm', 'arm64', 'ia32', 'mips','mipsel', 'ppc', 'ppc64', 's390', 's390x', 'x32', 'x64'
     var arch = process.arch;
-    if(arch == 'ia32') {
-        arch = 'x32';
+    if(arch == 'x32') {
+        arch = 'ia32';
     }
     if(arch == 'amd64') {
         arch = 'x64';
@@ -88,8 +88,8 @@ function getHostArch() {
 function getHostPlatform() {
     // 'aix' 'darwin' 'freebsd' 'linux' 'openbsd' 'sunos' 'win32'
     var platform = process.platform;
-    if(platform == 'win32') {
-        platform = 'windows';
+    if(platform == 'windows') {
+        platform = 'win32';
     }
     return platform;
 }
