@@ -71,7 +71,9 @@ if(!app_lock) {
 }
 app.on('second-instance', (event, argv, cwd) => {
     if (mainWindow) {
-        if (mainWindow.isMinimized()) mainWindow.restore();
+        if (mainWindow.isMinimized()) {
+            mainWindow.restore();
+        }
         mainWindow.focus();
     }
 });
@@ -86,9 +88,9 @@ app.on('ready', function() {
         // Set the download directory to the home folder
         mainWindow.webContents.session.setDownloadPath(process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME']);
         mainWindow.loadURL('http://localhost:' + port + '/watchx');
-        setTimeout(() => {
-            mainWindow.webContents.reload();
-        }, 350);
+        // setTimeout(() => {
+        //     mainWindow.webContents.reload();
+        // }, 350);
     });
 
     var projectJetPath = projectLocator.getServerJetpack();
