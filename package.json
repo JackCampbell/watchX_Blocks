@@ -93,7 +93,9 @@
 			"LICENSE.txt"
 		],
 		"mac": {
+			"target": [ "dmg", "mas", "zip" ],
 			"category": "public.app-category.education",
+			"identity": "jack_campbell_512@hotmail.com (BU6S277FZG)",
 			"icon": "resources/builder/osx/icon.icns"
 		},
 		"dmg": {
@@ -115,9 +117,22 @@
 			"entitlements": "resources/builder/osx/entitlements.plist"
 		},
 		"win": {
-			"target": "appx",
-			"backgroundColor": "#fe5000",
-			"icon": "resources/windows/icon.ico"
+			"target": [ "nsis", "msi", "appx", "zip" ],
+			"icon": "resources/builder/windows/icon.ico"
+		},
+		"nsis": {
+			"oneClick": false,
+			"perMachine": true,
+			"allowToChangeInstallationDirectory": true
+		},
+		"appx": {
+			"identityName": "NumberPublishername.Appname",
+			"publisher": "CN=LongNumber",
+			"publisherDisplayName": "Publishername",
+			"applicationId": "Appname"
+		},
+		"linux": {
+			"target": [ "rpm", "dep", "zip" ]
 		}
 	}
 }
