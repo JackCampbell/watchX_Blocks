@@ -115,9 +115,9 @@
 			"entitlements": "resources/builder/osx/entitlements.plist"
 		},
 		"win": {
-			"target": "appX",
+			"target": "appx",
 			"backgroundColor": "#fe5000",
-			"icon": "build/windows/icon.ico"
+			"icon": "resources/windows/icon.ico"
 		}
 	}
 }
