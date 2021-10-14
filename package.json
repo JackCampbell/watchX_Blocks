@@ -134,10 +134,10 @@
 			"menuCategory": true,
 			"deleteAppDataOnUninstall": false,
 			"license": "LICENSE.txt",
-			"installerIcon": "resources/builder/windows/icon.ico",
-			"installerSidebar": "resources/builder/windows/banner.bmp",
-			"uninstallerIcon": "resources/builder/windows/icon.ico",
-			"uninstallerSidebar": "resources/builder/windows/banner.bmp",
+			"installerIcon": "resources/builder/windows/install-icon.ico",
+			"installerSidebar": "resources/builder/windows/install-sidebar.bmp",
+			"uninstallerIcon": "resources/builder/windows/uninstall-icon.ico",
+			"uninstallerSidebar": "resources/builder/windows/uninstall-sidebar.bmp",
 			"script": "resources/builder/windows/installer.nsi"
 		},
 		"appx": {
