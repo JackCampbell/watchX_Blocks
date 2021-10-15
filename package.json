@@ -137,15 +137,13 @@
 			"installerIcon": "resources/builder/windows/install-icon.ico",
 			"installerSidebar": "resources/builder/windows/install-sidebar.bmp",
 			"uninstallerIcon": "resources/builder/windows/uninstall-icon.ico",
-			"uninstallerSidebar": "resources/builder/windows/uninstall-sidebar.bmp",
-			"script": "resources/builder/windows/installer.nsi"
+			"uninstallerSidebar": "resources/builder/windows/uninstall-sidebar.bmp"
 		},
 		"appx": {
-			"identityName": "NumberPublishername.Appname",
+			"identityName": "argeXRDInc.watchXBlocks",
 			"backgroundColor": "#ff0500",
-			"publisher": "CN=LongNumber",
-			"publisherDisplayName": "argeX R&D",
-			"applicationId": "Appname"
+			"publisher": "CN=DEDB152F-6BF9-42A7-87C0-453E485DD86E",
+			"publisherDisplayName": "argeX R&D Inc."
 		},
 		"linux": {
 			"target": [
