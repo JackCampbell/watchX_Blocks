@@ -121,5 +121,8 @@ watchxblocks.log
 .coveragerc
 .appveyor.yml
 
+package-plus.json
+
+
 
 
