@@ -140,10 +140,7 @@
 			"uninstallerSidebar": "resources/builder/windows/uninstall-sidebar.bmp"
 		},
 		"appx": {
-			"identityName": "argeXRDInc.watchXBlocks",
-			"backgroundColor": "#ff0500",
-			"publisher": "CN=DEDB152F-6BF9-42A7-87C0-453E485DD86E",
-			"publisherDisplayName": "argeX R&D Inc."
+			"identityName": "argeXRDInc.watchXBlocks"
 		},
 		"linux": {
 			"target": [
