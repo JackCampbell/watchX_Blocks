@@ -84,7 +84,7 @@ module.exports = {
 			absolute_path = get_file_exists(absolute_path);
 		}
 		if(absolute_path == null) {
-			absolute_path = projectLocator.getArduinoDir();
+			return null;
 		}
 		const { code, status } = check_compiler(absolute_path);
 		if(code != 0 || status == false) {

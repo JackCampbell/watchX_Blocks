@@ -15,6 +15,8 @@ const helper = require("./cfghelper");
 const { dialog, BrowserWindow, app: capp } = require('electron');
 const fs = require("fs");
 const path = require("path");
+const electron = require("electron");
+const {download_core} = require("./cfghelper");
 
 
 const tagMgr = '[watchXMgr] ';
@@ -421,17 +423,32 @@ module.exports.restartServer = function() {
         module.exports.startServer();
     }, 1000);
 };
+
 module.exports.initializeCore = function(callback) {
 	const compile_dir = config.get_compiler_path();
-	winston.info(tagMgr + 'initialize core ...');
-	if(compile_dir == null) {
-		winston.info(tagMgr + 'Compiler not found !!!');
-		callback(0);
+	winston.info(tagMgr + ' initialize core ...');
+	if(compile_dir != null) {
+		winston.info(tagMgr + ' compiled_dir: ' + compile_dir);
+		helper.install_core(compile_dir, (code, stdout, stderr) => {
+			winston.info(tagMgr + 'Output: ' + stdout);
+			callback(code);
+		});
 		return;
 	}
-	helper.install_core(compile_dir, (code, stdout, stderr) => {
-		winston.info(tagMgr + 'Output: ' + stdout);
-		callback(code);
+	var user_path = capp.getPath('userData');
+	winston.info(tagMgr + ' UserDataPath: ' + user_path);
+	helper.download_core(user_path, (error, compile_dir) => {
+		config.set_compiler_path(compile_dir);
+		if(error != null) {
+			winston.info(tagMgr + 'Compiler not found !!!');
+			callback(-1);
+			return;
+		}
+		winston.info(tagMgr + ' compiled_dir: ' + compile_dir);
+		helper.install_core(compile_dir, (code, stdout, stderr) => {
+			winston.info(tagMgr + 'Output: ' + stdout);
+			callback(code);
+		});
 	});
 }
 
