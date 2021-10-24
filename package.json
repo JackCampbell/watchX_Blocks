@@ -58,7 +58,6 @@
 			"client",
 			"closure-library/",
 			"server/",
-			"arduino-cli/${os}-${arch}/",
 			"resources/builder/",
 			"resources/dictionary/",
 			"resources/examples/",
@@ -87,7 +86,6 @@
 			"!**/{CHANGELOG.md,README.md,TODO.md}"
 		],
 		"extraResources": [
-			"arduino-cli/${platform}-${arch}/",
 			"include/",
 			"resources/firmware/",
 			"resources/games/",
