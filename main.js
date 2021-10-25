@@ -88,9 +88,6 @@ app.on('ready', function() {
         // Set the download directory to the home folder
         mainWindow.webContents.session.setDownloadPath(process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME']);
         mainWindow.loadURL('http://localhost:' + port + '/watchx');
-        // setTimeout(() => {
-        //     mainWindow.webContents.reload();
-        // }, 350);
     });
 
     var projectJetPath = projectLocator.getServerJetpack();
@@ -138,7 +135,7 @@ app.on('ready', function() {
     });
 
     mainWindow.webContents.on("did-finish-load", function() {
-        server.initializeCore((code) => {
+        server.initializeCore(observerSplashWindow, (code) => {
             if (splashWindow !== null) {
                 splashWindow.close();
                 splashWindow = null;
@@ -183,5 +180,13 @@ function createSplashWindow() {
         });
         splashWindow.loadURL(imagePath);
     }
+}
+
+function observerSplashWindow(message) {
+    if(splashWindow == null) {
+        return;
+    }
+    var code = `document.getElementById('message').innerHTML = '${message}';`;
+    splashWindow.webContents.executeJavaScript(code);
 }
 

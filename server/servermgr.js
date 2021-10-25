@@ -424,11 +424,13 @@ module.exports.restartServer = function() {
     }, 1000);
 };
 
-module.exports.initializeCore = function(callback) {
+module.exports.initializeCore = function(observer, callback) {
 	const compile_dir = config.get_compiler_path();
 	winston.info(tagMgr + ' initialize core ...');
+	observer("Initialize Core ...");
 	if(compile_dir != null) {
 		winston.info(tagMgr + ' compiled_dir: ' + compile_dir);
+		observer("Starting ...");
 		helper.install_core(compile_dir, (code, stdout, stderr) => {
 			winston.info(tagMgr + 'Output: ' + stdout);
 			callback(code);
@@ -437,14 +439,16 @@ module.exports.initializeCore = function(callback) {
 	}
 	var user_path = capp.getPath('userData');
 	winston.info(tagMgr + ' UserDataPath: ' + user_path);
-	helper.download_core(user_path, (error, compile_dir) => {
-		config.set_compiler_path(compile_dir);
+	helper.download_core(user_path, observer, (error, compile_dir) => {
 		if(error != null) {
 			winston.info(tagMgr + 'Compiler not found !!!');
+			observer("Error: Compiler not found ...");
 			callback(-1);
 			return;
 		}
+		config.set_compiler_path(compile_dir);
 		winston.info(tagMgr + ' compiled_dir: ' + compile_dir);
+		observer("Installing Core ...");
 		helper.install_core(compile_dir, (code, stdout, stderr) => {
 			winston.info(tagMgr + 'Output: ' + stdout);
 			callback(code);

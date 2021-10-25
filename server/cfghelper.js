@@ -130,6 +130,7 @@ function compile_process(args, callback) {
 function install_core(compile_dir, callback) {
 	compile_dir = insert_quote(compile_dir);
 	var cmdline = [compile_dir, 'core', 'install', 'arduino:avr'].join(' ');
+	console.log("installing core...")
 	return exec(cmdline, (error, stdout, stderr) => {
 		var code = 0;
 		if(error) {
@@ -174,20 +175,23 @@ function get_file_size(size) {
 function get_percent(value, total) {
 	return ((value * 100) / total).toFixed(2)
 }
-function setup_download_percent(response) {
+function setup_download_percent(response, observer) {
 	var received_bytes = 0;
 	var total_bytes = response.headers["content-length"];
 	response.on('data', function(chunk) {
 		received_bytes += chunk.length;
 		var recv_str = get_file_size(received_bytes);
 		var chunk_str = get_file_size(chunk.length);
+		var format;
 		if(total_bytes == null) {
-			process.stdout.write(`recv: ${recv_str} Ck: ${chunk_str}\r`);
+			format = `recv: ${recv_str} Ck: ${chunk_str}`;
 		} else {
 			var total_str = get_file_size(total_bytes);
 			var percentage = get_percent(received_bytes, total_bytes);
-			process.stdout.write(`percent: % ${percentage} recv: ${recv_str}/${total_str} Ck: ${chunk_str}\r`)
+			format = `percent: % ${percentage} recv: ${recv_str}/${total_str} Ck: ${chunk_str}`
 		}
+		process.stdout.write(format + '\r');
+		observer(format)
 	});
 }
 function get_bundle_extension() {
@@ -242,15 +246,16 @@ function get_arduino_cli_manifest(callback) {
 		callback(error, null);
 	});
 }
-function get_arduino_cli_download_and_extract(asset, user_path, callback) {
+function get_arduino_cli_download_and_extract(asset, user_path, observer, callback) {
 	var zip_path = path.join(user_path, asset.name);
 	if(fs.existsSync(zip_path)) {
 		fs.unlinkSync(zip_path); // remove old file ...
 	}
 	var file = fs.createWriteStream(zip_path);
 	winston.info("Downloading...\t" + asset.browser_download_url);
+	observer("Download: " + asset.name);
 	https.get(asset.browser_download_url, response => {
-		setup_download_percent(response);
+		setup_download_percent(response, observer);
 		if(response.statusCode == 200) {
 			response.pipe(file);
 			return;
@@ -259,14 +264,14 @@ function get_arduino_cli_download_and_extract(asset, user_path, callback) {
 			if (url.parse(response.headers.location).hostname) {
 				winston.info("redirect: " + response.headers.location);
 				https.get(response.headers.location, (data) => {
-					setup_download_percent(data);
+					setup_download_percent(data, observer);
 					data.pipe(file);
 				});
 			} else {
 				var solve = url.resolve(url.parse(url).hostname, response.headers.location);
 				winston.info("redirect: " + solve);
 				https.get(solve, (data) => {
-					setup_download_percent(data);
+					setup_download_percent(data, observer);
 					data.pipe(file);
 				});
 			}
@@ -283,6 +288,7 @@ function get_arduino_cli_download_and_extract(asset, user_path, callback) {
 			fs.mkdirSync(extract_path);
 		}
 		winston.info("extracting...\t" + extract_path);
+		observer("extracting: " + asset.name);
 		// OK ..
 		// if(fs.existsSync(extract_path)) {
 		// 	fs.rmdirSync(extract_path, { recursive: true });
@@ -290,22 +296,25 @@ function get_arduino_cli_download_and_extract(asset, user_path, callback) {
 		// }
 		var compile_path = path.join(extract_path, "arduino-cli") + get_command_extension();
 		if(os.platform() == "win32") {
-			extract(zip_path, { dir: extract_path });
-			callback(null, compile_path);
+			extract(zip_path, { dir: extract_path }).then(result => {
+				callback(null, compile_path);
+			}).catch(error => {
+				callback(error, null)
+			});
 		} else {
 			// const comp = fs.createReadStream(zip_path);
 			// const tar_path = path.join(install_path, "arduino-cli.tar");
 			// const unzip = zlib.createUnzip();
 			// const tarball = fs.createWriteStream(tar_path);
 			// comp.pipe(unzip).pipe(tarball);
-			tar.extract({ cwd: extract_path, file: zip_path, sync: true });
+			tar.extract({ cwd: extract_path, file: zip_path, sync:true });
 			callback(null, compile_path);
 		}
 	});
 }
 
 
-function download_core(user_path, callback) {
+function download_core(user_path, observer, callback) {
 	if(user_path == null) {
 		user_path = path.join( os.homedir(), '.watchx_blocks' );
 	}
@@ -315,20 +324,23 @@ function download_core(user_path, callback) {
 	var arduino_cli_path = path.join(user_path, "arduino-cli", "arduino-cli" + get_command_extension() );
 	if(fs.existsSync(arduino_cli_path)) {
 		winston.info("already installed compiler: " + arduino_cli_path);
+		observer("Detected Arduino-Cli");
 		callback(null, arduino_cli_path);
 		return;
 	}
+	observer("Get Arduino-Cli Manifest");
 	get_arduino_cli_manifest( (error, json) => {
 		if(error) {
 			throw error;
 		}
 		winston.info("Current Version: " + json.tag_name);
+		observer("Current Arduino-Cli: " + json.tag_name);
 		var name = get_arduino_cli_name(json.tag_name);
 		var download_asset = json.assets.find(asset => asset.name == name);
 		if(download_asset == null) {
 			throw new Error("cannot find package of " + name);
 		}
-		get_arduino_cli_download_and_extract(download_asset, user_path, (error, arduino_cli_path) => {
+		get_arduino_cli_download_and_extract(download_asset, user_path, observer, (error, arduino_cli_path) => {
 			if(error) {
 				throw error;
 			}
