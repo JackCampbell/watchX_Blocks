@@ -1152,7 +1152,7 @@ ul.side-nav li ul li ul li {
 
 
 #splash-message {
-  background-color: rgba(255, 255, 255, 0.66);
+  background-color: rgba(255, 255, 255, 1);
   color: #fe5000;
   border-radius: 16px;
   border: none;

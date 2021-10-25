@@ -140,6 +140,7 @@ app.on('ready', function() {
                 splashWindow.close();
                 splashWindow = null;
             }
+            mainWindow.focus();
             mainWindow.maximize();
             mainWindow.show();
         });
