@@ -183,15 +183,16 @@ function setup_download_percent(response, observer) {
 		var recv_str = get_file_size(received_bytes);
 		var chunk_str = get_file_size(chunk.length);
 		var format;
+		var percentage = null;
 		if(total_bytes == null) {
 			format = `recv: ${recv_str} Ck: ${chunk_str}`;
 		} else {
 			var total_str = get_file_size(total_bytes);
-			var percentage = get_percent(received_bytes, total_bytes);
+			percentage = get_percent(received_bytes, total_bytes);
 			format = `%${percentage} : ${recv_str}/${total_str} : ${chunk_str}`
 		}
 		process.stdout.write(format + '\r');
-		observer(format)
+		observer(format, percentage);
 	});
 }
 function get_bundle_extension() {

@@ -1151,9 +1151,48 @@ ul.side-nav li ul li ul li {
 }
 
 
-#splash-message {
-  background-color: rgba(255, 255, 255, 1);
-  color: #fe5000;
-  border-radius: 16px;
-  border: none;
+/*#splash-message {*/
+/*  background-color: rgba(255, 255, 255, 1);*/
+/*  color: #fe5000;*/
+/*  border-radius: 16px;*/
+/*  border: none;*/
+/*}*/
+
+#splash-progress {
+  background-color: #ffffff;
+  border-radius: 13px; /* (height of inner div) / 2 + padding */
+  padding: 3px;
+  position: relative;
+}
+
+#splash-progress > div.infinity {
+  height: 20px;
+  border-radius: 10px;
+  /*background: linear-gradient(90deg, #fe5000, #0050fe);*/
+  background-image: url("img/progress_background.svg");
+  background-repeat: repeat;
+  animation: animate_bg 3s linear infinite;
+  background-size: 300px auto;
+  background-position: 0 150px;
+  /*border: 1px solid #fe5000;*/
+  background-color: rgba(215, 215, 215, 0.58);
+  width: 100%;
+}
+
+#splash-progress > span.message {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  padding: 4px;
+  color: black;
+  text-align:center;
+  font-weight: bold;
+  z-index: 5;
+}
+
+@keyframes animate_bg {
+  0% { background-position: -100% 150px; }
+  100% { background-position: 100% 150px; }
 }

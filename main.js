@@ -168,26 +168,30 @@ function createSplashWindow() {
 
         splashWindow = new BrowserWindow({
             width: 450,
-            height: 450,
+            height: 350,
             frame: false,
             show: true,
             transparent: true,
             images: true,
-            center: true,
+            center: false,
             alwaysOnTop: true,
             skipTaskbar: true,
             resizable: false,
             useContentSize: true
         });
         splashWindow.loadURL(imagePath);
+        observerSplashWindow("Startup ...")
     }
 }
 
-function observerSplashWindow(message) {
+function observerSplashWindow(message, progress) {
     if(splashWindow == null) {
         return;
     }
-    var code = `document.getElementById('splash-message').innerHTML = '${message}';`;
-    splashWindow.webContents.executeJavaScript(code);
+    if(progress == null) {
+        progress = 100;
+    }
+    splashWindow.webContents.executeJavaScript(`document.querySelector('#splash-progress > span.message').innerHTML = '${message}';`);
+    splashWindow.webContents.executeJavaScript(`document.querySelector('#splash-progress > div.infinity').style.width = '${progress}%';`);
 }
 
