@@ -968,7 +968,8 @@ ul.side-nav li ul li ul li {
   width: 13px;
   height: 13px;
   border-radius: 50%;
-  background: #f57c00;
+  /*background: #f57c00;*/
+  background: #fe5000;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 
@@ -1147,4 +1148,12 @@ ul.side-nav li ul li ul li {
 
 .media-play {
   color: #fe5000;
+}
+
+
+#splash-message {
+  background-color: rgba(255, 255, 255, 0.66);
+  color: #fe5000;
+  border-radius: 16px;
+  border: none;
 }

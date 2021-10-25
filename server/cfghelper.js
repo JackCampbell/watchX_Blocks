@@ -188,7 +188,7 @@ function setup_download_percent(response, observer) {
 		} else {
 			var total_str = get_file_size(total_bytes);
 			var percentage = get_percent(received_bytes, total_bytes);
-			format = `percent: % ${percentage} recv: ${recv_str}/${total_str} Ck: ${chunk_str}`
+			format = `%${percentage} : ${recv_str}/${total_str} : ${chunk_str}`
 		}
 		process.stdout.write(format + '\r');
 		observer(format)

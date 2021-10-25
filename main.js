@@ -167,7 +167,7 @@ function createSplashWindow() {
 
         splashWindow = new BrowserWindow({
             width: 450,
-            height: 350,
+            height: 450,
             frame: false,
             show: true,
             transparent: true,
@@ -186,7 +186,7 @@ function observerSplashWindow(message) {
     if(splashWindow == null) {
         return;
     }
-    var code = `document.getElementById('message').innerHTML = '${message}';`;
+    var code = `document.getElementById('splash-message').innerHTML = '${message}';`;
     splashWindow.webContents.executeJavaScript(code);
 }
 
