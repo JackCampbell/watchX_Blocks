@@ -155,7 +155,6 @@ app.on('ready', function() {
         e.preventDefault();
         shell.openExternal(url);
     });
-
     mainWindow.on('close', function() {
         mainWindow = null;
     });

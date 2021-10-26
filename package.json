@@ -161,7 +161,8 @@
 			"uninstallerSidebar": "resources/builder/windows/sidebar.bmp"
 		},
 		"appx": {
-			"identityName": "argeXRDInc.watchXBlocks"
+			"identityName": "argeXRDInc.watchXBlocks",
+			"backgroundColor": "#ffffff"
 		},
 		"linux": {
 			"target": [
