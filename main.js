@@ -27,6 +27,7 @@ const tag = '[watchXElec] ';
 // be closed automatically when the JavaScript object is garbage collected.
 var mainWindow = null;
 var splashWindow = null;
+var arg_filename = null;
 
 
 // Set up the app data directory within the watchX root directory
@@ -141,8 +142,13 @@ app.on('ready', function() {
                 splashWindow = null;
             }
             mainWindow.focus();
-            mainWindow.maximize();
+            // mainWindow.maximize();
             mainWindow.show();
+
+            if(arg_filename != null) {
+                winston.info(tag + " load page " + arg_filename);
+                mainWindow.webContents.executeJavaScript(`watchXBlocks.loadSketchFile('${arg_filename}');`);
+            }
         });
     });
     mainWindow.webContents.on('new-window', function(e, url) {
@@ -153,6 +159,10 @@ app.on('ready', function() {
     mainWindow.on('close', function() {
         mainWindow = null;
     });
+});
+
+app.on('open-file', (event, path) => {
+    arg_filename = path;
 });
 
 app.on('window-all-closed', function() {
@@ -194,4 +204,3 @@ function observerSplashWindow(message, progress) {
     splashWindow.webContents.executeJavaScript(`document.querySelector('#splash-progress > span.message').innerHTML = '${message}';`);
     splashWindow.webContents.executeJavaScript(`document.querySelector('#splash-progress > div.infinity').style.width = '${progress}%';`);
 }
-

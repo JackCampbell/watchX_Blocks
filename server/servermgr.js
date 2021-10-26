@@ -304,8 +304,17 @@ app.post("/editor/open", express.json(), (req, res, next) => {
 		return res.json({ "filename": null });
 	}
 	var content = fs.readFileSync(files[0], "utf-8");
-	winston.info(tagMgr + 'Load path: ' + files[0]);
+	winston.info(tagMgr + 'Open path: ' + files[0]);
 	return res.json({ "filename": files[0], "content": content });
+});
+app.post("/editor/load", express.json(), (req, res, next) => {
+	const { filename } = req.body;
+	var content = null;
+	winston.info(tagMgr + 'Load path: ' + filename);
+	if(fs.existsSync(filename)) {
+		content = fs.readFileSync(filename, "utf-8");
+	}
+	return res.json({ "filename": filename, "content": content });
 });
 app.post("/editor/save", express.json(), (req, res, next) => {
 	var { filename, content, basename, title } = req.body;

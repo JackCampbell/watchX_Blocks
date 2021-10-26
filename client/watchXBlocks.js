@@ -70,7 +70,7 @@ watchXBlocks.bindActionFunctions = function () {
     watchXBlocks.bindClick_('button_verify', watchXBlocks.ideSendVerify );
     // -
     watchXBlocks.bindClick_('button_load_xml', watchXBlocks.XmlTextareaToBlocks);
-    watchXBlocks.bindClick_('button_toggle_toolbox', watchXBlocks.toogleToolbox);
+    watchXBlocks.bindClick_('button_toggle_toolbox', watchXBlocks.toggleToolbox);
 
     // Settings modal input field listeners only if they can be edited
     var settingsPathInputListeners = function (elId, setValFunc, setHtmlCallback) {
@@ -161,6 +161,21 @@ watchXBlocks.openSketchFile = function () {
     var title = watchXBlocks.getLocalStr('open');
     watchXBlocksServer.sendRequest("/editor/open", "POST", "application/json", { title }, (json) => {
         if(json.filename == null) {
+            return;
+        }
+        var success = watchXBlocks.replaceBlocksfromXml( json.content );
+        if (success) {
+            watchXBlocks.renderContent();
+            watchXBlocks.setSketchFileName( json.filename );
+        } else {
+            watchXBlocks.alertMessage( watchXBlocks.getLocalStr('invalidXmlTitle'), watchXBlocks.getLocalStr('invalidXmlBody'), false );
+        }
+    });
+};
+
+watchXBlocks.loadSketchFile = function(filename) {
+    watchXBlocksServer.sendRequest("/editor/load", "POST", "application/json", { filename }, (json) => {
+        if(json.content == null) {
             return;
         }
         var success = watchXBlocks.replaceBlocksfromXml( json.content );
@@ -449,7 +464,7 @@ watchXBlocks.TOOLBAR_SHOWING_ = true;
  * Toggles the blockly toolbox and the watchXBlocks toolbox button On and Off.
  * Uses namespace member variable TOOLBAR_SHOWING_ to toggle state.
  */
-watchXBlocks.toogleToolbox = function () {
+watchXBlocks.toggleToolbox = function () {
     if (watchXBlocks.TOOLBAR_SHOWING_) {
         watchXBlocks.blocklyCloseToolbox();
         watchXBlocks.displayToolbox(false);
