@@ -159,13 +159,13 @@ app.on('ready', function() {
         mainWindow = null;
     });
     if (process.platform.startsWith('win') && process.argv.length >= 2) {
-        arg_filename = process.argv[1];
+        arg_filename = (process.argv[1]).replaceAll('\\', '/');
     }
 });
 
 app.on('will-finish-launching', () => {
     app.on('open-file', (event, path) => {
-        arg_filename = path;
+        arg_filename = path.replaceAll('\\', '/');
         event.preventDefault();
     });
     app.on('open-url', (event, path) => {
