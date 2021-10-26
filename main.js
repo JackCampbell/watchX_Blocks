@@ -141,7 +141,7 @@ app.on('ready', function() {
                 splashWindow.close();
                 splashWindow = null;
             }
-            mainWindow.focus();
+            // mainWindow.focus();
             // mainWindow.maximize();
             mainWindow.show();
 
@@ -158,10 +158,19 @@ app.on('ready', function() {
     mainWindow.on('close', function() {
         mainWindow = null;
     });
+    if (process.platform.startsWith('win') && process.argv.length >= 2) {
+        arg_filename = process.argv[1];
+    }
 });
 
-app.on('open-file', (event, path) => {
-    arg_filename = path;
+app.on('will-finish-launching', () => {
+    app.on('open-file', (event, path) => {
+        arg_filename = path;
+        event.preventDefault();
+    });
+    app.on('open-url', (event, path) => {
+        event.preventDefault();
+    });
 });
 
 app.on('window-all-closed', function() {
