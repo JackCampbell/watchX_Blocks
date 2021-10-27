@@ -434,14 +434,14 @@ module.exports.restartServer = function() {
 };
 
 module.exports.initializeCore = function(observer, callback) {
-	observer("Initialize Core ...");
+	observer("Initializing Core ...");
 	winston.info(tagMgr + ' initialize core ...');
 	const compile_dir = config.get_compiler_path();
 	if(compile_dir != null) {
 		winston.info(tagMgr + ' compiled_dir: ' + compile_dir);
-		observer("Check Compiler");
+		observer("Checking Compiler");
 		helper.check_version(compile_dir, (code, check, stdout, stderr) => {
-			observer("Check Core");
+			observer("Checking Core");
 			helper.install_core(compile_dir, (code, stdout, stderr) => {
 				winston.info(tagMgr + 'Output: ' + stdout);
 				callback(code);
@@ -458,10 +458,10 @@ module.exports.initializeCore = function(observer, callback) {
 			callback(-1);
 			return;
 		}
-		observer("Check Compiler");
+		observer("Checking Compiler");
 		helper.check_version(compile_dir, (code, check, stdout, stderr) => {
 			config.set_compiler_path(compile_dir);
-			observer("Install Core");
+			observer("Installing Core");
 			helper.install_core(compile_dir, (code, stdout, stderr) => {
 				winston.info(tagMgr + 'Output: ' + stdout);
 				callback(code);

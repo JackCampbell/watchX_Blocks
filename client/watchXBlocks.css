@@ -1163,10 +1163,11 @@ ul.side-nav li ul li ul li {
   border-radius: 13px; /* (height of inner div) / 2 + padding */
   padding: 3px;
   position: relative;
+  margin-top: 10px;
 }
 
 #splash-progress > div.infinity {
-  height: 20px;
+  height: 24px;
   border-radius: 10px;
   /*background: linear-gradient(90deg, #fe5000, #0050fe);*/
   background-image: url("img/progress_background.svg");

@@ -253,7 +253,7 @@ function get_arduino_cli_download_and_extract(asset, user_path, observer, callba
 	}
 	var file = fs.createWriteStream(zip_path);
 	winston.info("Downloading...\t" + asset.browser_download_url);
-	observer("Download: " + asset.name);
+	observer("Downloading: " + asset.name);
 	https.get(asset.browser_download_url, response => {
 		setup_download_percent(response, observer);
 		if(response.statusCode == 200) {
@@ -288,7 +288,7 @@ function get_arduino_cli_download_and_extract(asset, user_path, observer, callba
 			fs.mkdirSync(extract_path);
 		}
 		winston.info("extracting...\t" + extract_path);
-		observer("extracting: " + asset.name);
+		observer("Extracting: " + asset.name);
 		// OK ..
 		// if(fs.existsSync(extract_path)) {
 		// 	fs.rmdirSync(extract_path, { recursive: true });
@@ -324,11 +324,11 @@ function download_core(user_path, observer, callback) {
 	var arduino_cli_path = path.join(user_path, "arduino-cli", "arduino-cli" + get_command_extension() );
 	if(fs.existsSync(arduino_cli_path)) {
 		winston.info("already installed compiler: " + arduino_cli_path);
-		observer("Detected Arduino-Cli");
+		observer("Arduino-Cli has been detected");
 		callback(null, arduino_cli_path);
 		return;
 	}
-	observer("Get Arduino-Cli Manifest");
+	observer("Getting Arduino-Cli Manifest");
 	get_arduino_cli_manifest( (error, json) => {
 		if(error) {
 			throw error;

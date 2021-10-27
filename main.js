@@ -86,7 +86,6 @@ app.on('ready', function() {
     }*/
     server.startServer(8000, (port) => {
         createSplashWindow(() => {
-            observerSplashWindow("Startup ...");
             server.initializeCore(observerSplashWindow, (code) => {
                 createMainWindow(port, code);
             });
