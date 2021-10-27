@@ -130,7 +130,6 @@ function compile_process(args, callback) {
 function install_core(compile_dir, callback) {
 	compile_dir = insert_quote(compile_dir);
 	var cmdline = [compile_dir, 'core', 'install', 'arduino:avr'].join(' ');
-	console.log("installing core...")
 	return exec(cmdline, (error, stdout, stderr) => {
 		var code = 0;
 		if(error) {
@@ -350,7 +349,14 @@ function download_core(user_path, observer, callback) {
 	});
 }
 
-
+function check_version(compiler_dir, callback) {
+	compiler_dir = insert_quote(compiler_dir);
+	var cmdline = [ compiler_dir, 'version' ].join(' ');
+	exec(cmdline, (code, stdout, stderr) => {
+		var check = stdout.startsWith("arduino-cli");
+		callback(code, check, stdout, stderr);
+	});
+}
 
 module.exports = {
 	get_dir_exists,
@@ -369,6 +375,7 @@ module.exports = {
 	compile_process,
 
 	install_core,
-	download_core
+	download_core,
+	check_version
 };
 

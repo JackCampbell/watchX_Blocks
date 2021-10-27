@@ -86,10 +86,11 @@ module.exports = {
 		if(absolute_path == null) {
 			return null;
 		}
+		/*
 		const { code, status } = check_compiler(absolute_path);
 		if(code != 0 || status == false) {
 			return null;
-		}
+		}*/
 		return absolute_path;
 	},
 	set_compiler_path: function(value) {
@@ -97,10 +98,11 @@ module.exports = {
 		if(absolute_path == null) {
 			return;
 		}
+		/*
 		const { code, status } = check_compiler(absolute_path);
 		if(code != 0 || status == false) {
 			return;
-		}
+		}*/
 		nconf.set(CFG_KEY.COMPILER, absolute_path);
 		nconf.save();
 	},

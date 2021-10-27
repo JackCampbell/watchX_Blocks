@@ -84,15 +84,37 @@ app.on('ready', function() {
         app.quit();
         return;
     }*/
-    createSplashWindow();
     server.startServer(8000, (port) => {
-        // Set the download directory to the home folder
-        mainWindow.webContents.session.setDownloadPath(process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME']);
-        mainWindow.loadURL('http://localhost:' + port + '/watchx');
+        createSplashWindow(() => {
+            observerSplashWindow("Startup ...");
+            server.initializeCore(observerSplashWindow, (code) => {
+                createMainWindow(port, 0);
+            });
+        });
     });
 
+    if (process.platform.startsWith('win') && process.argv.length >= 2) {
+        arg_filename = (process.argv[1]).replaceAll('\\', '/');
+    }
+});
+
+app.on('will-finish-launching', () => {
+    app.on('open-file', (event, path) => {
+        arg_filename = path.replaceAll('\\', '/');
+        event.preventDefault();
+    });
+    app.on('open-url', (event, path) => {
+        event.preventDefault();
+    });
+});
+
+app.on('window-all-closed', function() {
+    server.stopServer();
+    app.quit();
+});
+
+function createMainWindow(port, code) {
     var projectJetPath = projectLocator.getServerJetpack();
-    // var imagePath = 'file://' + projectJetPath.path('watchx', 'img', 'watchxblocks_splash.png');
     var preload = projectJetPath.path('client', 'watchXBlocks_desktop.js');
     mainWindow = createWindow('main', {
         width: 1200,
@@ -122,11 +144,10 @@ app.on('ready', function() {
             "nativeWindowOpen": true
         }
     });
-    if (process.env.NODE_ENV === "development") {
-        appMenu.setWatchXBlocksMenu(true);
-    } else {
-        appMenu.setWatchXBlocksMenu(false);
-    }
+
+    mainWindow.on('close', function() {
+        mainWindow = null;
+    });
 
     mainWindow.webContents.on("did-fail-load", function(event, errorCode, errorDescription) {
         winston.warn(tag + 'Page failed to load (' + errorCode + '). The server is probably not yet running. Trying again in 200 ms.');
@@ -136,70 +157,57 @@ app.on('ready', function() {
     });
 
     mainWindow.webContents.on("did-finish-load", function() {
-        server.initializeCore(observerSplashWindow, (code) => {
-            if (splashWindow !== null) {
-                splashWindow.close();
-                splashWindow = null;
-            }
-            // mainWindow.focus();
-            // mainWindow.maximize();
-            mainWindow.show();
+        if (splashWindow !== null) {
+            splashWindow.close();
+            splashWindow = null;
+        }
+        // mainWindow.focus();
+        // mainWindow.maximize();
+        mainWindow.show();
 
-            if(arg_filename != null) {
-                winston.info(tag + " load page " + arg_filename);
-                mainWindow.webContents.executeJavaScript(`watchXBlocks.loadSketchFile('${arg_filename}');`);
-            }
-        });
+        if(arg_filename != null) {
+            winston.info(tag + " load page " + arg_filename);
+            mainWindow.webContents.executeJavaScript(`watchXBlocks.loadSketchFile('${arg_filename}');`);
+        }
     });
-    mainWindow.webContents.on('new-window', function(e, url) {
-        e.preventDefault();
+    mainWindow.webContents.on('new-window', function(event, url) {
+        event.preventDefault();
         shell.openExternal(url);
     });
-    mainWindow.on('close', function() {
-        mainWindow = null;
-    });
-    if (process.platform.startsWith('win') && process.argv.length >= 2) {
-        arg_filename = (process.argv[1]).replaceAll('\\', '/');
+
+    if (process.env.NODE_ENV === "development") {
+        appMenu.setWatchXBlocksMenu(true);
+    } else {
+        appMenu.setWatchXBlocksMenu(false);
     }
-});
+    // Set the download directory to the home folder
+    mainWindow.webContents.session.setDownloadPath(process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME']);
+    mainWindow.loadURL('http://localhost:' + port + '/watchx');
+}
 
-app.on('will-finish-launching', () => {
-    app.on('open-file', (event, path) => {
-        arg_filename = path.replaceAll('\\', '/');
-        event.preventDefault();
-    });
-    app.on('open-url', (event, path) => {
-        event.preventDefault();
-    });
-});
-
-app.on('window-all-closed', function() {
-    server.stopServer();
-    app.quit();
-});
-
-function createSplashWindow() {
-    if (splashWindow === null) {
-        var projectJetPath = projectLocator.getServerJetpack();
-        // var imagePath = 'file://' + projectJetPath.path('watchx', 'img', 'watchxblocks_splash.png');
-        var imagePath = 'file://' + projectJetPath.path('client', 'splash.html');
-
-        splashWindow = new BrowserWindow({
-            width: 450,
-            height: 350,
-            frame: false,
-            show: true,
-            transparent: true,
-            images: true,
-            center: false,
-            alwaysOnTop: true,
-            skipTaskbar: true,
-            resizable: false,
-            useContentSize: true
-        });
-        splashWindow.loadURL(imagePath);
-        observerSplashWindow("Startup ...")
+function createSplashWindow(callback) {
+    if (splashWindow !== null) {
+        return;
     }
+    var projectJetPath = projectLocator.getServerJetpack();
+    // var imagePath = 'file://' + projectJetPath.path('watchx', 'img', 'watchxblocks_splash.png');
+    var splash_path = 'file://' + projectJetPath.path('client', 'splash.html');
+    splashWindow = new BrowserWindow({
+        width: 450,
+        height: 350,
+        frame: false,
+        show: true,
+        transparent: true,
+        images: true,
+        center: false,
+        alwaysOnTop: true,
+        skipTaskbar: true,
+        resizable: false,
+        useContentSize: true
+    });
+    splashWindow.webContents.on("did-finish-load", callback);
+    splashWindow.loadURL(splash_path);
+    splashWindow.show();
 }
 
 function observerSplashWindow(message, progress) {
@@ -209,6 +217,5 @@ function observerSplashWindow(message, progress) {
     if(progress == null) {
         progress = 100;
     }
-    splashWindow.webContents.executeJavaScript(`document.querySelector('#splash-progress > span.message').innerHTML = '${message}';`);
-    splashWindow.webContents.executeJavaScript(`document.querySelector('#splash-progress > div.infinity').style.width = '${progress}%';`);
+    splashWindow.webContents.executeJavaScript(`set_progress('${message}', '${progress}%')`);
 }

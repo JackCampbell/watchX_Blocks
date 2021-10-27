@@ -30,7 +30,7 @@ const app = express();
 app.use((req, res, next) => {
 	res.set('Cache-Control', 'no-cache');
 	//- res.set("X-Frame-Options", "Allow-From http://localhost:8000")
-	winston.info(tagSrv + 'Request.:[' + req.method + '] ' + req.url);
+	//winston.info(tagSrv + 'Request.:[' + req.method + '] ' + req.url);
 	return next();
 });
 app.use("/watchx", express.static(server_path + "/client"));
@@ -434,15 +434,18 @@ module.exports.restartServer = function() {
 };
 
 module.exports.initializeCore = function(observer, callback) {
-	const compile_dir = config.get_compiler_path();
-	winston.info(tagMgr + ' initialize core ...');
 	observer("Initialize Core ...");
+	winston.info(tagMgr + ' initialize core ...');
+	const compile_dir = config.get_compiler_path();
 	if(compile_dir != null) {
 		winston.info(tagMgr + ' compiled_dir: ' + compile_dir);
-		observer("Starting ...");
-		helper.install_core(compile_dir, (code, stdout, stderr) => {
-			winston.info(tagMgr + 'Output: ' + stdout);
-			callback(code);
+		observer("Check Compiler");
+		helper.check_version(compile_dir, (code, check, stdout, stderr) => {
+			observer("Check Core");
+			helper.install_core(compile_dir, (code, stdout, stderr) => {
+				winston.info(tagMgr + 'Output: ' + stdout);
+				callback(code);
+			});
 		});
 		return;
 	}
@@ -455,12 +458,14 @@ module.exports.initializeCore = function(observer, callback) {
 			callback(-1);
 			return;
 		}
-		config.set_compiler_path(compile_dir);
-		winston.info(tagMgr + ' compiled_dir: ' + compile_dir);
-		observer("Installing Core ...");
-		helper.install_core(compile_dir, (code, stdout, stderr) => {
-			winston.info(tagMgr + 'Output: ' + stdout);
-			callback(code);
+		observer("Check Compiler");
+		helper.check_version(compile_dir, (code, check, stdout, stderr) => {
+			config.set_compiler_path(compile_dir);
+			observer("Install Core");
+			helper.install_core(compile_dir, (code, stdout, stderr) => {
+				winston.info(tagMgr + 'Output: ' + stdout);
+				callback(code);
+			});
 		});
 	});
 }
