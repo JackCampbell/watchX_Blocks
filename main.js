@@ -88,7 +88,7 @@ app.on('ready', function() {
         createSplashWindow(() => {
             observerSplashWindow("Startup ...");
             server.initializeCore(observerSplashWindow, (code) => {
-                createMainWindow(port, 0);
+                createMainWindow(port, code);
             });
         });
     });
@@ -156,7 +156,9 @@ function createMainWindow(port, code) {
         }, 350);
     });
 
-    mainWindow.webContents.on("did-finish-load", function() {
+    // mainWindow.webContents.on("did-finish-load", function()
+    mainWindow.webContents.on("ready-to-show", function()
+    {
         if (splashWindow !== null) {
             splashWindow.close();
             splashWindow = null;
@@ -196,16 +198,34 @@ function createSplashWindow(callback) {
         width: 450,
         height: 350,
         frame: false,
-        show: true,
+        show: false,
         transparent: true,
         images: true,
         center: false,
         alwaysOnTop: true,
         skipTaskbar: true,
         resizable: false,
-        useContentSize: true
+        useContentSize: true,
+        webPreferences: {
+            "nodeIntegration": true,
+            "webSecurity": true,
+            "allowDisplayingInsecureContent": false,
+            "allowRunningInsecureContent": false,
+            "java": false,
+            "webgl": false,
+            "webaudio": true,
+            "plugins": false,
+            "experimentalFeatures": false,
+            "experimentalCanvasFeatures": false,
+            "overlayScrollbars": true,
+            "textAreasAreResizable": false,
+            "directWrite": true,
+            "contextIsolation": false,
+            "enableRemoteModule": true,
+            "nativeWindowOpen": true
+        }
     });
-    splashWindow.webContents.on("did-finish-load", callback);
+    splashWindow.webContents.on("ready-to-show", callback);
     splashWindow.loadURL(splash_path);
     splashWindow.show();
 }
