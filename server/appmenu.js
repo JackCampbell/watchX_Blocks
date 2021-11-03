@@ -10,6 +10,14 @@ const { app, Menu, shell, dialog, MenuItem, BrowserWindow } = require("electron"
 
 const server = require('./servermgr.js');
 
+function executeJavaScript(script, user = null) {
+    var window = BrowserWindow.getFocusedWindow();
+    if(window == null) {
+        return;
+    }
+    window.webContents.executeJavaScript(script, null);
+}
+
 module.exports.setWatchXBlocksMenu = function(devMode = false) {
     var menu = [];
     if (process.platform == 'darwin') {
@@ -38,7 +46,7 @@ var getMacMenuData = function() {
                 label: 'About',
                 accelerator: 'F1',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.openAboutUs()');
+                    executeJavaScript('watchXBlocks.openAboutUs()');
                 }
             }, {
                 type: 'separator'
@@ -46,7 +54,7 @@ var getMacMenuData = function() {
                 label: 'Preferences',
                 accelerator: 'CmdOrCtrl+,',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.openSettings()');
+                    executeJavaScript('watchXBlocks.openSettings()');
                 }
             }, {
                 type: 'separator'
@@ -87,7 +95,7 @@ var getFileMenuData = function () {
                 label: 'New',
                 accelerator: 'CmdOrCtrl+N',
                 click: function () {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.newSketchFile()', true);
+                    executeJavaScript('watchXBlocks.newSketchFile()', true);
                 }
             }, {
                 type: 'separator'
@@ -95,26 +103,26 @@ var getFileMenuData = function () {
                 label: 'Open',
                 accelerator: 'CmdOrCtrl+O',
                 click: function () {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.openSketchFile()', true);
+                    executeJavaScript('watchXBlocks.openSketchFile()', true);
                 }
             }, {
                 label: 'Save',
                 accelerator: 'CmdOrCtrl+S',
                 click: function () {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.saveSketchFile()');
+                    executeJavaScript('watchXBlocks.saveSketchFile()');
                 }
             }, {
                 label: 'Save As',
                 accelerator: 'Shift+CmdOrCtrl+S',
                 click: function () {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.saveAsSketchFile()');
+                    executeJavaScript('watchXBlocks.saveAsSketchFile()');
                 }
             }, {
                 type: 'separator'
             }, {
                 label: 'Export as Arduino Sketch',
                 click: function () {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.exportArduinoFile()');
+                    executeJavaScript('watchXBlocks.exportArduinoFile()');
                 }
             }
         ]
@@ -146,13 +154,13 @@ var getEditMenuData = function () {
                 label: 'Undo',
                 accelerator: 'CmdOrCtrl+Z',
                 click: function () {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.workspace.undo(false)');
+                    executeJavaScript('watchXBlocks.workspace.undo(false)');
                 }
             }, {
                 label: 'Redo',
                 accelerator: 'CmdOrCtrl+Y',
                 click: function () {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.workspace.undo(true)');
+                    executeJavaScript('watchXBlocks.workspace.undo(true)');
                 }
             }, {
                 type: 'separator'
@@ -160,31 +168,31 @@ var getEditMenuData = function () {
                 label: 'Cut',
                 accelerator: 'CmdOrCtrl+X',
                 click: function () {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.blocklyCut()');
+                    executeJavaScript('watchXBlocks.blocklyCut()');
                 }
             }, {
                 label: 'Copy',
                 accelerator: 'CmdOrCtrl+C',
                 click: function () {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.blocklyCopy()');
+                    executeJavaScript('watchXBlocks.blocklyCopy()');
                 }
             }, {
                 label: 'Paste',
                 accelerator: 'CmdOrCtrl+V',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.blocklyPaste()');
+                    executeJavaScript('watchXBlocks.blocklyPaste()');
                 }
             }, {
                 label: 'Delete',
                 accelerator: 'Delete',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.blocklyDelete()');
+                    executeJavaScript('watchXBlocks.blocklyDelete()');
                 }
             }, {
                 label: 'Delete All',
                 accelerator: 'CmdOrCtrl+Delete',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.discardAllBlocks()');
+                    executeJavaScript('watchXBlocks.discardAllBlocks()');
                 }
             }
         ]
@@ -199,7 +207,7 @@ var getEditMenuData = function () {
                 label: 'Preferences',
                 accelerator: 'CmdOrCtrl+,',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.openSettings()');
+                    executeJavaScript('watchXBlocks.openSettings()');
                 }
             }
         );
@@ -215,52 +223,52 @@ var getExamplesMenuData = function() {
             {
                 label: 'Blink',
                 click: function() {
-                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("/examples/blink.wxb");');
+                    executeJavaScript('watchXBlocks.loadServerXmlFile("/examples/blink.wxb");');
                 }
             }, {
                 label: 'Hello World',
                 click: function() {
-                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("/examples/hello_world.wxb");');
+                    executeJavaScript('watchXBlocks.loadServerXmlFile("/examples/hello_world.wxb");');
                 }
             }, {
                 label: 'Button Counter',
                 click: function() {
-                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("/examples/button_counter.wxb");');
+                    executeJavaScript('watchXBlocks.loadServerXmlFile("/examples/button_counter.wxb");');
                 }
             }, {
                 label: 'Drawing Lines',
                 click: function() {
-                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("/examples/drawing_lines.wxb");');
+                    executeJavaScript('watchXBlocks.loadServerXmlFile("/examples/drawing_lines.wxb");');
                 }
             }, {
                 label: 'Sensor - Movement',
                 click: function() {
-                     BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("/examples/sensor_read_movement.wxb");');
+                    executeJavaScript('watchXBlocks.loadServerXmlFile("/examples/sensor_read_movement.wxb");');
                 }
             }, {
                 label: 'Sensor - Temp Prs',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("/examples/sensor_read_temp_pressure.wxb");');
+                    executeJavaScript('watchXBlocks.loadServerXmlFile("/examples/sensor_read_temp_pressure.wxb");');
                 }
             }, {
                 label: 'Move the Dot',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("/examples/move_the_dot.wxb");');
+                    executeJavaScript('watchXBlocks.loadServerXmlFile("/examples/move_the_dot.wxb");');
                 }
             }, {
                 label: 'Siren',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("/examples/siren.wxb");');
+                    executeJavaScript('watchXBlocks.loadServerXmlFile("/examples/siren.wxb");');
                 }
             }, {
                 label: 'Watch Face',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("/examples/watch_face.wxb");');
+                    executeJavaScript('watchXBlocks.loadServerXmlFile("/examples/watch_face.wxb");');
                 }
             }, {
                 label: 'Bounce',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.loadServerXmlFile("/examples/bounce.wxb");');
+                    executeJavaScript('watchXBlocks.loadServerXmlFile("/examples/bounce.wxb");');
                 }
             }
         ]
@@ -275,13 +283,13 @@ var getProgramMenuData = function() {
                 label: 'Verify',
                 accelerator: 'CmdOrCtrl+R',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.ideSendVerify()');
+                    executeJavaScript('watchXBlocks.ideSendVerify()');
                 }
             }, {
                 label: 'Upload program',
                 accelerator: 'CmdOrCtrl+U',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.ideSendUpload()');
+                    executeJavaScript('watchXBlocks.ideSendUpload()');
                 }
             }
         ]
@@ -346,7 +354,7 @@ var getHelpMenuData = function() {
             }, {
                 label: 'Dictionary',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.openDocumentDialog()');
+                    executeJavaScript('watchXBlocks.openDocumentDialog()');
                 }
             }, {
                 label: 'Learning Center',
@@ -364,9 +372,9 @@ var getHelpMenuData = function() {
     if (process.platform != 'darwin') {
         menu.submenu.push({
             label: 'About',
-                click: function() {
+            click: function() {
                 // shell.openExternal('http://localhost:8000/docs/About');
-                BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.openAboutUs()');
+                executeJavaScript('watchXBlocks.openAboutUs()');
             }
         });
     }
@@ -404,12 +412,12 @@ var getDevMenuData = function() {
             }, {
                 label: 'Open side menu',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('$(".button-collapse").sideNav("show")');
+                    executeJavaScript('$(".button-collapse").sideNav("show")');
                 }
             }, {
                 label: 'Open extra blocks menu',
                 click: function() {
-                    BrowserWindow.getFocusedWindow().webContents.executeJavaScript('watchXBlocks.openExtraCategoriesSelect()');
+                    executeJavaScript('watchXBlocks.openExtraCategoriesSelect()');
                 }
             }, {
                 type: 'separator'

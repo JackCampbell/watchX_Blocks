@@ -2,15 +2,16 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="pragma" content="no-cache">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#00878F">
   <link rel="icon" href="img/favicon.ico">
   <title class="translatable_title">watchX Blocks</title>
 
   <!-- Materialize, Prettify, and watchXBlocks CSS -->
-  <link rel="stylesheet" href="materialize/materialize.css" media="screen,projection">
-  <link rel="stylesheet" href="prettify/arduino.css">
-  <link rel="stylesheet" href="watchXBlocks.css" media="screen,projection">
+  <link rel="stylesheet" href="materialize/materialize.css" media="screen,projection"/>
+  <link rel="stylesheet" href="prettify/arduino.css"/>
+  <link rel="stylesheet" href="watchXBlocks.css" media="screen,projection"/>
 
   <script src="/closure-library/closure/goog/base.js"></script>
   <!-- watchXBlocks - These three files contain the compress version -->
@@ -523,17 +524,12 @@
   <!-- Prettify JS -->
   <script src="prettify/prettify.js"></script>
   <!-- watchXBlocks app -->
-  <script src="watchXServer_ajax.js"></script>
+  <script src="watchXBlocks_ui.js"></script>
   <script src="watchXBlocks_lang.js"></script>
   <script src="watchXBlocks_design.js"></script>
   <script src="watchXBlocks_toolbox.js"></script>
   <script src="watchXBlocks_blockly.js"></script>
+  <script src="watchXBlocks_staff.js"></script>
   <script src="watchXBlocks.js"></script>
-  <script>
-    window.addEventListener('load', function load(event) {
-      window.removeEventListener('load', load, false);
-      watchXBlocks.init();
-    });
-  </script>
 </body>
 </html>

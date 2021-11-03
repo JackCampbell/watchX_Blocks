@@ -1,112 +1,22 @@
-/**
- * @license Licensed under the Apache License, Version 2.0 (the "License"):
- *          http://www.apache.org/licenses/LICENSE-2.0
- *
- * @fileoverview Front end code relevant only to the Desktop version of
- *                watchXBlocks.
- */
-//'use strict';
-var electron = require('electron');
-var fs = require("fs");
-var path = require("path");
+const { ipcRenderer, webFrame } = require("electron");
+const winston = require("winston");
 
-const { BrowserWindow } = require("electron");
-window.Hammer = require("./js_libs/hammer.min.js");
-window.JsDiff = require('./js_libs/diff.js');
-// window.$ = window.jQuery = require('./js_libs/jquery-2.1.3.min.js');
+ipcRenderer.on('device-connect', (event, args) => {
+	const { curr_usb_state } = args;
+	watchXBlocks.setupColorEx(document, '#usb-connected', curr_usb_state ? '#7de224': '#ff4646');
+	console.log("exported ...:"); // event.sender.send
+});
+ipcRenderer.on("upload-hex-res", (event, args) => {
+	watchXBlocks.firmwareUploadResult(args);
+});
+ipcRenderer.on("code-res", (event, args) => {
+	watchXBlocks.sendCodeReturn(args);
+});
 
-/** Create a namespace for the application. */
-var watchXBlocks = watchXBlocks || {};
-
-watchXBlocks.bindClickEx = function (el, func) {
-	if (typeof el == 'string') {
-		el = document.getElementById(el);
-	}
-	// Need to ensure both, touch and click, events don't fire for the same thing
-	var propagateOnce = function (e) {
-		e.stopPropagation();
-		e.preventDefault();
-		func();
-	};
-	el.addEventListener('ontouchend', propagateOnce);
-	el.addEventListener('click', propagateOnce);
-};
-
-/**
- * Checks if the current JavaScript is loaded in the rendered process of
- * Electron. Works even if the node integration is turned off.
- * @return {!boolean} True if watchXBlocks running in Electron application
- */
-watchXBlocks.isRunningElectron = function() {
-	return navigator.userAgent.toLowerCase().indexOf('electron') != -1;
-};
-/**
- * Because the Node integration causes conflicts with the way JavaScript
- * libraries are declared as modules, this declares them in the window context.
- * This function is to be executed as soon as this file is loaded, and because
- * of that this file must be called in the HTML before the Materialize library
- * is loaded.
- */
-function loadJsInElectron() { // no call
-	// if(watchXBlocks.isRunningElectron())
-	{
-		var projectLocator = require('electron').remote.require('./projectlocator.js');
-		var projectRoot = projectLocator.getServerPath();
-		window.$ = window.jQuery = require(projectRoot + '/client/js_libs/jquery-2.1.3.min.js');
-		window.Hammer = require(projectRoot + '/client/js_libs/hammer.min.js');
-		window.JsDiff = require(projectRoot + '/client/js_libs/diff.js');
-	}
-}
-
-/**
- * Add click listeners to the Compiler and Sketch input fields to launch the
- * Electron file/folder browsers.
- */
-watchXBlocks.bindSettingsPathInputs = function() {
-	var dialog = electron.remote.dialog;
-	// Compiler path
-	var compilerEl = document.getElementById('settings_compiler_location');
-	compilerEl.readOnly = true;
-	watchXBlocks.bindClickEx(compilerEl, function() {
-		var files = dialog.showOpenDialogSync(null, {
-			title: 'Select the arduini-cli executable',
-			buttonLabel: 'Select',
-			properties: ['openFile']
-		});
-		if(files == undefined) {
-			return;
-		}
-		watchXBlocksServer.setCompilerLocation(files[0], function(jsonObj) {
-			//watchXBlocks.setCompilerLocationHtml(watchXBlocksServer.jsonToHtmlTextInput(jsonObj));
-			var newEl = watchXBlocksServer.jsonToHtmlTextInput(jsonObj);
-			compilerEl.value = newEl.value;
-			compilerEl.style.cssText = newEl.style.cssText;
-		});
-	});
-	// Sketch path
-	var sketchEl = document.getElementById('settings_sketch_location');
-	sketchEl.readOnly = true;
-	watchXBlocks.bindClickEx(sketchEl, function() {
-		var folders = dialog.showOpenDialogSync(null, {
-			title: 'Select the sketch folder',
-			buttonLabel: 'Select',
-			properties: ['openDirectory']
-		});
-		if(folders == undefined) {
-			return;
-		}
-		watchXBlocksServer.setSketchLocation(folders[0], function(jsonObj) {
-			//watchXBlocks.setSketchLocationHtml(watchXBlocksServer.jsonToHtmlTextInput(jsonObj));
-			var newEl = watchXBlocksServer.jsonToHtmlTextInput(jsonObj);
-			sketchEl.value = newEl.value;
-			sketchEl.style.cssText = newEl.style.cssText;
-		});
-	});
-};
+var watchXBlocksImpl = {};
 
 /** Wraps the console.log warn and errors to send data to logging file. */
-watchXBlocks.redirectConsoleLogging = function() {
-	var winston = require('electron').remote.require('winston');
+watchXBlocksImpl.redirectConsoleLogging = function() {
 	var consoleLog = console.log;
 	var consoleWarning = console.warning;
 	var consoleError = console.error;
@@ -160,33 +70,22 @@ watchXBlocks.redirectConsoleLogging = function() {
 	};
 };
 
-watchXBlocks.setVersionAndBuilder = function() {
-	var element = document.getElementById("watchx_version");
-	if(element == null) {
-		return;
-	}
-	element.innerHTML = electron.remote.app.getVersion();
-}
+
+watchXBlocksImpl.setupVersion = function() {
+	var result = ipcRenderer.sendSync('get-version', { });
+	watchXBlocks.setTextEx(document, '#watchx_version', result);
+};
 
 /** Initialize watchXBlocks code required for Electron on page load. */
-window.addEventListener('DOMContentLoaded', function load(event) {
-	// window.removeEventListener('load', load, false);
-	// if(watchXBlocks.isRunningElectron())
-	{
-		// watchXBlocks.setVersionAndBuilder();
-
-		// Open the file or directory browsers when clicking on the Settings inputs
-		watchXBlocks.bindSettingsPathInputs();
-
-		// Prevent browser zoom changes like pinch-to-zoom
-		var webFrame = require('electron').webFrame;
-		webFrame.setVisualZoomLevelLimits(1, 1);
-
-		watchXBlocks.redirectConsoleLogging();
-
-		// Electron does not offer a prompt, so replace Blocks version with modal
-		// Original signature: function(message, opt_defaultInput, opt_callback)
-		//Blockly.prompt = watchXBlocks.htmlPrompt;
-		console.log(electron, fs, path);
+window.addEventListener('DOMContentLoaded', event => {
+	watchXBlocks.sendSync = ipcRenderer.sendSync;
+	watchXBlocks.sendAsync = ipcRenderer.send
+	if(window.JsDiff == undefined) {
+		window.JsDiff = require("./js_libs/diff.js");
 	}
-});
+	// Prevent browser zoom changes like pinch-to-zoom
+	webFrame.setVisualZoomLevelLimits(1, 1); //
+	watchXBlocksImpl.setupVersion();
+	watchXBlocksImpl.redirectConsoleLogging();
+	watchXBlocks.init();
+}, false);

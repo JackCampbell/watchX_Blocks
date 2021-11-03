@@ -442,3 +442,118 @@ watchXBlocks.getBBoxEx = function(element) {
 	} while(element);
 	return {height: height, width: width, x: x, y: y};
 };
+
+
+
+/**
+ * Creates an HTML element based on the JSON data received from the server.
+ * @param {!string} jsonObj A string containing the JSON data to be parsed.
+ * @return {!element} An HTML element, which type depends on the JSON 'element'
+ *                    key (currently only text input or drop down).
+ */
+watchXBlocks.jsonToIdeModal = function (jsonObj) {
+	if (!jsonObj) {
+		return null;
+	}
+
+	var elTitle = document.createElement('h4');
+	elTitle.className = (jsonObj && jsonObj.success) ? 'arduino_dialog_success' : 'arduino_dialog_failure';
+	var elStdOp = document.createElement('span');
+	elStdOp.className = 'arduino_dialog_out';
+	var elErrOp = document.createElement('span');
+	elErrOp.className = 'arduino_dialog_out_error';
+
+	// Add the Standard and Error outputs
+	var ideData = jsonObj.ide_data;
+	if (ideData && (ideData.std_output !== undefined) &&
+		(ideData.err_output !== undefined)) {
+		elStdOp.innerHTML = ideData.std_output.split('\n').join('<br />');
+		elErrOp.innerHTML = ideData.err_output.split('\n').join('<br />');
+	} else {
+		// console.error(jsonObj);
+		console.warn('The IDE out JSON response does not have valid "ide_data".');
+	}
+	if (jsonObj.errors) {
+		// Prepare error message
+		elTitle.innerHTML = watchXBlocks.getLocalStr('arduinoOpErrorTitle');
+		var errStr = [];
+		for (var i = 0; i < jsonObj.errors.length; i++) {
+			const { id, description } = jsonObj.errors[i];
+			var errorContext = 'Unrecognised error.';
+			try {
+				errorContext = watchXBlocks.getLocalStr('arduinoOpErrorIdContext_' + id);
+			} catch (e) {
+				// Swallow the exception, could be expanded to try to figure out issue
+			}
+			if(errorContext == '' && description != null) {
+				errorContext = 'Unrecognised error.: ' + description;
+			}
+			errStr.push('\nError id ' + id + ': ' + errorContext);
+		}
+		elErrOp.innerHTML += '<br />' + errStr.join('<br />');
+	} else if (jsonObj.success && jsonObj.ide_mode) {
+		// Format a successful response
+		if (jsonObj.ide_mode == 'upload') {
+			elTitle.innerHTML = watchXBlocks.getLocalStr('arduinoOpUploadedTitle');
+		} else if (jsonObj.ide_mode == 'verify') {
+			elTitle.innerHTML = watchXBlocks.getLocalStr('arduinoOpVerifiedTitle');
+		} else {
+			elTitle.innerHTML = watchXBlocks.getLocalStr('arduinoOpProcess');
+		}
+	} else {
+		// console.error(jsonObj);
+		console.warn('Unexpected response format, printed above.');
+	}
+	var element = document.createElement('div');
+	element.appendChild(elTitle);
+	element.appendChild(elStdOp);
+	element.appendChild(elErrOp);
+	return element;
+};
+watchXBlocks.jsonToHtmlTextInput = function (jsonObj) {
+	var element = null;
+	if (jsonObj) {
+		// Simple text input
+		element = document.createElement('input');
+		element.setAttribute('type', 'text');
+		element.style.cssText = '';
+		if (jsonObj.errors) {
+			element.setAttribute('value', '');
+			element.style.cssText = [
+				'border-bottom: 1px solid #f75c51;',
+				'box-shadow: 0 1px 0 0 #d73c30;'
+			].join('\n');
+		} else {
+			element.setAttribute('value', jsonObj.selected || '');
+		}
+	}
+	return element;
+};
+watchXBlocks.jsonToHtmlDropdown = function (jsonObj) {
+	var element = null;
+	if (!jsonObj) {
+		console.error('Invalid JSON received from server.');
+	} else if (jsonObj.errors) {
+		console.error('There are errors in the JSON response from server.');
+		console.error(jsonObj);
+	} else {
+		// Drop down list of unknown length with a selected item
+		element = document.createElement('select');
+		element.name = jsonObj.settings_type;
+		for (var i = 0; i < jsonObj.options.length; i++) {
+			if (jsonObj.options[i].value && jsonObj.options[i].display_text) {
+				var option = document.createElement('option');
+				option.value = jsonObj.options[i].value;
+				option.text = jsonObj.options[i].display_text;
+				// Check selected option and mark it
+				if (jsonObj.selected) {
+					option.selected = jsonObj.options[i].value == jsonObj.selected;
+				}
+				element.appendChild(option);
+			} else {
+				console.error('Missing required JSON keys for Drop Down conversion.');
+			}
+		}
+	}
+	return element;
+};

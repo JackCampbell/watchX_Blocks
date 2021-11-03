@@ -21,17 +21,5 @@
 			<div class="infinity"></div>
 			<span class="message">watchX Blocks</span>
 		</div>
-		<script>
-			function set_progress(message, progress) {
-				var e = document.querySelector('#splash-progress > span.message');
-				if(e != null) {
-					e.innerHTML = message;
-				}
-				e = document.querySelector('#splash-progress > div.infinity');
-				if(e) {
-					e.style.width = progress;
-				}
-			}
-		</script>
 	</body>
 </html>

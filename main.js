@@ -7,9 +7,10 @@
  * @fileoverview Electron entry point continues here. Creates windows and
  *               handles system events.
  */
-const { app, BrowserWindow, shell } = require('electron');
+const { app, BrowserWindow, shell, ipcMain, dialog } = require('electron');
 const appMenu = require('./server/appmenu.js');
 const server = require('./server/servermgr.js');
+const startup = require("./server/startupmgr.js");
 const jetpack = require("fs-jetpack");
 const nconf = require('nconf');
 
@@ -19,7 +20,10 @@ const createWindow = require('./server/window.js');
 const winston = require('winston');
 // const packageData = require('fs-jetpack').cwd( app.getAppPath() ).read('package.json', 'json');
 const packageData = require("./package.json");
-const path = require("path"); // TEST
+const path = require("path");
+const fs = require("fs");
+const config = require("./server/cfgconst");
+const helper = require("./server/cfghelper"); // TEST
 
 const tag = '[watchXElec] ';
 
@@ -86,8 +90,8 @@ app.on('ready', function() {
     }*/
     server.startServer(8000, (port) => {
         createSplashWindow(() => {
-            server.initializeCore(observerSplashWindow, (code) => {
-                createMainWindow(port, code);
+            startup.initializeCore(observerSplashWindow, (code) => {
+                createMainWindow(8000, code);
             });
         });
     });
@@ -96,7 +100,6 @@ app.on('ready', function() {
         arg_filename = (process.argv[1]).replaceAll('\\', '/');
     }
 });
-
 app.on('will-finish-launching', () => {
     app.on('open-file', (event, path) => {
         arg_filename = path.replaceAll('\\', '/');
@@ -106,7 +109,6 @@ app.on('will-finish-launching', () => {
         event.preventDefault();
     });
 });
-
 app.on('window-all-closed', function() {
     server.stopServer();
     app.quit();
@@ -114,7 +116,6 @@ app.on('window-all-closed', function() {
 
 function createMainWindow(port, code) {
     var projectJetPath = projectLocator.getServerJetpack();
-    var preload = projectJetPath.path('client', 'watchXBlocks_desktop.js');
     mainWindow = createWindow('main', {
         width: 1200,
         height: 765,
@@ -137,7 +138,7 @@ function createMainWindow(port, code) {
             "overlayScrollbars": true,
             "textAreasAreResizable": false,
             "directWrite": true,
-            "preload": preload,
+            "preload": path.join(__dirname, "client", "watchXBlocks_desktop.js"),
             "contextIsolation": false,
             "enableRemoteModule": true,
             "nativeWindowOpen": true
@@ -221,7 +222,8 @@ function createSplashWindow(callback) {
             "directWrite": true,
             "contextIsolation": false,
             "enableRemoteModule": true,
-            "nativeWindowOpen": true
+            "nativeWindowOpen": true,
+            preload: path.join(__dirname, "client", "watchXBlocks_splash.js")
         }
     });
     splashWindow.webContents.on("ready-to-show", callback);
@@ -236,5 +238,5 @@ function observerSplashWindow(message, progress) {
     if(progress == null) {
         progress = 100;
     }
-    splashWindow.webContents.executeJavaScript(`set_progress('${message}', '${progress}%')`);
+    splashWindow.webContents.send("set-progress", { message, progress });
 }

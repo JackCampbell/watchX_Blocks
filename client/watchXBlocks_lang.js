@@ -114,34 +114,28 @@ watchXBlocks.updateLanguageText = function () {
 
 /**
  * Injects the language JavaScript files into the html head element.
- * @param {string} langKey Dictionary key for the language to inject, must also
+ * @param {string} lang_key Dictionary key for the language to inject, must also
  *     be JS file name.
  */
-watchXBlocks.injectLanguageJsSources = function (langKey) {
+watchXBlocks.injectLanguageJsSources = function (lang_key) {
     var head = document.getElementsByTagName('head')[0];
 
-    // Retrieve and inject watchXBlocks translations synchronously
-    var appLangJsLoad = document.createElement('script');
-    var request = watchXBlocksServer.createRequest();
-    var appLangJdPath = 'msg/' + langKey + '.js';
-    try {
-        request.open('GET', appLangJdPath, false);
-        request.send('');
-        appLangJsLoad.text = request.responseText;
-    } catch (e) {
+    var result = watchXBlocks.sendSync("get-lang", { lang_key });
+    if(result != null) {
+        // Retrieve and inject watchXBlocks translations synchronously
+        var appLangJsLoad = document.createElement('script');
+        appLangJsLoad.text = result;
+        head.appendChild(appLangJsLoad);
+    } else {
         // Display an alert to indicate we cannot load languages
-        watchXBlocks.alertMessage(
-            watchXBlocks.getLocalStr('noServerTitle'),
-            watchXBlocks.getLocalStr('noServerNoLangBody'),
-            false);
-        // But still asynchronous lazy load so at least some text gets translated
-        appLangJsLoad.src = appLangJdPath;
+        var title = watchXBlocks.getLocalStr('noServerTitle');
+        var body = watchXBlocks.getLocalStr('noServerNoLangBody')
+        watchXBlocks.alertMessage(title, body, false);
     }
-    head.appendChild(appLangJsLoad);
 
     // Retrieve and inject Blockly translations asynchronously
     var blocklyLangJsLoad = document.createElement('script');
-    blocklyLangJsLoad.src = '../blockly/msg/js/' + langKey + '.js';
+    blocklyLangJsLoad.src = '../blockly/msg/js/' + lang_key + '.js';
     head.appendChild(blocklyLangJsLoad);
 };
 

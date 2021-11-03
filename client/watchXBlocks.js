@@ -33,70 +33,88 @@ watchXBlocks.init = function () {
         console.log('Offline app modal opened as non localhost host name found: ' + document.location.hostname)
     }
     watchXBlocks.setSketchFileName(null);
+    watchXBlocks.renderDefault();
 };
 
 /** Binds functions to each of the buttons, nav links, and related. */
 watchXBlocks.bindActionFunctions = function () {
     // Navigation buttons
-    watchXBlocks.bindClick_('button_load', watchXBlocks.openSketchFile);
-    watchXBlocks.bindClick_('button_save', watchXBlocks.saveSketchFile);
-    watchXBlocks.bindClick_('button_delete', watchXBlocks.discardAllBlocks);
+    watchXBlocks.bindClickEx('button_load', watchXBlocks.openSketchFile);
+    watchXBlocks.bindClickEx('button_save', watchXBlocks.saveSketchFile);
+    watchXBlocks.bindClickEx('button_delete', watchXBlocks.discardAllBlocks);
 
     // Side menu buttons, they also close the side menu
-    watchXBlocks.bindClick_('menu_new', function () {
+    watchXBlocks.bindClickEx('menu_new', function () {
         watchXBlocks.newSketchFile();
         $('.button-collapse').sideNav('hide');
     });
-    watchXBlocks.bindClick_('menu_load', function () {
+    watchXBlocks.bindClickEx('menu_load', function () {
         watchXBlocks.openSketchFile();
         $('.button-collapse').sideNav('hide');
     });
-    watchXBlocks.bindClick_('menu_save', function () {
+    watchXBlocks.bindClickEx('menu_save', function () {
         watchXBlocks.saveSketchFile();
         $('.button-collapse').sideNav('hide');
     });
-    watchXBlocks.bindClick_('menu_delete', function () {
+    watchXBlocks.bindClickEx('menu_delete', function () {
         watchXBlocks.discardAllBlocks();
         $('.button-collapse').sideNav('hide');
     });
-    watchXBlocks.bindClick_('menu_settings', watchXBlocks.openSettings );
-    watchXBlocks.bindClick_('menu_example', watchXBlocks.openExampleDialog );
-    watchXBlocks.bindClick_('menu_faces', watchXBlocks.openWatchFaceDialog );
-    watchXBlocks.bindClick_('menu_games', watchXBlocks.openGamesDialog );
-    watchXBlocks.bindClick_('menu_about', watchXBlocks.openAboutUs );
-    watchXBlocks.bindClick_('menu_doc', watchXBlocks.openDocumentDialog );
+    watchXBlocks.bindClickEx('menu_settings', watchXBlocks.openSettings );
+    watchXBlocks.bindClickEx('menu_example', watchXBlocks.openExampleDialog );
+    watchXBlocks.bindClickEx('menu_faces', watchXBlocks.openWatchFaceDialog );
+    watchXBlocks.bindClickEx('menu_games', watchXBlocks.openGamesDialog );
+    watchXBlocks.bindClickEx('menu_about', watchXBlocks.openAboutUs );
+    watchXBlocks.bindClickEx('menu_doc', watchXBlocks.openDocumentDialog );
     // Floating buttons
-    watchXBlocks.bindClick_('button_upload', watchXBlocks.ideSendUpload );
-    watchXBlocks.bindClick_('button_verify', watchXBlocks.ideSendVerify );
+    watchXBlocks.bindClickEx('button_upload', watchXBlocks.ideSendUpload );
+    watchXBlocks.bindClickEx('button_verify', watchXBlocks.ideSendVerify );
     // -
-    watchXBlocks.bindClick_('button_load_xml', watchXBlocks.XmlTextareaToBlocks);
-    watchXBlocks.bindClick_('button_toggle_toolbox', watchXBlocks.toggleToolbox);
+    watchXBlocks.bindClickEx('button_load_xml', watchXBlocks.XmlTextareaToBlocks);
+    watchXBlocks.bindClickEx('button_toggle_toolbox', watchXBlocks.toggleToolbox);
 
-    // Settings modal input field listeners only if they can be edited
-    var settingsPathInputListeners = function (elId, setValFunc, setHtmlCallback) {
-        var el = document.getElementById(elId);
-        if (el.readOnly === false) {
-            // Event listener that send the data when the user presses 'Enter'
-            el.onkeypress = function (e) {
-                if (!e) e = window.event;
-                var keyCode = e.keyCode || e.which;
-                if (keyCode == '13') {
-                    setValFunc(el.value, function (jsonObj) {
-                        setHtmlCallback(watchXBlocksServer.jsonToHtmlTextInput(jsonObj));
-                    });
-                    return false;
-                }
-            };
-            // Event listener that send the data when moving out of the input field
-            el.onblur = function () {
+
+    watchXBlocks.bindSettingsPathInputs();
+    watchXBlocks.settingsPathInputListeners( 'settings_compiler_location', watchXBlocks.setCompilerLocation, watchXBlocks.setCompilerLocationHtml );
+    watchXBlocks.settingsPathInputListeners( 'settings_sketch_location', watchXBlocks.setSketchLocation, watchXBlocks.setSketchLocationHtml );
+};
+
+watchXBlocks.setSketchLocation = function(value, callback) {
+    var result = watchXBlocks.sendSync("set-settings", { name: "sketch", new_value:value });
+    if(result != null) {
+        callback(result);
+    }
+}
+
+watchXBlocks.setCompilerLocation = function(value, callback) {
+    var result = watchXBlocks.sendSync("set-settings", { name: "compiler", new_value:value });
+    if(result != null) {
+        callback(result);
+    }
+}
+
+// Settings modal input field listeners only if they can be edited
+watchXBlocks.settingsPathInputListeners = function (elId, setValFunc, setHtmlCallback) {
+    var el = document.getElementById(elId);
+    if (el.readOnly === false) {
+        // Event listener that send the data when the user presses 'Enter'
+        el.onkeypress = function (e) {
+            if (!e) e = window.event;
+            var keyCode = e.keyCode || e.which;
+            if (keyCode == '13') {
                 setValFunc(el.value, function (jsonObj) {
-                    setHtmlCallback(watchXBlocksServer.jsonToHtmlTextInput(jsonObj));
+                    setHtmlCallback(watchXBlocks.jsonToHtmlTextInput(jsonObj));
                 });
-            };
-        }
-    };
-    settingsPathInputListeners( 'settings_compiler_location', watchXBlocksServer.setCompilerLocation, watchXBlocks.setCompilerLocationHtml );
-    settingsPathInputListeners( 'settings_sketch_location', watchXBlocksServer.setSketchLocationHtml, watchXBlocks.setSketchLocationHtml );
+                return false;
+            }
+        };
+        // Event listener that send the data when moving out of the input field
+        el.onblur = function () {
+            setValFunc(el.value, function (jsonObj) {
+                setHtmlCallback(watchXBlocks.jsonToHtmlTextInput(jsonObj));
+            });
+        };
+    }
 };
 
 /** Sets the watchXBlocks server IDE setting to upload and sends the code. */
@@ -159,33 +177,31 @@ watchXBlocks.newSketchFile = function () {
  */
 watchXBlocks.openSketchFile = function () {
     var title = watchXBlocks.getLocalStr('open');
-    watchXBlocksServer.sendRequest("/editor/open", "POST", "application/json", { title }, (json) => {
-        if(json.filename == null) {
-            return;
-        }
-        var success = watchXBlocks.replaceBlocksfromXml( json.content );
-        if (success) {
-            watchXBlocks.renderContent();
-            watchXBlocks.setSketchFileName( json.filename );
-        } else {
-            watchXBlocks.alertMessage( watchXBlocks.getLocalStr('invalidXmlTitle'), watchXBlocks.getLocalStr('invalidXmlBody'), false );
-        }
-    });
+    var result = watchXBlocks.sendSync("editor-open", { title });
+    if(result.filename == null) {
+        return;
+    }
+    var success = watchXBlocks.replaceBlocksfromXml( result.content );
+    if (success) {
+        watchXBlocks.renderContent();
+        watchXBlocks.setSketchFileName( result.filename );
+    } else {
+        watchXBlocks.alertMessage( watchXBlocks.getLocalStr('invalidXmlTitle'), watchXBlocks.getLocalStr('invalidXmlBody'), false );
+    }
 };
 
 watchXBlocks.loadSketchFile = function(filename) {
-    watchXBlocksServer.sendRequest("/editor/load", "POST", "application/json", { filename }, (json) => {
-        if(json.content == null) {
-            return;
-        }
-        var success = watchXBlocks.replaceBlocksfromXml( json.content );
-        if (success) {
-            watchXBlocks.renderContent();
-            watchXBlocks.setSketchFileName( json.filename );
-        } else {
-            watchXBlocks.alertMessage( watchXBlocks.getLocalStr('invalidXmlTitle'), watchXBlocks.getLocalStr('invalidXmlBody'), false );
-        }
-    });
+    var result = watchXBlocks.sendSync("editor-load", { filename });
+    if(result.content == null) {
+        return;
+    }
+    var success = watchXBlocks.replaceBlocksfromXml( result.content );
+    if (success) {
+        watchXBlocks.renderContent();
+        watchXBlocks.setSketchFileName( result.filename );
+    } else {
+        watchXBlocks.alertMessage( watchXBlocks.getLocalStr('invalidXmlTitle'), watchXBlocks.getLocalStr('invalidXmlBody'), false );
+    }
 };
 
 /**
@@ -198,38 +214,35 @@ watchXBlocks.saveSketchFile = function () {
     var basename = watchXBlocks.defaultBaseName;
     var content = watchXBlocks.generateXml();
     var title = watchXBlocks.getLocalStr('save');
-    watchXBlocksServer.sendRequest("/editor/save", "POST", "application/json", { filename, content, basename, title }, (json) => {
-        if(json.filename == null) {
-            return;
-        }
-        watchXBlocks.setSketchFileName( json.filename );
-    });
+    var result = watchXBlocks.sendSync("editor-save", { filename, content, basename, title });
+    if(result.filename == null) {
+        return;
+    }
+    watchXBlocks.setSketchFileName( result.filename );
 };
 watchXBlocks.saveAsSketchFile = function () {
-    var content = watchXBlocks.generateXml();
-    var filename = null;
     var basename = watchXBlocks.defaultBaseName;
-    var title = watchXBlocks.getLocalStr('saveAs');
-    watchXBlocksServer.sendRequest("/editor/save", "POST", "application/json", { filename, content, basename, title }, (json) => {
-        if(json.filename == null) {
-            return;
-        }
-        watchXBlocks.setSketchFileName( json.filename );
-    });
+    var content = watchXBlocks.generateXml();
+    var title = watchXBlocks.getLocalStr('save');
+    var result = watchXBlocks.sendSync("editor-save", { filename:null, content, basename, title });
+    if(result.filename == null) {
+        return;
+    }
+    watchXBlocks.setSketchFileName( result.filename );
 };
 watchXBlocks.exportArduinoFile = function() {
     var content = watchXBlocks.generateArduino();
     var title = watchXBlocks.getLocalStr('exportArduinoSketch');
-    watchXBlocksServer.sendRequest("/editor/export", "POST", "application/json", { content, title }, (json) => {
-        if(json.filename == null) {
-            return;
-        }
-        console.log("exported ...");
-    });
+    var result = watchXBlocks.sendSync('editor-export', { content, title });
+    if(result.filename == null) {
+        return;
+    }
+    console.log("exported ...:");
 };
 /**
  * Creates an XML file containing the blocks from the Blockly workspace and
  * prompts the users to save it into their local file system.
+ * @deprecated
  */
 watchXBlocks.saveXmlFile = function () {
     watchXBlocks.saveTextFileAs( document.getElementById('sketch_name').value + '.xml', watchXBlocks.generateXml() );
@@ -240,6 +253,7 @@ watchXBlocks.saveXmlFile = function () {
  * users to save it into their local file system.
  * @param {!string} fileName Name for the file to be saved.
  * @param {!string} content Text datd to be saved in to the file.
+ * @deprecated
  */
 watchXBlocks.saveTextFileAs = function (fileName, content) {
     var blob = new Blob( [content], { type: 'text/plain;charset=utf-8' } );
@@ -251,36 +265,25 @@ watchXBlocks.saveTextFileAs = function (fileName, content) {
  * and opens the Settings modal dialog.
  */
 watchXBlocks.openSettings = function () {
-    watchXBlocksServer.requestCompilerLocation(function (jsonObj) {
-        watchXBlocks.setCompilerLocationHtml( watchXBlocksServer.jsonToHtmlTextInput(jsonObj) );
-    });
-    watchXBlocksServer.requestSketchLocation(function (jsonObj) {
-        watchXBlocks.setSketchLocationHtml( watchXBlocksServer.jsonToHtmlTextInput(jsonObj) );
-    });
-    watchXBlocksServer.requestArduinoBoards(function (jsonObj) {
-        watchXBlocks.setArduinoBoardsHtml( watchXBlocksServer.jsonToHtmlDropdown(jsonObj) );
-    });
-    watchXBlocksServer.requestSerialPorts(function (jsonObj) {
-        watchXBlocks.setSerialPortsHtml( watchXBlocksServer.jsonToHtmlDropdown(jsonObj) );
-    });
+    var result = watchXBlocks.sendSync("all-settings", null);
+    for(var opts of result.settings) {
+        console.log(opts);
+        if(opts.settings_type == "compiler") {
+            watchXBlocks.setCompilerLocationHtml( watchXBlocks.jsonToHtmlTextInput(opts) );
+        } else if(opts.settings_type == "sketch") {
+            watchXBlocks.setSketchLocationHtml( watchXBlocks.jsonToHtmlTextInput(opts) );
+        } else if(opts.settings_type == "board") {
+            watchXBlocks.setArduinoBoardsHtml( watchXBlocks.jsonToHtmlDropdown(opts) );
+        } else if(opts.settings_type == "serial") {
+            watchXBlocks.setSerialPortsHtml( watchXBlocks.jsonToHtmlDropdown(opts) );
+        }
+    }
     // Language menu only set on page load within watchXBlocks.initLanguage()
     watchXBlocks.openSettingsModal();
 };
 
-var once_version = false;
 watchXBlocks.openAboutUs = function () {
-    if(once_version == true) {
-        watchXBlocks.openAboutDialog();
-        return;
-    }
-    watchXBlocksServer.sendRequest("/version", "GET", "application/json", null, json => {
-        var element = document.getElementById("watchx_version");
-        if(element && json.version) {
-            element.innerHTML = json.version;
-        }
-        watchXBlocks.openAboutDialog();
-        once_version = true;
-    });
+    watchXBlocks.openAboutDialog();
 };
 
 /**
@@ -289,8 +292,9 @@ watchXBlocks.openAboutUs = function () {
  * @return {undefined} Might exit early if response is null.
  */
 watchXBlocks.setCompilerLocationHtml = function (newEl) {
-    if (newEl === null) return watchXBlocks.openNotConnectedModal();
-
+    if (newEl === null) {
+        return watchXBlocks.openNotConnectedModal();
+    }
     var compLocIp = document.getElementById('settings_compiler_location');
     if (compLocIp != null) {
         compLocIp.value = newEl.value || compLocIp.value || 'Please enter the location of the Arduino IDE executable';
@@ -300,12 +304,13 @@ watchXBlocks.setCompilerLocationHtml = function (newEl) {
 
 /**
  * Sets the sketch location form data retrieve from an updated element.
- * @param {element} jsonResponse JSON data coming back from the server.
+ * @param {element} newEl JSON data coming back from the server.
  * @return {undefined} Might exit early if response is null.
  */
 watchXBlocks.setSketchLocationHtml = function (newEl) {
-    if (newEl === null) return watchXBlocks.openNotConnectedModal();
-
+    if (newEl === null) {
+        return watchXBlocks.openNotConnectedModal();
+    }
     var sketchLocIp = document.getElementById('settings_sketch_location');
     if (sketchLocIp != null) {
         sketchLocIp.value = newEl.value || sketchLocIp.value || 'Please enter a folder to store the Arduino Sketch';
@@ -316,7 +321,7 @@ watchXBlocks.setSketchLocationHtml = function (newEl) {
 /**
  * Replaces the Arduino Boards form data with a new HTMl element.
  * Ensures there is a change listener to call 'setSerialPort' function
- * @param {element} jsonObj JSON data coming back from the server.
+ * @param {element} newEl JSON data coming back from the server.
  * @return {undefined} Might exit early if response is null.
  */
 watchXBlocks.setArduinoBoardsHtml = function (newEl) {
@@ -324,14 +329,15 @@ watchXBlocks.setArduinoBoardsHtml = function (newEl) {
 
     var boardDropdown = document.getElementById('board');
     if (boardDropdown !== null) {
+        var selector = $('select');
         // Restarting the select elements built by materialize
-        $('select').material_select('destroy');
+        selector.material_select('destroy');
         newEl.name = 'settings_board';
         newEl.id = 'board';
         newEl.onchange = watchXBlocks.setBoard;
         boardDropdown.parentNode.replaceChild(newEl, boardDropdown);
         // Refresh the materialize select menus
-        $('select').material_select();
+        selector.material_select();
     }
 };
 
@@ -340,18 +346,20 @@ watchXBlocks.setArduinoBoardsHtml = function (newEl) {
  */
 watchXBlocks.setBoard = function () {
     var el = document.getElementById('board');
-    var boardValue = el.options[el.selectedIndex].value;
-    watchXBlocksServer.setArduinoBoard(boardValue, function (jsonObj) {
-        var newEl = watchXBlocksServer.jsonToHtmlDropdown(jsonObj);
+    var board_value = el.options[el.selectedIndex].value;
+    // ...
+    watchXBlocks.changeBlocklyArduinoBoard( board_value.toLowerCase().replace(/ /g, '_') );
+    var result = watchXBlocks.sendSync("set-settings", { name:"board", new_value:board_value });
+    if(result != null) {
+        var newEl = watchXBlocks.jsonToHtmlDropdown(result);
         watchXBlocks.setArduinoBoardsHtml(newEl);
-    });
-    watchXBlocks.changeBlocklyArduinoBoard( boardValue.toLowerCase().replace(/ /g, '_') );
+    }
 };
 
 /**
  * Replaces the Serial Port form data with a new HTMl element.
  * Ensures there is a change listener to call 'setSerialPort' function
- * @param {element} jsonResponse JSON data coming back from the server.
+ * @param {element} newEl JSON data coming back from the server.
  * @return {undefined} Might exit early if response is null.
  */
 watchXBlocks.setSerialPortsHtml = function (newEl) {
@@ -374,11 +382,12 @@ watchXBlocks.setSerialPortsHtml = function (newEl) {
 /** Sets the Serial Port with the selected user input from the drop down. */
 watchXBlocks.setSerial = function () {
     var el = document.getElementById('serial_port');
-    var serialValue = el.options[el.selectedIndex].value;
-    watchXBlocksServer.setSerialPort(serialValue, function (jsonObj) {
-        var newEl = watchXBlocksServer.jsonToHtmlDropdown(jsonObj);
+    var serial_value = el.options[el.selectedIndex].value;
+    var result = watchXBlocks.sendSync("set-settings", { name:"serial", new_value:serial_value });
+    if(result != null) {
+        var newEl = watchXBlocks.jsonToHtmlDropdown(result);
         watchXBlocks.setSerialPortsHtml(newEl);
-    });
+    }
 };
 
 /**
@@ -388,21 +397,18 @@ watchXBlocks.setSerial = function () {
  */
 watchXBlocks.sendCode = function (action) {
     watchXBlocks.largeIdeButtonSpinner(true);
-    /**
-     * Receives the IDE data back to be displayed and stops spinner.
-     * @param {element} jsonResponse JSON data coming back from the server.
-     * @return {undefined} Might exit early if response is null.
-     */
-    var sendCodeReturn = function (jsonObj) {
-        watchXBlocks.largeIdeButtonSpinner(false);
-        if (jsonObj === null) {
-            return watchXBlocks.openNotConnectedModal();
-        }
-        var dataBack = watchXBlocksServer.jsonToIdeModal(jsonObj);
-        watchXBlocks.arduinoIdeOutput(dataBack);
-    };
-    watchXBlocksServer.sendSketchToServer( watchXBlocks.generateArduino(), action, sendCodeReturn );
+    var sketch_code = watchXBlocks.generateArduino();
+    watchXBlocks.sendAsync("code", { sketch_code, action });
 };
+
+watchXBlocks.sendCodeReturn = function(result) {
+    watchXBlocks.largeIdeButtonSpinner(false);
+    if (result == null) {
+        return watchXBlocks.openNotConnectedModal();
+    }
+    var dataBack = watchXBlocks.jsonToIdeModal(result);
+    watchXBlocks.arduinoIdeOutput(dataBack);
+}
 
 /** Populate the workspace blocks with the XML written in the XML text area. */
 watchXBlocks.XmlTextareaToBlocks = function () {
@@ -425,7 +431,10 @@ watchXBlocks.PREV_ARDUINO_CODE_ =
 'void setup() {\n}\n\n' +
 'void loop() {\n\tupdate_env();\n}';
 
-
+watchXBlocks.renderDefault = function() {
+    var present = prettyPrintOne(watchXBlocks.PREV_ARDUINO_CODE_, 'cpp', false);
+    document.getElementById('content_arduino').innerHTML = present;
+}
 /**
  * Populate the Arduino Code and Blocks XML panels with content generated from
  * the blocks.
@@ -545,7 +554,7 @@ watchXBlocks.importExtraBlocks = function () {
     };
     // Reads the JSON data containing all block categories from ./blocks directory
     // TODO: Now reading a local file, to be replaced by server generated JSON
-    watchXBlocksServer.getJson('/watchx/blocks_data.json', jsonDataCb);
+    // watchXBlocks.getJson('/watchx/blocks_data.json', jsonDataCb);
 };
 
 /** Opens a modal with a list of categories to add or remove to the toolbox */
@@ -579,7 +588,7 @@ watchXBlocks.openExtraCategoriesSelect = function () {
     };
     // Reads the JSON data containing all block categories from ./blocks directory
     // TODO: Now reading a local file, to be replaced by server generated JSON
-    watchXBlocksServer.getJson('/watchx/blocks_data.json', jsonDataCb);
+    // watchXBlocks.getJson('/watchx/blocks_data.json', jsonDataCb);
 };
 
 /** Informs the user that the selected function is not yet implemented. */
@@ -610,228 +619,27 @@ watchXBlocks.openLearningCenter = function() {
     window.open("http://lms.watchx.io", "blank");
 };
 
+
+
 /**
- * Bind a function to a button's click event.
- * On touch enabled browsers, ontouchend is treated as equivalent to onclick.
- * @param {!Element|string} el Button element or ID thereof.
- * @param {!function} func Event handler to bind.
- * @private
+ * Add click listeners to the Compiler and Sketch input fields to launch the
+ * Electron file/folder browsers.
  */
-watchXBlocks.bindClick_ = function (el, func) {
-    if (typeof el == 'string') {
-        el = document.getElementById(el);
-    }
-    // Need to ensure both, touch and click, events don't fire for the same thing
-    var propagateOnce = function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-        func(e);
-    };
-    el.addEventListener('ontouchend', propagateOnce);
-    el.addEventListener('click', propagateOnce);
-};
-
-watchXBlocks.connectDevice = function(state) {
-    var e = document.getElementById("usb-connected");
-    if(!e) {
-        return;
-    }
-    if(state) {
-        e.style.color = '#7de224';
-    } else {
-        e.style.color = '#ff4646';
-    }
-};
-
-
-
-watchXBlocks.exampleList = [
-    { title: 'example_blink',                   cover: 'img/Blink.svg',  path: 'blink.wxb' },
-    { title: 'example_hello_world',             cover: 'img/HelloWorld.svg',  path: 'hello_world.wxb' },
-    { title: 'example_button_counter',          cover: 'img/ButtonCounter.svg',  path: 'button_counter.wxb' },
-    { title: 'example_drawing_lines',           cover: 'img/DrawingLines.svg',  path: 'drawing_lines.wxb' },
-    { title: 'example_sensor_movement',         cover: 'img/SensorMovement.svg',  path: 'sensor_read_movement.wxb' },
-    { title: 'example_sensor_temp_and_press',   cover: 'img/SensorTempPress.svg',  path: 'sensor_read_temp_pressure.wxb' },
-    { title: 'example_move_the_dot',            cover: 'img/MoveTheDot.svg',  path: 'move_the_dot.wxb' },
-    { title: 'example_siren',                   cover: 'img/Siren.svg',  path: 'siren.wxb' },
-    { title: 'example_watch_face',              cover: 'img/WatchFace.svg',  path: 'watch_face.wxb' },
-    { title: 'example_bounce',                  cover: 'img/Bounce.svg',  path: 'bounce.wxb' }
-];
-
-watchXBlocks.initExampleList = function() {
-    var container = document.getElementById('example-container');
-    if(container == null) {
-        return;
-    }
-    while (container.lastElementChild) {
-        container.removeChild(container.lastElementChild);
-    }
-    for(var item of watchXBlocks.exampleList) {
-        var template = document.getElementById("example_item");
-        var clone = template.content.cloneNode(true);
-        if(item.desc == null) {
-            item.desc = item.title + "_desc";
+watchXBlocks.bindSettingsPathInputs = function() {
+    // Compiler path
+    var compilerEl = document.getElementById('settings_compiler_location');
+    compilerEl.readOnly = true;
+    watchXBlocks.bindClickEx(compilerEl, function() {
+        var result = watchXBlocks.sendSync("set-compiler", null);
+        if(result) {
+            watchXBlocks.setCompilerLocationHtml(watchXBlocks.jsonToHtmlTextInput(result));
         }
-        watchXBlocks.setupImageEx(clone, ".media-cover", item.title, item.cover);
-        watchXBlocks.setupTranslateEx(clone, ".media-title", item.title);
-        watchXBlocks.setupTranslateEx(clone, ".media-desc", item.desc);
-        var node = watchXBlocks.setupDataPathEx(clone, ".load-wxb", item.path);
-        if(node) {
-            watchXBlocks.bindClick_(node, function(e) {
-                var footer = e.target.closest(".media-footer");
-                var anchor = footer.querySelector("a.load-wxb");
-                var data = anchor.getAttribute('data-wxb');
-                if(!data) {
-                    return;
-                }
-                watchXBlocks.loadServerXmlFile('/examples/' + data);
-            });
-        }
-        container.appendChild(clone);
-    }
-};
-
-watchXBlocks.watchFaceList = [
-    { title: 'Tap Clock', cover: 'img/TapClock.svg', path: 'firmware/TapClock.hex', desc: 'by <a target="_blank" href="https://github.com/venice1200/TapClock/tree/master/TapClock">venice1200</a>' },
-    { title: 'Word Clock', cover: 'img/WordClock.svg', path: 'firmware/WordClock.hex', desc: 'by <a target="_blank" href="https://github.com/venice1200/TapClock/tree/master/WordClock">venice1200</a>' },
-    { title: 'Pacman', cover: 'img/Pacman.svg', path: 'firmware/Pacman.hex', desc: 'by <a target="_blank" href="https://github.com/mic159/Pong_Clock">0miker0 & mic159</a>' },
-    { title: 'Pong', cover: 'img/Pong.svg', path: 'firmware/Pong.hex', desc: 'by <a target="_blank" href="https://github.com/mic159/Pong_Clock">0miker0 & mic159</a>' },
-    { title: 'Tetris', cover: 'img/Tetris.svg', path: 'firmware/Tetris.hex', desc: 'by <a target="_blank" href="https://github.com/mic159/Pong_Clock">0miker0 & mic159</a>' },
-    { title: 'Nwatch', cover: 'img/Nwatch.svg', path: 'firmware/Nwatch.hex', desc: 'by <a target="_blank" href="https://github.com/zkemble/NWatch">Zak Kemble</a> & <a target="_blank" href="https://www.reddit.com/r/watchX/comments/8wjh6j/porting_nwatch_source_code">sasapea3</a>' },
-];
-watchXBlocks.initWatchFaceList = function() {
-    var container = document.getElementById('watch-face-container');
-    if(container == null) {
-        return;
-    }
-    while (container.lastElementChild) {
-        container.removeChild(container.lastElementChild);
-    }
-    for(var item of watchXBlocks.watchFaceList) {
-        var template = document.getElementById("watch_face_item");
-        var clone = template.content.cloneNode(true);
-        if(item.desc == null) {
-            item.desc = "By argeX";
-        }
-        watchXBlocks.setupImageEx(clone, ".media-cover", item.title, item.cover);
-        watchXBlocks.setTextEx(clone, ".media-title", item.title);
-        watchXBlocks.setTextEx(clone, ".media-desc", item.desc);
-        var node = watchXBlocks.setupDataPathEx(clone, ".upload-hex", item.path);
-        if(node) {
-            watchXBlocks.bindClick_(node, watchXBlocks.firmwareUpload);
-        }
-        container.appendChild(clone);
-    }
-};
-
-watchXBlocks.gameList = [
-    { without_gpad: true, title: 'ArduBreakout', cover: 'img/ArduBreakout.png', path: 'games/ArduBreakout for watchX.hex', desc: 'a classic brick breaking game<br/>developed by Arduboy', source: 'https://github.com/argeX-official/Game-ArduBreakout' },
-    { without_gpad: true, title: 'Flappy Ball', cover: 'img/Flappy_Ball.png', path: 'games/Flappy Ball for watchX.hex', desc: 'a bird bouncing game<br/>developed by Scott Allen', source: 'https://github.com/argeX-official/Game-Flappy_Ball' },
-    { without_gpad: true, title: 'Hollow Seeker', cover: 'img/Hollow_Seeker.png', path: 'games/Hollow Seeker for watchX.hex', desc: 'search for a hollow spot to survive<br/>developed by OBONO', source: 'https://github.com/argeX-official/Game-ArduboyWorks' },
-    { without_gpad: true, title: 'Picovaders', cover: 'img/Picovaders.png', path: 'games/Picovaders for watchX.hex', desc: 're-imagination of a nostalgic game<br/>developed by boochow', source: 'https://github.com/argeX-official/Game-Picovaders' },
-    { without_gpad: false, title: 'ArduMan', cover: 'img/ArduMan.png', path: 'games/ArduMan for watchX.hex', desc: 're-imagination of a nostalgic game<br/>developed by Seth Robinson', source: 'https://github.com/argeX-official/Game-ArduMan' },
-    { without_gpad: false, title: 'ArduSnake', cover: 'img/ArduSnake.png', path: 'games/ArduSnake for watchX.hex', desc: 're-imagination of the classic snake game<br/>developed by Initgraph', source: 'https://github.com/argeX-official/Game-ArduSnake' },
-    { without_gpad: false, title: 'Arduboy3D', cover: 'img/Arduboy3D.png', path: 'games/Arduboy3D for watchX.hex', desc: 'explore mazes and fight with enemies<br/>developed by jhhoward', source: 'https://github.com/argeX-official/Game-Arduboy3D' },
-    { without_gpad: false, title: 'Chie Magari Ita', cover: 'img/Chie_Magari_Ita.png', path: 'games/Chie Magari Ita for watchX.hex', desc: 'a placing puzzle game<br/>developed by OBONO', source: 'https://github.com/argeX-official/Game-ArduboyWorks' },
-    { without_gpad: false, title: 'Hopper', cover: 'img/Hopper.png', path: 'games/Hopper for watchX.hex', desc: 'jump on hingher platforms to get more points<br/>developed by OBONO', source: 'https://github.com/argeX-official/Game-ArduboyWorks' },
-    { without_gpad: false, title: 'Knight Move', cover: 'img/Knight_Move.png', path: 'games/Knight Move for watchX.hex', desc: 'play chess by only using the knight<br/>developed by OBONO', source: 'https://github.com/argeX-official/Game-ArduboyWorks' },
-    { without_gpad: false, title: 'Lasers', cover: 'img/Lasers.png', path: 'games/Lasers for watchX.hex', desc: 'try to escape from the lasers<br/>developed by OBONO', source: 'https://github.com/argeX-official/Game-ArduboyWorks' },
-    { without_gpad: false, title: 'Micro Tank', cover: 'img/Micro_Tank.png', path: 'games/Micro Tank for watchX.hex', desc: 'use different types of tanks<br/>developed by hartmann1301', source: 'https://github.com/argeX-official/Game-Mirco_Tank' },
-    { without_gpad: false, title: 'MicroCity', cover: 'img/MicroCity.png', path: 'games/MicroCity for watchX.hex', desc: 'build cities with roads and infrastructure<br/>developed by jhhoward', source: 'https://github.com/argeX-official/Game-MicroCity' },
-    { without_gpad: false, title: 'Mystic Balloon', cover: 'img/Mystic_Balloon.png', path: 'games/Mystic Balloon for watchX.hex', desc: 'a platformer with balloon surfing dynamics<br/>developed by TEAM a.r.g.', source: 'https://github.com/argeX-official/Game-Mystic_Balloon' },
-    { without_gpad: false, title: 'Shadow Runner', cover: 'img/Shadow_Runner.png', path: 'games/Shadow Runner for watchX.hex', desc: 'evade enemies while running<br/>developed by TEAM a.r.g.', source: 'https://github.com/argeX-official/Game-Shadow_Runner' },
-    { without_gpad: false, title: 'Squario', cover: 'img/Squario.png', path: 'games/Squario for watchX.hex', desc: 'a platformer with simple gameplay<br/>developed by arduboychris', source: 'https://github.com/argeX-official/Game-Squario' },
-    { without_gpad: false, title: 'Stellar Impact', cover: 'img/Stellar_Impact.png', path: 'games/Stellar Impact for watchX.hex', desc: 'side scrolling space action game<br/>developed by Athene Allen', source: 'https://github.com/argeX-official/Game-Stellar_Impact' }
-];
-
-watchXBlocks.initGameList = function() {
-    var container = document.getElementById('games-container');
-    if(container == null) {
-        return;
-    }
-    while (container.lastElementChild) {
-        container.removeChild(container.lastElementChild);
-    }
-    for(var item of watchXBlocks.gameList) {
-        var template = document.getElementById("game_item"); // duplicated
-        var clone = template.content.cloneNode(true);
-        if(item.desc == null) {
-            item.desc = "By argeX";
-        }
-        watchXBlocks.setupImageEx(clone, ".media-cover", item.title, item.cover);
-        watchXBlocks.setTextEx(clone, ".media-title", item.title);
-        watchXBlocks.setTextEx(clone, ".media-desc", item.desc);
-        watchXBlocks.setupAnchorEx(clone, ".media-link", item.source);
-        watchXBlocks.setupVisibleEx(clone, '.media-play', item.without_gpad)
-        var node = watchXBlocks.setupDataPathEx(clone, ".upload-hex", item.path);
-        if(node) {
-            watchXBlocks.bindClick_(node, watchXBlocks.firmwareUpload);
-        }
-        container.appendChild(clone);
-    }
-};
-
-watchXBlocks.firmwareUpload = function(e) {
-    var footer = e.target.closest(".media-footer");
-    var anchor = footer.querySelector("a.upload-hex");
-    var data = anchor.getAttribute('data-wxb');
-    if(!data) {
-        return;
-    }
-    footer.classList.add('media-active');
-    watchXBlocks.resetIdeOutputContent();
-    watchXBlocksServer.sendRequest('/upload-hex', 'POST', 'application/json', {"hex_path": data }, jsonObj => {
-        footer.classList.remove('media-active');
-        if (jsonObj === null) {
-            return watchXBlocks.openNotConnectedModal();
-        }
-        var dataBack = watchXBlocksServer.jsonToIdeModal(jsonObj);
-        watchXBlocks.arduinoIdeOutput(dataBack);
     });
-};
-
-watchXBlocks.setupImageEx = function(wrapper, selector, alt, src) {
-    var e = wrapper.querySelector(selector);
-    if(e) {
-        e.setAttribute("alt", alt);
-        e.setAttribute("src", src);
-    }
-    return e;
-};
-watchXBlocks.setupAnchorEx = function(wrapper, selector, src) {
-    var e = wrapper.querySelector(selector);
-    if(e) {
-        e.setAttribute("href", src);
-    }
-    return e;
-};
-watchXBlocks.setupTranslateEx = function(wrapper, selector, string_id) {
-    var e = wrapper.querySelector(selector);
-    if(e) {
-        e.classList.add("translatable_" + string_id);
-    }
-    return e;
-};
-watchXBlocks.setTextEx = function(wrapper, selector, string_id) {
-    var e = wrapper.querySelector(selector);
-    if(e) {
-        e.innerHTML = string_id;
-    }
-    return e;
-};
-watchXBlocks.setupDataPathEx = function(wrapper, selector, data) {
-    var e = wrapper.querySelector(selector);
-    if(e) {
-        e.setAttribute("data-wxb", data);
-    }
-    return e;
-};
-
-
-watchXBlocks.setupVisibleEx = function(wrapper, selector, state = false) {
-    var e = wrapper.querySelector(selector);
-    if(e) {
-        e.style.display = state ? 'auto': 'none';
-    }
-    return e;
+    // Sketch path
+    var sketchEl = document.getElementById('settings_sketch_location');
+    sketchEl.readOnly = true;
+    watchXBlocks.bindClickEx(sketchEl, function() {
+        var result = watchXBlocks.sendSync("set-compiler", null);
+        watchXBlocks.setSketchLocationHtml(watchXBlocks.jsonToHtmlTextInput(result));
+    });
 };
