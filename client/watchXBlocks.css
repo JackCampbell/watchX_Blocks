@@ -1201,12 +1201,12 @@ ul.side-nav li ul li ul li {
 
 #toast-container {
   text-align: center;
-  width: 10%;
+  width: 40%;
   margin: 0px auto;
   min-width: unset;
   max-width: unset;
   top: unset;
-  right: 22px;
+  right: 24px;
   left: unset;
   bottom: 68px;
 }

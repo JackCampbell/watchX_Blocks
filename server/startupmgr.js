@@ -1,7 +1,7 @@
 const winston = require("winston");
 const config = require("./cfgconst");
 const helper = require("./cfghelper");
-const { app } = require("electron");
+const { app, dialog, BrowserWindow } = require("electron");
 
 const tagMgr = "[watchXStp] ";
 
@@ -23,20 +23,33 @@ module.exports.initializeCore = function(observer, callback) {
 	}
 	var user_path = app.getPath('userData');
 	winston.info(tagMgr + ' UserDataPath: ' + user_path);
-	helper.download_core(user_path, observer, (error, compile_dir) => {
-		if(error != null) {
-			winston.info(tagMgr + 'Compiler not found !!!');
-			observer("Error: Compiler not found ...");
-			callback(-1);
+	helper.check_network(status => {
+		if(status == false) {
+			winston.info(tagMgr + "You are not connected to the internet.");
+			observer("Error: You are not connected to the internet.");
+			var id = dialog.showMessageBox({
+				type: 'error',
+				buttons:["OK"],
+				message:"You are not connected to the internet, please try again."
+			});
+			process.exit(0);
 			return;
 		}
-		observer("Checking Compiler");
-		helper.check_version(compile_dir, (code, check, stdout, stderr) => {
-			config.set_compiler_path(compile_dir);
-			observer("Installing Core");
-			helper.install_core(compile_dir, (code, stdout, stderr) => {
-				winston.info(tagMgr + 'Output: ' + stdout);
-				callback(code);
+		helper.download_core(user_path, observer, (error, compile_dir) => {
+			if(error != null) {
+				winston.info(tagMgr + 'Compiler not found !!!');
+				observer("Error: Compiler not found ...");
+				callback(-1);
+				return;
+			}
+			observer("Checking Compiler");
+			helper.check_version(compile_dir, (code, check, stdout, stderr) => {
+				config.set_compiler_path(compile_dir);
+				observer("Installing Core");
+				helper.install_core(compile_dir, (code, stdout, stderr) => {
+					winston.info(tagMgr + 'Output: ' + stdout);
+					callback(code);
+				});
 			});
 		});
 	});

@@ -6,6 +6,7 @@ const url = require('url');
 const zlib = require("zlib");
 const assert = require("assert");
 const { exec, execSync, spawnSync } = require('child_process');
+const dns = require("dns");
 // 3th part
 const tar = require('tar');
 const extract = require('extract-zip');
@@ -323,7 +324,6 @@ function get_arduino_cli_download_and_extract(asset, user_path, observer, callba
 	});
 }
 
-
 function download_core(user_path, observer, callback) {
 	if(user_path == null) {
 		user_path = path.join( os.homedir(), '.watchx_blocks' );
@@ -358,13 +358,21 @@ function download_core(user_path, observer, callback) {
 		});
 	});
 }
-
 function check_version(compiler_dir, callback) {
 	compiler_dir = insert_quote(compiler_dir);
 	var cmdline = [ compiler_dir, 'version' ].join(' ');
 	exec(cmdline, (code, stdout, stderr) => {
 		var check = stdout.startsWith("arduino-cli");
 		callback(code, check, stdout, stderr);
+	});
+}
+function check_network(callback) {
+	dns.resolve("www.github.com", (err, addr) => {
+		if(err) {
+			callback(false)
+		} else {
+			callback(true);
+		}
 	});
 }
 
@@ -386,6 +394,7 @@ module.exports = {
 
 	install_core,
 	download_core,
-	check_version
+	check_version,
+	check_network
 };
 
