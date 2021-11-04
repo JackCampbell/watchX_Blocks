@@ -24,10 +24,15 @@ module.exports.initializeCore = function(observer, callback) {
 	var user_path = app.getPath('userData');
 	winston.info(tagMgr + ' UserDataPath: ' + user_path);
 	helper.check_network(status => {
+		status = false;
 		if(status == false) {
 			winston.info(tagMgr + "You are not connected to the internet.");
 			observer("Error: You are not connected to the internet.");
-			dialog.showMessageBox({
+			var window = BrowserWindow.getFocusedWindow();
+			if(process.platform == "darwin") {
+				window = null; //
+			}
+			dialog.showMessageBox(window, {
 				type: 'error',
 				title: 'watchX Blocks',
 				buttons: ["OK"],
