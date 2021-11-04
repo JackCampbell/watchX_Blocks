@@ -119,6 +119,8 @@ watchXBlocks.LOCALISED_TEXT = {
   openingSketch: "Opening Sketch in the Arduino IDE...",
   openSketch: "Open Sketch in IDE",
   notImplemented: "Function not yet implemented",
+  saved_sketch: 'Saved',
+  export_sketch: 'Exported sketch',
   /* Prompts */
   ok: "OK",
   okay: "Okay",

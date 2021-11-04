@@ -221,6 +221,7 @@ watchXBlocks.saveSketchFile = function () {
         return;
     }
     watchXBlocks.setSketchFileName( result.filename );
+    watchXBlocks.shortMessage(watchXBlocks.getLocalStr('saved_sketch'));
 };
 watchXBlocks.saveAsSketchFile = function () {
     var basename = watchXBlocks.defaultBaseName;
@@ -231,6 +232,7 @@ watchXBlocks.saveAsSketchFile = function () {
         return;
     }
     watchXBlocks.setSketchFileName( result.filename );
+    watchXBlocks.shortMessage(watchXBlocks.getLocalStr('saved_sketch'));
 };
 watchXBlocks.exportArduinoFile = function() {
     var content = watchXBlocks.generateArduino();
@@ -239,7 +241,7 @@ watchXBlocks.exportArduinoFile = function() {
     if(result.filename == null) {
         return;
     }
-    console.log("exported ...:");
+    watchXBlocks.shortMessage(watchXBlocks.getLocalStr('export_sketch'));
 };
 /**
  * Creates an XML file containing the blocks from the Blockly workspace and

@@ -1197,3 +1197,22 @@ ul.side-nav li ul li ul li {
   0% { background-position: -100% 150px; }
   100% { background-position: 100% 150px; }
 }
+
+
+#toast-container {
+  text-align: center;
+  width: 10%;
+  margin: 0px auto;
+  min-width: unset;
+  max-width: unset;
+  top: unset;
+  right: 22px;
+  left: unset;
+  bottom: 68px;
+}
+
+#toast-container > .toast {
+  display: inline-block;
+  margin: 10px auto;
+  float: right;
+}

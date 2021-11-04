@@ -427,7 +427,7 @@ watchXBlocks.contentHeightToggle = function() {
 
 /**
  * Compute the absolute coordinates and dimensions of an HTML element.
- * @param {!Element} element Element to match.
+ * @param {HTMLElement} element Element to match.
  * @return {!Object} Contains height, width, x, and y properties.
  * @private
  */
