@@ -27,7 +27,12 @@ function get_dir_exists(absolute_path) {
 	if( stat.isDirectory() == false) {
 		return null
 	}
-	return absolute_path;
+	try {
+		fs.accessSync(absolute_path, fs.constants.R_OK | fs.constants.W_OK);
+		return absolute_path;
+	} catch(e) {
+		return null;
+	}
 }
 function get_file_exists(absolute_path) {
 	if(absolute_path == null) {
@@ -44,7 +49,12 @@ function get_file_exists(absolute_path) {
 	if(stat.isDirectory() == true) {
 		return null
 	}
-	return absolute_path;
+	try {
+		fs.accessSync(absolute_path, fs.constants.R_OK | fs.constants.W_OK);
+		return absolute_path;
+	} catch(e) {
+		return null;
+	}
 }
 function get_option_key_value(object) {
 	return Object.keys(object).map(prop => { return { value: prop, display_text: object[prop] } });

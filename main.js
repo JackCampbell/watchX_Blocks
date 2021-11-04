@@ -164,7 +164,7 @@ function createMainWindow(port, code) {
             splashWindow = null;
         }
         // mainWindow.focus();
-        // mainWindow.maximize();
+        mainWindow.maximize();
         mainWindow.show();
 
         if(arg_filename != null) {

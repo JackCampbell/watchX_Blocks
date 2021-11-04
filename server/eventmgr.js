@@ -13,14 +13,59 @@ const tagMgr = "[watchXEvt] ";
 const wxb_filter_name = "watchX Blocks File";
 var compiler_process = null;
 
-function send_error(id, description, type = 'invalid') {
-	return { 'response_type': 'settings', 'response_state': 'full_response', 'settings_type': type, 'errors': [{ 'id': id, 'description': description }], 'success': false };
+function send_error(event, name, id, description, type = null, tag = null) {
+	var message = {
+		'response_type': 'settings',
+		'response_state': 'full_response',
+		'settings_type': type || 'invalid',
+		'tag': tag,
+		'errors': [
+			{ 'id': id, 'description': description }
+		], 'success': false
+	};
+	event.reply(name, message);
 }
-function send_option_select(options, selected, type = 'invalid') {
-	return { 'response_type': 'settings', 'response_state': 'full_response', 'settings_type': type, 'options': options, 'selected': selected, 'success': true };
+function send_process(event, name, code, stdout, stderr, type = null, tag = null) {
+	var success = false;
+	if(code == 0) {
+		success = true;
+	}
+	var message = {
+		'response_type': type || 'ide_output',
+		'response_state': 'full_response',
+		'success': success,
+		'ide_mode': "upload-hex",
+		"tag": tag,
+		'ide_data': {
+			'std_output': stdout,
+			'err_output': stderr,
+			'exit_code': code
+		}
+	}
+	event.reply(name, message);
 }
-function send_simple_select(selected, type = 'invalid') {
-	return { 'response_type': 'settings', 'response_state': 'full_response', 'settings_type': type, 'selected': selected, 'success': true };
+function send_option_select(event, name, options, selected, type = null, tag = null) {
+	var message = {
+		'response_type': 'settings',
+		'response_state': 'full_response',
+		'settings_type': type || 'invalid',
+		'options': options,
+		'tag': tag,
+		'selected': selected,
+		'success': true
+	};
+	event.reply(name, message);
+}
+function send_simple_select(event, name, selected, type = null, tag = null) {
+	var message = {
+		'response_type': 'settings',
+		'response_state': 'full_response',
+		'settings_type': type || 'invalid',
+		'tag': tag,
+		'selected': selected,
+		'success': true
+	};
+	event.reply(name, message);
 }
 
 function insert_quote(path) {
@@ -97,35 +142,25 @@ ipcMain.on('editor-open', (event, args) => {
 ipcMain.on('upload-hex', (event, args) => {
 	const { hex_path } = args;
 	if(compiler_process != null) {
-		var error = send_error(76, 'Already process ...', 'ide_output');
-		event.reply("upload-hex-res", error);
-		return;
+		return send_error(event, "upload-hex-res", 76, 'Already process ...', 'ide_output', hex_path);
 	}
 	const compiler = config.get_compiler_path();
 	if(compiler == null) {
-		var error = send_error(53, 'Compiler directory not configured in the Settings', 'ide_output');
-		event.reply("upload-hex-res", error);
-		return;
+		return send_error(event, "upload-hex-res", 53, 'Compiler directory not configured in the Settings', 'ide_output', hex_path);
 	}
 	const board = config.get_selected_fqbn();
 	if(board == null) {
-		var error = send_error(56, 'Arduino Board not configured in the Settings.', 'ide_output');
-		event.reply("upload-hex-res", error);
-		return;
+		return send_error(event, "upload-hex-res", 56, 'Arduino Board not configured in the Settings.', 'ide_output', hex_path);
 	}
 	const { ports } = helper.find_serial_ports(compiler, board);
 	const serialport = config.get_serial_port(ports);
 	if(serialport == null) {
-		var error = send_error(55, 'Serial Port configured in Settings not accessible.', 'ide_output');
-		event.reply("upload-hex-res", error);
-		return;
+		return send_error(event, "upload-hex-res", 55, 'Serial Port configured in Settings not accessible.', 'ide_output', hex_path);
 	}
 	var user_data_path = app.getPath('userData');
 	var filename = projectLocator.getResourcePath(hex_path, user_data_path);
 	if(filename == null) { // TODO sunuc kontrolu ...
-		var error = send_error(74, 'file is not found: ' + filename, 'ide_output');
-		event.reply("upload-hex-res", error);
-		return;
+		return send_error(event, "upload-hex-res", 74, 'file is not found: ' + filename, 'ide_output', hex_path);
 	}
 	var cmdline = [];
 	cmdline.push( insert_quote(compiler) );
@@ -142,67 +177,43 @@ ipcMain.on('upload-hex', (event, args) => {
 	compiler_process = helper.compile_process(cmdline, (code, stdout, stderr) => {
 		compiler_process = null;
 		if(code != 0) {
-			// var error = send_error(56, 'Unexpected Arduino exit error code:' + code, 'ide_output');
-			// event.reply("upload-hex-res", error);
-			// return;
+			// return send_error(event, "upload-hex-res", 56, 'Unexpected Arduino exit error code:' + code, 'ide_output');
 		}
-		event.reply("upload-hex-res", {
-			'response_type': 'ide_output',
-			'response_state': 'full_response',
-			'success': code == 0 ? true: false,
-			'ide_mode': "upload-hex",
-			'ide_data': { 'std_output': stdout, 'err_output': stderr, 'exit_code': code }
-		});
+		return send_process(event, "upload-hex-res", code, stdout, stderr, 'ide_output', hex_path);
 	});
 });
 ipcMain.on('code', (event, args) => {
 	const { sketch_code, action } = args;
 	if(compiler_process != null) {
-		var error = send_error(76, 'Already process ...', 'ide_output');
-		event.reply("code-res", error);
-		return;
+		return send_error(event, "code-res", 76, 'Already process ...', 'ide_output');
 	}
 	if(["upload", "verify"].indexOf(action) == -1) {
-		var error = send_error(72, 'Undefined action', 'ide_output');
-		event.reply("code-res", error);
-		return;
+		return send_error(event, "code-res", 72, 'Undefined action', 'ide_output');
 	}
 	if(sketch_code == null) {
-		var error = send_error(64, 'Unable to parse sent JSON.', 'ide_output');
-		event.reply("code-res", error);
-		return;
+		return send_error(event, "code-res", 64, 'Unable to parse sent JSON.', 'ide_output');
 	}
 	const sketch_path = config.get_sketch_path();
 	if(sketch_path == null) {
-		var error = send_error(51, 'Could not create sketch file', 'ide_output');
-		event.reply("code-res", error);
-		return;
+		return send_error(event, "code-res", 51, 'Could not create sketch file', 'ide_output');
 	}
 	var filename;
 	try {
 		filename = helper.write_sketch(sketch_code, sketch_path);
 	} catch(e) {
-		var error = send_error(52, 'Invalid path to internally created sketch file', 'ide_output');
-		event.reply("code-res", error);
-		return;
+		return send_error(event, "code-res", 52, 'Invalid path to internally created sketch file', 'ide_output');
 	}
 	const include_path = projectLocator.getIncludeDir();
 	if(include_path == null) {
-		var error = send_error(71, 'Include directory not found !!!', 'ide_output');
-		event.reply("code-res", error);
-		return;
+		return send_error(event, "code-res", 71, 'Include directory not found !!!', 'ide_output');
 	}
 	const compiler = config.get_compiler_path();
 	if(compiler == null) {
-		var error = send_error(53, 'Compiler directory not configured in the Settings', 'ide_output');
-		event.reply("code-res", error);
-		return;
+		return send_error(event, "code-res", 53, 'Compiler directory not configured in the Settings', 'ide_output');
 	}
 	const board = config.get_selected_fqbn();
 	if(board == null) {
-		var error = send_error(56, 'Arduino Board not configured in the Settings.', 'ide_output');
-		event.reply("code-res", error);
-		return;
+		return send_error(event, "code-res", 56, 'Arduino Board not configured in the Settings.', 'ide_output');
 	}
 	// const action = config.get_selected_ide();
 
@@ -219,9 +230,7 @@ ipcMain.on('code', (event, args) => {
 		const { ports } = helper.find_serial_ports(compiler, board);
 		const serialport = config.get_serial_port(ports);
 		if(serialport == null) {
-			var error = send_error(55, 'Serial Port configured in Settings not accessible.', 'ide_output');
-			event.reply("code-res", error);
-			return;
+			return send_error(event, "code-res", 55, 'Serial Port configured in Settings not accessible.', 'ide_output');
 		}
 		cmdline.push("--upload");
 		cmdline.push("--port");
@@ -234,17 +243,9 @@ ipcMain.on('code', (event, args) => {
 	compiler_process = helper.compile_process(cmdline, (code, stdout, stderr) => {
 		compiler_process = null;
 		if(code != 0) {
-			// var error = send_error(res, 56, 'Unexpected Arduino exit error code:' + code, 'ide_output');
-			// event.reply("code-res", error);
-			// return;
+			// return send_error(event, "code-res", 56, 'Unexpected Arduino exit error code:' + code, 'ide_output');
 		}
-		event.reply("code-res", {
-			'response_type': 'ide_output',
-			'response_state': 'full_response',
-			'success': code == 0,
-			'ide_mode': action,
-			'ide_data': { 'std_output': stdout, 'err_output': stderr, 'exit_code': code }
-		});
+		return send_process(event, "code-res", code, stdout, stderr, 'ide_output');
 	});
 });
 ipcMain.on("get-settings", (event, args) => {
@@ -252,52 +253,46 @@ ipcMain.on("get-settings", (event, args) => {
 	if(name == 'ide') {
 		var selected = config.get_selected_ide()
 		var options = config.get_ide_options();
-		event.returnValue = send_option_select(options, selected, 'ide');
+		return send_option_select(event, "get-settings-res", options, selected, 'ide', name);
 	} else if(name == "board") {
 		var selected = config.get_selected_ide()
 		var options = config.get_board_options()
-		event.returnValue = send_option_select(options, selected, 'board');
+		return send_option_select(event, "get-settings-res", options, selected, 'board', name);
 	} else if(name == "sketch") {
 		var selected = config.get_sketch_path()
-		event.returnValue = send_simple_select(selected, 'sketch');
+		return send_simple_select(event, "get-settings-res", selected, 'sketch', name);
 	} else if(name == "compiler") {
 		var selected = config.get_compiler_path();
 		if(selected == null) {
-			event.returnValue = send_error(53, 'Compiler directory not configured in the Settings.', 'compiler');
-			return;
+			return send_error(event, "get-setting-res", 53, 'Compiler directory not configured in the Settings.', 'compiler', name);
 		}
-		event.returnValue = send_simple_select(selected, 'compiler');
+		return send_simple_select(event, "get-settings-res", selected, 'compiler', name);
 	} else if(name == "serial") {
 		var compiler = config.get_compiler_path();
 		if(compiler == null) {
-			event.returnValue = send_error(53, 'Compiler directory not configured in the Settings.', 'compiler');
-			return;
+			return send_error(event, "get-settings-res", 53, 'Compiler directory not configured in the Settings.', 'compiler', name);
 		}
 		const { code, ports } = helper.find_serial_ports(compiler);
 		if(code != 0) {
-			event.returnValue = send_error(71, 'find serial port failed ....', 'serial');
-			return;
+			return send_error(event, "get-settings-res", 71, 'find serial port failed ....', 'serial', name);
 		}
 		var selected = config.get_serial_port(ports);
 		var options = config.get_option_serial(ports);
-		event.returnValue = send_option_select(options, selected, 'serial');
+		return send_option_select(event, "get-settings-res", options, selected, 'serial', name);
 	} else {
-		event.returnValue = send_error(61, 'Unexpected setting type requested.');
+		return send_error(event, "get-settings-res", 61, 'Unexpected setting type requested.', null, name);
 	}
 });
 ipcMain.on("set-settings", (event, args) => {
+	if(args == null) {
+		return send_error(event, "set-settings-res", 64, 'Unable to parse sent JSON.');
+	}
+	if(!("new_value" in args) || !("name" in args)) {
+		return send_error(event, "set-settings-res", 65, "JSON received does not have \\'new_value\\' or \\'name\\' key.");
+	}
 	const { name, new_value } = args;
-	if(req.body == null) {
-		event.returnValue = send_error(64, 'Unable to parse sent JSON.', name);
-		return;
-	}
-	if(!("new_value" in req.body)) {
-		event.returnValue = send_error(65, "JSON received does not have \\'new_value\\' key.", name);
-		return;
-	}
-	if(new_value == null) {
-		event.returnValue = send_error(66, "Invalid value.", name);
-		return;
+	if(new_value == null || name == null) {
+		return send_error(event, "set-settings-res", 66, "Invalid value.");
 	}
 	var selected, options = null;
 	if(name == 'ide') {
@@ -317,20 +312,17 @@ ipcMain.on("set-settings", (event, args) => {
 	} else if(name == "serial") {
 		var compiler = config.get_compiler_path();
 		if(compiler == null) {
-			event.returnValue = send_error(53, 'Compiler directory not configured in the Settings.', 'all');
-			return;
+			return send_error(event, "set-settings-res", 53, 'Compiler directory not configured in the Settings.', name);
 		}
 		const { code, ports } = helper.find_serial_ports(compiler);
 		if(code != 0) {
-			event.returnValue = send_error(71, 'find serial port failed ....', 'all');
-			return;
+			return send_error(event, "set-settings-res", 71, 'find serial port failed ....', name);
 		}
 		config.set_serial_port(new_value, ports);
 		selected = config.get_serial_port(ports);
 		options = config.get_option_serial(ports);
 	} else {
-		event.returnValue = send_error(63, "Unexpected setting type to update.", 'invalid');
-		return;
+		return send_error(event, "set-settings-res", 63, "Unexpected setting type to update.", name);
 	}
 	/*
 	if(selected != new_value) {
@@ -338,23 +330,21 @@ ipcMain.on("set-settings", (event, args) => {
 		return;
 	}*/
 	if(options == null) {
-		event.returnValue = send_simple_select(selected, name);
+		return send_simple_select(event, "set-settings-res", selected, name);
 	} else {
-		event.returnValue = send_simple_select(options, selected, name);
+		return send_option_select(event, "set-settings-res", options, selected, name);
 	}
 });
 ipcMain.on("all-settings", (event, args) => {
 	var compiler = config.get_compiler_path();
 	if(compiler == null) {
-		event.returnValue = send_error(53, 'Compiler directory not configured in the Settings.', 'all');
-		return;
+		return send_error(event, "all-settings-res", 53, 'Compiler directory not configured in the Settings.', 'all');
 	}
 	const { code, ports } = helper.find_serial_ports(compiler);
 	if(code != 0) {
-		event.returnValue = send_error(71, 'find serial port failed ....', 'all');
-		return;
+		return send_error(event, "all-settings-res", 71, 'find serial port failed ....', 'all');
 	}
-	event.returnValue = {
+	event.reply("all-settings-res", {
 		'response_type': 'settings',
 		'response_state': 'full_response',
 		'success': true,
@@ -378,7 +368,7 @@ ipcMain.on("all-settings", (event, args) => {
 			'selected': config.get_selected_ide(),
 			'options': config.get_ide_options()
 		}]
-	};
+	});
 });
 
 ipcMain.on("set-compiler", (event, args) => {
@@ -388,28 +378,26 @@ ipcMain.on("set-compiler", (event, args) => {
 		properties: ['openFile']
 	});
 	if(files == undefined) {
-		event.returnValue = send_error(53, 'Compiler directory not configured in the Settings.', 'compiler');
-		return;
+		return send_error(event, "set-settings-res", 53, 'Compiler directory not configured in the Settings.', 'compiler');
 	}
 	config.set_compiler_path(files[0]);
 	var selected = config.get_compiler_path();
 	if(selected == null) {
-		event.returnValue = send_error(53, 'Compiler directory not configured in the Settings.', 'compiler');
-		return;
+		return send_error(event, "set-settings-res", 53, 'Compiler directory not configured in the Settings.', 'compiler');
 	}
-	event.returnValue = send_simple_select(selected, 'compiler');
+	return send_simple_select(event, "set-settings-res", selected, "compiler");
 });
 ipcMain.on("set-sketch", (event, args) => {
 	var folders = dialog.showOpenDialogSync(null, {
 		title: 'Select the sketch folder',
 		buttonLabel: 'Select',
-		properties: ['openDirectory']
+		properties: ['openDirectory', 'openFile', 'createDirectory']
 	});
 	if(folders != undefined) {
-		config.set_sketch_path(files[0]);
+		config.set_sketch_path(folders[0]);
 	}
 	var selected = config.get_sketch_path();
-	event.returnValue = send_simple_select(selected, 'sketch');
+	return send_simple_select(event, "set-settings-res", selected, 'sketch');
 });
 
 ipcMain.on("get-lang", (event, args) => {

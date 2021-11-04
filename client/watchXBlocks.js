@@ -80,17 +80,11 @@ watchXBlocks.bindActionFunctions = function () {
 };
 
 watchXBlocks.setSketchLocation = function(value, callback) {
-    var result = watchXBlocks.sendSync("set-settings", { name: "sketch", new_value:value });
-    if(result != null) {
-        callback(result);
-    }
+    watchXBlocks.sendAsync("set-settings", { name: "sketch", new_value:value });
 }
 
 watchXBlocks.setCompilerLocation = function(value, callback) {
-    var result = watchXBlocks.sendSync("set-settings", { name: "compiler", new_value:value });
-    if(result != null) {
-        callback(result);
-    }
+    watchXBlocks.sendAsync("set-settings", { name: "compiler", new_value:value });
 }
 
 // Settings modal input field listeners only if they can be edited
@@ -102,6 +96,7 @@ watchXBlocks.settingsPathInputListeners = function (elId, setValFunc, setHtmlCal
             if (!e) e = window.event;
             var keyCode = e.keyCode || e.which;
             if (keyCode == '13') {
+                // setValFunc(el.value, setHtmlCallback);
                 setValFunc(el.value, function (jsonObj) {
                     setHtmlCallback(watchXBlocks.jsonToHtmlTextInput(jsonObj));
                 });
@@ -265,22 +260,9 @@ watchXBlocks.saveTextFileAs = function (fileName, content) {
  * and opens the Settings modal dialog.
  */
 watchXBlocks.openSettings = function () {
-    var result = watchXBlocks.sendSync("all-settings", null);
-    for(var opts of result.settings) {
-        console.log(opts);
-        if(opts.settings_type == "compiler") {
-            watchXBlocks.setCompilerLocationHtml( watchXBlocks.jsonToHtmlTextInput(opts) );
-        } else if(opts.settings_type == "sketch") {
-            watchXBlocks.setSketchLocationHtml( watchXBlocks.jsonToHtmlTextInput(opts) );
-        } else if(opts.settings_type == "board") {
-            watchXBlocks.setArduinoBoardsHtml( watchXBlocks.jsonToHtmlDropdown(opts) );
-        } else if(opts.settings_type == "serial") {
-            watchXBlocks.setSerialPortsHtml( watchXBlocks.jsonToHtmlDropdown(opts) );
-        }
-    }
-    // Language menu only set on page load within watchXBlocks.initLanguage()
-    watchXBlocks.openSettingsModal();
+    watchXBlocks.sendAsync("all-settings", null);
 };
+
 
 watchXBlocks.openAboutUs = function () {
     watchXBlocks.openAboutDialog();
@@ -325,7 +307,9 @@ watchXBlocks.setSketchLocationHtml = function (newEl) {
  * @return {undefined} Might exit early if response is null.
  */
 watchXBlocks.setArduinoBoardsHtml = function (newEl) {
-    if (newEl === null) return watchXBlocks.openNotConnectedModal();
+    if (newEl === null) {
+        return watchXBlocks.openNotConnectedModal();
+    }
 
     var boardDropdown = document.getElementById('board');
     if (boardDropdown !== null) {
@@ -348,12 +332,9 @@ watchXBlocks.setBoard = function () {
     var el = document.getElementById('board');
     var board_value = el.options[el.selectedIndex].value;
     // ...
-    watchXBlocks.changeBlocklyArduinoBoard( board_value.toLowerCase().replace(/ /g, '_') );
-    var result = watchXBlocks.sendSync("set-settings", { name:"board", new_value:board_value });
-    if(result != null) {
-        var newEl = watchXBlocks.jsonToHtmlDropdown(result);
-        watchXBlocks.setArduinoBoardsHtml(newEl);
-    }
+    //watchXBlocks.changeBlocklyArduinoBoard( board_value.toLowerCase().replace(/ /g, '_') );
+    watchXBlocks.changeBlocklyArduinoBoard( board_value.replace(/ /g, '_') );
+    watchXBlocks.sendAsync("set-settings", { name:"board", new_value:board_value });
 };
 
 /**
@@ -383,12 +364,10 @@ watchXBlocks.setSerialPortsHtml = function (newEl) {
 watchXBlocks.setSerial = function () {
     var el = document.getElementById('serial_port');
     var serial_value = el.options[el.selectedIndex].value;
-    var result = watchXBlocks.sendSync("set-settings", { name:"serial", new_value:serial_value });
-    if(result != null) {
-        var newEl = watchXBlocks.jsonToHtmlDropdown(result);
-        watchXBlocks.setSerialPortsHtml(newEl);
-    }
+    watchXBlocks.sendAsync("set-settings", { name:"serial", new_value:serial_value });
 };
+
+
 
 /**
  * Send the Arduino Code to the watchXBlocksServer to process.
@@ -630,16 +609,19 @@ watchXBlocks.bindSettingsPathInputs = function() {
     var compilerEl = document.getElementById('settings_compiler_location');
     compilerEl.readOnly = true;
     watchXBlocks.bindClickEx(compilerEl, function() {
-        var result = watchXBlocks.sendSync("set-compiler", null);
-        if(result) {
-            watchXBlocks.setCompilerLocationHtml(watchXBlocks.jsonToHtmlTextInput(result));
-        }
+        watchXBlocks.sendAsync("set-compiler", null);
     });
     // Sketch path
     var sketchEl = document.getElementById('settings_sketch_location');
     sketchEl.readOnly = true;
     watchXBlocks.bindClickEx(sketchEl, function() {
-        var result = watchXBlocks.sendSync("set-compiler", null);
-        watchXBlocks.setSketchLocationHtml(watchXBlocks.jsonToHtmlTextInput(result));
+        watchXBlocks.sendAsync("set-sketch", null);
     });
+};
+
+
+watchXBlocks.initDebug = function() {
+    watchXBlocks.sendSync = function() {};
+    watchXBlocks.sendAsync = function() {};
+    watchXBlocks.init();
 };

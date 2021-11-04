@@ -134,7 +134,7 @@ watchXBlocks.initGameList = function() {
 watchXBlocks.firmwareUpload = function(e) {
 	var footer = e.target.closest(".media-footer");
 	var anchor = footer.querySelector("a.upload-hex");
-	var data = anchor.getAttribute('data-wxb');
+	var data = anchor.getAttribute("data-wxb");
 	if(!data) {
 		return;
 	}
@@ -144,10 +144,21 @@ watchXBlocks.firmwareUpload = function(e) {
 };
 
 watchXBlocks.firmwareUploadResult = function(result) {
-	var footer = e.target.closest(".media-footer");
-	footer.classList.remove('media-active');
-	if (result === null) {
+	if (result === null || result.tag == null) {
 		return watchXBlocks.openNotConnectedModal();
+	}
+	var container = null;
+	if(result.tag.startsWith("firmware")) {
+		container = document.getElementById('watch-face-container');
+	} else if(result.tag.startsWith("games")) {
+		container = document.getElementById("games-container");
+	} else {
+		return;
+	}
+	var anchor = container.querySelector("a.upload-hex[data-wxb='" + result.tag + "']");
+	var footer = anchor.closest(".media-footer");
+	if(footer != null) {
+		footer.classList.remove('media-active');
 	}
 	var dataBack = watchXBlocks.jsonToIdeModal(result);
 	watchXBlocks.arduinoIdeOutput(dataBack);

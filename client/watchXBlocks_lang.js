@@ -143,19 +143,19 @@ watchXBlocks.injectLanguageJsSources = function (lang_key) {
 watchXBlocks.changeLanguage = function () {
     // Store the blocks for the duration of the reload only
     watchXBlocks.saveSessionStorageBlocks();
-
+    /*
     var languageMenu = document.getElementById('language');
     var newLang = encodeURIComponent( languageMenu.options[languageMenu.selectedIndex].value );
     var search = window.location.search;
     if (search.length <= 1) {
         search = '?lang=' + newLang;
-    } else if (search.match(/[?&]lang=[^&]*/)) {
-        search = search.replace(/([?&]lang=)[^&]*/, '$1' + newLang);
+    } else if (search.match(/[?&]lang=[^&]*\/)) {
+        search = search.replace(/([?&]lang=)[^&]*\/, '$1' + newLang);
     } else {
         search = search.replace(/\?/, '?lang=' + newLang + '&');
     }
-
     window.location = window.location.protocol + '//' + window.location.host + window.location.pathname + search;
+    */
 };
 
 /**
