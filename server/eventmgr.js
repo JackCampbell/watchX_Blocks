@@ -117,8 +117,16 @@ ipcMain.on('editor-load', (event, args) => {
 	const { filename } = args;
 	var content = null;
 	winston.info(tagMgr + 'Load path: ' + filename);
-	if(fs.existsSync(filename)) {
-		content = fs.readFileSync(filename, "utf-8");
+	try {
+		if(fs.existsSync(filename)) {
+			var stat = fs.statSync(filename);
+			if(stat.isFile() == true) {
+				fs.accessSync(filename, fs.constants.R_OK || fs.constants.W_OK);
+				content = fs.readFileSync(filename, "utf-8");
+			}
+		}
+	} catch(e) {
+		console.log("permission denied: " + filename);
 	}
 	event.returnValue = { filename, content };
 });
