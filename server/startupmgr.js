@@ -24,7 +24,6 @@ module.exports.initializeCore = function(observer, callback) {
 	var user_path = app.getPath('userData');
 	winston.info(tagMgr + ' UserDataPath: ' + user_path);
 	helper.check_network(status => {
-		status = false;
 		if(status == false) {
 			winston.info(tagMgr + "You are not connected to the internet.");
 			observer("Error: You are not connected to the internet.");
