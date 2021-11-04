@@ -77,7 +77,14 @@ watchXBlocks.bindActionFunctions = function () {
     watchXBlocks.bindSettingsPathInputs();
     watchXBlocks.settingsPathInputListeners( 'settings_compiler_location', watchXBlocks.setCompilerLocation, watchXBlocks.setCompilerLocationHtml );
     watchXBlocks.settingsPathInputListeners( 'settings_sketch_location', watchXBlocks.setSketchLocation, watchXBlocks.setSketchLocationHtml );
+
+    watchXBlocks.bindClickEx("menu_lms", (event) => {
+        $('.button-collapse').sideNav('hide');
+        window.open("http://lms.watchx.io", "blank");
+    });
 };
+
+
 
 watchXBlocks.setSketchLocation = function(value, callback) {
     watchXBlocks.sendAsync("set-settings", { name: "sketch", new_value:value });
@@ -260,9 +267,15 @@ watchXBlocks.saveTextFileAs = function (fileName, content) {
  * and opens the Settings modal dialog.
  */
 watchXBlocks.openSettings = function () {
+    var setting = document.getElementById("settings_dialog");
+    if(setting) {
+        watchXBlocks.setFormDisabledEx(setting, true);
+        watchXBlocks.setupVisibleEx(setting, "#settings_check", true);
+    }
+    // Language menu only set on page load within watchXBlocks.initLanguage()
+    watchXBlocks.openSettingsModal();
     watchXBlocks.sendAsync("all-settings", null);
 };
-
 
 watchXBlocks.openAboutUs = function () {
     watchXBlocks.openAboutDialog();
@@ -313,15 +326,14 @@ watchXBlocks.setArduinoBoardsHtml = function (newEl) {
 
     var boardDropdown = document.getElementById('board');
     if (boardDropdown !== null) {
-        var selector = $('select');
         // Restarting the select elements built by materialize
-        selector.material_select('destroy');
+        $('select').material_select('destroy');
         newEl.name = 'settings_board';
         newEl.id = 'board';
         newEl.onchange = watchXBlocks.setBoard;
         boardDropdown.parentNode.replaceChild(newEl, boardDropdown);
         // Refresh the materialize select menus
-        selector.material_select();
+        $('select').material_select();
     }
 };
 
@@ -592,10 +604,6 @@ watchXBlocks.alertMessage = function (title, body, confirm, callback) {
  */
 watchXBlocks.shortMessage = function (message) {
     watchXBlocks.MaterialToast(message);
-};
-
-watchXBlocks.openLearningCenter = function() {
-    window.open("http://lms.watchx.io", "blank");
 };
 
 

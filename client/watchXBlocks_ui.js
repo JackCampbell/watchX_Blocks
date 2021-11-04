@@ -52,7 +52,7 @@ watchXBlocks.setupDataPathEx = function(wrapper, selector, data) {
 watchXBlocks.setupVisibleEx = function(wrapper, selector, state = false) {
 	var e = wrapper.querySelector(selector);
 	if(e) {
-		e.style.display = state ? 'auto': 'none';
+		e.style.display = state ? 'block': 'none';
 	}
 	return e;
 };
@@ -80,3 +80,11 @@ watchXBlocks.bindClickEx = function (el, callback) {
 	el.addEventListener('click', propagateOnce);
 	return el;
 };
+
+watchXBlocks.setFormDisabledEx = function(wrapper, disabled) {
+	var nodes = wrapper.querySelectorAll("input, select");
+	for(var node of nodes) {
+		node.disabled = disabled;
+	}
+	return nodes.length;
+}

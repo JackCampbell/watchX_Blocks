@@ -75,7 +75,7 @@ watchXBlocks.LOCALISED_TEXT = {
   aboutBody:
     '<span>Contact: <a target="_blank" href="mainto:info@argex.io">info@argex.io</a></span>\n' +
     '<p>watchX® and argeX® names and logos are trademarks of argeX Inc.<br/>' +
-      '<span><a target="_blank" href="http://argex.io">www.argex.io</a></span></p>\n' +
+    '<span><a target="_blank" href="http://argex.io">argex.io</a></span><br/><a target="_blank" href="http://watchx.io">watchx.io</a></span></p>\n' +
     '<h4 id="credits"><strong>Credits</strong></h4>\n' +
     '<p>This project has been forked directly from Carlos Pereira Atencio\'s <a target="_blank" href="https://github.com/carlosperate/ardublockly">Ardublockly</a><br/>and developed further on by the argeX team.</p>\n' +
     '<h5>argeX team is;</h5>\n' +
@@ -174,5 +174,6 @@ watchXBlocks.LOCALISED_TEXT = {
   example_bounce_desc: 'by argeX',
   dictionary: 'Dictionary',
   game_source_code: 'source code',
-  playable_without_gpad: 'playable without<br/>G-Pad Accessory'
+  playable_without_gpad: 'playable without<br/>G-Pad Accessory',
+  check_settings: 'Checking settings ...'
 };

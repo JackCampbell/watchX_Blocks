@@ -14,7 +14,7 @@ ipcRenderer.on("code-res", (event, args) => {
 	watchXBlocks.sendCodeReturn(args);
 });
 ipcRenderer.on("get-settings-res", (event, args) => {
-	// TODO ...
+
 });
 ipcRenderer.on("set-settings-res", (event, args) => {
 	if(args.settings_type == "compiler") {
@@ -24,7 +24,9 @@ ipcRenderer.on("set-settings-res", (event, args) => {
 	} else if(args.settings_type == "serial") {
 		watchXBlocks.setSerialPortsHtml(watchXBlocks.jsonToHtmlDropdown(args));
 	} else if(args.settings_type == "board") {
+		console.time('test1');
 		watchXBlocks.setArduinoBoardsHtml(watchXBlocks.jsonToHtmlDropdown(args));
+		console.timeEnd('test1');
 	} else {
 		return watchXBlocks.openNotConnectedModal();
 	}
@@ -40,9 +42,14 @@ ipcRenderer.on("all-settings-res", (event, args) => {
 		} else if(opts.settings_type == "serial") {
 			watchXBlocks.setSerialPortsHtml( watchXBlocks.jsonToHtmlDropdown(opts) );
 		}
-		// Language menu only set on page load within watchXBlocks.initLanguage()
-		watchXBlocks.openSettingsModal();
 	}
+	var setting = document.getElementById("settings_dialog");
+	if(setting) {
+		watchXBlocks.setFormDisabledEx(setting, false);
+		watchXBlocks.setupVisibleEx(setting, "#settings_check", false);
+	}
+	// Language menu only set on page load within watchXBlocks.initLanguage()
+	watchXBlocks.openSettingsModal();
 });
 
 var watchXBlocksImpl = {};

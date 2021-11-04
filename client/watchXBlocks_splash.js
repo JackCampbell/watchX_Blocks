@@ -10,7 +10,7 @@ ipcRenderer.on("set-progress", (event, args) => {
 	}
 	e = document.querySelector('#splash-progress > div.infinity');
 	if(e) {
-		e.style.width = args.progress;
+		e.style.width = `${args.progress}%`;
 	}
 });
 
