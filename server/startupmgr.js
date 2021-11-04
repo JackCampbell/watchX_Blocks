@@ -27,12 +27,14 @@ module.exports.initializeCore = function(observer, callback) {
 		if(status == false) {
 			winston.info(tagMgr + "You are not connected to the internet.");
 			observer("Error: You are not connected to the internet.");
-			var id = dialog.showMessageBox({
+			dialog.showMessageBox({
 				type: 'error',
-				buttons:["OK"],
+				title: 'watchX Blocks',
+				buttons: ["OK"],
 				message:"You are not connected to the internet, please try again."
+			}).then(response => {
+				process.exit(0);
 			});
-			process.exit(0);
 			return;
 		}
 		helper.download_core(user_path, observer, (error, compile_dir) => {
