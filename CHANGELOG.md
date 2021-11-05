@@ -11,6 +11,33 @@ All notable changes to this project will be documented in this file.
 * **Fixed** for any bug fixes.
 * **Security** in case of vulnerabilities.
 
+## [1.0.1522] - Unreleased - 05.11.2021
+
+### Added
+
+ * A new file icon has been added. From now on, .wxb files will have their own icons.
+ * The .wxb format files open with watchX Blocks by default.
+ * Download bar and information have been added to the splash screen.
+ * Internet connection check and error message has been added to the splash screen.
+ * Lag on the settings menu has been reduced and a "checking settings" message has been added while searching for the ports.
+ * New notifications are added like "saved" and etc...
+ * A file check function has been added, this function checks the installed files and downloads them again if any is missing.
+
+### Changed
+
+ * The notification location has been updated.
+ * Some changes are made to the "about" section.
+ * The whole startup and running sequence have been updated.
+ * Arduino CLI has been updated in a way that it is downloaded and installed from outside resources in the first run.
+ * The splash screen has been centered.
+ * watchX Blocks runs full screen on every start.
+
+### Fixed
+
+ * Fixed the error of side menu sticking when the user selects the "learning center".
+ * IPC main and IPC renderer thread communications have been fixed.
+ * Fixed the error of opening a sketch in the Windows.
+
 ## [0.9.0.955] - Unreleased - 06.10.2021
 
 ### Added
