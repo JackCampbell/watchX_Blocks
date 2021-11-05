@@ -11,7 +11,7 @@ All notable changes to this project will be documented in this file.
 * **Fixed** for any bug fixes.
 * **Security** in case of vulnerabilities.
 
-## [1.0.1522] - Unreleased - 05.11.2021
+## [1.0.1522] - Initial Release - 05.11.2021
 
 ### Added
 
