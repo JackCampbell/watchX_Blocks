@@ -18,10 +18,9 @@ const projectLocator = require('./server/projectlocator.js');
 const createWindow = require('./server/window.js');
 
 const winston = require('winston');
-// const packageData = require('fs-jetpack').cwd( app.getAppPath() ).read('package.json', 'json');
-const packageData = require("./package.json");
 const path = require("path");
 const fs = require("fs");
+const os = require("os");
 const config = require("./server/cfgconst");
 const helper = require("./server/cfghelper"); // TEST
 
@@ -37,24 +36,32 @@ var arg_filename = null;
 // Set up the app data directory within the watchX root directory
 (function setAppData() {
     var projectRootPath = projectLocator.getVacJetPack();
-    var logfile = jetpack.dir( app.getPath("logs") ).dir("../watchXBlocks").path("watchxblocks.log");
-    var appDataPath = jetpack.dir( app.getPath('appData') );
-    var configPath = jetpack.dir( app.getPath("userData") ).path("config.json");
+    const user_path = os.homedir();
+    const app_name = app.getName();
+    if(process.platform == "win32") {
+        app.setPath('userData', path.join(user_path, "AppData", "Roaming", app_name));
+        app.setPath('userCache', path.join(user_path, "AppData", "Roaming", app_name));
+        // app.setPath('appData', path.join(user_path, "AppData", "Roaming"));
+        // app.setPath('cache', path.join(user_path, "AppData", "Roaming"));
+    } else if(process.platform == "darwin") {
+        app.setPath('userData', path.join(user_path, "Library", "Application Support", app_name));
+        app.setPath('userCache', path.join(user_path, "Library", "Caches", app_name));
+        // app.setPath('appData', path.join(user_path, "Library", "Application Support"));
+        // app.setPath('cache', path.join(user_path, "Library", "Caches"));
+    }
+    app.setPath('temp', os.tmpdir()); // default
+    var configPath = path.join( user_path, "Library", "Application Support", app_name, "config.json");
+    var logfile = path.join( user_path, "Library", "Application Support", app_name, "watchxblocks.log" )
 
-    /*
-    app.setPath('appData', appDataPath.path());
-    app.setPath('userData', appDataPath.path());
-    app.setPath('cache', appDataPath.path('GenCache'));
-    app.setPath('userCache', appDataPath.path('AppCache'));
-    app.setPath('temp', appDataPath.path('temp'));
-    */
     nconf.file({ file: configPath });
     winston.add(winston.transports.File, { json: false, filename: logfile, maxsize: 10485760, maxFiles: 2 });
-    winston.info(tag + 'Starting watchXBlocks version: ' + packageData.version);
+    winston.info(tag + 'Starting watchXBlocks version: ' + app.getVersion());
     winston.info(tag + 'watchXBlocks root dir: ' + projectRootPath.path());
     winston.info(tag + "Logs: " + logfile);
-    winston.info(tag + "AppData: " + appDataPath.path());
     winston.info(tag + "Config: " + configPath);
+    winston.info(tag + "userData: " + app.getPath("userData"));
+    winston.info(tag + "userCache: " + app.getPath("userCache"));
+    winston.info(tag + "temp: " + app.getPath("temp"));
     // Relevant OS could be win32, linux, darwin
     winston.info(tag + 'OS detected: ' + process.platform + " arch:" + process.arch);
 })();
