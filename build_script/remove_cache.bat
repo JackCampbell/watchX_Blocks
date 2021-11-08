@@ -1,5 +1,5 @@
 @echo off
 
-del /q /s "%APPDATA%\\watchX Blocks"
-del /q /s "%APPDATA%\\..\\Local\\Arduino15"
+rmdir /q /s "%APPDATA%\\watchX Blocks"
+rmdir /q /s "%APPDATA%\\..\\Local\\Arduino15"
 echo "Completed"
