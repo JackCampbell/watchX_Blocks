@@ -244,6 +244,17 @@ function observerSplashWindow(message, progress) {
     }
     if(progress == null) {
         progress = 100;
+        splashWindow.setProgressBar(-1);
+    } else {
+        splashWindow.setProgressBar(progress / 100);
     }
     splashWindow.webContents.send("set-progress", { message, progress });
 }
+/*
+Uncaught Exception:
+    TypeError: Error processing argument at index 0, conversion failure from undefined
+at observerSplashWindow (/Users/jack/Desktop/watchX_Blocks/main.js:246:22)
+at Object.module.exports.initializeCore (/Users/jack/Desktop/watchX_Blocks/server/startupmgr.js:9:2)
+at Object.<anonymous> (/Users/jack/Desktop/watchX_Blocks/main.js:100:21)
+    at Object.emit (events.js:327:22)
+    */
