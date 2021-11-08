@@ -7,7 +7,7 @@
  * @fileoverview Electron entry point continues here. Creates windows and
  *               handles system events.
  */
-const { app, BrowserWindow, shell, ipcMain, dialog } = require('electron');
+const { app, BrowserWindow, shell, ipcMain, dialog, Notification } = require('electron');
 const appMenu = require('./server/appmenu.js');
 const server = require('./server/servermgr.js');
 const startup = require("./server/startupmgr.js");
@@ -50,8 +50,12 @@ var arg_filename = null;
         // app.setPath('cache', path.join(user_path, "Library", "Caches"));
     }
     app.setPath('temp', os.tmpdir()); // default
-    var configPath = path.join( user_path, "Library", "Application Support", app_name, "config.json");
-    var logfile = path.join( user_path, "Library", "Application Support", app_name, "watchxblocks.log" )
+    var exist_path = app.getPath("userData");
+    if(!fs.existsSync(exist_path)) {
+        fs.mkdirSync(exist_path);
+    }
+    var configPath = path.join(exist_path, "config.json");
+    var logfile = path.join(exist_path, "watchxblocks.log");
 
     nconf.file({ file: configPath });
     winston.add(winston.transports.File, { json: false, filename: logfile, maxsize: 10485760, maxFiles: 2 });
@@ -116,9 +120,12 @@ app.on('will-finish-launching', () => {
         event.preventDefault();
     });
 });
-app.on('window-all-closed', function() {
+app.on('window-all-closed', () => {
     server.stopServer();
     app.quit();
+});
+
+app.on('before-quit', () => {
 });
 
 function createMainWindow(port, code) {
@@ -210,7 +217,7 @@ function createSplashWindow(callback) {
         images: true,
         center: false,
         alwaysOnTop: true,
-        skipTaskbar: true,
+        skipTaskbar: false,
         resizable: false,
         useContentSize: true,
         webPreferences: {
@@ -238,23 +245,26 @@ function createSplashWindow(callback) {
     splashWindow.show();
 }
 
-function observerSplashWindow(message, progress) {
+function observerSplashWindow(message, progress = null) {
     if(splashWindow == null) {
         return;
     }
-    if(progress == null) {
+    if(progress == null) { // indeterminant
         progress = 100;
-        splashWindow.setProgressBar(-1);
+        splashWindow.setProgressBar(-1); // hide
+    } else if(progress == -1) {
+        progress = 100;
+        splashWindow.setProgressBar( process.platform == "win32" ? 1: -1, { mode: 'indeterminate'});
     } else {
         splashWindow.setProgressBar(progress / 100);
     }
     splashWindow.webContents.send("set-progress", { message, progress });
 }
-/*
-Uncaught Exception:
-    TypeError: Error processing argument at index 0, conversion failure from undefined
-at observerSplashWindow (/Users/jack/Desktop/watchX_Blocks/main.js:246:22)
-at Object.module.exports.initializeCore (/Users/jack/Desktop/watchX_Blocks/server/startupmgr.js:9:2)
-at Object.<anonymous> (/Users/jack/Desktop/watchX_Blocks/main.js:100:21)
-    at Object.emit (events.js:327:22)
-    */
+
+function notify(message, title = "watchX Blocks") {
+    if(!Notification.isSupported()) {
+        return;
+    }
+    var notify = new Notification({ title, body: message });
+    notify.show();
+}
