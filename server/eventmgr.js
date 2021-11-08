@@ -25,7 +25,7 @@ function send_error(event, name, id, description, type = null, tag = null) {
 	};
 	event.reply(name, message);
 }
-function send_process(event, name, code, stdout, stderr, type = null, tag = null) {
+function send_process(event, name, code, stdout, stderr, type = null, tag = null, ide_mode = null) {
 	var success = false;
 	if(code == 0) {
 		success = true;
@@ -34,7 +34,7 @@ function send_process(event, name, code, stdout, stderr, type = null, tag = null
 		'response_type': type || 'ide_output',
 		'response_state': 'full_response',
 		'success': success,
-		'ide_mode': "upload-hex",
+		'ide_mode': ide_mode || "upload-hex",
 		"tag": tag,
 		'ide_data': {
 			'std_output': stdout,
@@ -253,7 +253,7 @@ ipcMain.on('code', (event, args) => {
 		if(code != 0) {
 			// return send_error(event, "code-res", 56, 'Unexpected Arduino exit error code:' + code, 'ide_output');
 		}
-		return send_process(event, "code-res", code, stdout, stderr, 'ide_output');
+		return send_process(event, "code-res", code, stdout, stderr, 'ide_output', null, action);
 	});
 });
 ipcMain.on("get-settings", (event, args) => {
