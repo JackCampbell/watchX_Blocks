@@ -181,6 +181,8 @@ function createMainWindow(port, code) {
         mainWindow.maximize();
         mainWindow.show();
 
+        // notify("hello")
+
         if(arg_filename != null) {
             winston.info(tag + " load page " + arg_filename);
             mainWindow.webContents.executeJavaScript(`watchXBlocks.loadSketchFile('${arg_filename}');`);
