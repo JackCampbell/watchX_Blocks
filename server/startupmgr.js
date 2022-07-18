@@ -14,6 +14,7 @@ module.exports.initializeCore = function(observer, callback) {
 		observer("Checking Compiler");
 		helper.check_version(compile_dir, (code, check, stdout, stderr) => {
 			observer("Checking Core", -1);
+			winston.info(tagMgr + 'Version: ' + check);
 			helper.install_core(compile_dir, (code, stdout, stderr) => {
 				winston.info(tagMgr + 'Output: ' + stdout);
 				callback(code);
@@ -52,6 +53,7 @@ module.exports.initializeCore = function(observer, callback) {
 			helper.check_version(compile_dir, (code, check, stdout, stderr) => {
 				config.set_compiler_path(compile_dir);
 				observer("Installing Core", -1);
+				winston.info(tagMgr + 'Version: ' + check);
 				helper.install_core(compile_dir, (code, stdout, stderr) => {
 					winston.info(tagMgr + 'Output: ' + stdout);
 					callback(code);

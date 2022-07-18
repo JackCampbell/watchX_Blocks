@@ -108,6 +108,29 @@ function find_serial_ports_cb(compiler, fqbn = "arduino:avr:leonardo", callback)
 	});
 }
 
+const LANGUAGE_LIST = [
+	{ value:'en', display_text: 'English' },
+	// { value:'fr', display_text: 'Français' },
+	// { value:'es', display_text: 'Español' },
+	// { value:'nl', display_text: 'Nederlands' },
+	// { value:'pt', display_text: 'Português' },
+	// { value:'it', display_text: 'Italiano' },
+	// { value:'ru', display_text: 'Русский' },
+	{ value:'jp', display_text: '日本' },
+	// { value:'tr', display_text: 'Türkçe' }
+];
+function get_lang_options() {
+	return LANGUAGE_LIST;
+}
+function check_lang_value(value) {
+	for(var item in LANGUAGE_LIST) {
+		if(item.value === value) {
+			return true;
+		}
+	}
+	return false;
+}
+
 function write_sketch(sketch_code, sketch_path) {
 	var dir = path.join(sketch_path, 'watchxsketch');
 	if(!fs.existsSync(dir)) {
@@ -124,6 +147,7 @@ function compile_process(args, callback) {
 	return exec(cmdline, (error, stdout, stderr) => {
 		var code = 0;
 		if(error) {
+			console.log("compile_process:error:", error);
 			code = error.code;
 		}
 		var c_stdout = stdout || '';
@@ -136,14 +160,13 @@ function compile_process(args, callback) {
 	});
 }
 
-
-
 function install_core(compile_dir, callback) {
 	compile_dir = insert_quote(compile_dir);
 	var cmdline = [compile_dir, 'core', 'install', 'arduino:avr'].join(' ');
 	return exec(cmdline, (error, stdout, stderr) => {
 		var code = 0;
 		if(error) {
+			console.log("install_core:error:", error);
 			code = error.code;
 		}
 		callback(code, stdout || '', stderr || '');
@@ -361,7 +384,11 @@ function download_core(user_path, observer, callback) {
 function check_version(compiler_dir, callback) {
 	compiler_dir = insert_quote(compiler_dir);
 	var cmdline = [ compiler_dir, 'version' ].join(' ');
-	exec(cmdline, (code, stdout, stderr) => {
+	exec(cmdline, (error, stdout, stderr) => {
+		var code = 0;
+		if(error != null) {
+			code = error.code;
+		}
 		var check = stdout.startsWith("arduino-cli");
 		callback(code, check, stdout, stderr);
 	});
@@ -395,6 +422,10 @@ module.exports = {
 	install_core,
 	download_core,
 	check_version,
-	check_network
+	check_network,
+
+
+	get_lang_options,
+	check_lang_value
 };
 

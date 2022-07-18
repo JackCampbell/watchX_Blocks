@@ -12,7 +12,14 @@ const {
 	check_compiler
 } = require("./cfghelper");
 
-const CFG_KEY = { BOARD : 'board', SERIAL: 'serial', COMPILER: 'compiler', IDE: 'ide', SKETCH: 'sketch' };
+const CFG_KEY = {
+	BOARD : 'board',
+	SERIAL: 'serial',
+	COMPILER: 'compiler',
+	IDE: 'ide',
+	SKETCH: 'sketch',
+	LANG: 'lang'
+};
 const ide_options = {
 	'upload': 'Compile and Upload sketch',
 	'verify': 'Verify sketch',
@@ -127,6 +134,15 @@ module.exports = {
 			return;
 		}
 		nconf.set(CFG_KEY.SERIAL, absolute);
+		nconf.save();
+	},
+
+
+	get_lang: function() {
+		return nconf.get(CFG_KEY.LANG) || "en";
+	},
+	set_lang: function(lang) {
+		nconf.set(CFG_KEY.LANG, lang || "en");
 		nconf.save();
 	}
 };

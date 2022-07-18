@@ -32,10 +32,17 @@ var mainWindow = null;
 var splashWindow = null;
 var arg_filename = null;
 
-
+app.disableHardwareAcceleration();
+app.commandLine.appendArgument("--disable-gpu");
+app.commandLine.appendArgument("--enable-logging");
+app.commandLine.appendArgument("--disable-hardware-acceleration");
+// if(process.platform == "darwin") {
+//     app.commandLine.appendArgument("--enable-features=Metal");
+// }
 // Set up the app data directory within the watchX root directory
 (function setAppData() {
     var projectRootPath = projectLocator.getVacJetPack();
+    /* === PATH SET ====
     const user_path = os.homedir();
     const app_name = app.getName();
     if(process.platform == "win32") {
@@ -49,7 +56,7 @@ var arg_filename = null;
         // app.setPath('appData', path.join(user_path, "Library", "Application Support"));
         // app.setPath('cache', path.join(user_path, "Library", "Caches"));
     }
-    app.setPath('temp', os.tmpdir()); // default
+    app.setPath('temp', os.tmpdir()); */
     var exist_path = app.getPath("userData");
     if(!fs.existsSync(exist_path)) {
         fs.mkdirSync(exist_path);

@@ -13,6 +13,7 @@ var watchXBlocks = watchXBlocks || {};
 watchXBlocks.LANGUAGE_NAME = {
     // 'fr': 'Français',
     'en': 'English',
+    'jp': 'Japan',
     // 'es': 'Español',
     // 'nl': 'Nederlands',
     // 'pt': 'Português',
@@ -25,7 +26,6 @@ watchXBlocks.LANGUAGE_NAME = {
  * @type {string}
  */
 watchXBlocks.LANG = 'en';
-
 /**
  * We keep a local copy of the default language in case translations cannot
  * be found in the injected language file.
@@ -34,15 +34,15 @@ watchXBlocks.LANG = 'en';
 watchXBlocks.DEFAULT_LANG_TEXT = {};
 
 
+
 /** Initialize the page language. */
 watchXBlocks.initLanguage = function () {
     // Save the current default language ID to check if it has been changed
     var defaultLang = watchXBlocks.LANG;
-
     // Check server settings and url language, url gets priority
     watchXBlocks.LANG = watchXBlocks.getUrlLanguage() || watchXBlocks.getLanguageSetting() || watchXBlocks.LANG;
-    watchXBlocks.populateLanguageMenu(watchXBlocks.LANG);
-    // if (defaultLang !== watchXBlocks.LANG)
+    // watchXBlocks.populateLanguageMenu(watchXBlocks.LANG);
+    // (defaultLang !== watchXBlocks.LANG)
     {
         watchXBlocks.duplicateDefaultLang();
         watchXBlocks.injectLanguageJsSources(watchXBlocks.LANG);
@@ -50,13 +50,13 @@ watchXBlocks.initLanguage = function () {
     }
 };
 
+
 /**
  * Get the language previously set by the user from the server settings.
  * @return {string} Language saved in the server settings.
  */
 watchXBlocks.getLanguageSetting = function () {
-    // TODO: Server feature still to be implemented, for now return default
-    return null;
+    return watchXBlocks.sendSync("get-curr-lang", null);
 };
 
 /**
@@ -79,8 +79,10 @@ watchXBlocks.getUrlLanguage = function () {
  */
 watchXBlocks.populateLanguageMenu = function (selectedLang) {
     var languageMenu = document.getElementById('language');
+    if(languageMenu == null) {
+        return;
+    }
     languageMenu.options.length = 0;
-
     for (var lang in watchXBlocks.LANGUAGE_NAME) {
         var option = new Option(watchXBlocks.LANGUAGE_NAME[lang], lang);
         if (lang == selectedLang) {
@@ -118,13 +120,30 @@ watchXBlocks.updateLanguageText = function () {
  *     be JS file name.
  */
 watchXBlocks.injectLanguageJsSources = function (lang_key) {
-    var head = document.getElementsByTagName('head')[0];
+    var { client, blockly } = watchXBlocks.sendSync("get-lang-data", { lang_key });
+    var last = document.getElementById("client-lang");
+    if(last) {
+        var script = document.createElement('script');
+        script.text = client;
+        script.id = "client-lang";
+        last.parentNode.replaceChild(script, last);
+    }
+    last = document.getElementById("blockly-lang");
+    if(last) {
+        var script = document.createElement('script');
+        script.text = blockly;
+        script.id = "blockly-lang";
+        last.parentNode.replaceChild(script, last);
+    }
+};
 
-    var result = watchXBlocks.sendSync("get-lang", { lang_key });
+watchXBlocks.injectLanguageJsSourcesOld = function (lang_key) {
+    var head = document.getElementsByTagName('head')[0];
+    var { client, blockly } = watchXBlocks.sendSync("get-lang-data", { lang_key });
     if(result != null) {
         // Retrieve and inject watchXBlocks translations synchronously
         var appLangJsLoad = document.createElement('script');
-        appLangJsLoad.text = result;
+        appLangJsLoad.text = client;
         head.appendChild(appLangJsLoad);
     } else {
         // Display an alert to indicate we cannot load languages
@@ -132,10 +151,9 @@ watchXBlocks.injectLanguageJsSources = function (lang_key) {
         var body = watchXBlocks.getLocalStr('noServerNoLangBody')
         watchXBlocks.alertMessage(title, body, false);
     }
-
     // Retrieve and inject Blockly translations asynchronously
     var blocklyLangJsLoad = document.createElement('script');
-    blocklyLangJsLoad.src = '../blockly/msg/js/' + lang_key + '.js';
+    blocklyLangJsLoad.src = '/blockly/msg/js/' + lang_key + '.js';
     head.appendChild(blocklyLangJsLoad);
 };
 

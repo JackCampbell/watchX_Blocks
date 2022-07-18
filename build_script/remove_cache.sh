@@ -1,5 +1,5 @@
 #!/bin/zsh
 
-rm -R "/Users/jack/Library/Application Support/watchX Blocks"
-rm -R "/Users/jack/Library/Arduino15"
+rm -rf "~/Library/Application Support/watchX Blocks"
+rm -rf "~/Library/Arduino15"
 echo "Completed"

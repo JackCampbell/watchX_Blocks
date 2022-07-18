@@ -78,9 +78,14 @@ watchXBlocks.bindActionFunctions = function () {
     watchXBlocks.settingsPathInputListeners( 'settings_compiler_location', watchXBlocks.setCompilerLocation, watchXBlocks.setCompilerLocationHtml );
     watchXBlocks.settingsPathInputListeners( 'settings_sketch_location', watchXBlocks.setSketchLocation, watchXBlocks.setSketchLocationHtml );
 
+    $('.modal-close-x').click(event => {
+        $('#settings_dialog').closeModal();
+        watchXBlocks.reloadLanguage();
+    });
+
     watchXBlocks.bindClickEx("menu_lms", (event) => {
         $('.button-collapse').sideNav('hide');
-        window.open("http://lms.watchx.io", "blank");
+        window.open("http://lms.watchx.io", "_blank");
     });
 };
 
@@ -279,6 +284,17 @@ watchXBlocks.openSettings = function () {
     watchXBlocks.sendAsync("all-settings", null);
 };
 
+watchXBlocks.openSettingsReturn = function() {
+    var setting = document.getElementById("settings_dialog");
+    if(setting) {
+        watchXBlocks.setFormDisabledEx(setting, false);
+        watchXBlocks.setupVisibleEx(setting, "#settings_check", false);
+        $('select').material_select();
+    }
+    // Language menu only set on page load within watchXBlocks.initLanguage()
+    watchXBlocks.openSettingsModal();
+};
+
 watchXBlocks.openAboutUs = function () {
     watchXBlocks.openAboutDialog();
 };
@@ -339,13 +355,47 @@ watchXBlocks.setArduinoBoardsHtml = function (newEl) {
     }
 };
 
+watchXBlocks.is_change_language = false;
+
+watchXBlocks.setLanguageHtml = function (newEl) {
+    if (newEl === null) {
+        return watchXBlocks.openNotConnectedModal();
+    }
+    var boardDropdown = document.getElementById('language');
+    if (boardDropdown !== null) {
+        // Restarting the select elements built by materialize
+        $('select').material_select('destroy');
+        newEl.name = 'settings_language';
+        newEl.id = 'language';
+        newEl.onchange = watchXBlocks.setLanguageChange;
+        boardDropdown.parentNode.replaceChild(newEl, boardDropdown);
+        // Refresh the materialize select menus
+        $('select').material_select();
+    }
+    watchXBlocks.is_change_language = true;
+};
+
+watchXBlocks.reloadLanguage = function() {
+    if(watchXBlocks.is_change_language) {
+        watchXBlocks.saveSessionStorageBlocks();
+        watchXBlocks.sendAsync("update-cache");
+    }
+    watchXBlocks.is_change_language = false;
+}
+
+watchXBlocks.setLanguageChange = function() {
+    var el = document.getElementById('language');
+    var lang_value = el.options[el.selectedIndex].value;
+    
+    watchXBlocks.sendAsync("set-settings", { name:"lang", new_value:lang_value });
+};
+
 /**
  * Sets the Arduino Board type with the selected user input from the drop down.
  */
 watchXBlocks.setBoard = function () {
     var el = document.getElementById('board');
     var board_value = el.options[el.selectedIndex].value;
-    // ...
     //watchXBlocks.changeBlocklyArduinoBoard( board_value.toLowerCase().replace(/ /g, '_') );
     watchXBlocks.changeBlocklyArduinoBoard( board_value.replace(/ /g, '_') );
     watchXBlocks.sendAsync("set-settings", { name:"board", new_value:board_value });

@@ -139,13 +139,15 @@ ipcMain.on('editor-open', (event, args) => {
 			{ name: wxb_filter_name, extensions: ['wxb'] }
 		]
 	});
-	if(files == null) {
-		event.returnValue = { "filename": null };
-		return;
+	var filename = null, content = null;
+	if(files != null) {
+		filename = files[0];
+		content = fs.readFileSync(filename, "utf-8");
+		winston.info(tagMgr + 'Open editor-open: ' + filename);
+	} else {
+		winston.info(tagMgr + 'Cancel editor-open:');
 	}
-	var content = fs.readFileSync(files[0], "utf-8");
-	winston.info(tagMgr + 'Open path: ' + files[0]);
-	return event.returnValue = { "filename": files[0], "content": content };
+	event.returnValue = { filename, content };
 });
 ipcMain.on('upload-hex', (event, args) => {
 	const { hex_path } = args;
@@ -280,13 +282,17 @@ ipcMain.on("get-settings", (event, args) => {
 		if(compiler == null) {
 			return send_error(event, "get-settings-res", 53, 'Compiler directory not configured in the Settings.', 'compiler', name);
 		}
-		const { code, ports } = helper.find_serial_ports(compiler);
+		const {code, ports} = helper.find_serial_ports(compiler);
 		if(code != 0) {
 			return send_error(event, "get-settings-res", 71, 'find serial port failed ....', 'serial', name);
 		}
 		var selected = config.get_serial_port(ports);
 		var options = config.get_option_serial(ports);
 		return send_option_select(event, "get-settings-res", options, selected, 'serial', name);
+	} else if(name == "lang") {
+		var selected = config.get_lang();
+		var options = helper.get_lang_options();
+		return send_option_select(event, "get-settings-res", options, selected, 'lang', name);
 	} else {
 		return send_error(event, "get-settings-res", 61, 'Unexpected setting type requested.', null, name);
 	}
@@ -303,6 +309,7 @@ ipcMain.on("set-settings", (event, args) => {
 		return send_error(event, "set-settings-res", 66, "Invalid value.");
 	}
 	var selected, options = null;
+	console.log("set-settings", name, new_value);
 	if(name == 'ide') {
 		config.set_selected_ide(new_value);
 		selected = config.get_selected_ide();
@@ -322,13 +329,19 @@ ipcMain.on("set-settings", (event, args) => {
 		if(compiler == null) {
 			return send_error(event, "set-settings-res", 53, 'Compiler directory not configured in the Settings.', name);
 		}
-		const { code, ports } = helper.find_serial_ports(compiler);
+		const {code, ports} = helper.find_serial_ports(compiler);
 		if(code != 0) {
 			return send_error(event, "set-settings-res", 71, 'find serial port failed ....', name);
 		}
 		config.set_serial_port(new_value, ports);
 		selected = config.get_serial_port(ports);
 		options = config.get_option_serial(ports);
+	} else if(name == "lang") {
+		if(helper.check_lang_value(new_value) == false) {
+			config.set_lang(new_value);
+		}
+		selected = config.get_lang();
+		options = helper.get_lang_options();
 	} else {
 		return send_error(event, "set-settings-res", 63, "Unexpected setting type to update.", name);
 	}
@@ -375,6 +388,10 @@ ipcMain.on("all-settings", (event, args) => {
 			'settings_type': 'ide',
 			'selected': config.get_selected_ide(),
 			'options': config.get_ide_options()
+		}, {
+			'settings_type': 'lang',
+			'selected': config.get_lang(),
+			'options': helper.get_lang_options()
 		}]
 	});
 });
@@ -408,11 +425,25 @@ ipcMain.on("set-sketch", (event, args) => {
 	return send_simple_select(event, "set-settings-res", selected, 'sketch');
 });
 
-ipcMain.on("get-lang", (event, args) => {
+ipcMain.on("get-curr-lang", (event, args) => {
+	return event.returnValue = config.get_lang() || "en";
+});
+
+ipcMain.on("update-cache", (event, args) => {
+	var window = BrowserWindow.getFocusedWindow();
+	if(window) {
+		window.webContents.reloadIgnoringCache();
+	}
+});
+
+ipcMain.on("get-lang-data", (event, args) => {
 	var { lang_key } = args;
 	var filename = path.join(__dirname, "..", "client", "msg", lang_key + ".js");
-	var buffer = fs.readFileSync(filename);
-	event.returnValue = buffer.toString("utf-8");
+	var client = fs.readFileSync(filename).toString("utf-8");
+
+	filename = path.join(__dirname, "..", "blockly", "msg", "js", lang_key + ".js");
+	var blockly = fs.readFileSync(filename).toString("utf-8");
+	event.returnValue = { client, blockly };
 });
 var usb_interval = null, last_usb_state = null;
 function usb_connetion_callback() {

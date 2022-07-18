@@ -84,7 +84,6 @@ ServerCompilerSettings.ini
 
 # Desktop application log file
 watchxsketch.log
-watchxsketch.log
 
 # Anything starting with this is created as a unit/module testing temporal file
 TestTemp_*
@@ -121,8 +120,4 @@ watchxblocks.log
 .coveragerc
 .appveyor.yml
 
-package-plus.json
-
-
-
-
+electron-builder.json

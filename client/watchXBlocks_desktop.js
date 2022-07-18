@@ -9,12 +9,14 @@ ipcRenderer.on('device-connect', (event, args) => {
 });
 ipcRenderer.on("upload-hex-res", (event, args) => {
 	watchXBlocks.firmwareUploadResult(args);
+	console.timeEnd("upload-hex-res");
 });
 ipcRenderer.on("code-res", (event, args) => {
 	watchXBlocks.sendCodeReturn(args);
+	console.timeEnd("code-res");
 });
 ipcRenderer.on("get-settings-res", (event, args) => {
-
+	console.timeEnd("get-settings-res");
 });
 ipcRenderer.on("set-settings-res", (event, args) => {
 	if(args.settings_type == "compiler") {
@@ -24,12 +26,13 @@ ipcRenderer.on("set-settings-res", (event, args) => {
 	} else if(args.settings_type == "serial") {
 		watchXBlocks.setSerialPortsHtml(watchXBlocks.jsonToHtmlDropdown(args));
 	} else if(args.settings_type == "board") {
-		console.time('test1');
 		watchXBlocks.setArduinoBoardsHtml(watchXBlocks.jsonToHtmlDropdown(args));
-		console.timeEnd('test1');
+	} else if(args.settings_type == "lang") {
+		watchXBlocks.setLanguageHtml(watchXBlocks.jsonToHtmlDropdown(args));
 	} else {
-		return watchXBlocks.openNotConnectedModal();
+		watchXBlocks.openNotConnectedModal();
 	}
+	console.timeEnd("set-settings-res");
 });
 ipcRenderer.on("all-settings-res", (event, args) => {
 	for(var opts of args.settings) {
@@ -41,15 +44,12 @@ ipcRenderer.on("all-settings-res", (event, args) => {
 			watchXBlocks.setArduinoBoardsHtml( watchXBlocks.jsonToHtmlDropdown(opts) );
 		} else if(opts.settings_type == "serial") {
 			watchXBlocks.setSerialPortsHtml( watchXBlocks.jsonToHtmlDropdown(opts) );
+		} else if(opts.settings_type == "lang") {
+			watchXBlocks.setLanguageHtml(watchXBlocks.jsonToHtmlDropdown(opts));
 		}
 	}
-	var setting = document.getElementById("settings_dialog");
-	if(setting) {
-		watchXBlocks.setFormDisabledEx(setting, false);
-		watchXBlocks.setupVisibleEx(setting, "#settings_check", false);
-	}
-	// Language menu only set on page load within watchXBlocks.initLanguage()
-	watchXBlocks.openSettingsModal();
+	watchXBlocks.openSettingsReturn();
+	console.timeEnd("all-settings-res");
 });
 
 var watchXBlocksImpl = {};
@@ -109,6 +109,18 @@ watchXBlocksImpl.redirectConsoleLogging = function() {
 	};
 };
 
+watchXBlocksImpl.sendSync = function(event, args) {
+	console.time(event);
+	var result = ipcRenderer.sendSync(event, args);
+	console.timeEnd(event);
+	return result;
+};
+
+watchXBlocksImpl.sendAsync = function(event, args) {
+	console.time(event + "-res");
+	ipcRenderer.send(event, args);
+};
+
 
 watchXBlocksImpl.setupVersion = function() {
 	var result = ipcRenderer.sendSync('get-version', { });
@@ -117,8 +129,8 @@ watchXBlocksImpl.setupVersion = function() {
 
 /** Initialize watchXBlocks code required for Electron on page load. */
 window.addEventListener('DOMContentLoaded', event => {
-	watchXBlocks.sendSync = ipcRenderer.sendSync;
-	watchXBlocks.sendAsync = ipcRenderer.send
+	watchXBlocks.sendSync = watchXBlocksImpl.sendSync;
+	watchXBlocks.sendAsync = watchXBlocksImpl.sendAsync;
 	if(window.JsDiff == undefined) {
 		window.JsDiff = require("./js_libs/diff.js");
 	}

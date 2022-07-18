@@ -62,8 +62,8 @@
   <script src="../blockly/generators/arduino/watchx.js"></script>
   -->
   <!-- Default language js files, user selection appended to head on load -->
-  <script src="/blockly/msg/js/en.js"></script>
-  <script src="msg/en.js"></script>
+  <script id="blockly-lang" src="/blockly/msg/js/en.js"></script>
+  <script id="client-lang" src="msg/en.js"></script>
 </head>
 
 <body>
@@ -259,11 +259,13 @@
       </div>
       <div class="modal_section">
         <label><span class="translatable_language">Language</span>:</label>
-        <select name="settings_language" id="language"></select>
+        <select name="settings_language" id="language">
+          <option value="en" selected="selected">English</option>
+        </select>
       </div>
     </div>
     <div class="modal-footer">
-      <a href="#" class="waves-effect btn-flat modal-close"><span class="translatable_close">Close</span></a>
+      <a href="#" class="waves-effect btn-flat modal-close-x"><span class="translatable_close">Close</span></a>
     </div>
   </div>
 

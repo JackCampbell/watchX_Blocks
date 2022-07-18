@@ -393,7 +393,7 @@ var getDevMenuData = function() {
                 }
             }, {
                 label: 'Toggle DevTools',
-                accelerator: 'F12',
+                accelerator: 'CmdOrCtrl+Alt+I',
                 click: function() {
                     BrowserWindow.getFocusedWindow().toggleDevTools();
                 }
