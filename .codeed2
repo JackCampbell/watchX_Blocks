@@ -1,0 +1,7 @@
+run_config_execute=
+run_config_arguments=
+run_config_work_dir=
+run_config_post_build=1
+run_config_save_all=1
+run_config_parallel=0
+run_config_clear_history=1
