@@ -449,6 +449,16 @@ watchXBlocks.sendCodeReturn = function(result) {
     if (result == null) {
         return watchXBlocks.openNotConnectedModal();
     }
+	if(result.success) {
+        watchXBlocks.shortMessage("Success");
+    } else {
+        var error = "Failed";
+        if(result.errors) {
+			error = result.errors[0].description || "Failed";
+		}
+        watchXBlocks.shortMessage(error);
+        watchXBlocks.showIdeConsole();
+    }
     var dataBack = watchXBlocks.jsonToIdeModal(result);
     watchXBlocks.arduinoIdeOutput(dataBack);
 }
@@ -681,7 +691,8 @@ watchXBlocks.bindSettingsPathInputs = function() {
 
 
 watchXBlocks.initDebug = function() {
-    watchXBlocks.sendSync = function() {};
-    watchXBlocks.sendAsync = function() {};
-    watchXBlocks.init();
+	watchXBlocks.sendSync = function() {};
+	watchXBlocks.sendAsync = function() {};
+	watchXBlocks.init();
 };
+

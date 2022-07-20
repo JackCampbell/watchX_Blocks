@@ -557,3 +557,10 @@ watchXBlocks.jsonToHtmlDropdown = function (jsonObj) {
 	}
 	return element;
 };
+
+watchXBlocks.showIdeConsole = function() {
+	var e = document.querySelector('#ide_output_collapsible_header');
+	if(e) {
+		e.click();
+	}
+}

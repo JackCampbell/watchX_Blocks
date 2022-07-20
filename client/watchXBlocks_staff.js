@@ -160,6 +160,16 @@ watchXBlocks.firmwareUploadResult = function(result) {
 	if(footer != null) {
 		footer.classList.remove('media-active');
 	}
+	if(result.success) {
+        watchXBlocks.shortMessage("Success");
+    } else {
+        var error = "Failed";
+        if(result.errors) {
+			error = result.errors[0].description || "Failed";
+		}
+        watchXBlocks.shortMessage(error);
+        watchXBlocks.showIdeConsole();
+    }
 	var dataBack = watchXBlocks.jsonToIdeModal(result);
 	watchXBlocks.arduinoIdeOutput(dataBack);
 }
