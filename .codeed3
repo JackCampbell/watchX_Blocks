@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appconfig>
+  <cmake cmake_path="" cache_args="" cache_config="Debug" cache_path="build" clean_target="clean" build_target="all" build_config="Debug" build_parallel="6" verbose="0"/>
+  <clang compile_args="--driver-mode=g++;-mmacosx-version-min=10.15;c++-header;-I/usr/local/include;-stdlib=libc++" match_completion="1" fixit_completion="1" not_accessible_completion="1" not_available_completion="1" format_auto="1" format_type="0" enable_indexer="1" show_args="0" enable_serialize="1" diagnostic_list="0" diagnostic_auto="1" precompiled_header="precompiled.h" resource_dir="/usr/local/opt/llvm/lib/clang/14.0.6" spotlight_count="64"/>
+  <javascript nodejs_path="" tern_path="" npm_path=""/>
+  <python python_path=""/>
+  <editor grammer="0" visible_hide_files="0" workspace_path="/Users/jack"/>
+</appconfig>

@@ -36,6 +36,8 @@
 #   dart_compressed.js: The compressed Dart generator.
 #   lua_compressed.js: The compressed Lua generator.
 #   msg/js/<LANG>.js for every language <LANG> defined in msg/js/<LANG>.json.
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
 
 import sys
 if sys.version_info[0] != 2:
@@ -80,9 +82,7 @@ class Gen_uncompressed(threading.Thread):
     f = open(target_filename, 'w')
     f.write(HEADER)
     f.write("""
-var isNodeJS = !!(typeof module !== 'undefined' && module.exports &&
-                  typeof window === 'undefined');
-
+var isNodeJS = !!(typeof module !== 'undefined' && module.exports && typeof window === 'undefined');
 if (isNodeJS) {
   var window = {};
   require('../closure-library/closure/goog/bootstrap/nodejs');
@@ -152,8 +152,7 @@ if (isNodeJS) {
   // Delete any existing Closure (e.g. Soy's nogoog_shim).
   document.write('<script>var goog = undefined;</script>');
   // Load fresh Closure Library.
-  document.write('<script src="' + window.BLOCKLY_DIR +
-      '/../closure-library/closure/goog/base.js"></script>');
+  document.write('<script src="' + window.BLOCKLY_DIR + '/../closure-library/closure/goog/base.js"></script>');
   document.write('<script>window.BLOCKLY_BOOT();</script>');
 }
 """)
@@ -323,23 +322,22 @@ class Gen_compressed(threading.Thread):
       # The Closure Compiler used to preserve these until August 2015.
       # Delete this in a few months if the licences don't return.
       LICENSE = re.compile("""/\\*
+[\w ]+
 
- [\w ]+
+(Copyright \\d+ Google Inc.)
+https://developers.google.com/blockly/
 
- (Copyright \\d+ Google Inc.)
- https://developers.google.com/blockly/
+Licensed under the Apache License, Version 2.0 \(the "License"\);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
- Licensed under the Apache License, Version 2.0 \(the "License"\);
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
 
-   http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 \\*/""")
       code = re.sub(LICENSE, r"\n// \1  Apache License 2.0", code)
 

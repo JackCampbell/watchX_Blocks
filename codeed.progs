@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appconfig version="15" hostname="Firat-iMac">
+  <configs/>
+  <macros>
+    <variable key="HOME_DIR" value="/Users/jack"/>
+    <variable key="CPU_ARCH_NAME" value="x86_64"/>
+    <variable key="OS_DESCRIPTION" value="macOS Sonoma Version 14.4.1 (Build 23E224)"/>
+    <variable key="BUILD_PATH" value="{{PROJECT_PATH}}/{{BUILD_DIR_NAME}}"/>
+    <variable key="GET_CWD" value="/Applications"/>
+    <variable key="CPU_COUNT" value="6"/>
+    <variable key="HOST_NAME" value="Firat-iMac"/>
+    <variable key="BUILD_CONFIG" value="Debug"/>
+    <variable key="BUILD_DIR_NAME" value="build"/>
+    <variable key="RESOURCE_SOURCE" value="{{PROJECT_PATH}}/stubs/{{FILE_BASE}}.cpp"/>
+    <variable key="APP_NAME" value="CodeEd"/>
+    <variable key="PROJECT_PATH" value="/Users/jack/Desktop/watchX_Blocks"/>
+    <variable key="USER_NAME" value="Fırat ÖZDEMİR"/>
+    <variable key="BUILD_TARGET" value="all"/>
+    <variable key="DESIGN_UI_FILE" value="{{PROJECT_PATH}}/stubs/{{FILE_BASE}}Ui.h"/>
+    <variable key="RESOURCE_HEADER" value="{{PROJECT_PATH}}/stubs/{{FILE_BASE}}.h"/>
+    <variable key="EMAIL_ADDRESS" value="jack@Firat-iMac.home"/>
+  </macros>
+  <cvars>
+    <cvar key="design_realtime" value="0"/>
+    <cvar key="find_filter" value=""/>
+    <cvar key="find_recursive" value="0"/>
+    <cvar key="find_match_case" value="0"/>
+    <cvar key="find_last_token" value=""/>
+    <cvar key="cmake_toolchain" value=""/>
+    <cvar key="cmake_verbose" value="0"/>
+    <cvar key="cmake_cache" value=""/>
+    <cvar key="clang_auto_translate_unite" value="15"/>
+    <cvar key="clang_diagnostics_annotation" value="1"/>
+    <cvar key="clang_cursor_annotation" value="1"/>
+    <cvar key="clang_save_diagnostics" value="1"/>
+    <cvar key="cppv1_include" value="0"/>
+    <cvar key="clang_resource_dir" value="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0"/>
+    <cvar key="clang_enable_resource" value="1"/>
+    <cvar key="clang_enable_serialize" value="1"/>
+    <cvar key="clang_precompiled_header" value="{{PROJECT_PATH}}/Precompiled.h"/>
+    <cvar key="clang_show_args" value="0"/>
+    <cvar key="clang_format_type" value="0"/>
+    <cvar key="clang_sort_completion" value="0"/>
+    <cvar key="clang_not_available_completion" value="1"/>
+    <cvar key="clang_not_accessible_completion" value="1"/>
+    <cvar key="clang_fixit_completion" value="1"/>
+    <cvar key="code_zoom" value="0"/>
+    <cvar key="visible_hide_files" value="0"/>
+    <cvar key="editor_grammer" value="1"/>
+    <cvar key="multi_comment" value="3.1400001049042"/>
+  </cvars>
+</appconfig>

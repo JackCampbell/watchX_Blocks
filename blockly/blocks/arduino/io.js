@@ -264,7 +264,7 @@ Blockly.Blocks['LED_PIN'] = {
     var list = new Blockly.FieldDropdown(Blockly.Arduino.Boards.selected.builtinLed);
     var self = this;
 
-    self.setHelpUrl('http://watchx.io/xxx');
+    self.setHelpUrl('http://watchx.io/pathname');
     self.setColour(Blockly.Blocks.io.HUE);
     self.appendValueInput('STATE')
         .appendField("set led pin: ")

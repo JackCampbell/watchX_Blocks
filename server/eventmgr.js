@@ -337,10 +337,12 @@ ipcMain.on("set-settings", (event, args) => {
 		selected = config.get_serial_port(ports);
 		options = config.get_option_serial(ports);
 	} else if(name == "lang") {
-		if(helper.check_lang_value(new_value) == false) {
+		selected = config.get_lang();
+		// console.log(selected, new_value, "++");
+		if(helper.check_lang_value(new_value)) {
 			config.set_lang(new_value);
 		}
-		selected = config.get_lang();
+		selected = new_value; //config.get_lang();
 		options = helper.get_lang_options();
 	} else {
 		return send_error(event, "set-settings-res", 63, "Unexpected setting type to update.", name);

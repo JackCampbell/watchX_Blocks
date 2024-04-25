@@ -189,6 +189,8 @@ const ARCH_KEYS = {
 	"ia32": "32bit",
 	"x32": "32bit",
 	"arm": "ARMv7",
+	"arm64": "ARM64"
+	// loong64, mips, mipsel, ppc, ppc64, riscv64, s390 and s390x not supported.
 };
 function get_file_size(size) {
 	var calc = size / (1 << 30);
@@ -361,6 +363,7 @@ function download_core(user_path, observer, callback) {
 		callback(null, arduino_cli_path);
 		return;
 	}
+	/*
 	observer("Getting Arduino-Cli Manifest");
 	get_arduino_cli_manifest( (error, json) => {
 		if(error) {
@@ -379,6 +382,15 @@ function download_core(user_path, observer, callback) {
 			}
 			callback(null, arduino_cli_path);
 		});
+	});*/
+	observer("Getting Arduino-Cli Lastest");
+	var name = get_arduino_cli_name("latest");
+	var download_asset = { name, browser_download_url: "https://downloads.arduino.cc/arduino-cli/" + name };
+	get_arduino_cli_download_and_extract(download_asset, user_path, observer, (error, arduino_cli_path) => {
+		if(error) {
+			throw error;
+		}
+		callback(null, arduino_cli_path);
 	});
 }
 function check_version(compiler_dir, callback) {

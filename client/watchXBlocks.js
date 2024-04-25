@@ -372,7 +372,6 @@ watchXBlocks.setLanguageHtml = function (newEl) {
         // Refresh the materialize select menus
         $('select').material_select();
     }
-    watchXBlocks.is_change_language = true;
 };
 
 watchXBlocks.reloadLanguage = function() {
@@ -388,6 +387,7 @@ watchXBlocks.setLanguageChange = function() {
     var lang_value = el.options[el.selectedIndex].value;
     
     watchXBlocks.sendAsync("set-settings", { name:"lang", new_value:lang_value });
+	watchXBlocks.is_change_language = true;
 };
 
 /**
